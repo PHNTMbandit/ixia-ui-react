@@ -1,0 +1,121 @@
+name: Publish to NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: Branch to release
+        required: true
+        type: choice
+        options:
+          - main
+          - alpha
+          - beta
+          - rc
+
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
+      - rc
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.target_branch || github.ref_name }}
+
+      - name: Set up Vite+
+        uses: voidzero-dev/setup-vp@v1.21.1
+        with:
+          node-version: '24'
+          cache: true
+          run-install: false
+
+      - name: Install dependencies
+        run: vp install --frozen-lockfile
+
+      - name: Check code
+        run: vp check
+
+      - name: Install Playwright Browsers
+        run: vp exec playwright install
+
+      - name: Run tests
+        run: vp test
+
+      - name: Build package
+        run: vp run pack
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    if: |
+      inputs.target_branch == 'main' || github.ref_name == 'main' ||
+      inputs.target_branch == 'alpha' || github.ref_name == 'alpha' ||
+      inputs.target_branch == 'beta' || github.ref_name == 'beta' ||
+      inputs.target_branch == 'rc' || github.ref_name == 'rc'
+
+    env:
+      VP_GIT_HOOKS: '0'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.target_branch || github.ref_name }}
+
+      - name: Set up Vite+
+        uses: voidzero-dev/setup-vp@v1.21.1
+        with:
+          node-version: '24'
+          cache: true
+          run-install: false
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: vp install --frozen-lockfile
+
+      - name: Build package
+        run: vp run pack
+
+      - name: Generate release notes and publish
+        run: vp exec semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  chromatic:
+    name: Run Chromatic
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.target_branch || github.ref_name }}
+
+      - name: Set up Vite+
+        uses: voidzero-dev/setup-vp@v1.21.1
+        with:
+          node-version: '24'
+          cache: true
+
+      - name: Run Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

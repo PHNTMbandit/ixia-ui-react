@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# Gate pushes on formatting, lint, types, tests, and a package build.
+vp check
+vp test
+vp pack
