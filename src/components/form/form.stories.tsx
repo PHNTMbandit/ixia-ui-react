@@ -234,15 +234,9 @@ export const FieldCheckboxGroup: Story = {
               <Field>
                 <field.FieldLabel>Notification preferences</field.FieldLabel>
                 <CheckboxGroup onValueChange={field.handleChange} value={field.state.value}>
-                  <Checkbox id="form-comments" value="comments">
-                    Comments
-                  </Checkbox>
-                  <Checkbox id="form-mentions" value="mentions">
-                    Mentions
-                  </Checkbox>
-                  <Checkbox id="form-announcements" value="announcements">
-                    Announcements
-                  </Checkbox>
+                  <Checkbox id="form-comments" label="Comments" value="comments" />
+                  <Checkbox id="form-mentions" label="Mentions" value="mentions" />
+                  <Checkbox id="form-announcements" label="Announcements" value="announcements" />
                 </CheckboxGroup>
                 <field.FieldErrors />
                 <field.FieldDescription>
@@ -709,7 +703,7 @@ export const WorkspaceConfiguration: Story = {
               <form.AppField name="emailUpdates">
                 {(field) => (
                   <Field>
-                    <field.FieldCheckbox>Send me workspace updates by email</field.FieldCheckbox>
+                    <field.FieldCheckbox label="Send me workspace updates by email" />
                     <field.FieldDescription>
                       Receive important changes and activity summaries.
                     </field.FieldDescription>
