@@ -73,12 +73,37 @@ jobs:
       VP_GIT_HOOKS: '0'
 
     steps:
+      - name: Validate GitHub App private key
+        id: app-key
+        env:
+          BOT_PRIVATE_KEY: ${{ secrets.BOT_PRIVATE_KEY }}
+        run: |
+          node <<'NODE'
+          const { createPrivateKey, randomUUID } = require('node:crypto')
+          const { appendFileSync } = require('node:fs')
+          try {
+            let pem = process.env.BOT_PRIVATE_KEY.trim().replace(/\\n/g, '\n')
+            if (!pem.startsWith('-----BEGIN ')) {
+              pem = Buffer.from(pem, 'base64').toString('utf8').trim().replace(/\\n/g, '\n')
+            }
+            const key = createPrivateKey(pem)
+            if (key.asymmetricKeyType !== 'rsa') throw new Error('Expected RSA key')
+            const privateKey = key.export({ type: 'pkcs8', format: 'pem' })
+            for (const line of privateKey.trim().split('\n')) console.log(`::add-mask::${line}`)
+            const delimiter = randomUUID()
+            appendFileSync(process.env.GITHUB_OUTPUT, `private-key<<${delimiter}\n${privateKey}${delimiter}\n`)
+          } catch {
+            console.error('::error::BOT_PRIVATE_KEY must contain a complete, unencrypted RSA private key in PEM or base64-encoded PEM format. Replace the secret with a valid GitHub App private key.')
+            process.exitCode = 1
+          }
+          NODE
+
       - name: Generate GitHub App token
         id: app-token
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          private-key: ${{ steps.app-key.outputs.private-key }}
           owner: PHNTMbandit
           repositories: ixia-ui-react
           permission-contents: write
