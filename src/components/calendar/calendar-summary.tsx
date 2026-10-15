@@ -1,4 +1,5 @@
 import { isDateRange } from '@daypicker/react'
+import { useState } from 'react'
 
 import { cn } from '@/utils/cn'
 import { formatDate } from '@/utils/date-time'
@@ -14,7 +15,8 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
   formatCalendarDate = (date: Date) => formatDate(date, 'en-US', dateFormatOptions)
 
 export function CalendarSummary({ className, children, ref, ...props }: CalendarSummaryProps) {
-  const { state } = useCalendar()
+  const { state } = useCalendar(),
+    [today] = useState(() => new Date())
   let formattedDate: string | undefined = undefined
 
   if (state.selectedDates instanceof Date) {
@@ -30,7 +32,7 @@ export function CalendarSummary({ className, children, ref, ...props }: Calendar
 
   return (
     <div className={cn('flex flex-col', className)} ref={ref} {...props}>
-      <span className="style-text-strong-1">{formatCalendarDate(new Date())}</span>
+      <span className="style-text-strong-1">{formatCalendarDate(today)}</span>
       <span className="style-text-strong-0">{formattedDate}</span>
       {children}
     </div>
