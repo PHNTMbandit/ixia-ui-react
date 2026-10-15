@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.0...v1.0.1) (2026-10-15)
+
+
+### Bug Fixes
+
+* **calendar-picker:** remove global import of DayPicker styles ([6002f94](https://github.com/PHNTMbandit/ixia-ui-react/commit/6002f945a6e59cb32b40daf2c6825beed2b72a50))
+
 # 1.0.0 (2026-10-15)
 
 
