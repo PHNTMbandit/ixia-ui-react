@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.1...v1.0.2) (2026-10-15)
+
+
+### Bug Fixes
+
+* **styles:** update neutral-700 color value for consistency ([223e06f](https://github.com/PHNTMbandit/ixia-ui-react/commit/223e06f4ed8e38b2ab052be2921a61b2cbcd3421))
+
 ## [1.0.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.0...v1.0.1) (2026-10-15)
 
 
