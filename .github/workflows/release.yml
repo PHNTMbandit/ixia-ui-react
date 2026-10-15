@@ -37,7 +37,7 @@ jobs:
           ref: ${{ inputs.target_branch || github.ref_name }}
 
       - name: Set up Vite+
-        uses: voidzero-dev/setup-vp@v1.21.1
+        uses: voidzero-dev/setup-vp@v1.21.2
         with:
           node-version: '24'
           cache: true
@@ -80,7 +80,7 @@ jobs:
           ref: ${{ inputs.target_branch || github.ref_name }}
 
       - name: Set up Vite+
-        uses: voidzero-dev/setup-vp@v1.21.1
+        uses: voidzero-dev/setup-vp@v1.21.2
         with:
           node-version: '24'
           cache: true
@@ -110,12 +110,12 @@ jobs:
           ref: ${{ inputs.target_branch || github.ref_name }}
 
       - name: Set up Vite+
-        uses: voidzero-dev/setup-vp@v1.21.1
+        uses: voidzero-dev/setup-vp@v1.21.2
         with:
           node-version: '24'
           cache: true
 
       - name: Run Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@v17
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
