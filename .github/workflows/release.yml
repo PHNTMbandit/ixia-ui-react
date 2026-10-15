@@ -73,11 +73,24 @@ jobs:
       VP_GIT_HOOKS: '0'
 
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          owner: PHNTMbandit
+          repositories: ixia-ui-react
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           ref: ${{ inputs.target_branch || github.ref_name }}
+          persist-credentials: false
 
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1.21.2
@@ -96,7 +109,7 @@ jobs:
       - name: Generate release notes and publish
         run: vp exec semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   chromatic:
     name: Run Chromatic
