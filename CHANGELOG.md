@@ -1,3 +1,15 @@
+# [1.0.0-rc.8](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.0-rc.7...v1.0.0-rc.8) (2026-10-15)
+
+
+### Bug Fixes
+
+* **form.stories:** fix failing tests ([7cf2102](https://github.com/PHNTMbandit/ixia-ui-react/commit/7cf2102ce94acf644b761351b61d470de2a159f8))
+
+
+### Features
+
+* change package name to Ixia ([53af513](https://github.com/PHNTMbandit/ixia-ui-react/commit/53af513cc9168878dea4e126f81ef25e0e088644))
+
 # [1.0.0-rc.7](https://github.com/PHNTMbandit/dawn-ui-react/compare/v1.0.0-rc.6...v1.0.0-rc.7) (2026-10-08)
 
 
