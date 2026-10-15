@@ -43,18 +43,9 @@ export default {
         type: { summary: 'string' },
       },
     },
-    label: {
-      control: 'text',
-      description: 'Label text displayed next to the switch',
-      table: {
-        defaultValue: { summary: 'undefined' },
-        type: { summary: 'string' },
-      },
-    },
   },
   args: {
     id: 'switch-playground',
-    label: 'Enable Notifications',
   },
   component: Switch,
   parameters: {
@@ -69,48 +60,38 @@ export default {
 
 type Story = StoryObj<typeof Switch>
 
-/**
- * The Playground story demonstrates a basic switch with customizable label and state.
- */
 export const Playground: Story = {
-  render: (args) => <Switch {...args} />,
+  render: (args) => <Switch {...args}>Switch label</Switch>,
 }
 
-/**
- * State: Unchecked switch in default state.
- */
 export const StateUnchecked: Story = {
-  render: () => <Switch id="state-unchecked" label="Unchecked State" defaultChecked={false} />,
+  render: () => (
+    <Switch id="state-unchecked" defaultChecked={false}>
+      Unchecked State
+    </Switch>
+  ),
 }
 
-/**
- * State: Checked switch in active state.
- */
 export const StateChecked: Story = {
-  render: () => <Switch id="state-checked" label="Checked State" defaultChecked />,
+  render: () => <Switch id="state-checked">Checked State</Switch>,
 }
 
-/**
- * Behavior: Disabled switch in unchecked state.
- */
 export const BehaviorDisabledUnchecked: Story = {
   render: () => (
-    <Switch id="behavior-disabled-unchecked" label="Disabled" disabled defaultChecked={false} />
+    <Switch id="behavior-disabled-unchecked" disabled defaultChecked={false}>
+      Disabled Unchecked State
+    </Switch>
   ),
 }
 
-/**
- * Behavior: Disabled switch in checked state.
- */
 export const BehaviorDisabledChecked: Story = {
   render: () => (
-    <Switch id="behavior-disabled-checked" label="Disabled (Active)" disabled defaultChecked />
+    <Switch id="behavior-disabled-checked" disabled defaultChecked>
+      Disabled Checked State
+    </Switch>
   ),
 }
 
-/**
- * Composition: Settings form with multiple toggle switches.
- */
 export const CompositionSettingsForm: Story = {
   render: () => (
     <div className="w-[500px] space-y-lg rounded-lg border border-surface-3 bg-surface p-md">
@@ -137,9 +118,6 @@ export const CompositionSettingsForm: Story = {
   ),
 }
 
-/**
- * Composition: Feature flags panel with switches and descriptions.
- */
 export const CompositionFeatureFlags: Story = {
   render: () => (
     <div className="w-[500px] space-y-md">
@@ -183,9 +161,6 @@ export const CompositionFeatureFlags: Story = {
   ),
 }
 
-/**
- * Composition: Privacy and security toggles.
- */
 export const CompositionPrivacyToggles: Story = {
   render: () => (
     <div className="w-[500px] space-y-lg rounded-lg border border-surface-3 bg-surface p-md">

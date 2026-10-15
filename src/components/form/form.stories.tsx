@@ -1,12 +1,24 @@
-import { PasswordIcon, UserIcon } from '@phosphor-icons/react'
+import { CaretUpDownIcon, PasswordIcon, UserIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, waitFor } from 'storybook/test'
 import { z } from 'zod'
 
 import { AlertTitle } from '../alert/alert-title'
+import { Checkbox } from '../checkbox'
+import { CheckboxGroup } from '../checkbox-group'
 import { Field } from '../field'
 import { InputGroupAddon } from '../input-group'
-import { SelectGroup, SelectItem } from '../select'
+import { RadioGroup } from '../radio-group'
+import {
+  SelectGroup,
+  SelectIcon,
+  SelectItem,
+  SelectList,
+  SelectPopup,
+  SelectTrigger,
+  SelectValue,
+} from '../select'
+import { SliderGroup } from '../slider-group'
 import { useAppForm } from './form-context'
 import { Form } from './index'
 
@@ -197,6 +209,43 @@ export const FieldInput: Story = {
             </form.FormReset>
             <form.FormSubmit>Submit</form.FormSubmit>
           </form.FormFooter>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const FieldCheckboxGroup: Story = {
+  render: () => {
+    const form = useAppForm({
+      defaultValues: {
+        notifications: [] as string[],
+      },
+      onSubmit: ({ value }) => {
+        alert(`Selected notifications: ${value.notifications.join(', ') || 'none'}`)
+      },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-[400px]">
+        <form.AppForm>
+          <form.AppField name="notifications">
+            {(field) => (
+              <Field>
+                <field.FieldLabel>Notification preferences</field.FieldLabel>
+                <CheckboxGroup onValueChange={field.handleChange} value={field.state.value}>
+                  <Checkbox id="form-comments" label="Comments" value="comments" />
+                  <Checkbox id="form-mentions" label="Mentions" value="mentions" />
+                  <Checkbox id="form-announcements" label="Announcements" value="announcements" />
+                </CheckboxGroup>
+                <field.FieldErrors />
+                <field.FieldDescription>
+                  Select the updates you want to receive.
+                </field.FieldDescription>
+              </Field>
+            )}
+          </form.AppField>
+          <form.FormSubmit>Save preferences</form.FormSubmit>
         </form.AppForm>
       </Form>
     )
@@ -505,13 +554,23 @@ export const FieldSelect: Story = {
               <Field>
                 <field.FieldLabel />
                 <field.FieldSelect items={items}>
-                  <SelectGroup>
-                    {items.map(({ label, value }) => (
-                      <SelectItem key={label} value={value}>
-                        {label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
+                  <SelectTrigger aria-label={field.name}>
+                    <SelectValue />
+                    <SelectIcon>
+                      <CaretUpDownIcon weight="bold" />
+                    </SelectIcon>
+                  </SelectTrigger>
+                  <SelectPopup alignItemWithTrigger={false} sideOffset={8}>
+                    <SelectList>
+                      <SelectGroup>
+                        {items.map(({ label, value }) => (
+                          <SelectItem key={label} value={value}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectList>
+                  </SelectPopup>
                 </field.FieldSelect>
                 <field.FieldErrors />
                 <field.FieldDescription>Select your country.</field.FieldDescription>
@@ -522,6 +581,165 @@ export const FieldSelect: Story = {
             Reset
           </form.FormReset>
           <form.FormSubmit>Submit</form.FormSubmit>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const WorkspaceConfiguration: Story = {
+  render: () => {
+    const regions = [
+      { label: 'North America', value: 'north-america' },
+      { label: 'Europe', value: 'europe' },
+      { label: 'Asia Pacific', value: 'asia-pacific' },
+    ]
+    const form = useAppForm({
+      defaultValues: {
+        description: '',
+        emailUpdates: true,
+        mapOpacity: 75,
+        region: 'north-america',
+        visibility: 'private',
+        workspaceName: '',
+      },
+      onSubmit: ({ value }) => {
+        alert(
+          `Saved workspace: ${value.workspaceName} \n Description: ${value.description} \n Region: ${value.region} \n Visibility: ${value.visibility} \n Map Opacity: ${value.mapOpacity} \n Email Updates: ${value.emailUpdates} \n Send me email updates: ${value.emailUpdates}`,
+        )
+      },
+      validators: {
+        onSubmit: z.object({
+          description: z.string(),
+          emailUpdates: z.boolean(),
+          mapOpacity: z.number(),
+          region: z.string(),
+          visibility: z.string(),
+          workspaceName: z.string().min(2, 'Enter at least 2 characters'),
+        }),
+      },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-[600px]">
+        <form.AppForm>
+          <form.FormErrors>
+            Please correct the errors in the form before submitting.
+          </form.FormErrors>
+          <form.FormSet>
+            <form.FormSetHeading>Workspace details</form.FormSetHeading>
+            <form.FormSetContent>
+              <form.AppField name="workspaceName">
+                {(field) => (
+                  <Field>
+                    <field.FieldLabel showRequired />
+                    <field.FieldInput placeholder="e.g. City Operations" />
+                    <field.FieldErrors />
+                    <field.FieldDescription>
+                      Choose a name your team will recognize.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="description">
+                {(field) => (
+                  <Field>
+                    <field.FieldLabel />
+                    <field.FieldTextArea placeholder="What is this workspace used for?" rows={3} />
+                    <field.FieldDescription>
+                      Add context for other workspace members.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="region">
+                {(field) => (
+                  <Field>
+                    <field.FieldLabel />
+                    <field.FieldSelect items={regions}>
+                      <SelectTrigger aria-label="Region">
+                        <SelectValue />
+                        <SelectIcon>
+                          <CaretUpDownIcon weight="bold" />
+                        </SelectIcon>
+                      </SelectTrigger>
+                      <SelectPopup alignItemWithTrigger={false} sideOffset={8}>
+                        <SelectList>
+                          <SelectGroup>
+                            {regions.map(({ label, value }) => (
+                              <SelectItem key={value} value={value}>
+                                {label}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectList>
+                      </SelectPopup>
+                    </field.FieldSelect>
+                    <field.FieldDescription>
+                      Sets the default region for workspace data.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+            </form.FormSetContent>
+          </form.FormSet>
+          <form.FormSet>
+            <form.FormSetHeading>Access and preferences</form.FormSetHeading>
+            <form.FormSetContent>
+              <form.AppField name="visibility">
+                {(field) => (
+                  <Field>
+                    <field.FieldLabel>Workspace visibility</field.FieldLabel>
+                    <field.FieldRadioGroup aria-label="Workspace visibility">
+                      <RadioGroup.Radio value="private">Private</RadioGroup.Radio>
+                      <RadioGroup.Radio value="organization">Organization</RadioGroup.Radio>
+                    </field.FieldRadioGroup>
+                    <field.FieldDescription>
+                      Choose who can discover this workspace.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="emailUpdates">
+                {(field) => (
+                  <Field>
+                    <field.FieldCheckbox label="Send me workspace updates by email" />
+                    <field.FieldDescription>
+                      Receive important changes and activity summaries.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="mapOpacity">
+                {(field) => (
+                  <Field>
+                    <field.FieldLabel />
+                    <SliderGroup
+                      value={field.state.value}
+                      onValueChange={(value) => field.handleChange(value[0] ?? field.state.value)}
+                    >
+                      <SliderGroup.Slider
+                        aria-label="Map opacity"
+                        min={0}
+                        max={100}
+                        showTooltip={false}
+                      />
+                      <SliderGroup.Input aria-label="Map opacity percentage" size="small" />
+                    </SliderGroup>
+                    <field.FieldDescription>
+                      Set the default map overlay opacity.
+                    </field.FieldDescription>
+                  </Field>
+                )}
+              </form.AppField>
+            </form.FormSetContent>
+          </form.FormSet>
+          <form.FormFooter>
+            <form.FormReset tone="error" variant="ghost">
+              Reset
+            </form.FormReset>
+            <form.FormSubmit>Save workspace</form.FormSubmit>
+          </form.FormFooter>
         </form.AppForm>
       </Form>
     )

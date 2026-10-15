@@ -2,7 +2,7 @@ import { useFieldContext } from '../form/form-contexts'
 import { Switch } from '../switch'
 import type { FieldSwitchProps } from './field.types'
 
-export function FieldSwitch({ ...props }: FieldSwitchProps) {
+export function FieldSwitch({ children, ...props }: FieldSwitchProps) {
   const field = useFieldContext<boolean>()
 
   return (
@@ -12,6 +12,8 @@ export function FieldSwitch({ ...props }: FieldSwitchProps) {
       name={field.name}
       onCheckedChange={(checked) => field.handleChange(checked)}
       {...props}
-    />
+    >
+      {children}
+    </Switch>
   )
 }

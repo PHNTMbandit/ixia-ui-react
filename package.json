@@ -1,5 +1,5 @@
 {
-  "name": "dawn-ui-react",
+  "name": "ixia-ui-react",
   "version": "1.0.0-rc.7",
   "description": "A React component library for building polished product interfaces with composable primitives and Tailwind CSS styling.",
   "keywords": [
@@ -13,14 +13,14 @@
     "typescript",
     "ui"
   ],
-  "homepage": "https://github.com/PHNTMbandit/dawn-ui-react#readme",
+  "homepage": "https://github.com/PHNTMbandit/ixia-ui-react#readme",
   "bugs": {
-    "url": "https://github.com/PHNTMbandit/dawn-ui-react/issues"
+    "url": "https://github.com/PHNTMbandit/ixia-ui-react/issues"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PHNTMbandit/dawn-ui-react.git"
+    "url": "https://github.com/PHNTMbandit/ixia-ui-react.git"
   },
   "files": [
     "dist"
@@ -61,6 +61,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/charts": "^1.1.0",
     "@tanstack/react-form": "^1.33.5",
     "@tanstack/react-table": "^9.2.4",
     "@tanstack/react-virtual": "^3.14.11",
@@ -129,5 +130,5 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "packageManager": "pnpm@12.9.1"
+  "packageManager": "pnpm@12.11.2"
 }

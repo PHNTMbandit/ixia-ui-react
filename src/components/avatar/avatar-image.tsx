@@ -10,17 +10,16 @@ import type { AvatarImageProps } from './avatar.types'
 export function AvatarImage({ className, ref, ...props }: AvatarImageProps) {
   const [status, setStatus] = React.useState<ImageLoadingStatus>('loading')
 
-  if (status === 'loading') {
-    return <Skeleton className="absolute inset-0 size-full rounded-full" />
-  }
-
   return (
-    <BaseAvatar.Image
-      onLoadingStatusChange={setStatus}
-      className={cn('size-full rounded-full object-cover', className)}
-      data-slot="avatar-image"
-      ref={ref}
-      {...props}
-    />
+    <>
+      {status === 'loading' && <Skeleton className="absolute inset-0 size-full rounded-full" />}
+      <BaseAvatar.Image
+        onLoadingStatusChange={setStatus}
+        className={cn('size-full rounded-full object-cover', className)}
+        data-slot="avatar-image"
+        ref={ref}
+        {...props}
+      />
+    </>
   )
 }
