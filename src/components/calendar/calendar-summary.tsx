@@ -16,7 +16,8 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
 
 export function CalendarSummary({ className, children, ref, ...props }: CalendarSummaryProps) {
   const { state } = useCalendar(),
-    [today] = useState(() => new Date())
+    [today, setToday] = useState(() => new Date())
+  void setToday
   let formattedDate: string | undefined = undefined
 
   if (state.selectedDates instanceof Date) {
