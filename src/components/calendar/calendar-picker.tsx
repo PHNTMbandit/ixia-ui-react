@@ -3,8 +3,6 @@ import type { OnSelectHandler, PropsBase } from '@daypicker/react'
 import { CaretLeftIcon, CaretRightIcon, CaretUpDownIcon } from '@phosphor-icons/react'
 import type { ChangeEvent, ComponentProps } from 'react'
 
-// eslint-disable-next-line import/no-unassigned-import -- DayPicker styles are required globally.
-import '@daypicker/react/style.css'
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
