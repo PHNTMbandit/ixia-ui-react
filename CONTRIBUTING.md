@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve Dawn UI React. This project is a React and TypeScript component library, so changes should keep public APIs predictable, accessible, and easy to compose.
+Thanks for helping improve Ixia UI React. This project is a React and TypeScript component library, so changes should keep public APIs predictable, accessible, and easy to compose.
 
 ## Development Setup
 
@@ -50,7 +50,7 @@ docs(calendar): add usage examples
 
 ## Support the Project
 
-Code contributions are not the only way to help. If Dawn UI React is useful to you or your team, you can [sponsor its ongoing development on GitHub](https://github.com/sponsors/PHNTMbandit). Sponsorship helps support maintenance, accessibility, documentation, testing, and future component work; it is entirely optional.
+Code contributions are not the only way to help. If Ixia UI React is useful to you or your team, you can [sponsor its ongoing development on GitHub](https://github.com/sponsors/PHNTMbandit). Sponsorship helps support maintenance, accessibility, documentation, testing, and future component work; it is entirely optional.
 
 ## Component Guidelines
 

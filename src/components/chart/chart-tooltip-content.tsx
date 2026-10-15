@@ -12,7 +12,10 @@ function ChartTooltipContent({ className, children, ref, ...props }: ChartToolti
   return (
     <ChartTooltipContentContext.Provider value={props}>
       <div
-        className={cn('min-w-[125px] space-y-2xs rounded-lg bg-surface-2 px-xs py-2xs', className)}
+        className={cn(
+          'min-w-[125px] space-y-2xs rounded-lg bg-surface-2 px-xs py-2xs shadow-md',
+          className,
+        )}
         ref={ref}
         {...props}
       >

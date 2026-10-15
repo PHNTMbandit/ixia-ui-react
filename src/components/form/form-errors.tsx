@@ -59,7 +59,7 @@ export function FormErrors({ className, children, ref, ...props }: FormErrorsPro
             </AlertIcon>
             <AlertTitle>{children}</AlertTitle>
             <AlertDescription>
-              <ul className="list-inside list-disc">
+              <ul className="list-inside list-disc has-[>:only-child]:list-none">
                 {[...messages].map((message) => (
                   <li key={message}>{message}</li>
                 ))}

@@ -1,6 +1,6 @@
 import { withThemeByDataAttribute } from '@storybook/addon-themes'
 
-import '../src/styles/input.css'
+import '@/styles/output.css'
 
 import type { Preview } from '@storybook/react-vite'
 

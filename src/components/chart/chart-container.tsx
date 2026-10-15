@@ -1,4 +1,5 @@
 import React from 'react'
+import { ResponsiveContainer } from 'recharts'
 
 import { cn } from '@/utils/cn'
 
@@ -10,6 +11,7 @@ export function ChartContainer({
   config,
   className,
   children,
+  initialDimension,
   ref,
   ...props
 }: ChartContainerProps) {
@@ -28,7 +30,9 @@ export function ChartContainer({
         ref={ref}
         {...props}
       >
-        {children}
+        <ResponsiveContainer width="100%" height="100%" initialDimension={initialDimension}>
+          {children}
+        </ResponsiveContainer>
       </div>
     </ChartContainerContext.Provider>
   )

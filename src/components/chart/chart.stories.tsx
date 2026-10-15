@@ -56,6 +56,7 @@ export default {
     config: chartConfig,
   },
   parameters: {
+    layout: 'fullscreen',
     docs: {
       subtitle: 'A chart component that displays data in a visual format.',
       description: {

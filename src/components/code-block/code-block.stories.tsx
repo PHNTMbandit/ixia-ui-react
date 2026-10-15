@@ -10,7 +10,7 @@ async function highlightCode(code: string, lang: BundledLanguage): Promise<strin
   return await codeToHtml(code, {
     lang,
     themes: {
-      dark: 'github-dark',
+      dark: 'andromeeda',
       light: 'github-light',
     },
     transformers: [
