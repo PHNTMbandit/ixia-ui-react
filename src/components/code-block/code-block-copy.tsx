@@ -17,6 +17,9 @@ export function CodeBlockCopy({ className, children, ref, ...props }: CodeBlockC
   const { currentValue } = useCodeBlock(),
     [copied, setCopied] = React.useState(false),
     handleClick = async () => {
+      if (typeof currentValue.content !== 'string') {
+        return
+      }
       try {
         await navigator.clipboard.writeText(currentValue.content)
         setCopied(true)

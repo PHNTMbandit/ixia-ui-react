@@ -17,6 +17,9 @@ export function CodeBlockDownload({ className, children, ref, ...props }: CodeBl
   const { currentValue } = useCodeBlock(),
     [downloaded, setDownloaded] = React.useState(false),
     handleClick = async () => {
+      if (typeof currentValue.content !== 'string') {
+        return
+      }
       try {
         const blob = new Blob([currentValue.content]),
           url = URL.createObjectURL(blob),
