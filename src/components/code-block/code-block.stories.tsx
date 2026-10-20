@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { codeToHtml } from 'shiki/bundle/web'
 import type { BundledLanguage } from 'shiki/bundle/web'
 
+import { Button } from '../button'
 import type { CodeBlockValue } from './code-block.types'
 import { CodeBlock } from './index'
 
@@ -25,6 +26,13 @@ async function highlightCode(code: string, lang: BundledLanguage): Promise<strin
 }
 
 const data: CodeBlockValue[] = [
+  {
+    content: <Button>Click me</Button>,
+    icon: <FileJsIcon weight="bold" />,
+    id: '0',
+    label: 'Button',
+    name: 'button.jsx',
+  },
   {
     content: await highlightCode(
       `const fetchUserData = async (userId) => {

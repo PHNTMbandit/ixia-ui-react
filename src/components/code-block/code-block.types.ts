@@ -16,7 +16,7 @@ interface CodeBlockValue {
   id: string
   label: string
   name: string
-  content: string
+  content: string | React.ReactNode
   icon?: React.ReactNode
 }
 

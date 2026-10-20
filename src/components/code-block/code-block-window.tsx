@@ -13,7 +13,10 @@ export function CodeBlockWindow({ className, children, ref, ...props }: CodeBloc
       {...props}
     >
       {children}
-      <div dangerouslySetInnerHTML={{ __html: currentValue.content }} />
+      {typeof currentValue.content === 'string' && (
+        <div dangerouslySetInnerHTML={{ __html: currentValue.content }} />
+      )}
+      {typeof currentValue.content !== 'string' && currentValue.content}
     </div>
   )
 }
