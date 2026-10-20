@@ -29,6 +29,10 @@ export function CodeBlockCopy({ className, children, ref, ...props }: CodeBlockC
       }
     }
 
+  if (React.isValidElement(currentValue.content)) {
+    return undefined
+  }
+
   return (
     <Button
       aria-label="Copy code"

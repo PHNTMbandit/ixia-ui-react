@@ -545,15 +545,15 @@
   --ixia-radius-4xl: 32px;
   --ixia-radius-full: 9999px;
 }
+
 [data-theme='light'] {
   color-scheme: light;
 }
+
 [data-theme='dark'] {
   color-scheme: dark;
 }
-[data-theme='dark'] .shiki span {
-  color: var(--shiki-dark) !important;
-}
+
 @layer base {
   * {
     box-sizing: border-box;
