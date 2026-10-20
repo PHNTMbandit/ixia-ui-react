@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.2...v1.1.0) (2026-10-20)
+
+
+### Features
+
+* disable max-statements rule in ESLint configuration ([19440df](https://github.com/PHNTMbandit/ixia-ui-react/commit/19440dfde552dd576a17c5574af79c44bfa3a1d7))
+* handle non-string content in CodeBlock components ([eea26a4](https://github.com/PHNTMbandit/ixia-ui-react/commit/eea26a415100586cd197ee1e79d52784cc1d503d))
+
 ## [1.0.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.1...v1.0.2) (2026-10-15)
 
 
