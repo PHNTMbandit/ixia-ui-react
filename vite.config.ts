@@ -84,6 +84,7 @@ export default defineConfig({
       'import/no-duplicates': 'error',
       'import/no-named-export': 'off',
       'import/prefer-default-export': 'off',
+      'max-statements': 'off',
       'no-duplicate-imports': 'off',
       'no-unused-vars': 'error',
       'react-in-jsx-scope': 'off',
