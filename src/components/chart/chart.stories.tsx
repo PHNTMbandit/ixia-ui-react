@@ -39,12 +39,12 @@ const chartData = [
 const chartConfig = {
   desktop: {
     label: 'Desktop',
-    color: 'var(--dawn-brand-default)',
+    color: 'var(--ixia-brand-default)',
     icon: TrendUpIcon,
   },
   mobile: {
     label: 'Mobile',
-    color: 'var(--dawn-accent-default)',
+    color: 'var(--ixia-accent-default)',
     icon: TrendDownIcon,
   },
 } satisfies ChartConfig
