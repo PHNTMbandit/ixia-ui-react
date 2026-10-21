@@ -174,7 +174,7 @@ export function Input({
 
     return (
       <button
-        aria-label="Open color picker"
+        aria-label={`${colorValue}, open color picker`}
         className={cn(
           'relative flex hover:cursor-pointer',
           inputVariants({ size, variant }),

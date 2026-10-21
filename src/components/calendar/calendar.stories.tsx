@@ -259,15 +259,16 @@ export const AsPopup: Story = {
   name: 'Composition / As Popup',
   render: (args) => {
     const [selectedDates, setSelectedDates] = React.useState<CalendarSelected | undefined>(
-      new Date(),
-    )
+        new Date(),
+      ),
+      selectedLabel = (selectedDates as Date).toLocaleDateString()
 
     return (
       <Popover>
         <PopoverTrigger>
-          <Button variant="outline" aria-label="Choose date">
+          <Button variant="outline" aria-label={`${selectedLabel}, choose date`}>
             <CalendarBlankIcon weight="bold" />
-            <span>{(selectedDates as Date).toLocaleDateString()}</span>
+            <span>{selectedLabel}</span>
           </Button>
         </PopoverTrigger>
         <PopoverPanel>

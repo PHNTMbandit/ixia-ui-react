@@ -69,7 +69,7 @@ export function InputGroupInput({
 
     return (
       <button
-        aria-label="Open color picker"
+        aria-label={`${colorValue}, open color picker`}
         className={cn(
           'relative flex size-full items-center justify-start hover:cursor-pointer',
           className,
