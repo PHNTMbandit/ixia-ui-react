@@ -6,7 +6,7 @@ export function TableLayout({ className, ref, ...props }: TableLayoutProps) {
   return (
     <div
       data-slot="table-layout"
-      className={cn('flex min-w-0 flex-col', className)}
+      className={cn('flex min-w-0 flex-col gap-md', className)}
       ref={ref}
       {...props}
     />

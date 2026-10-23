@@ -2,7 +2,7 @@ import { enUS, ja } from '@daypicker/react/locale'
 import { CalendarBlankIcon, ClockIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { expect } from 'storybook/test'
+import { expect, waitFor } from 'storybook/test'
 
 import { CalendarFooter } from '..'
 import { Button } from '../button'
@@ -58,7 +58,7 @@ export default {
 type Story = StoryObj<typeof CalendarPicker>
 
 export const Playground: Story = {
-  play: async ({ canvas }) => {
+  play: async ({ canvas, userEvent }) => {
     const navigation = canvas.getByRole('navigation'),
       buttons = navigation.querySelectorAll('button'),
       expectedSize = navigation.getBoundingClientRect().height
@@ -69,6 +69,15 @@ export const Playground: Story = {
       const bounds = button.getBoundingClientRect()
 
       await expect(bounds.width).toBeCloseTo(bounds.height, 1)
+      await expect(button).toHaveClass('hover:bg-neutral-container-high')
+
+      const background = window.getComputedStyle(button).backgroundColor
+
+      await userEvent.hover(button)
+      await expect(button.matches(':hover')).toBe(true)
+      await waitFor(() => {
+        expect(window.getComputedStyle(button).backgroundColor).not.toBe(background)
+      })
     }
     const day = canvas.getByRole('button', { name: /\b15th\b/ }),
       dayBounds = day.getBoundingClientRect()

@@ -19,7 +19,11 @@ export function TableViewport({ grow, className, children, ref, ...props }: Tabl
   return (
     <table
       data-slot="table-viewport"
-      className={cn(grow ? 'size-full' : 'h-auto w-full', className)}
+      className={cn(
+        grow ? 'size-full' : 'h-auto w-full',
+        '[[data-slot=table-container][data-variant=outline]>&:not(:first-child):not([data-slot=table-dataset-tab]+&)>thead]:border-t [[data-slot=table-container][data-variant=outline]>&:not(:first-child):not([data-slot=table-dataset-tab]+&)>thead]:border-border',
+        className,
+      )}
       ref={ref}
       {...props}
     >

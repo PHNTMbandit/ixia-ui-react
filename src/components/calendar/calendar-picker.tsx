@@ -120,6 +120,10 @@ function CalendarNextMonthButton({
       variant="ghost"
       tone="neutral"
       size="iconSmall"
+      className={cn(
+        props.className,
+        'hover:bg-neutral-container-high hover:text-neutral-on-container',
+      )}
       onClick={onClick}
       disabled={disabled}
     >
@@ -139,6 +143,10 @@ function CalendarPreviousMonthButton({
       variant="ghost"
       tone="neutral"
       size="iconSmall"
+      className={cn(
+        props.className,
+        'hover:bg-neutral-container-high hover:text-neutral-on-container',
+      )}
       onClick={onClick}
       disabled={disabled}
     >
@@ -179,10 +187,10 @@ const defaultClassNames = getDefaultClassNames(),
   calendarClassNames: PropsBase['classNames'] = {
     caption_label: 'style-text-strong-0',
     day: cn(
-      'size-xl rounded-xl style-text-default-0 transition-colors hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
+      'size-xl rounded-full style-text-default-0 transition-colors hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
       defaultClassNames.day,
     ),
-    day_button: cn('size-xl rounded-xl', defaultClassNames.day_button),
+    day_button: cn('size-xl rounded-full', defaultClassNames.day_button),
     disabled: cn('pointer-events-none text-on-surface', defaultClassNames.disabled),
     month_caption: 'flex items-center justify-center h-lg',
     month_grid: cn('mt-xs', defaultClassNames.month_grid),

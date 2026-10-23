@@ -53,7 +53,7 @@ type TablePagingProps = React.ComponentProps<'div'> & {
   max?: number
 }
 
-const tableContainerVariants = cva('group/table flex min-w-0 flex-col', {
+const tableContainerVariants = cva('group/table flex min-w-0 flex-col gap-md', {
     defaultVariants: {
       variant: 'outline',
     },

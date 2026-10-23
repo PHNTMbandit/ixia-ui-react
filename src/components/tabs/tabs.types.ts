@@ -139,7 +139,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-lg [&_[role=tab]]:rounded-lg [&_[role=tablist]]:rounded-lg',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:rounded-full [&_[role=tablist]]:rounded-full',
       size: 'small',
       variant: 'default',
     },
@@ -151,31 +151,31 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-xl [&_[role=tab]]:h-xl [&_[role=tab]]:rounded-xl [&_[role=tab]]:px-md [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:gap-xs [&_[role=tablist]]:rounded-xl [&_[role=tablist]]:p-2xs',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:h-xl [&_[role=tab]]:rounded-full [&_[role=tab]]:px-md [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:gap-xs [&_[role=tablist]]:rounded-full [&_[role=tablist]]:p-2xs',
       size: 'medium',
       variant: 'default',
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-2xl [&_[role=tab]]:h-2xl [&_[role=tab]]:rounded-2xl [&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:gap-sm [&_[role=tablist]]:rounded-2xl [&_[role=tablist]]:p-xs',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:h-2xl [&_[role=tab]]:rounded-full [&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:gap-sm [&_[role=tablist]]:rounded-full [&_[role=tablist]]:p-xs',
       size: 'large',
       variant: 'default',
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-lg [&_[role=tab]]:h-lg [&_[role=tab]]:px-sm [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:gap-2xs [&_[role=tablist]]:rounded-lg [&_[role=tablist]]:p-3xs',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:h-lg [&_[role=tab]]:px-sm [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:gap-2xs [&_[role=tablist]]:rounded-full [&_[role=tablist]]:p-3xs',
       size: 'small',
       variant: 'ghost',
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-xl [&_[role=tab]]:h-xl [&_[role=tab]]:px-md [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:gap-xs [&_[role=tablist]]:rounded-xl [&_[role=tablist]]:p-2xs',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:h-xl [&_[role=tab]]:px-md [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:gap-xs [&_[role=tablist]]:rounded-full [&_[role=tablist]]:p-2xs',
       size: 'medium',
       variant: 'ghost',
     },
     {
       class:
-        '[&_[role=presentation]]:rounded-2xl [&_[role=tab]]:h-2xl [&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:gap-sm [&_[role=tablist]]:rounded-2xl [&_[role=tablist]]:p-xs',
+        '[&_[role=presentation]]:rounded-full [&_[role=tab]]:h-2xl [&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:gap-sm [&_[role=tablist]]:rounded-full [&_[role=tablist]]:p-xs',
       size: 'large',
       variant: 'ghost',
     },

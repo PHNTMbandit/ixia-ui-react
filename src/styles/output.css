@@ -1157,14 +1157,8 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-shrink {
-    flex-shrink: 1;
-  }
   .shrink-0 {
     flex-shrink: 0;
-  }
-  .flex-grow {
-    flex-grow: 1;
   }
   .grow {
     flex-grow: 1;
@@ -1857,6 +1851,9 @@
   .px-3xs {
     padding-inline: var(--spacing-3xs);
   }
+  .px-lg {
+    padding-inline: var(--spacing-lg);
+  }
   .px-md {
     padding-inline: var(--spacing-md);
   }
@@ -2119,9 +2116,6 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  .text-wrap {
-    text-wrap: wrap;
-  }
   .wrap-break-word {
     overflow-wrap: break-word;
   }
@@ -2344,9 +2338,6 @@
   }
   .shadow-xs {
     box-shadow: var(--shadow-xs) var(--ixia-shadow);
-  }
-  .ring-brand-border-strong {
-    --tw-ring-color: var(--color-brand-border-strong);
   }
   .ring-brand-border-strong\/20 {
     --tw-ring-color: var(--color-brand-border-strong);
@@ -5482,14 +5473,8 @@
   .\[\&_\[role\=presentation\]\]\:top-1\/2 [role=presentation] {
     top: calc(1 / 2 * 100%);
   }
-  .\[\&_\[role\=presentation\]\]\:rounded-2xl [role=presentation] {
-    border-radius: var(--radius-2xl);
-  }
-  .\[\&_\[role\=presentation\]\]\:rounded-lg [role=presentation] {
-    border-radius: var(--radius-lg);
-  }
-  .\[\&_\[role\=presentation\]\]\:rounded-xl [role=presentation] {
-    border-radius: var(--radius-xl);
+  .\[\&_\[role\=presentation\]\]\:rounded-full [role=presentation] {
+    border-radius: var(--radius-full);
   }
   .\[\&_\[role\=presentation\]\]\:border [role=presentation] {
     border-style: var(--tw-border-style);
@@ -5570,14 +5555,8 @@
   .\[\&_\[role\=tab\]\]\:grow [role=tab] {
     flex-grow: 1;
   }
-  .\[\&_\[role\=tab\]\]\:rounded-2xl [role=tab] {
-    border-radius: var(--radius-2xl);
-  }
-  .\[\&_\[role\=tab\]\]\:rounded-lg [role=tab] {
-    border-radius: var(--radius-lg);
-  }
-  .\[\&_\[role\=tab\]\]\:rounded-xl [role=tab] {
-    border-radius: var(--radius-xl);
+  .\[\&_\[role\=tab\]\]\:rounded-full [role=tab] {
+    border-radius: var(--radius-full);
   }
   .\[\&_\[role\=tab\]\]\:px-2xl [role=tab] {
     padding-inline: var(--spacing-2xl);
@@ -5720,14 +5699,8 @@
   .\[\&_\[role\=tablist\]\]\:gap-xs [role=tablist] {
     gap: var(--spacing-xs);
   }
-  .\[\&_\[role\=tablist\]\]\:rounded-2xl [role=tablist] {
-    border-radius: var(--radius-2xl);
-  }
-  .\[\&_\[role\=tablist\]\]\:rounded-lg [role=tablist] {
-    border-radius: var(--radius-lg);
-  }
-  .\[\&_\[role\=tablist\]\]\:rounded-xl [role=tablist] {
-    border-radius: var(--radius-xl);
+  .\[\&_\[role\=tablist\]\]\:rounded-full [role=tablist] {
+    border-radius: var(--radius-full);
   }
   .\[\&_\[role\=tablist\]\]\:border-b-\[1px\] [role=tablist] {
     border-bottom-style: var(--tw-border-style);
@@ -5932,9 +5905,16 @@
     .\[\&_\[role\=tab\]\]\:hover\:\[\&\:not\(\[data-active\]\)\]\:text-warning-default [role=tab]:hover:not([data-active]) {
       color: var(--color-warning-default);
     }
-    .\[\&\:not\(\[data-checked\]\)\]\:hover\:outline-border-strong:not([data-checked]):hover {
+  }
+  .\[\&\:not\(\[data-checked\]\)\]\:not-hover\:outline-border-strong:not([data-checked]):not(:hover) {
+    outline-color: var(--color-border-strong);
+  }
+  @media not (hover: hover) {
+    .\[\&\:not\(\[data-checked\]\)\]\:not-hover\:outline-border-strong:not([data-checked]) {
       outline-color: var(--color-border-strong);
     }
+  }
+  @media (hover: hover) {
     .hover\:\[\&\:not\(\[data-dragging\]\)\]\:cursor-pointer:hover:not([data-dragging]) {
       cursor: pointer;
     }
@@ -6461,6 +6441,25 @@
   .\[\&\[hidden\]\:not\(\[hidden\=\"until-found\"\]\)\]\:hidden[hidden]:not([hidden="until-found"]) {
     display: none;
   }
+  [data-slot=table-container] > .\[\[data-slot\=table-container\]\>\&\]\:-mb-md {
+    margin-bottom: calc(var(--spacing-md) * -1);
+  }
+  [data-slot=table-container][data-variant=outline] > .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\]\:px-md {
+    padding-inline: var(--spacing-md);
+  }
+  [data-slot=table-container][data-variant=outline] > .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:first-child\]\:pt-md:first-child {
+    padding-top: var(--spacing-md);
+  }
+  [data-slot=table-container][data-variant=outline] > .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:last-child\]\:pb-md:last-child {
+    padding-bottom: var(--spacing-md);
+  }
+  [data-slot=table-container][data-variant=outline] > .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:not\(\:first-child\)\:not\(\[data-slot\=table-dataset-tab\]\+\&\)\>thead\]\:border-t:not(:first-child):not([data-slot=table-dataset-tab] + .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:not\(\:first-child\)\:not\(\[data-slot\=table-dataset-tab\]\+\&\)\>thead\]\:border-t) > thead {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  [data-slot=table-container][data-variant=outline] > .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:not\(\:first-child\)\:not\(\[data-slot\=table-dataset-tab\]\+\&\)\>thead\]\:border-border:not(:first-child):not([data-slot=table-dataset-tab] + .\[\[data-slot\=table-container\]\[data-variant\=outline\]\>\&\:not\(\:first-child\)\:not\(\[data-slot\=table-dataset-tab\]\+\&\)\>thead\]\:border-border) > thead {
+    border-color: var(--color-border);
+  }
 }
 @property --tw-animation-delay {
   syntax: "*";
@@ -6900,35 +6899,6 @@
 }
 .rdp-caption_before_exit {
   animation: rdp-fade_out var(--rdp-animation_duration) var(--rdp-animation_timing) forwards;
-}
-@layer components {
-  :is( [data-slot='table-layout'], [data-slot='table-container'], [data-slot='table-top-bar'], [data-slot='table-bottom-bar'] ) {
-    gap: var(--spacing-md);
-  }
-  [data-slot='table-toolbar'] {
-    gap: var(--spacing-2xs);
-  }
-  [data-slot='table-container'][data-variant='outline'] > :is( [data-slot='table-top-bar'], [data-slot='table-toolbar'], [data-slot='table-bottom-bar'] ) {
-    padding-inline: var(--spacing-md);
-    &:first-child {
-      padding-top: var(--spacing-md);
-    }
-    &:last-child {
-      padding-bottom: var(--spacing-md);
-    }
-  }
-  [data-slot='table-container'][data-variant='outline'] > [data-slot='table-viewport']:not(:first-child) > thead {
-    border-top: 1px solid var(--color-border);
-  }
-  [data-slot='table-container'] > [data-slot='table-dataset-tab'] {
-    margin-bottom: calc(-1 * var(--spacing-md));
-  }
-  [data-slot='table-container'] > [data-slot='table-dataset-tab'] + [data-slot='table-viewport'] > thead {
-    border-top: 0;
-  }
-  [data-slot='table-container'][data-variant='ghost'] > [data-slot='table-viewport'] > thead {
-    border-block-width: 0;
-  }
 }
 :root {
   color-scheme: light dark;
