@@ -1,3 +1,14 @@
+# [1.3.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.2.0...v1.3.0) (2026-10-23)
+
+
+### Features
+
+* add early return for valid React elements in CodeBlock components ([fb17a1e](https://github.com/PHNTMbandit/ixia-ui-react/commit/fb17a1e8f6241fcffdde8e76bd1b86b47189d0c1))
+* add Icon Container component ([e0c33ed](https://github.com/PHNTMbandit/ixia-ui-react/commit/e0c33ed9e1faaca530503bf1e4a2c0d8bbb5a964))
+* enhance component styles and add outline variant for input groups ([a4c7a36](https://github.com/PHNTMbandit/ixia-ui-react/commit/a4c7a36743efddefe1f04fe5d402de229a8a5bf1))
+* refactor code structure and remove redundant sections for improved readability ([2ecac8b](https://github.com/PHNTMbandit/ixia-ui-react/commit/2ecac8b315a7fb9c2b7b8bb915d87180d58251aa))
+* spacing has been reduced ([2ff69d4](https://github.com/PHNTMbandit/ixia-ui-react/commit/2ff69d4eaf93ef37dbd5319d6d6eba2cb2209571))
+
 # [1.2.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.1.0...v1.2.0) (2026-10-23)
 
 
