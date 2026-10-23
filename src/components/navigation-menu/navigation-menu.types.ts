@@ -12,7 +12,7 @@ type NavigationMenuContentProps = React.ComponentProps<typeof NavigationMenu.Con
 type NavigationMenuPopupProps = React.ComponentProps<typeof NavigationMenu.Positioner>
 
 const navigationMenuTriggerVariants = cva(
-    'flex items-center justify-center rounded-full bg-transparent no-underline transition-colors select-none hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
+    'flex items-center justify-center bg-transparent no-underline transition-colors select-none hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
     {
       defaultVariants: {
         size: 'medium',
@@ -20,9 +20,9 @@ const navigationMenuTriggerVariants = cva(
       },
       variants: {
         size: {
-          large: 'h-2xl gap-xs px-md style-text-default-2 [&>svg]:size-md',
-          medium: 'h-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-sm',
-          small: 'h-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-xs',
+          large: 'h-2xl gap-xs rounded-2xl px-md style-text-default-2 [&>svg]:size-md',
+          medium: 'h-xl gap-2xs rounded-xl px-sm style-text-default-0 [&>svg]:size-sm',
+          small: 'h-lg gap-3xs rounded-lg px-xs style-text-default--1 [&>svg]:size-xs',
         },
         tone: {
           accent:

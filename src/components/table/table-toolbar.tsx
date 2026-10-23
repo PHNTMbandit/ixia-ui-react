@@ -2,10 +2,11 @@ import { cn } from '@/utils/cn'
 
 import type { TableToolbarProps } from './table.types'
 
-export function TableToolbar({ sticky = false, className, ref, ...props }: TableToolbarProps) {
+export function TableToolbar({ className, ref, ...props }: TableToolbarProps) {
   return (
     <div
-      className={cn('flex items-center gap-3xs', sticky && 'sticky top-0 z-10', className)}
+      data-slot="table-toolbar"
+      className={cn('flex w-full min-w-0 flex-wrap items-center', className)}
       ref={ref}
       {...props}
     />

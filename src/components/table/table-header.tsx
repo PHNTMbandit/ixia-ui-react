@@ -17,7 +17,14 @@ export function TableHeader({ className, children, ref, ...props }: TableHeaderP
           return undefined
         }
         return (
-          <thead className={cn('bg-neutral-container')} ref={ref} {...props}>
+          <thead
+            className={cn(
+              'border-border bg-neutral-container-low group-data-[variant=outline]/table:border-b',
+              className,
+            )}
+            ref={ref}
+            {...props}
+          >
             {children}
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -35,10 +42,11 @@ export function TableHeader({ className, children, ref, ...props }: TableHeaderP
                             width: renderHeader.getSize(),
                           }}
                           className={cn(
-                            'container p-xs text-left style-text-default-0 text-neutral-on-container-muted transition-colors first:rounded-l-xl last:rounded-r-xl',
+                            'container p-xs text-left style-text-default-0 text-neutral-on-container-muted transition-colors group-data-[variant=ghost]/table:first:rounded-l-xl group-data-[variant=ghost]/table:last:rounded-r-xl',
                             renderHeader.column.getCanSort() &&
-                              'hover:cursor-pointer hover:bg-neutral-container-high hover:*:text-neutral-on-container',
+                              'hover:cursor-pointer hover:bg-neutral-container hover:*:text-neutral-on-container',
                             renderHeader.isPlaceholder && 'cursor-default',
+                            renderHeader.column.getIsSorted() && 'text-brand-on-container!',
                             className,
                           )}
                           colSpan={renderHeader.colSpan}
@@ -48,7 +56,7 @@ export function TableHeader({ className, children, ref, ...props }: TableHeaderP
                           {!renderHeader.isPlaceholder && (
                             <div
                               className={cn(
-                                'flex items-center justify-between gap-2xs whitespace-nowrap [&_svg]:size-sm',
+                                'flex items-center gap-2xs whitespace-nowrap has-[[role=checkbox]]:justify-center [&_svg]:size-sm',
                                 renderHeader.column.getCanSort() &&
                                   'select-none hover:cursor-pointer',
                               )}

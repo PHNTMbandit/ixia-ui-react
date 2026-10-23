@@ -1,22 +1,28 @@
+// oxlint-disable no-ternary
 import { cn } from '@/utils/cn'
 
 import { useTableContext } from './table-feature-context'
 import type { TableViewportProps } from './table.types'
 
-export function TableViewport({ className, children, ref, ...props }: TableViewportProps) {
+export function TableViewport({ grow, className, children, ref, ...props }: TableViewportProps) {
   const table = useTableContext(),
     isGridView = table.state.viewMode === 'grid'
 
   if (isGridView) {
     return (
-      <div className={cn('size-full', className)} ref={ref} {...props}>
+      <div data-slot="table-viewport" className={cn('size-full', className)} ref={ref} {...props}>
         {children}
       </div>
     )
   }
 
   return (
-    <table className={cn('size-full', className)} ref={ref} {...props}>
+    <table
+      data-slot="table-viewport"
+      className={cn(grow ? 'size-full' : 'h-auto w-full', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
     </table>
   )

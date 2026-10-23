@@ -19,7 +19,7 @@ export function ProgressIndicator({ className, children, ref, ...props }: Progre
     <div className="relative flex shrink-0 flex-col items-center">
       <div
         className={cn(
-          'flex size-md shrink-0 flex-col items-center justify-center rounded-full border border-neutral-border bg-neutral-container text-center style-text-default--2 text-accent-default transition-colors ease-in-out [&_svg]:size-xs',
+          'flex size-md shrink-0 flex-col items-center justify-center rounded-full border border-neutral-border bg-neutral-container text-center font-body text-xs leading-none font-medium text-accent-default transition-colors ease-in-out [&_svg]:size-xs',
           className,
         )}
         ref={ref}

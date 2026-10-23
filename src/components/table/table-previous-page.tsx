@@ -19,8 +19,9 @@ export function TablePreviousPage({ className, children, ref, ...props }: TableP
       disabled={!table.getCanPreviousPage()}
       onClick={handleClick}
       ref={ref}
-      variant="ghost"
+      variant="outline"
       tone="neutral"
+      size="iconMedium"
       {...props}
     >
       {children}

@@ -7,7 +7,7 @@ import type { MeterTrackProps } from './meter.types'
 export function MeterTrack({ className, ref, ...props }: MeterTrackProps) {
   return (
     <BaseMeter.Track
-      className={cn('w-full self-center rounded-full bg-surface-low inset-shadow-2xs', className)}
+      className={cn('w-full self-center rounded-full bg-neutral-container', className)}
       data-track
       ref={ref}
       {...props}

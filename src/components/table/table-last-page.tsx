@@ -21,8 +21,9 @@ export function TableLastPage({ className, children, ref, ...props }: TableLastP
       disabled={!table.getCanNextPage()}
       onClick={handleClick}
       ref={ref}
-      variant="ghost"
+      variant="outline"
       tone="neutral"
+      size="iconMedium"
       {...props}
     >
       {children}

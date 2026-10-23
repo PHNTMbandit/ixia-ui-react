@@ -16,9 +16,13 @@ export function Switch({ children, className, ref, ...props }: SwitchProps) {
         ref={ref}
         {...props}
       >
-        <BaseSwitch.Thumb className="size-xs translate-x-[6px] rounded-full shadow-2xs transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] data-checked:size-sm data-checked:translate-x-[26px] data-checked:scale-[1.1] data-checked:bg-accent-on-default data-unchecked:bg-accent-default" />
+        <BaseSwitch.Thumb className="size-xs translate-x-[4px] rounded-full shadow-2xs transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] data-checked:size-sm data-checked:translate-x-[20px] data-checked:scale-[1.1] data-checked:bg-accent-on-default data-unchecked:bg-accent-default" />
       </BaseSwitch.Root>
-      {children}
+      {children != undefined && (
+        <span data-slot="switch-label" className="leading-none">
+          {children}
+        </span>
+      )}
     </Label>
   )
 }

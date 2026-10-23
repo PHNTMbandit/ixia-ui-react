@@ -17,7 +17,7 @@ const calendarPanelVariants = cva('w-fit', {
     variant: {
       elevated: 'bg-surface shadow-2xs',
       ghost: 'bg-transparent',
-      outline: 'border border-border-strong',
+      outline: 'border border-border',
     },
   },
 })

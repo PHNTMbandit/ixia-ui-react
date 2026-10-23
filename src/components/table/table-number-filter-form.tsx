@@ -67,16 +67,16 @@ export function TableNumberFilterForm<TData extends RowData>({
     >
       <form.AppForm>
         {children}
-        <form.FormErrors />
-        <form.FormSet>
-          <form.FormSetContent>
+        <form.Errors />
+        <form.Set>
+          <form.SetContent>
             <form.AppField name="filterOperator">
               {(field) => (
                 <Field>
-                  <field.FieldErrors />
-                  <field.FieldRadioGroup>
+                  <field.Errors />
+                  <field.RadioGroup>
                     {numberFilterOperators.map((operator) => (
-                      <field.FieldSet key={operator}>
+                      <field.Set key={operator}>
                         <Radio value={operator} variant="inSurface">
                           {filterOperatorLabels?.[operator] ??
                             defaultFilterOperatorLabels[operator]}
@@ -86,8 +86,8 @@ export function TableNumberFilterForm<TData extends RowData>({
                             <form.AppField name="filterValueFrom">
                               {(valueField) => (
                                 <Field>
-                                  <valueField.FieldErrors />
-                                  <valueField.FieldInput
+                                  <valueField.Errors />
+                                  <valueField.Input
                                     aria-label={`${column.id} filter value`}
                                     type="number"
                                     variant="secondary"
@@ -99,8 +99,8 @@ export function TableNumberFilterForm<TData extends RowData>({
                               <form.AppField name="filterValueTo">
                                 {(valueField) => (
                                   <Field>
-                                    <valueField.FieldErrors />
-                                    <valueField.FieldInput
+                                    <valueField.Errors />
+                                    <valueField.Input
                                       aria-label={`${column.id} maximum filter value`}
                                       type="number"
                                       variant="secondary"
@@ -111,18 +111,18 @@ export function TableNumberFilterForm<TData extends RowData>({
                             )}
                           </>
                         )}
-                      </field.FieldSet>
+                      </field.Set>
                     ))}
-                  </field.FieldRadioGroup>
+                  </field.RadioGroup>
                 </Field>
               )}
             </form.AppField>
-          </form.FormSetContent>
-        </form.FormSet>
-        <form.FormFooter>
-          <form.FormReset>{buttonLabels.reset}</form.FormReset>
-          <form.FormSubmit>{buttonLabels.apply}</form.FormSubmit>
-        </form.FormFooter>
+          </form.SetContent>
+        </form.Set>
+        <form.Footer>
+          <form.Reset>{buttonLabels.reset}</form.Reset>
+          <form.Submit>{buttonLabels.apply}</form.Submit>
+        </form.Footer>
       </form.AppForm>
     </Form>
   )

@@ -22,9 +22,9 @@ const bentoBoxVariants = cva(
         true: 'p-0!',
       },
       size: {
-        large: 'gap-md rounded-3xl p-md',
-        medium: 'gap-sm rounded-2xl p-sm',
-        small: 'gap-xs rounded-xl p-xs',
+        large: 'gap-md rounded-3xl p-lg',
+        medium: 'gap-sm rounded-2xl p-md',
+        small: 'gap-xs rounded-xl p-sm',
       },
     },
   },

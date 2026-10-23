@@ -181,32 +181,42 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=tab]]:px-lg [&_[role=tab]]:pb-sm [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-lg [&_[role=tablist]]:gap-md [&_[role=tablist]]:border-b-2 **:[[role=presentation]]:bottom-[-3px] **:[[role=presentation]]:h-[2px]',
+        '[&_[role=tab]]:px-lg [&_[role=tab]]:pb-sm [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-lg [&_[role=tablist]]:gap-md [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-3px] **:[[role=presentation]]:h-[2px]',
       size: 'small',
       variant: 'underline',
     },
     {
       class:
-        '[&_[role=tab]]:px-xl [&_[role=tab]]:pb-xs [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-lg [&_[role=tablist]]:border-b-3 **:[[role=presentation]]:bottom-[-4px] **:[[role=presentation]]:h-[3px]',
+        '[&_[role=tab]]:px-xl [&_[role=tab]]:pb-xs [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-lg [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-2px] **:[[role=presentation]]:h-px',
       size: 'medium',
       variant: 'underline',
     },
     {
       class:
-        '[&_[role=tab]]:px-2xl [&_[role=tab]]:pb-2xs [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-2xl [&_[role=tablist]]:gap-xl [&_[role=tablist]]:border-b-4 **:[[role=presentation]]:bottom-[-5px] **:[[role=presentation]]:h-[4px]',
+        '[&_[role=tab]]:px-2xl [&_[role=tab]]:pb-2xs [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-2xl [&_[role=tablist]]:gap-xl [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-2px] **:[[role=presentation]]:h-px',
       size: 'large',
+      variant: 'underline',
+    },
+    {
+      class: '[&_[role=tablist]]:w-fit',
+      fill: false,
+      variant: ['default', 'ghost'],
+    },
+    {
+      class: '[&_[role=tablist]]:w-full',
+      fill: false,
       variant: 'underline',
     },
   ],
   defaultVariants: {
-    fill: true,
+    fill: false,
     size: 'medium',
     tone: 'brand',
     variant: 'default',
   },
   variants: {
     fill: {
-      false: '[&_[role=tablist]]:w-fit',
+      false: '',
       true: '[&_[role=tab]]:grow [&_[role=tablist]]:w-full',
     },
     size: {

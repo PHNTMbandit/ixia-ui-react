@@ -80,9 +80,9 @@ const colorPickerVariants = cva('flex flex-col space-y-sm', {
       },
       variants: {
         size: {
-          large: 'size-lg rounded-xl',
-          medium: 'size-md rounded-lg',
-          small: 'size-sm rounded-md',
+          large: 'size-lg rounded-lg',
+          medium: 'size-md rounded-md',
+          small: 'size-sm rounded-sm',
         },
       },
     },

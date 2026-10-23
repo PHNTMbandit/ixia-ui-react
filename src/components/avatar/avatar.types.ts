@@ -11,9 +11,9 @@ const avatarVariants = cva(
       },
       variants: {
         size: {
-          large: 'size-2xl style-text-default-1',
-          medium: 'size-xl style-text-default-0',
-          small: 'size-lg style-text-default--1',
+          large: 'size-3xl style-text-default-1',
+          medium: 'size-2xl style-text-default-0',
+          small: 'size-xl style-text-default--1',
         },
       },
     },
@@ -27,10 +27,10 @@ const avatarVariants = cva(
       },
       variants: {
         position: {
-          bottomLeft: 'bottom-0 left-0',
-          bottomRight: 'right-0 bottom-0',
-          topLeft: 'top-0 left-0',
-          topRight: 'top-0 right-0',
+          bottomLeft: 'bottom-px left-px',
+          bottomRight: 'right-px bottom-px',
+          topLeft: 'top-px left-px',
+          topRight: 'top-px right-px',
         },
         tone: {
           accent: 'bg-accent-default [&>svg]:text-accent-on-default',

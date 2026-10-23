@@ -63,18 +63,18 @@ export function TableDateFilterForm<TData extends RowData>({
     >
       <form.AppForm>
         {children}
-        <form.FormErrors />
-        <form.FormSet>
-          <form.FormSetHeading>
-            <form.FormSetContent>
+        <form.Errors />
+        <form.Set>
+          <form.SetHeading>
+            <form.SetContent>
               <Field>
                 <form.AppField name="filterOperator">
                   {(field) => (
                     <Field>
-                      <field.FieldErrors />
-                      <field.FieldRadioGroup>
+                      <field.Errors />
+                      <field.RadioGroup>
                         {dateFilterOperators.map((operator) => (
-                          <field.FieldSet key={operator}>
+                          <field.Set key={operator}>
                             <Radio value={operator} variant="inSurface">
                               {filterOperatorLabels?.[operator] ??
                                 defaultFilterOperatorLabels[operator]}
@@ -84,8 +84,8 @@ export function TableDateFilterForm<TData extends RowData>({
                                 <form.AppField name="filterValueFrom">
                                   {(valueField) => (
                                     <Field>
-                                      <valueField.FieldErrors />
-                                      <valueField.FieldInput type="date" variant="secondary" />
+                                      <valueField.Errors />
+                                      <valueField.Input type="date" variant="secondary" />
                                     </Field>
                                   )}
                                 </form.AppField>
@@ -93,28 +93,28 @@ export function TableDateFilterForm<TData extends RowData>({
                                   <form.AppField name="filterValueTo">
                                     {(valueField) => (
                                       <Field>
-                                        <valueField.FieldErrors />
-                                        <valueField.FieldInput type="date" variant="secondary" />
+                                        <valueField.Errors />
+                                        <valueField.Input type="date" variant="secondary" />
                                       </Field>
                                     )}
                                   </form.AppField>
                                 )}
                               </>
                             )}
-                          </field.FieldSet>
+                          </field.Set>
                         ))}
-                      </field.FieldRadioGroup>
+                      </field.RadioGroup>
                     </Field>
                   )}
                 </form.AppField>
               </Field>
-            </form.FormSetContent>
-          </form.FormSetHeading>
-        </form.FormSet>
-        <form.FormFooter>
-          <form.FormReset>{buttonLabels.reset}</form.FormReset>
-          <form.FormSubmit>{buttonLabels.apply}</form.FormSubmit>
-        </form.FormFooter>
+            </form.SetContent>
+          </form.SetHeading>
+        </form.Set>
+        <form.Footer>
+          <form.Reset>{buttonLabels.reset}</form.Reset>
+          <form.Submit>{buttonLabels.apply}</form.Submit>
+        </form.Footer>
       </form.AppForm>
     </Form>
   )

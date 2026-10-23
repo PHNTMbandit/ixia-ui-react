@@ -84,7 +84,7 @@ export function ColorPickerInput({
           style={{
             backgroundColor: color.hex(),
           }}
-          className="aspect-square size-md rounded-lg"
+          className="aspect-square size-md rounded-md"
         />
       )}
       <InputGroupInput

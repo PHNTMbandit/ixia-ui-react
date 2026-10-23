@@ -55,7 +55,7 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'border-neutral-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
+          'border-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
@@ -256,9 +256,9 @@ export const buttonVariants = cva(
         iconLarge: 'size-2xl p-[0px] [&>svg]:size-md',
         iconMedium: 'size-xl p-[0px] [&>svg]:size-sm',
         iconSmall: 'size-lg p-[0px] [&>svg]:size-xs',
-        large: 'h-2xl gap-xs px-md style-text-default-2 [&>svg]:size-md',
-        medium: 'h-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-sm',
-        small: 'h-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-xs',
+        large: 'h-2xl min-w-2xl gap-xs px-md style-text-default-1 [&>svg]:size-md',
+        medium: 'h-xl min-w-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-sm',
+        small: 'h-lg min-w-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-xs',
       },
       tone: {
         accent: '',
@@ -271,11 +271,11 @@ export const buttonVariants = cva(
       },
       variant: {
         elevated: 'shadow-xs not-active:hover:shadow-md',
-        fill: 'active:scale-[0.98]',
-        ghost: 'active:scale-[0.98]',
+        fill: 'active:scale-90',
+        ghost: 'active:scale-90',
         link: 'size-fit! p-0! underline decoration-transparent underline-offset-2 [&>svg]:transition-colors',
-        outline: 'border active:scale-[0.98]',
-        soft: 'border active:scale-[0.98]',
+        outline: 'border active:scale-90',
+        soft: 'border active:scale-90',
       },
     },
   },

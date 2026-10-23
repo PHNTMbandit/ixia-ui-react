@@ -42,6 +42,7 @@ import {
 import type { TableColumnMeta, TableMeta } from './table.types'
 import {
   dateFilterFn,
+  datasetPlugin,
   numberFilterFn,
   selectFilterFn,
   stringFilterFn,
@@ -54,6 +55,7 @@ const features = tableFeatures({
     columnMeta: metaHelper<TableColumnMeta>(),
     columnSizingFeature,
     columnVisibilityFeature,
+    datasetPlugin,
     facetedRowModel: createFacetedRowModel(),
     facetedUniqueValues: createFacetedUniqueValues(),
     filterFns: {

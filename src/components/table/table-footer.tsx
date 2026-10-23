@@ -9,7 +9,11 @@ export function TableFooter({ className, children, ref, ...props }: TableFooterP
   const table = useTableContext() as ReturnType<typeof useRegisteredTableContext>
 
   return (
-    <tfoot className={cn('', className)} ref={ref} {...props}>
+    <tfoot
+      className={cn('border-t border-border bg-neutral-container-low', className)}
+      ref={ref}
+      {...props}
+    >
       {children}
       {table.getFooterGroups().map((footerGroup) => (
         <tr key={footerGroup.id}>
@@ -21,6 +25,7 @@ export function TableFooter({ className, children, ref, ...props }: TableFooterP
                   style={{
                     width: footer.getSize(),
                   }}
+                  className="p-xs"
                   colSpan={footer.colSpan}
                 >
                   <table.FlexRender footer={footer} />

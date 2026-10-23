@@ -28,19 +28,19 @@ const navBarVariants = cva('flex h-fit items-center justify-between', {
       },
       {
         className:
-          '[&_[data-nav-bar-item]]:size-xl [&_[data-nav-bar-item]]:gap-3xs [&_[data-nav-bar-item]]:rounded-xl',
+          '[&_[data-nav-bar-item]]:max-w-2xl [&_[data-nav-bar-item]]:gap-3xs [&_[data-nav-bar-item]]:rounded-xl [&_[data-nav-bar-item]]:p-[min(var(--spacing-2xs),25%)]',
         itemOrientation: 'vertical',
         size: 'small',
       },
       {
         className:
-          '[&_[data-nav-bar-item]]:size-2xl [&_[data-nav-bar-item]]:gap-3xs [&_[data-nav-bar-item]]:rounded-2xl',
+          '[&_[data-nav-bar-item]]:max-w-3xl [&_[data-nav-bar-item]]:gap-3xs [&_[data-nav-bar-item]]:rounded-2xl [&_[data-nav-bar-item]]:p-[min(var(--spacing-sm),25%)]',
         itemOrientation: 'vertical',
         size: 'medium',
       },
       {
         className:
-          '[&_[data-nav-bar-item]]:size-3xl [&_[data-nav-bar-item]]:gap-2xs [&_[data-nav-bar-item]]:rounded-3xl',
+          '[&_[data-nav-bar-item]]:gap-2xs [&_[data-nav-bar-item]]:rounded-3xl [&_[data-nav-bar-item]]:p-[min(var(--spacing-md),25%)]',
         itemOrientation: 'vertical',
         size: 'large',
       },
@@ -71,7 +71,8 @@ const navBarVariants = cva('flex h-fit items-center justify-between', {
     variants: {
       itemOrientation: {
         horizontal: '[&_[data-nav-bar-item]]:flex-row',
-        vertical: '[&_[data-nav-bar-item]]:flex-col',
+        vertical:
+          'grid auto-cols-fr grid-flow-col items-start justify-items-center [&_[data-nav-bar-item]]:min-h-0 [&_[data-nav-bar-item]]:w-full [&_[data-nav-bar-item]]:min-w-0 [&_[data-nav-bar-item]]:flex-col [&_[data-nav-bar-item]]:overflow-hidden [&_[data-nav-bar-item]_span]:max-w-full [&_[data-nav-bar-item]_span]:truncate',
       },
       size: {
         large: 'gap-sm p-md [&_span]:style-text-default-0 [&_svg]:size-lg',

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { Switch } from './switch'
 
@@ -61,6 +62,27 @@ export default {
 type Story = StoryObj<typeof Switch>
 
 export const Playground: Story = {
+  play: async ({ canvas, userEvent }) => {
+    const control = canvas.getByRole('switch', { name: 'Switch label' }),
+      label = canvas.getByText('Switch label'),
+      labelBounds = label.getBoundingClientRect(),
+      controlBounds = control.getBoundingClientRect(),
+      styles = getComputedStyle(label)
+
+    await expect(Number.parseFloat(styles.lineHeight)).toBeCloseTo(
+      Number.parseFloat(styles.fontSize),
+      1,
+    )
+    await expect(labelBounds.y + labelBounds.height / 2).toBeCloseTo(
+      controlBounds.y + controlBounds.height / 2,
+      1,
+    )
+    await expect(control).not.toBeChecked()
+    await userEvent.click(label)
+    await expect(control).toBeChecked()
+    await userEvent.click(label)
+    await expect(control).not.toBeChecked()
+  },
   render: (args) => <Switch {...args}>Switch label</Switch>,
 }
 

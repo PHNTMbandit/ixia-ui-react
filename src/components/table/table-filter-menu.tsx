@@ -32,7 +32,7 @@ export function TableFilterMenu({ className, ref, ...props }: TableFilterMenuPro
 
             return (
               <Popover key={column.id}>
-                <PopoverTrigger nativeButton={false}>
+                <PopoverTrigger nativeButton>
                   <MenuItem closeOnClick={false}>{getColumnHeaderLabel(column)}</MenuItem>
                 </PopoverTrigger>
                 <PopoverPanel

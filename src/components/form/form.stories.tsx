@@ -73,26 +73,26 @@ export const CustomErrors: Story = {
     return (
       <Form action={() => form.handleSubmit()} className="w-[400px]">
         <form.AppForm>
-          <form.FormErrors>Form Errors</form.FormErrors>
+          <form.Errors>Form Errors</form.Errors>
           <form.AppField name="username">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Username" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Username" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
           <form.AppField name="email">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Email" type="email" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Email" type="email" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -139,45 +139,45 @@ export const FieldInput: Story = {
     return (
       <Form action={() => form.handleSubmit()} className="w-[400px]">
         <form.AppForm>
-          <form.FormErrors />
-          <form.FormSet>
-            <form.FormSetHeading>Personal Information</form.FormSetHeading>
-            <form.FormSetContent>
+          <form.Errors />
+          <form.Set>
+            <form.SetHeading>Personal Information</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="firstName">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldLabel showRequired />
-                    <field.FieldInput required placeholder="First Name" />
-                    <field.FieldErrors />
-                    <field.FieldDescription>Please enter your first name.</field.FieldDescription>
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Label showRequired />
+                    <field.Input required placeholder="First Name" />
+                    <field.Errors />
+                    <field.Description>Please enter your first name.</field.Description>
+                  </field.Set>
                 )}
               </form.AppField>
               <form.AppField name="lastName">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldLabel showRequired />
-                    <field.FieldInput placeholder="Last Name" />
-                    <field.FieldErrors />
-                    <field.FieldDescription>Please enter your last name.</field.FieldDescription>
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Label showRequired />
+                    <field.Input placeholder="Last Name" />
+                    <field.Errors />
+                    <field.Description>Please enter your last name.</field.Description>
+                  </field.Set>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormSet>
-            <form.FormSetHeading>Account Information</form.FormSetHeading>
-            <form.FormSetContent>
+            </form.SetContent>
+          </form.Set>
+          <form.Set>
+            <form.SetHeading>Account Information</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="password">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldLabel />
-                    <field.FieldInput placeholder="Password" type="password" />
-                    <field.FieldErrors />
-                    <field.FieldDescription>
+                  <field.Set>
+                    <field.Label />
+                    <field.Input placeholder="Password" type="password" />
+                    <field.Errors />
+                    <field.Description>
                       Your password must be at least 6 characters.
-                    </field.FieldDescription>
-                  </field.FieldSet>
+                    </field.Description>
+                  </field.Set>
                 )}
               </form.AppField>
               <form.AppField
@@ -193,22 +193,22 @@ export const FieldInput: Story = {
                 }}
               >
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldLabel />
-                    <field.FieldInput placeholder="Confirm Password" type="password" />
-                    <field.FieldErrors />
-                    <field.FieldDescription>Please confirm your password.</field.FieldDescription>
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Label />
+                    <field.Input placeholder="Confirm Password" type="password" />
+                    <field.Errors />
+                    <field.Description>Please confirm your password.</field.Description>
+                  </field.Set>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormFooter>
-            <form.FormReset tone="error" variant="ghost">
+            </form.SetContent>
+          </form.Set>
+          <form.Footer>
+            <form.Reset tone="error" variant="ghost">
               Reset
-            </form.FormReset>
-            <form.FormSubmit>Submit</form.FormSubmit>
-          </form.FormFooter>
+            </form.Reset>
+            <form.Submit>Submit</form.Submit>
+          </form.Footer>
         </form.AppForm>
       </Form>
     )
@@ -232,20 +232,24 @@ export const FieldCheckboxGroup: Story = {
           <form.AppField name="notifications">
             {(field) => (
               <Field>
-                <field.FieldLabel>Notification preferences</field.FieldLabel>
+                <field.Label>Notification preferences</field.Label>
                 <CheckboxGroup onValueChange={field.handleChange} value={field.state.value}>
-                  <Checkbox id="form-comments" label="Comments" value="comments" />
-                  <Checkbox id="form-mentions" label="Mentions" value="mentions" />
-                  <Checkbox id="form-announcements" label="Announcements" value="announcements" />
+                  <Checkbox id="form-comments" value="comments">
+                    Comments
+                  </Checkbox>
+                  <Checkbox id="form-mentions" value="mentions">
+                    Mentions
+                  </Checkbox>
+                  <Checkbox id="form-announcements" value="announcements">
+                    Announcements
+                  </Checkbox>
                 </CheckboxGroup>
-                <field.FieldErrors />
-                <field.FieldDescription>
-                  Select the updates you want to receive.
-                </field.FieldDescription>
+                <field.Errors />
+                <field.Description>Select the updates you want to receive.</field.Description>
               </Field>
             )}
           </form.AppField>
-          <form.FormSubmit>Save preferences</form.FormSubmit>
+          <form.Submit>Save preferences</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -292,46 +296,46 @@ export const Compact: Story = {
     return (
       <Form action={() => form.handleSubmit()} className="w-[400px]">
         <form.AppForm>
-          <form.FormErrors />
-          <form.FormSet>
-            <form.FormSetHeading>Personal Information</form.FormSetHeading>
-            <form.FormSetContent>
+          <form.Errors />
+          <form.Set>
+            <form.SetHeading>Personal Information</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="firstName">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldRow>
-                      <field.FieldLabel variant="secondary" />
-                      <field.FieldInput placeholder="First Name" />
-                    </field.FieldRow>
-                    <field.FieldErrors />
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Row>
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="First Name" />
+                    </field.Row>
+                    <field.Errors />
+                  </field.Set>
                 )}
               </form.AppField>
               <form.AppField name="lastName">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldRow>
-                      <field.FieldLabel variant="secondary" />
-                      <field.FieldInput placeholder="Last Name" />
-                    </field.FieldRow>
-                    <field.FieldErrors />
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Row>
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Last Name" />
+                    </field.Row>
+                    <field.Errors />
+                  </field.Set>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormSet>
-            <form.FormSetHeading>Account Information</form.FormSetHeading>
-            <form.FormSetContent>
+            </form.SetContent>
+          </form.Set>
+          <form.Set>
+            <form.SetHeading>Account Information</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="password">
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldRow>
-                      <field.FieldLabel variant="secondary" />
-                      <field.FieldInput placeholder="Password" type="password" />
-                    </field.FieldRow>
-                    <field.FieldErrors />
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Row>
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Password" type="password" />
+                    </field.Row>
+                    <field.Errors />
+                  </field.Set>
                 )}
               </form.AppField>
               <form.AppField
@@ -347,23 +351,23 @@ export const Compact: Story = {
                 }}
               >
                 {(field) => (
-                  <field.FieldSet>
-                    <field.FieldRow>
-                      <field.FieldLabel variant="secondary" />
-                      <field.FieldInput placeholder="Confirm Password" type="password" />
-                    </field.FieldRow>
-                    <field.FieldErrors />
-                  </field.FieldSet>
+                  <field.Set>
+                    <field.Row>
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Confirm Password" type="password" />
+                    </field.Row>
+                    <field.Errors />
+                  </field.Set>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormFooter>
-            <form.FormReset tone="error" variant="ghost">
+            </form.SetContent>
+          </form.Set>
+          <form.Footer>
+            <form.Reset tone="error" variant="ghost">
               Reset
-            </form.FormReset>
-            <form.FormSubmit>Submit</form.FormSubmit>
-          </form.FormFooter>
+            </form.Reset>
+            <form.Submit>Submit</form.Submit>
+          </form.Footer>
         </form.AppForm>
       </Form>
     )
@@ -410,51 +414,49 @@ export const FieldInputGroup: Story = {
     return (
       <Form action={() => form.handleSubmit()}>
         <form.AppForm>
-          <form.FormErrors />
+          <form.Errors />
           <form.AppField name="firstName">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInputGroup>
+                <field.Label />
+                <field.InputGroup>
                   <InputGroupAddon>
                     <UserIcon weight="bold" />
                   </InputGroupAddon>
-                  <field.FieldInputGroupInput placeholder="First Name" />
-                </field.FieldInputGroup>
-                <field.FieldErrors />
-                <field.FieldDescription>Please enter your first name.</field.FieldDescription>
+                  <field.InputGroupInput placeholder="First Name" />
+                </field.InputGroup>
+                <field.Errors />
+                <field.Description>Please enter your first name.</field.Description>
               </Field>
             )}
           </form.AppField>
           <form.AppField name="lastName">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInputGroup>
+                <field.Label />
+                <field.InputGroup>
                   <InputGroupAddon>
                     <UserIcon weight="bold" />
                   </InputGroupAddon>
-                  <field.FieldInputGroupInput placeholder="Last Name" />
-                </field.FieldInputGroup>
-                <field.FieldErrors />
-                <field.FieldDescription>Please enter your last name.</field.FieldDescription>
+                  <field.InputGroupInput placeholder="Last Name" />
+                </field.InputGroup>
+                <field.Errors />
+                <field.Description>Please enter your last name.</field.Description>
               </Field>
             )}
           </form.AppField>
           <form.AppField name="password">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInputGroup>
+                <field.Label />
+                <field.InputGroup>
                   <InputGroupAddon>
                     <PasswordIcon weight="bold" />
                   </InputGroupAddon>
-                  <field.FieldInputGroupInput placeholder="Password" type="password" />
-                </field.FieldInputGroup>
-                <field.FieldErrors />
-                <field.FieldDescription>
-                  Your password must be at least 6 characters.
-                </field.FieldDescription>
+                  <field.InputGroupInput placeholder="Password" type="password" />
+                </field.InputGroup>
+                <field.Errors />
+                <field.Description>Your password must be at least 6 characters.</field.Description>
               </Field>
             )}
           </form.AppField>
@@ -472,22 +474,22 @@ export const FieldInputGroup: Story = {
           >
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInputGroup>
+                <field.Label />
+                <field.InputGroup>
                   <InputGroupAddon>
                     <PasswordIcon weight="bold" />
                   </InputGroupAddon>
-                  <field.FieldInputGroupInput placeholder="Confirm Password" type="password" />
-                </field.FieldInputGroup>
-                <field.FieldErrors />
-                <field.FieldDescription>Please confirm your password.</field.FieldDescription>
+                  <field.InputGroupInput placeholder="Confirm Password" type="password" />
+                </field.InputGroup>
+                <field.Errors />
+                <field.Description>Please confirm your password.</field.Description>
               </Field>
             )}
           </form.AppField>
-          <form.FormReset tone="error" variant="ghost">
+          <form.Reset tone="error" variant="ghost">
             Reset
-          </form.FormReset>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          </form.Reset>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -508,17 +510,17 @@ export const FieldSlider: Story = {
           <form.AppField name="volume">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldSlider min={0} max={100} />
-                <field.FieldErrors />
-                <field.FieldDescription>Adjust the volume level.</field.FieldDescription>
+                <field.Label />
+                <field.Slider min={0} max={100} />
+                <field.Errors />
+                <field.Description>Adjust the volume level.</field.Description>
               </Field>
             )}
           </form.AppField>
-          <form.FormReset tone="error" variant="ghost">
+          <form.Reset tone="error" variant="ghost">
             Reset
-          </form.FormReset>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          </form.Reset>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -552,8 +554,8 @@ export const FieldSelect: Story = {
           <form.AppField name="country">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldSelect items={items}>
+                <field.Label />
+                <field.Select items={items}>
                   <SelectTrigger aria-label={field.name}>
                     <SelectValue />
                     <SelectIcon>
@@ -571,16 +573,16 @@ export const FieldSelect: Story = {
                       </SelectGroup>
                     </SelectList>
                   </SelectPopup>
-                </field.FieldSelect>
-                <field.FieldErrors />
-                <field.FieldDescription>Select your country.</field.FieldDescription>
+                </field.Select>
+                <field.Errors />
+                <field.Description>Select your country.</field.Description>
               </Field>
             )}
           </form.AppField>
-          <form.FormReset tone="error" variant="ghost">
+          <form.Reset tone="error" variant="ghost">
             Reset
-          </form.FormReset>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          </form.Reset>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -623,40 +625,34 @@ export const WorkspaceConfiguration: Story = {
     return (
       <Form action={() => form.handleSubmit()} className="w-[600px]">
         <form.AppForm>
-          <form.FormErrors>
-            Please correct the errors in the form before submitting.
-          </form.FormErrors>
-          <form.FormSet>
-            <form.FormSetHeading>Workspace details</form.FormSetHeading>
-            <form.FormSetContent>
+          <form.Errors>Please correct the errors in the form before submitting.</form.Errors>
+          <form.Set>
+            <form.SetHeading>Workspace details</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="workspaceName">
                 {(field) => (
                   <Field>
-                    <field.FieldLabel showRequired />
-                    <field.FieldInput placeholder="e.g. City Operations" />
-                    <field.FieldErrors />
-                    <field.FieldDescription>
-                      Choose a name your team will recognize.
-                    </field.FieldDescription>
+                    <field.Label showRequired />
+                    <field.Input placeholder="e.g. City Operations" />
+                    <field.Errors />
+                    <field.Description>Choose a name your team will recognize.</field.Description>
                   </Field>
                 )}
               </form.AppField>
               <form.AppField name="description">
                 {(field) => (
                   <Field>
-                    <field.FieldLabel />
-                    <field.FieldTextArea placeholder="What is this workspace used for?" rows={3} />
-                    <field.FieldDescription>
-                      Add context for other workspace members.
-                    </field.FieldDescription>
+                    <field.Label />
+                    <field.TextArea placeholder="What is this workspace used for?" rows={3} />
+                    <field.Description>Add context for other workspace members.</field.Description>
                   </Field>
                 )}
               </form.AppField>
               <form.AppField name="region">
                 {(field) => (
                   <Field>
-                    <field.FieldLabel />
-                    <field.FieldSelect items={regions}>
+                    <field.Label />
+                    <field.Select items={regions}>
                       <SelectTrigger aria-label="Region">
                         <SelectValue />
                         <SelectIcon>
@@ -674,46 +670,44 @@ export const WorkspaceConfiguration: Story = {
                           </SelectGroup>
                         </SelectList>
                       </SelectPopup>
-                    </field.FieldSelect>
-                    <field.FieldDescription>
+                    </field.Select>
+                    <field.Description>
                       Sets the default region for workspace data.
-                    </field.FieldDescription>
+                    </field.Description>
                   </Field>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormSet>
-            <form.FormSetHeading>Access and preferences</form.FormSetHeading>
-            <form.FormSetContent>
+            </form.SetContent>
+          </form.Set>
+          <form.Set>
+            <form.SetHeading>Access and preferences</form.SetHeading>
+            <form.SetContent>
               <form.AppField name="visibility">
                 {(field) => (
                   <Field>
-                    <field.FieldLabel>Workspace visibility</field.FieldLabel>
-                    <field.FieldRadioGroup aria-label="Workspace visibility">
+                    <field.Label>Workspace visibility</field.Label>
+                    <field.RadioGroup aria-label="Workspace visibility">
                       <RadioGroup.Radio value="private">Private</RadioGroup.Radio>
                       <RadioGroup.Radio value="organization">Organization</RadioGroup.Radio>
-                    </field.FieldRadioGroup>
-                    <field.FieldDescription>
-                      Choose who can discover this workspace.
-                    </field.FieldDescription>
+                    </field.RadioGroup>
+                    <field.Description>Choose who can discover this workspace.</field.Description>
                   </Field>
                 )}
               </form.AppField>
               <form.AppField name="emailUpdates">
                 {(field) => (
                   <Field>
-                    <field.FieldCheckbox label="Send me workspace updates by email" />
-                    <field.FieldDescription>
+                    <field.Checkbox>Send me workspace updates by email</field.Checkbox>
+                    <field.Description>
                       Receive important changes and activity summaries.
-                    </field.FieldDescription>
+                    </field.Description>
                   </Field>
                 )}
               </form.AppField>
               <form.AppField name="mapOpacity">
                 {(field) => (
                   <Field>
-                    <field.FieldLabel />
+                    <field.Label />
                     <SliderGroup
                       value={field.state.value}
                       onValueChange={(value) => field.handleChange(value[0] ?? field.state.value)}
@@ -726,20 +720,18 @@ export const WorkspaceConfiguration: Story = {
                       />
                       <SliderGroup.Input aria-label="Map opacity percentage" size="small" />
                     </SliderGroup>
-                    <field.FieldDescription>
-                      Set the default map overlay opacity.
-                    </field.FieldDescription>
+                    <field.Description>Set the default map overlay opacity.</field.Description>
                   </Field>
                 )}
               </form.AppField>
-            </form.FormSetContent>
-          </form.FormSet>
-          <form.FormFooter>
-            <form.FormReset tone="error" variant="ghost">
+            </form.SetContent>
+          </form.Set>
+          <form.Footer>
+            <form.Reset tone="error" variant="ghost">
               Reset
-            </form.FormReset>
-            <form.FormSubmit>Save workspace</form.FormSubmit>
-          </form.FormFooter>
+            </form.Reset>
+            <form.Submit>Save workspace</form.Submit>
+          </form.Footer>
         </form.AppForm>
       </Form>
     )
@@ -791,15 +783,15 @@ export const SubmitError: Story = {
     return (
       <Form action={() => form.handleSubmit()}>
         <form.AppForm>
-          <form.FormErrors>
+          <form.Errors>
             <AlertTitle>There were some problems with your submission</AlertTitle>
-          </form.FormErrors>
+          </form.Errors>
           <form.AppField name="username">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Username" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Username" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
@@ -807,16 +799,16 @@ export const SubmitError: Story = {
           <form.AppField name="password">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Password" type="password" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Password" type="password" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
-          <form.FormReset tone="error" variant="ghost">
+          <form.Reset tone="error" variant="ghost">
             Reset
-          </form.FormReset>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          </form.Reset>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )
@@ -889,28 +881,28 @@ export const SubmitHandlerError: Story = {
     return (
       <Form action={() => form.handleSubmit()}>
         <form.AppForm>
-          <form.FormErrors>
+          <form.Errors>
             <AlertTitle>There were some problems with your submission</AlertTitle>
-          </form.FormErrors>
+          </form.Errors>
           <form.AppField name="username">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Username" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Username" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
           <form.AppField name="password">
             {(field) => (
               <Field>
-                <field.FieldLabel />
-                <field.FieldInput placeholder="Password" type="password" />
-                <field.FieldErrors />
+                <field.Label />
+                <field.Input placeholder="Password" type="password" />
+                <field.Errors />
               </Field>
             )}
           </form.AppField>
-          <form.FormSubmit>Submit</form.FormSubmit>
+          <form.Submit>Submit</form.Submit>
         </form.AppForm>
       </Form>
     )

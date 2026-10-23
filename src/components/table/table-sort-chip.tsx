@@ -17,27 +17,36 @@ export function TableSortChip<TData extends RowData>({
   ...props
 }: TableSortChipProps<TData>) {
   const table = useTableContext(),
-    columnSort = column.getIsSorted(),
     buttonLabels = table.options.meta?.translations?.buttonLabels ?? {},
     ascendingLabel = buttonLabels.ascending ?? 'Ascending',
     descendingLabel = buttonLabels.descending ?? 'Descending'
 
-  if (!columnSort) {
-    return undefined
-  }
-
   return (
-    <TableSortMenu className={cn('', className)} ref={ref} {...props}>
-      <Button tone="neutral" size="extraSmall" variant="soft">
-        {columnSort === 'asc' && <SortDescendingIcon />}
-        {columnSort === 'desc' && <SortAscendingIcon />}
-        <span>{getColumnHeaderLabel(column)}</span>
-        <span className="font-light lowercase">
-          {columnSort === 'asc' && ascendingLabel}
-          {columnSort === 'desc' && descendingLabel}
-        </span>
-        {children}
-      </Button>
-    </TableSortMenu>
+    <table.Subscribe selector={(state) => state.sorting}>
+      {() => {
+        const columnSort = column.getIsSorted()
+
+        console.log(columnSort)
+
+        if (!columnSort) {
+          return undefined
+        }
+
+        return (
+          <TableSortMenu className={cn('', className)} ref={ref} {...props}>
+            <Button size="extraSmall" variant="soft">
+              {columnSort === 'asc' && <SortDescendingIcon />}
+              {columnSort === 'desc' && <SortAscendingIcon />}
+              <span>{getColumnHeaderLabel(column)}</span>
+              <span className="font-light lowercase">
+                {columnSort === 'asc' && ascendingLabel}
+                {columnSort === 'desc' && descendingLabel}
+              </span>
+              {children}
+            </Button>
+          </TableSortMenu>
+        )
+      }}
+    </table.Subscribe>
   )
 }

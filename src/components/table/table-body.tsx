@@ -4,13 +4,6 @@ import type { useTableContext as useRegisteredTableContext } from './table-conte
 import { useTableContext } from './table-feature-context'
 import type { TableBodyProps } from './table.types'
 
-function getRowBackgroundColor(isSelected: boolean): string {
-  if (isSelected) {
-    return 'var(--color-neutral-container-high)'
-  }
-  return 'transparent'
-}
-
 export function TableBody({ showDivider = true, className, ref, ...props }: TableBodyProps) {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   const table = useTableContext() as ReturnType<typeof useRegisteredTableContext>
@@ -22,7 +15,7 @@ export function TableBody({ showDivider = true, className, ref, ...props }: Tabl
           return (
             <ul
               className={cn(
-                'grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(252px,1fr))] gap-sm overflow-y-auto',
+                'grid auto-rows-fr grid-cols-[repeat(auto-fill,minmax(252px,1fr))] gap-sm overflow-y-auto border-border group-data-[variant=outline]/table:border-y group-data-[variant=outline]/table:p-md',
                 className,
               )}
             >
@@ -44,17 +37,16 @@ export function TableBody({ showDivider = true, className, ref, ...props }: Tabl
         }
         return (
           <tbody
-            className={cn(showDivider && 'divide-y divide-border', 'overflow-y-auto', className)}
+            className={cn(
+              showDivider && 'divide-y divide-border',
+              'overflow-y-auto border-border group-data-[variant=outline]/table:last:border-b',
+              className,
+            )}
             ref={ref}
             {...props}
           >
             {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                style={{
-                  backgroundColor: getRowBackgroundColor(row.getIsSelected()),
-                }}
-              >
+              <tr key={row.id} className={cn(row.getIsSelected() && 'bg-neutral-container-low')}>
                 {row.getVisibleCells().map((cell) => (
                   <table.AppCell cell={cell} key={cell.id}>
                     {(renderedCell) => (
@@ -63,7 +55,7 @@ export function TableBody({ showDivider = true, className, ref, ...props }: Tabl
                         style={{
                           width: renderedCell.column.getSize(),
                         }}
-                        className={cn('h-xl px-xs first:rounded-l-xl last:rounded-r-xl', className)}
+                        className={cn('h-2xl p-xs', className)}
                       >
                         <table.FlexRender cell={renderedCell} />
                       </td>

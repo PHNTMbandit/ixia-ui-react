@@ -15,7 +15,7 @@ type MenuSubmenuProps = React.ComponentProps<typeof BaseMenu.SubmenuRoot>
 type MenuShortcutProps = React.ComponentProps<'div'>
 
 const menuItemVariants = cva(
-    'relative z-0 flex h-lg cursor-default items-center px-xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
+    'relative z-0 flex cursor-default items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
     {
       defaultVariants: {
         tone: 'neutral',
@@ -40,7 +40,7 @@ const menuItemVariants = cva(
     },
   ),
   menuSubmenuTriggerVariants = cva(
-    'relative z-0 grid h-lg cursor-default grid-cols-[1fr_2rem] items-center px-xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
+    'relative z-0 grid cursor-default grid-cols-[1fr_2rem] items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
     {
       defaultVariants: {
         tone: 'neutral',

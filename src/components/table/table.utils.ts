@@ -4,7 +4,7 @@ import {
   makeStateUpdater,
   assignTableAPIs,
 } from '@tanstack/react-table'
-import type { OnChangeFn, TableFeature, Updater } from '@tanstack/react-table'
+import type { OnChangeFn, RowData, TableFeature, Updater } from '@tanstack/react-table'
 
 import type {
   DateFilterOperator,
@@ -12,6 +12,7 @@ import type {
   StringFilterOperator,
   TableSelectFilterOption,
   TableSelectFilterValue,
+  TableDataset,
   ViewMode,
 } from './table.types'
 
@@ -54,6 +55,23 @@ interface TableOptions_ViewMode {
 interface Table_ViewMode {
   setViewMode: (updater: Updater<ViewMode>) => void
   toggleViewMode: (value?: ViewMode) => void
+}
+
+// The TanStack state feature map is not generic over row data.
+// oxlint-disable-next-line typescript/no-explicit-any
+type TableDatasetStateValue = TableDataset<any>
+
+interface TableState_Dataset {
+  datasets: TableDatasetStateValue[]
+  currentDataset: TableDatasetStateValue
+}
+
+interface TableOptions_Dataset {
+  onCurrentDatasetChange?: OnChangeFn<TableDataset<RowData>>
+}
+
+interface Table_Dataset<TData extends RowData> {
+  setCurrentDataset: (updater: Updater<TableDataset<TData>>) => void
 }
 
 function getColumnHeaderLabel(column: { id: string; columnDef: { header?: unknown } }): string {
@@ -239,6 +257,31 @@ const ZERO = 0,
       return { from, operator: value.operator, to }
     },
   }),
+  datasetPlugin: TableFeature = {
+    constructTableAPIs: (table) => {
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      const options = table.options as TableOptions_Dataset
+      assignTableAPIs('datasetPlugin', table, {
+        table_setCurrentDataset: {
+          fn: (updater: Updater<TableDatasetStateValue>) => {
+            const safeUpdater: Updater<TableDatasetStateValue> = (old) =>
+              functionalUpdate(updater, old)
+            return options.onCurrentDatasetChange?.(safeUpdater)
+          },
+        },
+      })
+    },
+
+    getDefaultTableOptions: (table) => ({
+      onCurrentDatasetChange: makeStateUpdater('currentDataset', table),
+    }),
+
+    getInitialState: (initialState) => ({
+      currentDataset: { data: [], id: '', name: '' },
+      datasets: [],
+      ...initialState,
+    }),
+  },
   viewModePlugin: TableFeature = {
     constructTableAPIs: (table) => {
       // oxlint-disable-next-line typescript/no-unsafe-type-assertion
@@ -284,6 +327,7 @@ const ZERO = 0,
 export {
   asFilterValue,
   dateFilterFn,
+  datasetPlugin,
   getColumnHeaderLabel,
   numberFilterFn,
   selectFilterFn,
@@ -292,6 +336,9 @@ export {
   type DateFilterValue,
   type NumberFilterValue,
   type StringFilterValue,
+  type Table_Dataset,
+  type TableOptions_Dataset,
+  type TableState_Dataset,
   type TableOptions_ViewMode,
   type TableState_ViewMode,
   type Table_ViewMode,

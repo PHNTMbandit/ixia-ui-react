@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
 
 export const badgeVariants = cva(
-  'inline-flex h-md items-center justify-center gap-3xs rounded-full style-text-default--2 whitespace-nowrap transition-all select-none',
+  'inline-flex h-md items-center justify-center gap-3xs rounded-full font-body text-xs leading-none font-medium whitespace-nowrap transition-all select-none [&>svg]:shrink-0',
   {
     compoundVariants: [
       {
@@ -122,9 +122,9 @@ export const badgeVariants = cva(
         iconLarge: 'size-lg [&>svg]:size-sm',
         iconMedium: 'size-md [&>svg]:size-xs',
         iconSmall: 'size-sm [&>svg]:size-2xs',
-        large: 'h-lg px-xs [&>svg]:size-sm',
-        medium: 'h-md px-xs [&>svg]:size-xs',
-        small: 'h-sm px-xs [&>svg]:size-2xs',
+        large: 'h-lg px-xs [&>svg]:size-[1em]',
+        medium: 'h-md px-xs [&>svg]:size-[1em]',
+        small: 'h-sm px-xs [&>svg]:size-[1em]',
       },
       tone: {
         accent: '',
