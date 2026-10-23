@@ -69,7 +69,7 @@ export function InputGroupInput({
 
     return (
       <button
-        aria-label="Open color picker"
+        aria-label={`${colorValue}, open color picker`}
         className={cn(
           'relative flex size-full items-center justify-start hover:cursor-pointer',
           className,
@@ -101,7 +101,7 @@ export function InputGroupInput({
           className={cn(
             'text-left',
             size === 'small' && 'pr-xs pl-lg style-text-default--1',
-            size === 'medium' && 'pl-[calc(var(--dawn-spacing-lg)+6px)] style-text-default-0',
+            size === 'medium' && 'pl-[calc(var(--ixia-spacing-lg)+6px)] style-text-default-0',
             size === 'large' && 'pl-2xl style-text-default-1',
           )}
         >

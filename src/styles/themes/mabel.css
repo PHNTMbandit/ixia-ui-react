@@ -1,0 +1,59 @@
+/* Ixia 'Mabel' brand theme: cerise-rose brand, jade accent. Import after input.css, then set data-brand='mabel' on <html> or any subtree. */
+:root[data-brand='mabel'],
+[data-brand='mabel'] {
+  --ixia-brand-default: light-dark(var(--rose-600), var(--rose-400));
+  --ixia-brand-muted: light-dark(var(--rose-700), var(--rose-300));
+  --ixia-brand-subtle: light-dark(var(--rose-50), var(--rose-950));
+  --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-container: light-dark(var(--rose-100), var(--rose-950));
+  --ixia-brand-container-high: light-dark(var(--rose-200), var(--rose-900));
+  --ixia-brand-on-container: light-dark(var(--rose-900), var(--rose-100));
+  --ixia-brand-on-container-muted: light-dark(var(--rose-700), var(--rose-300));
+  --ixia-brand-border: light-dark(var(--rose-300), var(--rose-700));
+  --ixia-brand-border-strong: var(--rose-500);
+  --ixia-brand-shadow: light-dark(#a4205740, #ff96af59);
+  --ixia-brand-gradient: linear-gradient(
+    135deg,
+    var(--rose-900) 0%,
+    var(--rose-600) 45%,
+    var(--rose-400) 78%,
+    var(--pink-200) 100%
+  );
+  --ixia-brand-gradient-subtle: linear-gradient(135deg, #e4518129, #ff96af1f, #ffcfec14);
+  --ixia-accent-default: light-dark(var(--teal-600), var(--teal-400));
+  --ixia-accent-muted: light-dark(var(--teal-700), var(--teal-300));
+  --ixia-accent-subtle: light-dark(var(--teal-50), var(--teal-950));
+  --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-container: light-dark(var(--teal-100), var(--teal-950));
+  --ixia-accent-container-high: light-dark(var(--teal-200), var(--teal-900));
+  --ixia-accent-on-container: light-dark(var(--teal-900), var(--teal-100));
+  --ixia-accent-on-container-muted: light-dark(var(--teal-700), var(--teal-300));
+  --ixia-accent-border: light-dark(var(--teal-300), var(--teal-700));
+  --ixia-accent-border-strong: var(--teal-500);
+  --ixia-accent-shadow: light-dark(#006d6540, #62d0c259);
+  /* Derived tokens resolve where declared, so re-bind them inside the scope. */
+  --ixia-surface-focus-ring: var(--ixia-brand-default);
+  --color-surface-focus-ring: var(--ixia-surface-focus-ring);
+  --color-brand-default: var(--ixia-brand-default);
+  --color-brand-muted: var(--ixia-brand-muted);
+  --color-brand-subtle: var(--ixia-brand-subtle);
+  --color-brand-on-default: var(--ixia-brand-on-default);
+  --color-brand-container: var(--ixia-brand-container);
+  --color-brand-container-high: var(--ixia-brand-container-high);
+  --color-brand-on-container: var(--ixia-brand-on-container);
+  --color-brand-on-container-muted: var(--ixia-brand-on-container-muted);
+  --color-brand-border: var(--ixia-brand-border);
+  --color-brand-border-strong: var(--ixia-brand-border-strong);
+  --color-brand-shadow: var(--ixia-brand-shadow);
+  --color-accent-default: var(--ixia-accent-default);
+  --color-accent-muted: var(--ixia-accent-muted);
+  --color-accent-subtle: var(--ixia-accent-subtle);
+  --color-accent-on-default: var(--ixia-accent-on-default);
+  --color-accent-container: var(--ixia-accent-container);
+  --color-accent-container-high: var(--ixia-accent-container-high);
+  --color-accent-on-container: var(--ixia-accent-on-container);
+  --color-accent-on-container-muted: var(--ixia-accent-on-container-muted);
+  --color-accent-border: var(--ixia-accent-border);
+  --color-accent-border-strong: var(--ixia-accent-border-strong);
+  --color-accent-shadow: var(--ixia-accent-shadow);
+}

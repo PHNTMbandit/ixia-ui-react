@@ -1,4 +1,4 @@
-import { DayPicker, getDefaultClassNames, isDateRange } from '@daypicker/react'
+import { DayPicker, getDefaultClassNames, isDateRange, labelDayButton } from '@daypicker/react'
 import type { OnSelectHandler, PropsBase } from '@daypicker/react'
 import { CaretLeftIcon, CaretRightIcon, CaretUpDownIcon } from '@phosphor-icons/react'
 import type { ChangeEvent, ComponentProps } from 'react'
@@ -146,6 +146,13 @@ function getSingleSelected(selectedDates: CalendarSelected | undefined): Date | 
   return undefined
 }
 
+// WCAG 2.5.3: the accessible name must contain the visible text, which is the day number.
+function labelDayButtonWithVisibleText(...args: Parameters<typeof labelDayButton>) {
+  const [date, modifiers, options, dateLib] = args,
+    visibleDay = dateLib?.format(date, 'd') ?? String(date.getDate())
+  return `${visibleDay}, ${labelDayButton(date, modifiers, options, dateLib)}`
+}
+
 const defaultClassNames = getDefaultClassNames(),
   calendarClassNames: PropsBase['classNames'] = {
     caption_label: 'style-text-strong-0',
@@ -193,6 +200,7 @@ export function CalendarPicker({
       className,
       classNames: calendarClassNames,
       components: calendarComponents,
+      labels: { labelDayButton: labelDayButtonWithVisibleText },
       ...props,
     }
 
