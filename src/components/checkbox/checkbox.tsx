@@ -1,5 +1,4 @@
 import { Checkbox as BaseCheckbox } from '@base-ui/react'
-import { useId } from 'react'
 
 import { cn } from '@/utils/cn'
 
@@ -8,25 +7,17 @@ import { CheckboxIndicator } from './checkbox-indicator'
 import { checkboxVariants } from './checkbox.types'
 import type { CheckboxRootProps } from './checkbox.types'
 
-export function Checkbox({ variant, className, label, id, ref, ...props }: CheckboxRootProps) {
-  const generatedId = useId(),
-    hasLabel = label !== undefined && label !== null
-  let checkboxId = id
-  if (checkboxId === undefined && hasLabel) {
-    checkboxId = generatedId
-  }
-
+export function Checkbox({ variant, children, className, ref, ...props }: CheckboxRootProps) {
   return (
-    <div className="flex items-center gap-xs">
+    <Label className="flex items-center gap-xs has-disabled:opacity-50">
       <BaseCheckbox.Root
         className={cn(checkboxVariants({ className, variant }))}
-        id={checkboxId}
         ref={ref}
         {...props}
       >
         <CheckboxIndicator />
       </BaseCheckbox.Root>
-      {hasLabel && <Label htmlFor={checkboxId}>{label}</Label>}
-    </div>
+      {children}
+    </Label>
   )
 }

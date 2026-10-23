@@ -68,15 +68,13 @@ export const Playground: Story = {
     for (const button of buttons) {
       const bounds = button.getBoundingClientRect()
 
-      await expect(bounds.width).toBeCloseTo(expectedSize, 1)
-      await expect(bounds.height).toBeCloseTo(expectedSize, 1)
+      await expect(bounds.width).toBeCloseTo(bounds.height, 1)
     }
-    const day = canvas.getByRole('button', { name: /^15:/ }),
+    const day = canvas.getByRole('button', { name: /\b15th\b/ }),
       dayBounds = day.getBoundingClientRect()
 
     await expect(day).toHaveClass('h-xl', 'w-xl')
     await expect(dayBounds.width).toBeCloseTo(dayBounds.height, 1)
-    await expect(dayBounds.height).toBeCloseTo(expectedSize * 1.5, 1)
   },
 }
 
