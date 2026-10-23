@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.1.0...v1.2.0) (2026-10-23)
+
+
+### Features
+
+* change color palette and add themes for Ixia design system ([72d3783](https://github.com/PHNTMbandit/ixia-ui-react/commit/72d378327940c4c8d3de69b13dac102b06effe0f))
+* enhance accessibility by adding visible text to day buttons and color picker labels ([f638209](https://github.com/PHNTMbandit/ixia-ui-react/commit/f6382093e58c83e6cf59823d30c588b21e758843))
+
 # [1.1.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.0.2...v1.1.0) (2026-10-20)
 
 
