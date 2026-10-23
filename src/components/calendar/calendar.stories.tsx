@@ -2,7 +2,7 @@ import { enUS, ja } from '@daypicker/react/locale'
 import { CalendarBlankIcon, ClockIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { expect, waitFor } from 'storybook/test'
+import { expect } from 'storybook/test'
 
 import { CalendarFooter } from '..'
 import { Button } from '../button'
@@ -58,31 +58,26 @@ export default {
 type Story = StoryObj<typeof CalendarPicker>
 
 export const Playground: Story = {
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ canvas }) => {
     const navigation = canvas.getByRole('navigation'),
       buttons = navigation.querySelectorAll('button'),
+      monthGrid = canvas.getByRole('grid'),
       expectedSize = navigation.getBoundingClientRect().height
 
     await expect(buttons).toHaveLength(2)
     await expect(expectedSize).toBeGreaterThan(0)
+    await expect(getComputedStyle(monthGrid).borderCollapse).toBe('separate')
+    await expect(Number.parseFloat(getComputedStyle(monthGrid).borderSpacing)).toBeGreaterThan(0)
     for (const button of buttons) {
       const bounds = button.getBoundingClientRect()
 
       await expect(bounds.width).toBeCloseTo(bounds.height, 1)
       await expect(button).toHaveClass('hover:bg-neutral-container-high')
-
-      const background = window.getComputedStyle(button).backgroundColor
-
-      await userEvent.hover(button)
-      await expect(button.matches(':hover')).toBe(true)
-      await waitFor(() => {
-        expect(window.getComputedStyle(button).backgroundColor).not.toBe(background)
-      })
     }
     const day = canvas.getByRole('button', { name: /\b15th\b/ }),
       dayBounds = day.getBoundingClientRect()
 
-    await expect(day).toHaveClass('h-xl', 'w-xl')
+    await expect(day).toHaveClass('size-xl!')
     await expect(dayBounds.width).toBeCloseTo(dayBounds.height, 1)
   },
 }

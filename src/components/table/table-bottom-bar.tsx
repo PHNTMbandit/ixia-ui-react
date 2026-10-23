@@ -7,7 +7,7 @@ export function TableBottomBar({ sticky = false, className, ref, ...props }: Tab
     <div
       className={cn(
         'flex w-full flex-wrap items-center justify-between gap-md',
-        '[[data-slot=table-container][data-variant=outline]>&]:px-md [[data-slot=table-container][data-variant=outline]>&:first-child]:pt-md [[data-slot=table-container][data-variant=outline]>&:last-child]:pb-md',
+        '[:where([data-slot=table-container][data-variant=outline]>&)]:px-md [:where([data-slot=table-container][data-variant=outline]>&:first-child)]:pt-md [:where([data-slot=table-container][data-variant=outline]>&:last-child)]:pb-md',
         sticky && 'sticky bottom-0 z-10 bg-inherit',
         className,
       )}

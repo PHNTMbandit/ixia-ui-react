@@ -474,7 +474,7 @@
   --ixia-surface: light-dark(var(--white), var(--neutral-900));
   --ixia-surface-2: light-dark(var(--white), var(--neutral-800));
   --ixia-surface-3: light-dark(var(--white), var(--neutral-700));
-  --ixia-surface-low: light-dark(var(--neutral-100), var(--black));
+  --ixia-surface-low: light-dark(var(--neutral-200), var(--black));
   --ixia-on-surface: light-dark(var(--neutral-900), var(--neutral-50));
   --ixia-on-surface-variant: light-dark(var(--neutral-700), var(--neutral-200));
   --ixia-on-surface-muted: light-dark(var(--neutral-600), var(--neutral-300));
