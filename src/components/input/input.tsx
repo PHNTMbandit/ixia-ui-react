@@ -152,9 +152,9 @@ export function Input({
           <div
             className={cn(
               'size-full',
-              size === 'small' && 'rounded-lg',
-              size === 'medium' && 'rounded-xl',
-              size === 'large' && 'rounded-2xl',
+              size === 'small' && 'rounded-md',
+              size === 'medium' && 'rounded-lg',
+              size === 'large' && 'rounded-xl',
             )}
             style={{
               backgroundColor: colorValue,

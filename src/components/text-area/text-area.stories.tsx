@@ -87,6 +87,22 @@ export const StateSecondary: Story = {
   },
 }
 
+export const StateGhost: Story = {
+  args: {
+    maxLength: 180,
+    placeholder: 'Describe your request...',
+    variant: 'ghost',
+  },
+}
+
+export const StateOutline: Story = {
+  args: {
+    maxLength: 180,
+    placeholder: 'Describe your request...',
+    variant: 'outline',
+  },
+}
+
 export const BehaviorDisabled: Story = {
   args: {
     disabled: true,

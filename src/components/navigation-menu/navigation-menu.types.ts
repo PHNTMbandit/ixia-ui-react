@@ -43,7 +43,7 @@ const navigationMenuTriggerVariants = cva(
     },
   ),
   navigationMenuLinkVariants = cva(
-    'rounded-lg px-sm py-xs transition-colors hover:cursor-pointer',
+    'rounded-xl px-sm py-xs transition-colors hover:cursor-pointer',
     {
       defaultVariants: {
         tone: 'neutral',

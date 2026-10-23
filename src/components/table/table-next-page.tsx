@@ -19,7 +19,8 @@ export function TableNextPage({ className, children, ref, ...props }: TableNextP
       disabled={!table.getCanNextPage()}
       onClick={handleClick}
       ref={ref}
-      variant="ghost"
+      size="iconMedium"
+      variant="outline"
       tone="neutral"
       {...props}
     >

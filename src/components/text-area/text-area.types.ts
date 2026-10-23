@@ -9,6 +9,8 @@ export const textAreaVariants = cva(
     },
     variants: {
       variant: {
+        ghost: 'bg-transparent',
+        outline: 'border border-border',
         primary: 'bg-surface shadow-2xs',
         secondary: 'bg-neutral-container',
       },

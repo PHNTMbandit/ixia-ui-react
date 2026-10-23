@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
 const alertVariants = cva(
-  'group grid auto-rows-min items-center justify-start gap-x-xs rounded-xl border p-xs transition-all has-data-[slot=alert-action]:grid-cols-[1fr_auto] has-data-[slot=alert-description]:grid-rows-[auto_auto] has-data-[slot=alert-icon]:grid-cols-[auto_1fr] has-data-[slot=alert-icon]:has-data-[slot=alert-action]:grid-cols-[auto_1fr_auto] has-data-[slot=alert-description]:**:data-[slot=alert-icon]:row-span-2',
+  'group grid auto-rows-min items-center justify-start gap-x-xs rounded-xl border py-sm pr-sm pl-md transition-all has-data-[slot=alert-action]:grid-cols-[1fr_auto] has-data-[slot=alert-description]:grid-rows-[auto_auto] has-data-[slot=alert-icon]:grid-cols-[auto_1fr] has-data-[slot=alert-icon]:has-data-[slot=alert-action]:grid-cols-[auto_1fr_auto] has-data-[slot=alert-description]:**:data-[slot=alert-icon]:row-span-2',
   {
     defaultVariants: {
       tone: 'brand',

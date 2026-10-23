@@ -23,11 +23,6 @@ export default {
       description: 'Displays the indeterminate indicator for partial selection states.',
     },
 
-    label: {
-      control: 'text',
-      description: 'Optional label associated through the checkbox id.',
-    },
-
     variant: {
       control: 'select',
       description: 'Visual variant of the checkbox.',
@@ -39,7 +34,6 @@ export default {
   },
   args: {
     disabled: false,
-    label: 'Accept Terms and Conditions',
     variant: 'elevated',
   },
   component: Checkbox,
@@ -52,7 +46,11 @@ export default {
       subtitle: 'A checkbox component for selecting options.',
     },
   },
-  render: (args) => <Checkbox {...args} id="checkbox" />,
+  render: (args) => (
+    <Checkbox {...args} id="checkbox">
+      Checkbox Label
+    </Checkbox>
+  ),
   title: 'Components/Checkbox',
 } satisfies Meta<typeof Checkbox>
 
@@ -68,9 +66,13 @@ export const Playground: Story = {
     },
   },
   play: async ({ userEvent, canvas, step }) => {
+    const checkbox = canvas.getByRole('checkbox'),
+      initialSize = checkbox.getBoundingClientRect()
+
     await step('Checkbox should be unchecked initially', async () => {
-      const checkbox = canvas.getByRole('checkbox')
       await expect(checkbox).not.toBeChecked()
+      await expect(initialSize.width).toBeGreaterThan(0)
+      await expect(initialSize.height).toBeGreaterThan(0)
     })
 
     await step('User can check the checkbox', async () => {
@@ -79,6 +81,8 @@ export const Playground: Story = {
       await waitFor(async () => {
         await expect(checkbox).toBeChecked()
       })
+      await expect(checkbox.getBoundingClientRect().width).toBeCloseTo(initialSize.width)
+      await expect(checkbox.getBoundingClientRect().height).toBeCloseTo(initialSize.height)
     })
 
     await step('User can uncheck the checkbox', async () => {
@@ -87,6 +91,8 @@ export const Playground: Story = {
       await waitFor(async () => {
         await expect(checkbox).not.toBeChecked()
       })
+      await expect(checkbox.getBoundingClientRect().width).toBeCloseTo(initialSize.width)
+      await expect(checkbox.getBoundingClientRect().height).toBeCloseTo(initialSize.height)
     })
   },
 }
@@ -104,7 +110,6 @@ export const Default: Story = {
 
 export const ElevatedVariant: Story = {
   args: {
-    label: 'Elevated checkbox',
     variant: 'elevated',
   },
   name: 'Variant / Elevated',
@@ -119,7 +124,6 @@ export const ElevatedVariant: Story = {
 
 export const InSurfaceVariant: Story = {
   args: {
-    label: 'In surface checkbox',
     variant: 'inSurface',
   },
   name: 'Variant / In Surface',
@@ -132,10 +136,23 @@ export const InSurfaceVariant: Story = {
   },
 }
 
+export const OutlineVariant: Story = {
+  args: {
+    variant: 'outline',
+  },
+  name: 'Variant / Outline',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Outline variant with a border to indicate the checkbox boundary.',
+      },
+    },
+  },
+}
+
 export const Checked: Story = {
   args: {
     checked: true,
-    label: 'Receive product updates',
   },
   name: 'State / Checked',
   parameters: {
@@ -150,7 +167,6 @@ export const Checked: Story = {
 export const Indeterminate: Story = {
   args: {
     indeterminate: true,
-    label: 'Select all team members',
   },
   name: 'State / Indeterminate',
   parameters: {
@@ -165,28 +181,12 @@ export const Indeterminate: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    label: 'Billing access restricted by admin',
   },
   name: 'State / Disabled',
   parameters: {
     docs: {
       description: {
         story: 'Disabled checkbox and label communicate that the option is unavailable.',
-      },
-    },
-  },
-}
-
-export const WithoutLabel: Story = {
-  args: {
-    'aria-label': 'Toggle standalone checkbox',
-    label: undefined,
-  },
-  name: 'Composition / Without Label',
-  parameters: {
-    docs: {
-      description: {
-        story: 'For icon-only or compact layouts, provide an accessible name with `aria-label`.',
       },
     },
   },
@@ -203,10 +203,16 @@ export const Comparison: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-sm">
-      <Checkbox id="comparison-unchecked" label="Email notifications" />
-      <Checkbox checked id="comparison-checked" label="Security alerts" />
-      <Checkbox id="comparison-indeterminate" indeterminate label="Select all projects" />
-      <Checkbox disabled id="comparison-disabled" label="Managed by administrator" />
+      <Checkbox id="comparison-unchecked">Email notifications</Checkbox>
+      <Checkbox checked id="comparison-checked">
+        Security alerts
+      </Checkbox>
+      <Checkbox id="comparison-indeterminate" indeterminate>
+        Select all projects
+      </Checkbox>
+      <Checkbox disabled id="comparison-disabled">
+        Managed by administrator
+      </Checkbox>
     </div>
   ),
 }
@@ -225,25 +231,27 @@ export const VariantComparison: Story = {
     <div className="grid grid-cols-2 gap-md">
       <div className="flex flex-col gap-sm">
         <p className="style-text-default--1 text-on-surface-variant">Elevated</p>
-        <Checkbox id="variant-elevated-unchecked" label="Unchecked" variant="elevated" />
-        <Checkbox checked id="variant-elevated-checked" label="Checked" variant="elevated" />
-        <Checkbox
-          id="variant-elevated-indeterminate"
-          indeterminate
-          label="Indeterminate"
-          variant="elevated"
-        />
+        <Checkbox id="variant-elevated-unchecked" variant="elevated">
+          Unchecked
+        </Checkbox>
+        <Checkbox checked id="variant-elevated-checked" variant="elevated">
+          Checked
+        </Checkbox>
+        <Checkbox id="variant-elevated-indeterminate" indeterminate variant="elevated">
+          Indeterminate
+        </Checkbox>
       </div>
       <div className="flex flex-col gap-sm">
         <p className="style-text-default--1 text-on-surface-variant">In Surface</p>
-        <Checkbox id="variant-insurface-unchecked" label="Unchecked" variant="inSurface" />
-        <Checkbox checked id="variant-insurface-checked" label="Checked" variant="inSurface" />
-        <Checkbox
-          id="variant-insurface-indeterminate"
-          indeterminate
-          label="Indeterminate"
-          variant="inSurface"
-        />
+        <Checkbox id="variant-insurface-unchecked" variant="inSurface">
+          Unchecked
+        </Checkbox>
+        <Checkbox checked id="variant-insurface-checked" variant="inSurface">
+          Checked
+        </Checkbox>
+        <Checkbox id="variant-insurface-indeterminate" indeterminate variant="inSurface">
+          Indeterminate
+        </Checkbox>
       </div>
     </div>
   ),

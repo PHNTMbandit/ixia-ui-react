@@ -6,6 +6,7 @@ import {
   MagnifyingGlassIcon,
 } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { NavBar } from './index'
 import type { NavBarItemProps } from './nav-bar.types'
@@ -117,7 +118,7 @@ export default {
     docs: {
       description: {
         component:
-          'NavBar is a compact bottom navigation surface composed of `NavBarItem`, `NavBarItemIcon`, and `NavBarItemLabel`. It supports three sizes, two visual variants, and per-item tone coloring.',
+          'NavBar is a compact bottom navigation surface composed of `NavBarItem`, `NavBarItemIcon`, and `NavBarItemLabel`. It supports three sizes, two visual variants, and per-item tone coloring. Vertical items share the available width as squares, with compact width caps for small and medium sizes; long labels truncate to keep items within the bar.',
       },
       subtitle: 'A floating navigation bar for mobile app-shell layouts.',
     },
@@ -144,6 +145,40 @@ export const Playground: Story = {
 // ─── Sizes ────────────────────────────────────────────────────────────────────
 
 export const Sizes: Story = {
+  play: async ({ canvasElement }) => {
+    const items = canvasElement.querySelectorAll<HTMLButtonElement>('[data-nav-bar-item]')
+
+    await expect(items).toHaveLength(SIZES.length * 4)
+    for (const item of items) {
+      const bar = item.parentElement
+
+      if (!bar) {
+        throw new Error('Expected a navigation bar containing the item')
+      }
+      const originalWidth = bar.style.width
+
+      try {
+        for (const width of [originalWidth, '200px']) {
+          bar.style.width = width
+          const bounds = item.getBoundingClientRect(),
+            barBounds = bar.getBoundingClientRect()
+
+          await expect(bounds.width).toBeGreaterThan(0)
+          const maxWidth = Number.parseFloat(getComputedStyle(item).maxWidth)
+
+          if (Number.isFinite(maxWidth)) {
+            await expect(bounds.width).toBeLessThanOrEqual(maxWidth + 0.1)
+          }
+          await expect(bounds.width).toBeCloseTo(bounds.height, 1)
+          await expect(bounds.left).toBeGreaterThanOrEqual(barBounds.left)
+          await expect(bounds.right).toBeLessThanOrEqual(barBounds.right)
+          await expect(bounds.bottom).toBeLessThanOrEqual(barBounds.bottom)
+        }
+      } finally {
+        bar.style.width = originalWidth
+      }
+    }
+  },
   render: (args) => (
     <div className="flex flex-wrap items-end justify-center gap-xl">
       {SIZES.map((size) => (

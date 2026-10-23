@@ -16,9 +16,7 @@ export default {
     <PreviewCard {...args}>
       The principles of good{' '}
       <PreviewCard.Trigger href="https://en.wikipedia.org/wiki/Typography">
-        <Button variant={'link'} tone="neutral">
-          typography
-        </Button>
+        <Button variant={'link'}>typography</Button>
       </PreviewCard.Trigger>{' '}
       remain in the digital age.
       <PreviewCard.Popup>

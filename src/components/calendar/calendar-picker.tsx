@@ -1,4 +1,10 @@
-import { DayPicker, getDefaultClassNames, isDateRange, labelDayButton } from '@daypicker/react'
+import {
+  DayPicker,
+  getDefaultClassNames,
+  isDateRange,
+  DayButton,
+  labelDayButton,
+} from '@daypicker/react'
 import type { OnSelectHandler, PropsBase } from '@daypicker/react'
 import { CaretLeftIcon, CaretRightIcon, CaretUpDownIcon } from '@phosphor-icons/react'
 import type { ChangeEvent, ComponentProps } from 'react'
@@ -6,6 +12,7 @@ import type { ChangeEvent, ComponentProps } from 'react'
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { buttonVariants } from '../button/button.types'
 import {
   Select,
   SelectIcon,
@@ -20,6 +27,21 @@ import { useCalendar } from './calendar'
 import type { CalendarPickerProps, CalendarSelected } from './calendar.types'
 
 type CalendarComponents = NonNullable<PropsBase['components']>
+
+function CalendarDayButton({ className, modifiers, ...props }: ComponentProps<typeof DayButton>) {
+  return (
+    <DayButton
+      {...props}
+      modifiers={modifiers}
+      className={cn(
+        buttonVariants({ size: 'medium', tone: 'neutral', variant: 'ghost' }),
+        'text-inherit hover:bg-brand-container hover:text-brand-on-container',
+        modifiers.selected && 'hover:bg-brand-default hover:text-brand-on-default',
+        className,
+      )}
+    />
+  )
+}
 
 function createSelectTarget(value: string): HTMLSelectElement {
   const element = document.createElement('select'),
@@ -97,7 +119,8 @@ function CalendarNextMonthButton({
       {...props}
       variant="ghost"
       tone="neutral"
-      size="iconSmall"
+      size="iconMedium"
+      className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
       onClick={onClick}
       disabled={disabled}
     >
@@ -116,7 +139,8 @@ function CalendarPreviousMonthButton({
       {...props}
       variant="ghost"
       tone="neutral"
-      size="iconSmall"
+      size="iconMedium"
+      className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
       onClick={onClick}
       disabled={disabled}
     >
@@ -157,14 +181,15 @@ const defaultClassNames = getDefaultClassNames(),
   calendarClassNames: PropsBase['classNames'] = {
     caption_label: 'style-text-strong-0',
     day: cn(
-      'rounded-xl style-text-default-0 transition-colors hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
+      'size-xl! rounded-full style-text-default-0 transition-colors hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
       defaultClassNames.day,
     ),
+    day_button: cn('size-xl! rounded-full', defaultClassNames.day_button),
     disabled: cn('pointer-events-none text-on-surface', defaultClassNames.disabled),
     month_caption: 'flex items-center justify-center h-lg',
-    month_grid: cn('mt-xs', defaultClassNames.month_grid),
+    month_grid: cn('mt-xs border-separate! border-spacing-3xs', defaultClassNames.month_grid),
     nav: cn('h-lg! w-full justify-between!', defaultClassNames.nav),
-    outside: cn('border-none text-on-surface', defaultClassNames.outside),
+    outside: cn('border-none text-on-surface-muted', defaultClassNames.outside),
     range_end: cn('rounded-l-none bg-brand-default text-brand-on-default'),
     range_middle: cn(
       'rounded-none! border-y border-brand-border bg-brand-container! text-brand-on-container! transition-none',
@@ -175,9 +200,11 @@ const defaultClassNames = getDefaultClassNames(),
     ),
     selected: cn('bg-brand-default text-brand-on-default'),
     today: cn('text-brand-default! data-selected:text-brand-on-default!', defaultClassNames.today),
-    weekdays: cn('style-text-default-0 text-on-surface', defaultClassNames.weekdays),
+    week: cn('', defaultClassNames.week),
+    weekdays: cn('style-text-default-0 text-on-surface-muted', defaultClassNames.weekdays),
   },
   calendarComponents: CalendarComponents = {
+    DayButton: CalendarDayButton,
     Dropdown: CalendarDropdown,
     NextMonthButton: CalendarNextMonthButton,
     PreviousMonthButton: CalendarPreviousMonthButton,

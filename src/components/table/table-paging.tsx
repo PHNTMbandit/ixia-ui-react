@@ -60,11 +60,18 @@ function getTrailingPageIndexes(
   return pageIndexes
 }
 
-function getPageButtonVariant(pageIndex: number, selectedPageIndex: number): 'fill' | 'ghost' {
+function getPageButtonTone(pageIndex: number, selectedPageIndex: number): 'brand' | 'neutral' {
+  if (pageIndex === selectedPageIndex) {
+    return 'brand'
+  }
+  return 'neutral'
+}
+
+function getPageButtonVariant(pageIndex: number, selectedPageIndex: number): 'fill' | 'outline' {
   if (pageIndex === selectedPageIndex) {
     return 'fill'
   }
-  return 'ghost'
+  return 'outline'
 }
 
 export function TablePaging({
@@ -89,13 +96,12 @@ export function TablePaging({
           trailingPageIndexes = getTrailingPageIndexes(min, max, totalPages)
 
         return (
-          <div className={cn('flex items-center gap-3xs', className)} ref={ref} {...props}>
+          <div className={cn('flex items-center gap-2xs', className)} ref={ref} {...props}>
             {children}
             {leadingPageIndexes.map((pageIndex) => (
               <Button
                 key={`page-${pageIndex}`}
-                tone="neutral"
-                size="iconMedium"
+                tone={getPageButtonTone(pageIndex, pagination.pageIndex)}
                 variant={getPageButtonVariant(pageIndex, pagination.pageIndex)}
                 className="shrink-0"
                 onClick={() => handleClick(pageIndex)}
@@ -110,7 +116,7 @@ export function TablePaging({
                     aria-label="Show more pages"
                     tone="neutral"
                     size="iconMedium"
-                    variant="ghost"
+                    variant="outline"
                     className="shrink-0"
                   >
                     <DotsThreeIcon weight="bold" />
@@ -135,8 +141,7 @@ export function TablePaging({
             {trailingPageIndexes.map((pageIndex) => (
               <Button
                 key={`last-page-${pageIndex}`}
-                tone="neutral"
-                size="iconMedium"
+                tone={getPageButtonTone(pageIndex, pagination.pageIndex)}
                 variant={getPageButtonVariant(pageIndex, pagination.pageIndex)}
                 className="shrink-0"
                 onClick={() => handleClick(pageIndex)}

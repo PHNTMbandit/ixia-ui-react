@@ -9,7 +9,7 @@ import type { DialogCloseProps } from './dialog.types'
 export function DialogClose({ className, ref, ...props }: DialogCloseProps) {
   return (
     <BaseDialog.Close
-      className={cn('absolute top-2xs right-2xs', className)}
+      className={cn('absolute top-xs right-xs', className)}
       ref={ref}
       {...props}
       render={

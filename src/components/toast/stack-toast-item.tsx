@@ -123,7 +123,7 @@ export function StackToastItem({ className, ref, toast, ...props }: StackToastIt
       >
         {getVariantIcon(variant, icon)}
       </div>
-      <BaseToast.Content className="flex items-center justify-center gap-xs overflow-hidden pl-2xs transition-opacity duration-250 data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100">
+      <BaseToast.Content className="flex items-center justify-center gap-3xs overflow-hidden pl-2xs transition-opacity duration-250 data-behind:pointer-events-none data-behind:opacity-0 data-expanded:pointer-events-auto data-expanded:opacity-100">
         <div>
           <BaseToast.Title className="style-text-strong--1" />
           <BaseToast.Description className="style-text-prose--1 whitespace-nowrap text-on-surface-variant" />

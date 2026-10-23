@@ -2,16 +2,6 @@ name: Publish to NPM
 
 on:
   workflow_dispatch:
-    inputs:
-      target_branch:
-        description: Branch to release
-        required: true
-        type: choice
-        options:
-          - main
-          - alpha
-          - beta
-          - rc
 
   push:
     branches:
@@ -34,7 +24,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:
-          ref: ${{ inputs.target_branch || github.ref_name }}
+          ref: ${{ github.ref }}
 
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1.21.2
@@ -63,12 +53,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-    if: |
-      inputs.target_branch == 'main' || github.ref_name == 'main' ||
-      inputs.target_branch == 'alpha' || github.ref_name == 'alpha' ||
-      inputs.target_branch == 'beta' || github.ref_name == 'beta' ||
-      inputs.target_branch == 'rc' || github.ref_name == 'rc'
-
     env:
       VP_GIT_HOOKS: '0'
 
@@ -88,7 +72,7 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-          ref: ${{ inputs.target_branch || github.ref_name }}
+          ref: ${{ github.ref }}
           persist-credentials: false
 
       - name: Set up Vite+
@@ -119,7 +103,7 @@ jobs:
         uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
-          ref: ${{ inputs.target_branch || github.ref_name }}
+          ref: ${{ github.ref }}
 
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1.21.2

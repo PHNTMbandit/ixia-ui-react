@@ -7,6 +7,7 @@ import {
   XCircleIcon,
 } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { Badge } from './badge'
 
@@ -116,6 +117,28 @@ export const Playground: Story = {
         story: 'Use the controls panel to explore all `tone` and `variant` combinations.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('svg')
+
+    await expect(icon).not.toBeNull()
+    if (!icon?.parentElement) {
+      throw new globalThis.Error('Expected a badge with a leading icon')
+    }
+
+    const badge = icon.parentElement,
+      badgeBounds = badge.getBoundingClientRect(),
+      iconBounds = icon.getBoundingClientRect(),
+      styles = getComputedStyle(badge)
+
+    await expect(Number.parseFloat(styles.lineHeight)).toBeCloseTo(
+      Number.parseFloat(styles.fontSize),
+    )
+    await expect(iconBounds.height).toBeCloseTo(Number.parseFloat(styles.fontSize), 1)
+    await expect(iconBounds.y + iconBounds.height / 2).toBeCloseTo(
+      badgeBounds.y + badgeBounds.height / 2,
+      1,
+    )
   },
 }
 

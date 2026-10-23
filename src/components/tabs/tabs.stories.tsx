@@ -72,7 +72,6 @@ const BasicTemplate = (args: Story['args']) => (
         <Tabs.Tab value="overview">Overview</Tabs.Tab>
         <Tabs.Tab value="details">Details</Tabs.Tab>
         <Tabs.Tab value="activity">Activity</Tabs.Tab>
-        <Tabs.Indicator />
       </Tabs.List>
       <Tabs.Panel value="overview" className="rounded-md border border-surface-3 bg-surface p-md">
         <p className="style-text-prose-0 text-on-surface">Overview content for this workspace.</p>
@@ -140,7 +139,6 @@ export const CompositionPreviewCode: Story = {
             <CodeIcon weight="bold" />
             Code
           </Tabs.Tab>
-          <Tabs.Indicator />
         </Tabs.List>
         <Tabs.Panel value="preview" className="rounded-md border border-surface-3 bg-surface p-md">
           <p className="style-text-prose-0">Live component preview area.</p>
@@ -179,7 +177,6 @@ export const CompositionSettingsPage: Story = {
           <Tabs.Tab value="general">General</Tabs.Tab>
           <Tabs.Tab value="members">Members</Tabs.Tab>
           <Tabs.Tab value="billing">Billing</Tabs.Tab>
-          <Tabs.Indicator />
         </Tabs.List>
         <Tabs.Panel
           value="general"
@@ -200,6 +197,46 @@ export const CompositionSettingsPage: Story = {
           <p className="style-text-prose-0">Plans, invoices and payment methods.</p>
         </Tabs.Panel>
       </Tabs>
+    </div>
+  ),
+}
+
+export const AllSizes: Story = {
+  args: {
+    variant: 'default',
+  },
+  render: (args) => (
+    <div className="w-[500px] space-y-md rounded-lg border border-surface-3 bg-surface p-md">
+      {(['small', 'medium', 'large'] as const).map((size) => (
+        <section className="space-y-xs" key={size}>
+          <h3 className="style-text-strong-0 capitalize">{size}</h3>
+          <Tabs defaultValue="general" {...args} size={size}>
+            <Tabs.List>
+              <Tabs.Tab value="general">General</Tabs.Tab>
+              <Tabs.Tab value="members">Members</Tabs.Tab>
+              <Tabs.Tab value="billing">Billing</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel
+              value="general"
+              className="rounded-md border border-surface-3 bg-surface-2 p-md"
+            >
+              <p className="style-text-prose-0">Workspace name, URL and locale preferences.</p>
+            </Tabs.Panel>
+            <Tabs.Panel
+              value="members"
+              className="rounded-md border border-surface-3 bg-surface-2 p-md"
+            >
+              <p className="style-text-prose-0">Invite and manage team member permissions.</p>
+            </Tabs.Panel>
+            <Tabs.Panel
+              value="billing"
+              className="rounded-md border border-surface-3 bg-surface-2 p-md"
+            >
+              <p className="style-text-prose-0">Plans, invoices and payment methods.</p>
+            </Tabs.Panel>
+          </Tabs>
+        </section>
+      ))}
     </div>
   ),
 }

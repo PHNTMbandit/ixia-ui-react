@@ -40,9 +40,15 @@ export default {
   },
   render: (args) => (
     <CheckboxGroup {...args}>
-      <Checkbox id="option1" label="Option 1" value="option1" />
-      <Checkbox id="option2" label="Option 2" value="option2" />
-      <Checkbox id="option3" label="Option 3" value="option3" />
+      <Checkbox id="option1" value="option1">
+        Option 1
+      </Checkbox>
+      <Checkbox id="option2" value="option2">
+        Option 2
+      </Checkbox>
+      <Checkbox id="option3" value="option3">
+        Option 3
+      </Checkbox>
     </CheckboxGroup>
   ),
   title: 'Components/Checkbox Group',
@@ -72,9 +78,15 @@ export const Elevated: Story = {
   },
   render: (args) => (
     <CheckboxGroup {...args}>
-      <Checkbox id="elevated-option1" label="Option 1" value="option1" variant="elevated" />
-      <Checkbox id="elevated-option2" label="Option 2" value="option2" variant="elevated" />
-      <Checkbox id="elevated-option3" label="Option 3" value="option3" variant="elevated" />
+      <Checkbox id="elevated-option1" value="option1" variant="elevated">
+        Option 1
+      </Checkbox>
+      <Checkbox id="elevated-option2" value="option2" variant="elevated">
+        Option 2
+      </Checkbox>
+      <Checkbox id="elevated-option3" value="option3" variant="elevated">
+        Option 3
+      </Checkbox>
     </CheckboxGroup>
   ),
 }
@@ -94,13 +106,9 @@ export const WithElevatedSelection: Story = {
   render: (args) => (
     <CheckboxGroup {...args}>
       {NOTIFICATION_OPTIONS.map((option) => (
-        <Checkbox
-          id={option.id}
-          key={option.value}
-          label={option.label}
-          value={option.value}
-          variant="elevated"
-        />
+        <Checkbox id={option.id} key={option.value} value={option.value} variant="elevated">
+          {option.label}
+        </Checkbox>
       ))}
     </CheckboxGroup>
   ),
@@ -117,9 +125,15 @@ export const InSurface: Story = {
   },
   render: (args) => (
     <CheckboxGroup {...args}>
-      <Checkbox id="insurface-option1" label="Option 1" value="option1" variant="inSurface" />
-      <Checkbox id="insurface-option2" label="Option 2" value="option2" variant="inSurface" />
-      <Checkbox id="insurface-option3" label="Option 3" value="option3" variant="inSurface" />
+      <Checkbox id="insurface-option1" value="option1" variant="inSurface">
+        Option 1
+      </Checkbox>
+      <Checkbox id="insurface-option2" value="option2" variant="inSurface">
+        Option 2
+      </Checkbox>
+      <Checkbox id="insurface-option3" value="option3" variant="inSurface">
+        Option 3
+      </Checkbox>
     </CheckboxGroup>
   ),
 }
@@ -139,13 +153,9 @@ export const WithInSurfaceSelection: Story = {
   render: (args) => (
     <CheckboxGroup {...args}>
       {NOTIFICATION_OPTIONS.map((option) => (
-        <Checkbox
-          id={option.id}
-          key={option.value}
-          label={option.label}
-          value={option.value}
-          variant="inSurface"
-        />
+        <Checkbox id={option.id} key={option.value} value={option.value} variant="inSurface">
+          {option.label}
+        </Checkbox>
       ))}
     </CheckboxGroup>
   ),
@@ -190,12 +200,13 @@ export const Nested: Story = {
             managementValue.length > 0 &&
             managementValue.length !== userManagementPermissions.length
           }
-          label="User Permissions"
           parent
           style={{ marginLeft: '-1rem' }}
-        />
-        <Checkbox label="View Dashboard" value="view-dashboard" />
-        <Checkbox label="Access Reports" value="access-reports" />
+        >
+          User Permissions
+        </Checkbox>
+        <Checkbox value="view-dashboard">View Dashboard</Checkbox>
+        <Checkbox value="access-reports">Access Reports</Checkbox>
         <CheckboxGroup
           allValues={userManagementPermissions}
           onValueChange={(value) => {
@@ -209,16 +220,13 @@ export const Nested: Story = {
           style={{ marginLeft: '1rem' }}
           value={managementValue}
         >
-          <Checkbox
-            id="manage-users-caption"
-            label="Manage Users"
-            parent
-            style={{ marginLeft: '-1rem' }}
-          />
-          <Checkbox label="Create User" value="create-user" />
-          <Checkbox label="Edit User" value="edit-user" />
-          <Checkbox label="Delete User" value="delete-user" />
-          <Checkbox label="Assign Roles" value="assign-roles" />
+          <Checkbox id="manage-users-caption" parent style={{ marginLeft: '-1rem' }}>
+            Manage Users
+          </Checkbox>
+          <Checkbox value="create-user">Create User</Checkbox>
+          <Checkbox value="edit-user">Edit User</Checkbox>
+          <Checkbox value="delete-user">Delete User</Checkbox>
+          <Checkbox value="assign-roles">Assign Roles</Checkbox>
         </CheckboxGroup>
       </CheckboxGroup>
     )
@@ -242,12 +250,9 @@ export const ControlledExample: Story = {
       <div className="flex flex-col gap-sm">
         <CheckboxGroup onValueChange={setValue} value={value}>
           {NOTIFICATION_OPTIONS.map((option) => (
-            <Checkbox
-              id={`controlled-${option.id}`}
-              key={option.value}
-              label={option.label}
-              value={option.value}
-            />
+            <Checkbox id={`controlled-${option.id}`} key={option.value} value={option.value}>
+              {option.label}
+            </Checkbox>
           ))}
         </CheckboxGroup>
         <p className="style-text-default--1 text-on-surface-variant">

@@ -9,7 +9,7 @@ import { InputOTP } from './index'
  * ## Anatomy
  *
  * ```tsx
- * import { InputOTP, InputOTPSlot, InputOtpSeparator } from '@dawn/ui'
+ * import { InputOTP, InputOTPSlot, InputOtpSeparator } from '@ixia/ui'
  *
  * <InputOTP length={6}>
  *   <InputOTPSlot />

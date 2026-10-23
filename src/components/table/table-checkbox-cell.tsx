@@ -13,6 +13,7 @@ export function TableCheckboxCell({ className, ref, ...props }: TableCheckboxCel
     <table.Subscribe selector={(state) => state.rowSelection}>
       {() => (
         <Checkbox
+          variant="outline"
           aria-label="Select row"
           checked={
             row.getIsSelected() || (row.getCanSelectSubRows() && row.getIsAllSubRowsSelected())
@@ -20,7 +21,7 @@ export function TableCheckboxCell({ className, ref, ...props }: TableCheckboxCel
           disabled={!row.getCanSelect()}
           indeterminate={row.getIsSomeSelected()}
           onCheckedChange={(checked) => row.toggleSelected(checked)}
-          className={cn('', className)}
+          className={cn('mx-auto flex', className)}
           ref={ref}
           {...props}
         />

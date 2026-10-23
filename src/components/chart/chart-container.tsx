@@ -30,9 +30,7 @@ export function ChartContainer({
         ref={ref}
         {...props}
       >
-        <ResponsiveContainer width="100%" height="100%" initialDimension={initialDimension}>
-          {children}
-        </ResponsiveContainer>
+        <ResponsiveContainer initialDimension={initialDimension}>{children}</ResponsiveContainer>
       </div>
     </ChartContainerContext.Provider>
   )

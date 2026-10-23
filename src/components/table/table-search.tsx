@@ -16,7 +16,7 @@ export function TableSearch({ className, ref, ...props }: TableSearchProps) {
   return (
     <table.Subscribe selector={(state) => state.globalFilter}>
       {(globalFilter) => (
-        <InputGroup>
+        <InputGroup variant={props.variant ?? 'outline'} className="flex-1">
           <InputGroupAddon>
             <MagnifyingGlassIcon weight="bold" />
           </InputGroupAddon>

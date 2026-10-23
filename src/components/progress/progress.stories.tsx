@@ -1,6 +1,7 @@
 import { CheckIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Fragment } from 'react'
+import { expect } from 'storybook/test'
 
 import { Progress } from './index'
 
@@ -74,6 +75,34 @@ type IndicatorStory = StoryObj<typeof Progress.Indicator>
 type BarStory = StoryObj<typeof Progress.Bar>
 
 export const Playground: Story = {
+  play: async ({ canvasElement }) => {
+    const labels = canvasElement.querySelectorAll('[data-slot="progress-label"]')
+
+    await expect(labels).toHaveLength(STEP_ITEMS.length)
+    for (const label of labels) {
+      const indicator = label.parentElement
+
+      if (!indicator) {
+        throw new Error('Expected a progress indicator around the label')
+      }
+      const labelBounds = label.getBoundingClientRect(),
+        indicatorBounds = indicator.getBoundingClientRect(),
+        styles = getComputedStyle(label)
+
+      await expect(Number.parseFloat(styles.lineHeight)).toBeCloseTo(
+        Number.parseFloat(styles.fontSize),
+        1,
+      )
+      await expect(labelBounds.x + labelBounds.width / 2).toBeCloseTo(
+        indicatorBounds.x + indicatorBounds.width / 2,
+        1,
+      )
+      await expect(labelBounds.y + labelBounds.height / 2).toBeCloseTo(
+        indicatorBounds.y + indicatorBounds.height / 2,
+        1,
+      )
+    }
+  },
   parameters: {
     docs: {
       description: {

@@ -2,6 +2,7 @@ import { enUS, ja } from '@daypicker/react/locale'
 import { CalendarBlankIcon, ClockIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
+import { expect } from 'storybook/test'
 
 import { CalendarFooter } from '..'
 import { Button } from '../button'
@@ -24,7 +25,7 @@ export default {
     docs: {
       description: {
         component:
-          'A calendar component that allows users to select dates and view events. It is built using the DayPicker library and can be customized with various props.',
+          'A calendar component that allows users to select dates and view events. It is built using the DayPicker library and can be customized with various props. Default day button labels include the displayed day followed by the full date and selection context; custom labels can be supplied through the labels prop.',
       },
     },
   },
@@ -56,7 +57,30 @@ export default {
 
 type Story = StoryObj<typeof CalendarPicker>
 
-export const Playground: Story = {}
+export const Playground: Story = {
+  play: async ({ canvas }) => {
+    const navigation = canvas.getByRole('navigation'),
+      buttons = navigation.querySelectorAll('button'),
+      monthGrid = canvas.getByRole('grid'),
+      expectedSize = navigation.getBoundingClientRect().height
+
+    await expect(buttons).toHaveLength(2)
+    await expect(expectedSize).toBeGreaterThan(0)
+    await expect(getComputedStyle(monthGrid).borderCollapse).toBe('separate')
+    await expect(Number.parseFloat(getComputedStyle(monthGrid).borderSpacing)).toBeGreaterThan(0)
+    for (const button of buttons) {
+      const bounds = button.getBoundingClientRect()
+
+      await expect(bounds.width).toBeCloseTo(bounds.height, 1)
+      await expect(button).toHaveClass('hover:bg-neutral-container-high')
+    }
+    const day = canvas.getByRole('button', { name: /\b15th\b/ }),
+      dayBounds = day.getBoundingClientRect()
+
+    await expect(day).toHaveClass('size-xl!')
+    await expect(dayBounds.width).toBeCloseTo(dayBounds.height, 1)
+  },
+}
 
 export const Ghost: Story = {
   name: 'Variant / Ghost',
@@ -266,7 +290,10 @@ export const AsPopup: Story = {
     return (
       <Popover>
         <PopoverTrigger>
-          <Button variant="outline" aria-label={`${selectedLabel}, choose date`}>
+          <Button
+            variant="outline"
+            aria-label={`Choose date: ${(selectedDates as Date).toLocaleDateString()}`}
+          >
             <CalendarBlankIcon weight="bold" />
             <span>{selectedLabel}</span>
           </Button>

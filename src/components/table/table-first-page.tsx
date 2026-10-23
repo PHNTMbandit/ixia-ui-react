@@ -21,8 +21,9 @@ export function TableFirstPage({ className, children, ref, ...props }: TableFirs
       disabled={!table.getCanPreviousPage()}
       onClick={handleClick}
       ref={ref}
-      variant="ghost"
+      variant="outline"
       tone="neutral"
+      size="iconMedium"
       {...props}
     >
       {children}

@@ -1,3 +1,5 @@
+import { cn } from '@/utils/cn'
+
 import { useTableContext } from './table-feature-context'
 import type { TableResultsProps } from './table.types'
 
@@ -18,7 +20,7 @@ function getPageEnd(start: number, pageSize: number, totalRows: number): number 
   return Math.min(start + pageSize - PAGE_NUMBER_OFFSET, totalRows)
 }
 
-export function TableResults({ children }: TableResultsProps) {
+export function TableResults({ children, className, ref, ...props }: TableResultsProps) {
   const table = useTableContext(),
     { pageIndex } = table.state.pagination,
     { pageSize } = table.state.pagination,
@@ -26,5 +28,16 @@ export function TableResults({ children }: TableResultsProps) {
     start = getPageStart(totalRows, pageIndex, pageSize),
     end = getPageEnd(start, pageSize, totalRows)
 
-  return children(start, end, totalRows)
+  return (
+    <div
+      className={cn(
+        'flex items-center gap-2xs style-text-default--1 text-on-surface-variant',
+        className,
+      )}
+      ref={ref}
+      {...props}
+    >
+      {children(start, end, totalRows)}
+    </div>
+  )
 }

@@ -98,6 +98,20 @@ export const Secondary: Story = {
   },
 }
 
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+  },
+  name: 'Variant / Outline',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Outline style for inputs with clear boundaries.',
+      },
+    },
+  },
+}
+
 export const Small: Story = {
   args: {
     size: 'small',

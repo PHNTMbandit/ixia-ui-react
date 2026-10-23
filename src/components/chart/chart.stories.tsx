@@ -2,6 +2,7 @@ import { TrendDownIcon, TrendUpIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, LabelList, AreaChart, Area } from 'recharts'
+import { expect, waitFor } from 'storybook/test'
 
 import { TabsTab } from '@/index'
 
@@ -56,13 +57,28 @@ export default {
     config: chartConfig,
   },
   parameters: {
-    layout: 'fullscreen',
     docs: {
       subtitle: 'A chart component that displays data in a visual format.',
       description: {
-        component: 'A chart component that displays data in a visual format.',
+        component:
+          'A responsive chart container that sizes its Recharts child to the available space. Give the container a width and height or aspect ratio, and use the ixia color tokens for series colors.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    await waitFor(async () => {
+      const chart = canvasElement.querySelector('.recharts-surface'),
+        series = canvasElement.querySelector('.recharts-area-area, .recharts-bar-rectangle path')
+
+      await expect(chart).not.toBeNull()
+      await expect(series).not.toBeNull()
+      if (!chart || !series) {
+        return
+      }
+      await expect(chart.getBoundingClientRect().width).toBeGreaterThan(0)
+      await expect(chart.getBoundingClientRect().height).toBeGreaterThan(0)
+      await expect(getComputedStyle(series).fill).not.toBe('rgb(0, 0, 0)')
+    })
   },
 } as Meta<typeof ChartContainer>
 

@@ -45,6 +45,7 @@ const BYTES_PER_KILOBYTE = 1000,
         },
         variant: {
           ghost: 'bg-transparent',
+          outline: 'bg-transparent outline outline-border',
           primary: 'bg-surface shadow-2xs',
           secondary: 'bg-neutral-container',
         },

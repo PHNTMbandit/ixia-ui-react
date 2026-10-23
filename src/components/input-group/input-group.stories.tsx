@@ -118,6 +118,28 @@ export const Secondary: Story = {
   ),
 }
 
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+  },
+  name: 'Variant / Outline',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Outline style for inputs with clear boundaries.',
+      },
+    },
+  },
+  render: (args) => (
+    <InputGroup {...args}>
+      <InputGroup.Addon>
+        <TagIcon weight="bold" />
+      </InputGroup.Addon>
+      <InputGroup.Input placeholder="Campaign name" />
+    </InputGroup>
+  ),
+}
+
 export const IconAddons: Story = {
   name: 'Addon / Icon',
   render: (args) => (
