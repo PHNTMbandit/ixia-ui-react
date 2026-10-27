@@ -48,7 +48,7 @@
   "scripts": {
     "build": "tsc -b && vp build && pnpm run build:css",
     "build-storybook": "pnpm build:tailwind && storybook build",
-    "build:css": "node -e \"const fs=require('fs');fs.copyFileSync('src/styles/input.css','dist/styles.css')\"",
+    "build:css": "node -e \"const fs=require('fs');fs.copyFileSync('src/styles/input.css','dist/styles.css');fs.cpSync('src/styles/themes','dist/themes',{recursive:true})\"",
     "build:tailwind": "pnpm dlx @tailwindcss/cli -i ./src/styles/input.css -o ./dist/styles.css",
     "check": "vp check",
     "chromatic": "pnpm dlx chromatic --project-token chpt_96e26fa06b6e511",

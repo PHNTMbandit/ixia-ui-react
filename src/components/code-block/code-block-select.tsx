@@ -4,11 +4,11 @@ import { cn } from '@/utils/cn'
 
 import {
   Select,
-  SelectGroup,
   SelectIcon,
   SelectItem,
   SelectList,
   SelectPopup,
+  SelectTitle,
   SelectTrigger,
   SelectValue,
 } from '../select'
@@ -43,13 +43,11 @@ export function CodeBlockSelect({ className, children, ref, ...props }: CodeBloc
       <SelectPopup>
         <SelectList>
           {children}
-          <SelectGroup>
-            {items.map(({ label, id }) => (
-              <SelectItem key={id} value={id}>
-                {label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
+          {items.map(({ label, id }) => (
+            <SelectItem key={id} value={id}>
+              <SelectTitle>{label}</SelectTitle>
+            </SelectItem>
+          ))}
         </SelectList>
       </SelectPopup>
     </Select>

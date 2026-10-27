@@ -65,7 +65,6 @@ const apples = [
     size = 'medium',
     placeholder = 'Select an apple',
     disabled = false,
-    iconOnly = false,
   }: {
     defaultValue?: string | string[]
     multiple?: boolean
@@ -73,32 +72,47 @@ const apples = [
     size?: SelectSize
     placeholder?: string
     disabled?: boolean
-    iconOnly?: boolean
   }) => (
     <Select defaultValue={defaultValue} multiple={multiple} disabled={disabled}>
-      <Select.Trigger
-        aria-label={placeholder}
-        variant={variant}
-        size={size}
-        className={iconOnly ? 'aspect-square justify-center p-0' : undefined}
-      >
-        {iconOnly ? (
+      <Select.Trigger aria-label={placeholder} variant={variant} size={size}>
+        <Select.Value placeholder={placeholder}>
+          {(value: keyof typeof apples) => (
+            <>
+              <BowlFoodIcon />
+              <span>{apples.find((apple) => apple.value === value)?.label || placeholder}</span>
+            </>
+          )}
+        </Select.Value>
+        <Select.Icon>
+          <CaretUpDownIcon weight="bold" />
+        </Select.Icon>
+      </Select.Trigger>
+      <Select.Popup alignItemWithTrigger={false} sideOffset={8}>
+        <Select.List>
+          {apples.map(({ label, value }) => (
+            <Select.Item key={label} value={value}>
+              <Select.Title>
+                <BowlFoodIcon />
+                {label}
+              </Select.Title>
+            </Select.Item>
+          ))}
+        </Select.List>
+      </Select.Popup>
+    </Select>
+  ),
+  IconAppleSelect = ({
+    variant = 'primary',
+    size = 'medium',
+  }: {
+    variant?: SelectVariant
+    size?: SelectSize
+  }) => (
+    <Select>
+      <Select.Trigger aria-label="Select an apple" variant={variant} size={size}>
+        <Select.Value placeholder="Select an apple">
           <BowlFoodIcon />
-        ) : (
-          <>
-            <Select.Value placeholder={placeholder}>
-              {(value: keyof typeof apples) => (
-                <>
-                  <BowlFoodIcon />
-                  {apples.find((apple) => apple.value === value)?.label || placeholder}
-                </>
-              )}
-            </Select.Value>
-            <Select.Icon>
-              <CaretUpDownIcon weight="bold" />
-            </Select.Icon>
-          </>
-        )}
+        </Select.Value>
       </Select.Trigger>
       <Select.Popup alignItemWithTrigger={false} sideOffset={8}>
         <Select.List>
@@ -171,7 +185,9 @@ const apples = [
           {(value: string) => (
             <>
               <BowlFoodIcon />
-              {applesWithDescription.find((apple) => apple.value === value)?.label || placeholder}
+              <span>
+                {applesWithDescription.find((apple) => apple.value === value)?.label || placeholder}
+              </span>
             </>
           )}
         </Select.Value>
@@ -299,6 +315,9 @@ export const VariantPrimary: Story = {
     },
   },
   render: () => <AppleSelect variant="primary" />,
+  play: async ({ canvas }) => {
+    await expect(getComputedStyle(canvas.getByRole('combobox')).paddingLeft).not.toBe('0px')
+  },
 }
 
 export const VariantSecondary: Story = {
@@ -415,7 +434,7 @@ export const IconSmall: Story = {
       },
     },
   },
-  render: () => <AppleSelect size="small" iconOnly />,
+  render: () => <IconAppleSelect size="small" />,
 }
 
 export const IconMedium: Story = {
@@ -427,7 +446,7 @@ export const IconMedium: Story = {
       },
     },
   },
-  render: () => <AppleSelect size="medium" iconOnly />,
+  render: () => <IconAppleSelect size="medium" />,
 }
 
 export const IconLarge: Story = {
@@ -440,7 +459,7 @@ export const IconLarge: Story = {
       },
     },
   },
-  render: () => <AppleSelect size="large" iconOnly />,
+  render: () => <IconAppleSelect size="large" />,
 }
 
 export const IconSizes: Story = {
@@ -449,7 +468,7 @@ export const IconSizes: Story = {
     docs: {
       description: {
         story:
-          'All three icon-only sizes across primary, secondary, and ghost variants. Use the regular size prop with aspect-square, justify-center, and p-0 utilities; no separate icon size is needed.',
+          'All three icon-only sizes across primary, secondary, and ghost variants. The trigger keeps its regular size-based height and uses square, centered, padding-free sizing.',
       },
     },
   },
@@ -459,7 +478,7 @@ export const IconSizes: Story = {
         <div key={variant} className="flex items-center gap-sm">
           {SIZES.map((size) => (
             <div key={size} data-testid={`${variant}-${size}`}>
-              <AppleSelect variant={variant} size={size} iconOnly />
+              <IconAppleSelect variant={variant} size={size} />
             </div>
           ))}
         </div>
@@ -472,6 +491,7 @@ export const IconSizes: Story = {
         const row = canvas.getByTestId(`${variant}-${size}`),
           trigger = within(row).getByRole('combobox'),
           bounds = trigger.getBoundingClientRect(),
+          icon = trigger.querySelector('[data-value] svg')!,
           reference = document.createElement('div')
 
         reference.style.width = `var(--spacing-${['lg', 'xl', '2xl'][index]})`
@@ -486,6 +506,9 @@ export const IconSizes: Story = {
           )
           await expect(bounds.width).toBeCloseTo(reference.getBoundingClientRect().width, 1)
           await expect(bounds.height).toBeCloseTo(bounds.width, 1)
+          await expect(
+            icon.getBoundingClientRect().x + icon.getBoundingClientRect().width / 2,
+          ).toBeCloseTo(bounds.x + bounds.width / 2, 1)
           await expect(getComputedStyle(trigger).paddingLeft).toBe('0px')
           await expect(getComputedStyle(trigger).paddingRight).toBe('0px')
           await expect(trigger.querySelector('svg')!.getBoundingClientRect().width).toBeCloseTo(
@@ -622,7 +645,9 @@ export const WithOnValueChange: Story = {
               {(value: string) => (
                 <>
                   <BowlFoodIcon />
-                  {apples.find((apple) => apple.value === value)?.label || 'Select an apple'}
+                  <span>
+                    {apples.find((apple) => apple.value === value)?.label || 'Select an apple'}
+                  </span>
                 </>
               )}
             </Select.Value>

@@ -789,9 +789,6 @@
   .h-2xl {
     height: var(--spacing-2xl);
   }
-  .h-2xl\! {
-    height: var(--spacing-2xl) !important;
-  }
   .h-2xs {
     height: var(--spacing-2xs);
   }
@@ -1851,9 +1848,6 @@
   .p-\[0\.5rem_0\.5rem\] {
     padding: 0.5rem 0.5rem;
   }
-  .p-\[0px\] {
-    padding: 0px;
-  }
   .p-\[1rem\] {
     padding: 1rem;
   }
@@ -1886,9 +1880,6 @@
   }
   .px-xs {
     padding-inline: var(--spacing-xs);
-  }
-  .py-0 {
-    padding-block: var(--spacing-0);
   }
   .py-2xl {
     padding-block: var(--spacing-2xl);
@@ -2123,10 +2114,6 @@
   }
   .text-xs {
     font-size: var(--text-xs);
-  }
-  .leading-0 {
-    --tw-leading: var(--spacing-0);
-    line-height: var(--spacing-0);
   }
   .leading-none {
     --tw-leading: 1;
@@ -2676,55 +2663,11 @@
   :is(.\*\:hidden > *) {
     display: none;
   }
-  :is(.\*\:size-2xl > *) {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  :is(.\*\:size-lg > *) {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  :is(.\*\:size-md > *) {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  :is(.\*\:size-xl > *) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
   :is(.\*\:rounded-none > *) {
     border-radius: 0;
   }
   :is(.\*\:bg-transparent > *) {
     background-color: transparent;
-  }
-  :is(.\*\:style-text-default--1 > *) {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-sm);
-    line-height: normal;
-    letter-spacing: normal;
-  }
-  :is(.\*\:style-text-default--2 > *) {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-xs);
-    line-height: normal;
-    letter-spacing: normal;
-  }
-  :is(.\*\:style-text-default-0 > *) {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-base);
-    line-height: normal;
-    letter-spacing: normal;
-  }
-  :is(.\*\:style-text-default-1 > *) {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-lg);
-    line-height: normal;
-    letter-spacing: normal;
   }
   :is(.\*\:font-body > *) {
     font-family: var(--font-body);
@@ -3602,34 +3545,8 @@
   .has-\[svg\]\:p-0:has(:is(svg)) {
     padding: var(--spacing-0);
   }
-  .has-\[\>_svg\:only-child\]\:size-2xl:has( > svg:only-child) {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  .has-\[\>_svg\:only-child\]\:size-lg:has( > svg:only-child) {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .has-\[\>_svg\:only-child\]\:size-md:has( > svg:only-child) {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .has-\[\>_svg\:only-child\]\:size-xl:has( > svg:only-child) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
-  .has-\[\>_svg\:only-child\]\:p-0:has( > svg:only-child) {
-    padding: var(--spacing-0);
-  }
   .has-\[\>\:only-child\]\:list-none:has( > :only-child) {
     list-style-type: none;
-  }
-  .has-\[\>svg\:only-child\]\:size-xl:has( > svg:only-child) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
-  .has-\[\>svg\:only-child\]\:p-0:has( > svg:only-child) {
-    padding: var(--spacing-0);
   }
   .aria-invalid\:bg-error-container[aria-invalid="true"] {
     background-color: var(--color-error-container);
@@ -3959,25 +3876,6 @@
     animation-delay: 0s;
     --tw-animation-delay: calc(0*1ms);
     --tw-animation-delay: 0s;
-  }
-  .data-icon-only\:has-\[\>svg\:only-child\]\:size-2xl[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  .data-icon-only\:has-\[\>svg\:only-child\]\:size-lg[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .data-icon-only\:has-\[\>svg\:only-child\]\:size-md[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .data-icon-only\:has-\[\>svg\:only-child\]\:size-xl[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
-  .data-icon-only\:has-\[\>svg\:only-child\]\:p-0[data-icon-only]:has( > svg:only-child) {
-    padding: var(--spacing-0);
   }
   .data-instant\:transition-none[data-instant] {
     transition-property: none;
@@ -4468,25 +4366,6 @@
   }
   .data-\[disabled\=true\]\:opacity-50[data-disabled="true"] {
     opacity: 50%;
-  }
-  .data-\[icon-only\]\:has-\[\>svg\:only-child\]\:size-2xl[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  .data-\[icon-only\]\:has-\[\>svg\:only-child\]\:size-lg[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .data-\[icon-only\]\:has-\[\>svg\:only-child\]\:size-md[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .data-\[icon-only\]\:has-\[\>svg\:only-child\]\:size-xl[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
-  .data-\[icon-only\]\:has-\[\>svg\:only-child\]\:p-0[data-icon-only]:has( > svg:only-child) {
-    padding: var(--spacing-0);
   }
   .data-\[orientation\=horizontal\]\:w-full[data-orientation="horizontal"] {
     width: 100%;
@@ -5959,42 +5838,6 @@
     width: var(--spacing-2xs);
     height: var(--spacing-2xs);
   }
-  .has-data-select-icon\:\[\&_svg\]\:size-md:has([data-select-icon]) svg {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .has-data-select-icon\:\[\&_svg\]\:size-sm:has([data-select-icon]) svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
-  }
-  .has-data-select-icon\:\[\&_svg\]\:size-xs:has([data-select-icon]) svg {
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
-  }
-  .\[\&_\[data-select-icon\]\]\:\[\&_svg\]\:size-md [data-select-icon] svg {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&_\[data-select-icon\]\]\:\[\&_svg\]\:size-sm [data-select-icon] svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
-  }
-  .\[\&_\[data-select-icon\]\]\:\[\&_svg\]\:size-xs [data-select-icon] svg {
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
-  }
-  .\[\&_\[data-value\]\]\:\[\&_svg\]\:size-md [data-value] svg {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&_\[data-value\]\]\:\[\&_svg\]\:size-sm [data-value] svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
-  }
-  .\[\&_\[data-value\]\]\:\[\&_svg\]\:size-xs [data-value] svg {
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
-  }
   .\[\&\.rounded-l-none\]\:rounded-xl.rounded-l-none {
     border-radius: var(--radius-xl);
   }
@@ -6028,6 +5871,27 @@
   .\[\&\:has\(\[data-chips\]\:not\(\:empty\)\)\]\:rounded-xl:has([data-chips]:not(:empty)) {
     border-radius: var(--radius-xl);
   }
+  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:aspect-square:has([data-value]:has( > svg:only-child)) {
+    aspect-ratio: 1 / 1;
+  }
+  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:justify-center:has([data-value]:has( > svg:only-child)) {
+    justify-content: center;
+  }
+  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:p-0:has([data-value]:has( > svg:only-child)) {
+    padding: var(--spacing-0);
+  }
+  .\[\&\:has\(\[data-value\]\>svg\:only-child\)\]\:aspect-square:has([data-value] > svg:only-child) {
+    aspect-ratio: 1 / 1;
+  }
+  .\[\&\:has\(\[data-value\]\>svg\:only-child\)\]\:justify-center:has([data-value] > svg:only-child) {
+    justify-content: center;
+  }
+  .\[\&\:has\(\[data-value\]\>svg\:only-child\)\]\:p-0:has([data-value] > svg:only-child) {
+    padding: var(--spacing-0);
+  }
+  .\[\&\:has\(\[data-value\]\>svg\:only-child\)_\[data-value\]\]\:flex-none:has([data-value] > svg:only-child) [data-value] {
+    flex: none;
+  }
   .\[\&\:has\(\~_\[data-slot\=accordion-subtitle\]\)\]\:leading-\[1\.2\]:has( ~ [data-slot=accordion-subtitle]) {
     --tw-leading: 1.2;
     line-height: 1.2;
@@ -6051,17 +5915,9 @@
   .\[\&\:not\(\:has\(\[data-chips\]\)\)\>\[role\=separator\]\]\:hidden:not(:has([data-chips])) > [role=separator] {
     display: none;
   }
-  .\[\&\:not\(\:has\(\~_\[data-slot\=accordion-subtitle\]\)\)\]\:leading-0:not(:has( ~ [data-slot=accordion-subtitle])) {
-    --tw-leading: var(--spacing-0);
-    line-height: var(--spacing-0);
-  }
   .\[\&\:not\(\:has\(\~_\[data-slot\=accordion-subtitle\]\)\)\]\:leading-none:not(:has( ~ [data-slot=accordion-subtitle])) {
     --tw-leading: 1;
     line-height: 1;
-  }
-  .\[\&\:not\(\:has\(\~_\[data-slot\=alert-description\]\)\)\]\:leading-0:not(:has( ~ [data-slot=alert-description])) {
-    --tw-leading: var(--spacing-0);
-    line-height: var(--spacing-0);
   }
   .\[\&\:not\(\:has\(\~_\[data-slot\=alert-description\]\)\)\]\:leading-none:not(:has( ~ [data-slot=alert-description])) {
     --tw-leading: 1;
@@ -6191,10 +6047,6 @@
     width: var(--spacing-2xl);
     height: var(--spacing-2xl);
   }
-  .\[\&\:where\(\[data-icon-only\]\:has\(\>svg\:only-child\)\)\]\:size-3xl:where([data-icon-only]:has( > svg:only-child)) {
-    width: var(--spacing-3xl);
-    height: var(--spacing-3xl);
-  }
   .\[\&\:where\(\[data-icon-only\]\:has\(\>svg\:only-child\)\)\]\:size-lg:where([data-icon-only]:has( > svg:only-child)) {
     width: var(--spacing-lg);
     height: var(--spacing-lg);
@@ -6291,22 +6143,6 @@
     --tw-content: "";
     content: var(--tw-content);
   }
-  .\[\&\>button\]\:size-2xl > button {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  .\[\&\>button\]\:size-lg > button {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .\[\&\>button\]\:size-md > button {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&\>button\]\:size-xl > button {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
   .\[\&\>button\]\:h-2xl > button {
     height: var(--spacing-2xl);
   }
@@ -6339,9 +6175,6 @@
   }
   .\[\&\>button\]\:gap-xs > button {
     gap: var(--spacing-xs);
-  }
-  .\[\&\>button\]\:p-\[0px\] > button {
-    padding: 0px;
   }
   .\[\&\>button\]\:px-2xs > button {
     padding-inline: var(--spacing-2xs);
@@ -6536,10 +6369,6 @@
   .\[\&\>svg\]\:block > svg {
     display: block;
   }
-  .\[\&\>svg\]\:size-2xs > svg {
-    width: var(--spacing-2xs);
-    height: var(--spacing-2xs);
-  }
   .\[\&\>svg\]\:size-\[1em\] > svg {
     width: 1em;
     height: 1em;
@@ -6551,10 +6380,6 @@
   .\[\&\>svg\]\:size-md > svg {
     width: var(--spacing-md);
     height: var(--spacing-md);
-  }
-  .\[\&\>svg\]\:size-md\! > svg {
-    width: var(--spacing-md) !important;
-    height: var(--spacing-md) !important;
   }
   .\[\&\>svg\]\:size-sm > svg {
     width: var(--spacing-sm);
@@ -6674,10 +6499,6 @@
     .hover\:\[\&\>svg\]\:text-warning-default:hover > svg {
       color: var(--color-warning-default);
     }
-  }
-  .\[\&_\[data-select-icon\]\]\:\[\&\>svg\]\:size-sm [data-select-icon] > svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
   }
   .\[\&_\[data-slot\=accordion-icon\]\]\:\[\&\>svg\]\:size-lg [data-slot=accordion-icon] > svg {
     width: var(--spacing-lg);
