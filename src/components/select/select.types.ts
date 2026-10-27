@@ -13,11 +13,11 @@ const selectVariants = cva(
     variants: {
       size: {
         large:
-          'h-2xl gap-xl rounded-2xl px-md style-text-default-1 [&_[data-value]]:gap-xs [&_svg]:size-md',
+          'h-2xl gap-xl rounded-2xl px-md style-text-default-1 [&_[data-value]]:gap-xs [&_svg]:size-lg',
         medium:
-          'h-xl gap-lg rounded-xl px-sm style-text-default-0 [&_[data-value]]:gap-2xs [&_svg]:size-sm',
+          'h-xl gap-lg rounded-xl px-sm style-text-default-0 [&_[data-value]]:gap-2xs [&_svg]:size-md',
         small:
-          'h-lg gap-md rounded-lg px-xs style-text-default--1 [&_[data-value]]:gap-3xs [&_svg]:size-xs',
+          'h-lg gap-md rounded-lg px-xs style-text-default--1 [&_[data-value]]:gap-3xs [&_svg]:size-sm',
       },
       variant: {
         ghost: 'bg-transparent hover:bg-neutral-container',
