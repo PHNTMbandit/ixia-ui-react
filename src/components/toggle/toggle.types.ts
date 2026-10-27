@@ -11,12 +11,12 @@ export const toggleVariants = cva(
     },
     variants: {
       size: {
-        iconLarge: 'size-xl [&>svg]:size-md',
-        iconMedium: 'size-lg [&>svg]:size-sm',
-        iconSmall: 'size-md [&>svg]:size-xs',
-        large: 'h-xl gap-xs px-sm style-text-default-0 [&>svg]:size-md',
-        medium: 'h-lg gap-2xs px-xs style-text-default--1 [&>svg]:size-sm',
-        small: 'h-md gap-3xs px-2xs style-text-default--2 [&>svg]:size-xs',
+        iconLarge: 'size-2xl [&>svg]:size-lg',
+        iconMedium: 'size-xl [&>svg]:size-md',
+        iconSmall: 'size-lg [&>svg]:size-sm',
+        large: 'h-2xl gap-xs px-sm style-text-default-0 [&>svg]:size-lg',
+        medium: 'h-xl gap-2xs px-xs style-text-default--1 [&>svg]:size-md',
+        small: 'h-lg gap-3xs px-2xs style-text-default--2 [&>svg]:size-sm',
       },
       tone: {
         accent:

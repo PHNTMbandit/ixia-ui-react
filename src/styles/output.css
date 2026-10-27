@@ -2698,13 +2698,6 @@
     line-height: normal;
     letter-spacing: normal;
   }
-  :is(.\*\:style-text-default-2 > *) {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--text-xl);
-    line-height: normal;
-    letter-spacing: normal;
-  }
   .not-first\:pl-2xs:not(:first-child) {
     padding-left: var(--spacing-2xs);
   }
@@ -6464,22 +6457,6 @@
   .\[\&_\[data-slot\=accordion-icon\]\]\:\[\&\>svg\]\:size-sm [data-slot=accordion-icon] > svg {
     width: var(--spacing-sm);
     height: var(--spacing-sm);
-  }
-  .\[\&\>button\]\:\[\&\>svg\]\:size-2xs > button > svg {
-    width: var(--spacing-2xs);
-    height: var(--spacing-2xs);
-  }
-  .\[\&\>button\]\:\[\&\>svg\]\:size-md > button > svg {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&\>button\]\:\[\&\>svg\]\:size-sm > button > svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
-  }
-  .\[\&\>button\]\:\[\&\>svg\]\:size-xs > button > svg {
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
   }
   .\[\&\[aria-orientation\=horizontal\]\>div\]\:rotate-90[aria-orientation=horizontal] > div {
     rotate: 90deg;
