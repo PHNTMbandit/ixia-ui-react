@@ -1,3 +1,11 @@
+## [1.4.4](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.3...v1.4.4) (2026-10-27)
+
+
+### Bug Fixes
+
+* **code-block:** update code block components and styles for improved layout and functionality ([00ead3e](https://github.com/PHNTMbandit/ixia-ui-react/commit/00ead3e5cb6ba0bb357406758ee2fda9c8bcc301))
+* **pnpm-workspace:** improve dependency listing format ([bb52de6](https://github.com/PHNTMbandit/ixia-ui-react/commit/bb52de6301e7821e0c8e0b2888d615bb7e81c093))
+
 ## [1.4.3](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.2...v1.4.3) (2026-10-27)
 
 
