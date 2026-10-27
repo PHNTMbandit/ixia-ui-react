@@ -1,3 +1,15 @@
+# [1.4.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.3.0...v1.4.0) (2026-10-27)
+
+
+### Bug Fixes
+
+* **button:** update button size variants for improved icon alignment ([60b75e7](https://github.com/PHNTMbandit/ixia-ui-react/commit/60b75e729360042dfc1b553b825096734e9d6ade))
+
+
+### Features
+
+* **button-group:** add size parity story and improve button styles for consistency ([16b9b03](https://github.com/PHNTMbandit/ixia-ui-react/commit/16b9b03390eabdb02a90d0eb1f311360baf7d87b))
+
 # [1.3.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.2.0...v1.3.0) (2026-10-23)
 
 
