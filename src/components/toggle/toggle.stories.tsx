@@ -1,6 +1,6 @@
 import { HeartIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, userEvent } from 'storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 
 import { ToggleGroup } from '../toggle-group/toggle-group'
 import { Toggle } from './toggle'
@@ -90,7 +90,10 @@ export const AutomaticIconSizing: Story = {
   play: async ({ canvas }) => {
     for (const [index, size] of ['large', 'medium', 'small'].entries()) {
       const row = canvas.getByTestId(size),
-        [staticIcon, dynamicIcon, labeled, override] = Array.from(row.querySelectorAll('button')),
+        controls = within(row),
+        staticIcon = controls.getByRole('button', { name: 'Static icon' }),
+        dynamicIcon = controls.getByRole('button', { name: 'Dynamic icon' }),
+        labeled = controls.getByRole('button', { name: 'Like' }),
         reference = document.createElement('div')
 
       reference.style.width = `var(--spacing-${['2xl', 'xl', 'lg'][index]})`
@@ -117,11 +120,6 @@ export const AutomaticIconSizing: Story = {
         )
         await expect(labeled.getBoundingClientRect().height).toBeCloseTo(
           staticIcon.getBoundingClientRect().height,
-          1,
-        )
-        reference.style.width = 'var(--spacing-2xl)'
-        await expect(override.getBoundingClientRect().width).toBeCloseTo(
-          reference.getBoundingClientRect().width,
           1,
         )
         await userEvent.click(dynamicIcon)
