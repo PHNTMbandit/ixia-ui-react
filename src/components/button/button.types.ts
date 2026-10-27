@@ -253,12 +253,12 @@ export const buttonVariants = cva(
       size: {
         extraSmall: 'h-md gap-3xs px-2xs style-text-default--2 [&>svg]:size-xs',
         iconExtraSmall: 'size-md p-[0px] [&>svg]:size-xs',
-        iconLarge: 'size-2xl p-[0px] [&>svg]:size-md',
-        iconMedium: 'size-xl p-[0px] [&>svg]:size-sm',
-        iconSmall: 'size-lg p-[0px] [&>svg]:size-xs',
-        large: 'h-2xl min-w-2xl gap-xs px-md style-text-default-1 [&>svg]:size-md',
-        medium: 'h-xl min-w-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-sm',
-        small: 'h-lg min-w-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-xs',
+        iconLarge: 'size-2xl p-[0px] [&>svg]:size-lg',
+        iconMedium: 'size-xl p-[0px] [&>svg]:size-md',
+        iconSmall: 'size-lg p-[0px] [&>svg]:size-sm',
+        large: 'h-2xl min-w-2xl gap-xs px-md style-text-default-1 [&>svg]:size-lg',
+        medium: 'h-xl min-w-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-md',
+        small: 'h-lg min-w-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-sm',
       },
       tone: {
         accent: '',
