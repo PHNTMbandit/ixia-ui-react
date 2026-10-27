@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.0...v1.4.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* **select, toggle:** update size variants for improved consistency and alignment ([caece95](https://github.com/PHNTMbandit/ixia-ui-react/commit/caece95af0078e7b4afb03637bfcd6d3398f8d20))
+
 # [1.4.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.3.0...v1.4.0) (2026-10-27)
 
 
