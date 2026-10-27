@@ -4,7 +4,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { ReactNode } from 'react'
 
 const selectVariants = cva(
-  'flex items-center justify-between outline outline-transparent transition-all duration-100 hover:cursor-pointer aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:outline-error-border data-disabled:cursor-not-allowed [&_[data-value]]:min-w-0 [&_[data-value]]:flex-1',
+  'flex items-center justify-between outline outline-transparent transition-all duration-100 hover:cursor-pointer aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:outline-error-border data-disabled:cursor-not-allowed [&_[data-value]]:min-w-0 [&_[data-value]]:flex-1 [&:has([data-value]>svg:only-child)]:aspect-square [&:has([data-value]>svg:only-child)]:justify-center [&:has([data-value]>svg:only-child)]:p-0 [&:has([data-value]>svg:only-child)_[data-value]]:flex-none',
   {
     defaultVariants: {
       size: 'medium',
