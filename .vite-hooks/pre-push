@@ -2,4 +2,4 @@
 # Gate pushes on formatting, lint, types, tests, and a package build.
 vp check
 vp test
-vp pack
+vp run pack
