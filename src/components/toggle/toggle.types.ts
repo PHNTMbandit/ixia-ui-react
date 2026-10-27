@@ -11,12 +11,12 @@ export const toggleVariants = cva(
     },
     variants: {
       size: {
-        iconLarge: 'size-2xl [&>svg]:size-lg',
-        iconMedium: 'size-xl [&>svg]:size-md',
-        iconSmall: 'size-lg [&>svg]:size-sm',
-        large: 'h-2xl gap-xs px-sm style-text-default-0 [&>svg]:size-lg',
-        medium: 'h-xl gap-2xs px-xs style-text-default--1 [&>svg]:size-md',
-        small: 'h-lg gap-3xs px-2xs style-text-default--2 [&>svg]:size-sm',
+        large:
+          'h-2xl gap-xs px-sm font-body text-base leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-2xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-lg',
+        medium:
+          'h-xl gap-2xs px-xs font-body text-sm leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-md',
+        small:
+          'h-lg gap-3xs px-2xs font-body text-xs leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-sm',
       },
       tone: {
         accent:

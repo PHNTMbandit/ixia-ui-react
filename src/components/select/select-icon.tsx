@@ -7,7 +7,8 @@ import type { SelectIconProps } from './select.types'
 export function SelectIcon({ className, ref, ...props }: SelectIconProps) {
   return (
     <BaseSelect.Icon
-      className={cn('flex text-on-surface-variant', className)}
+      data-slot="select-icon"
+      className={cn('flex text-on-surface-muted', className)}
       ref={ref}
       {...props}
     />

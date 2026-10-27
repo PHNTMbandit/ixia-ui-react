@@ -119,12 +119,12 @@ export const badgeVariants = cva(
     },
     variants: {
       size: {
-        iconLarge: 'size-lg [&>svg]:size-sm',
-        iconMedium: 'size-md [&>svg]:size-xs',
-        iconSmall: 'size-sm [&>svg]:size-2xs',
-        large: 'h-lg px-xs [&>svg]:size-[1em]',
-        medium: 'h-md px-xs [&>svg]:size-[1em]',
-        small: 'h-sm px-xs [&>svg]:size-[1em]',
+        large:
+          'h-lg px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-sm',
+        medium:
+          'h-md px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-xs',
+        small:
+          'h-sm px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-sm [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-2xs',
       },
       tone: {
         accent: '',

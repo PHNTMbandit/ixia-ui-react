@@ -25,7 +25,7 @@ export function ComboboxChip({ className, children, ref, ...props }: ComboboxChi
             onClick={() => innerProps.onClick}
             variant="ghost"
             tone="error"
-            size="iconExtraSmall"
+            size="extraSmall"
           >
             <XIcon className="size-sm" weight="bold" />
           </Button>

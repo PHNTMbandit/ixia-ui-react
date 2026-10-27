@@ -23,7 +23,7 @@ export function TableFirstPage({ className, children, ref, ...props }: TableFirs
       ref={ref}
       variant="outline"
       tone="neutral"
-      size="iconMedium"
+      size="medium"
       {...props}
     >
       {children}

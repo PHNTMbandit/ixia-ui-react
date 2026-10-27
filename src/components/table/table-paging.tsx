@@ -115,7 +115,7 @@ export function TablePaging({
                   <Button
                     aria-label="Show more pages"
                     tone="neutral"
-                    size="iconMedium"
+                    size="medium"
                     variant="outline"
                     className="shrink-0"
                   >

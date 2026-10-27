@@ -29,7 +29,7 @@ export function LayerTreeLockedAll({
         return (
           <Button
             aria-label="Toggle all layers lock"
-            size="iconSmall"
+            size="small"
             tone="neutral"
             variant="ghost"
             onClick={() => handleClick(isLocked)}

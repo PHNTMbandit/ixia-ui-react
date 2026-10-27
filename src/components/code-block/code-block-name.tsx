@@ -9,7 +9,7 @@ export function CodeBlockName({ className, children, ref, ...props }: CodeBlockN
   return (
     <div
       className={cn(
-        'flex items-center justify-center gap-2xs px-xs style-text-strong-0 text-on-surface-variant [&>svg]:size-sm',
+        'flex items-center justify-center gap-2xs px-xs font-heading text-base leading-none font-bold text-on-surface-variant [&>svg]:size-md',
         className,
       )}
       ref={ref}

@@ -1,20 +1,12 @@
 import { ArrowRightIcon, DownloadSimpleIcon, PlusIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { Button } from './button'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
   VARIANTS = ['fill', 'outline', 'ghost', 'soft', 'elevated', 'link'] as const,
-  SIZES = [
-    'large',
-    'iconLarge',
-    'medium',
-    'iconMedium',
-    'small',
-    'iconSmall',
-    'extraSmall',
-    'iconExtraSmall',
-  ] as const
+  SIZES = ['large', 'medium', 'small', 'extraSmall'] as const
 
 type Tone = (typeof TONES)[number]
 type Variant = (typeof VARIANTS)[number]
@@ -42,13 +34,13 @@ const TONE_LABELS: Record<Tone, string> = {
     tone = 'brand',
     variant = 'fill',
     size = 'medium',
+    iconOnly = false,
   }: {
     tone?: Tone
     variant?: Variant
     size?: Size
+    iconOnly?: boolean
   }) => {
-    const iconOnly = size.startsWith('icon')
-
     return (
       <Button
         aria-label={iconOnly ? TONE_LABELS[tone] : undefined}
@@ -78,10 +70,9 @@ const TONE_LABELS: Record<Tone, string> = {
   ),
   IconSizesPreview = () => (
     <div className="flex flex-wrap items-center gap-sm">
-      <ButtonPreview size="iconLarge" />
-      <ButtonPreview size="iconMedium" />
-      <ButtonPreview size="iconSmall" />
-      <ButtonPreview size="iconExtraSmall" />
+      {SIZES.map((size) => (
+        <ButtonPreview key={size} size={size} iconOnly />
+      ))}
     </div>
   )
 
@@ -89,7 +80,8 @@ export default {
   argTypes: {
     children: {
       control: 'text',
-      description: 'Button label. Ignored for icon-only sizes in the default preview.',
+      description:
+        'Button label. Omit the label for an icon-only button and provide an aria-label.',
     },
     disabled: {
       control: 'boolean',
@@ -100,7 +92,8 @@ export default {
     },
     size: {
       control: 'radio',
-      description: 'Controls the button height, padding, and icon size.',
+      description:
+        'Controls the button height, padding, and icon size. A single SVG child automatically receives square, padding-free styling.',
       options: SIZES,
       table: {
         defaultValue: { summary: 'medium' },
@@ -135,7 +128,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Button component is the primary action trigger across the interface. It supports six visual variants (`fill`, `outline`, `ghost`, `soft`, `elevated`, `link`), seven semantic tones (`brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`), and paired text or icon-only sizes for a broad range of use cases.',
+          'The Button component is the primary action trigger across the interface. It supports six visual variants (`fill`, `outline`, `ghost`, `soft`, `elevated`, `link`), seven semantic tones (`brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`), and four sizes (`large`, `medium`, `small`, `extraSmall`). Tailwind automatically makes buttons with a single SVG child square and padding-free; use the same size for text and icon-only buttons. Icon-only buttons must have an accessible label.',
       },
       subtitle: 'Displays a button or a component that looks like a button.',
     },
@@ -359,6 +352,13 @@ export const Small: Story = {
   name: 'Size / Small',
 }
 
+export const ExtraSmall: Story = {
+  args: {
+    size: 'extraSmall',
+  },
+  name: 'Size / Extra Small',
+}
+
 export const Medium: Story = {
   args: {
     size: 'medium',
@@ -375,7 +375,7 @@ export const Large: Story = {
 
 export const IconSmall: Story = {
   args: {
-    size: 'iconSmall',
+    size: 'small',
   },
   name: 'Size / Icon Small',
   render: (args) => (
@@ -387,7 +387,7 @@ export const IconSmall: Story = {
 
 export const IconMedium: Story = {
   args: {
-    size: 'iconMedium',
+    size: 'medium',
   },
   name: 'Size / Icon Medium',
   render: (args) => (
@@ -399,9 +399,21 @@ export const IconMedium: Story = {
 
 export const IconLarge: Story = {
   args: {
-    size: 'iconLarge',
+    size: 'large',
   },
   name: 'Size / Icon Large',
+  render: (args) => (
+    <Button {...args} aria-label="Add item">
+      <PlusIcon weight="bold" />
+    </Button>
+  ),
+}
+
+export const IconExtraSmall: Story = {
+  args: {
+    size: 'extraSmall',
+  },
+  name: 'Size / Icon Extra Small',
   render: (args) => (
     <Button {...args} aria-label="Add item">
       <PlusIcon weight="bold" />
@@ -435,6 +447,20 @@ export const TextSizes: Story = {
     },
   },
   render: () => <TextSizesPreview />,
+  play: async ({ canvas }) => {
+    for (const button of canvas.getAllByRole('button')) {
+      const style = getComputedStyle(button)
+
+      await expect(Number.parseFloat(style.lineHeight)).toBeCloseTo(
+        Number.parseFloat(style.fontSize),
+        1,
+      )
+      await expect(Number.parseFloat(style.paddingLeft)).toBeGreaterThan(0)
+      await expect(button.getBoundingClientRect().width).toBeGreaterThan(
+        button.getBoundingClientRect().height,
+      )
+    }
+  },
 }
 
 export const IconSizes: Story = {
@@ -442,11 +468,45 @@ export const IconSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Icon-only sizes for compact toolbars, utility actions, and icon grids.',
+        story:
+          'The same four sizes automatically become square when the button contains only an SVG icon.',
       },
     },
   },
   render: () => <IconSizesPreview />,
+  play: async ({ canvas }) => {
+    const buttons = canvas.getAllByRole('button'),
+      tokens = ['2xl', 'xl', 'lg', 'md'],
+      iconTokens = ['lg', 'md', 'sm', 'xs']
+
+    await expect(buttons).toHaveLength(SIZES.length)
+
+    for (const [index, button] of buttons.entries()) {
+      const style = getComputedStyle(button),
+        rect = button.getBoundingClientRect(),
+        reference = document.createElement('div')
+
+      reference.style.width = `var(--spacing-${tokens[index]})`
+      reference.style.height = `var(--spacing-${iconTokens[index]})`
+      button.after(reference)
+
+      try {
+        await expect(rect.width).toBeCloseTo(reference.getBoundingClientRect().width, 1)
+        await expect(rect.height).toBeCloseTo(rect.width, 1)
+        await expect(style.paddingTop).toBe('0px')
+        await expect(style.paddingRight).toBe('0px')
+        await expect(style.paddingBottom).toBe('0px')
+        await expect(style.paddingLeft).toBe('0px')
+        await expect(button.querySelector('svg')?.getBoundingClientRect().width).toBeCloseTo(
+          reference.getBoundingClientRect().height,
+          1,
+        )
+        await expect(button).toHaveAccessibleName('Create project')
+      } finally {
+        reference.remove()
+      }
+    }
+  },
 }
 
 export const ActionRow: Story = {

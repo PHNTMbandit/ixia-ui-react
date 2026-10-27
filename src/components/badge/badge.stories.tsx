@@ -66,6 +66,12 @@ const TONE_ICONS: Record<Tone, React.ReactNode> = {
 
 export default {
   argTypes: {
+    size: {
+      control: 'radio',
+      description:
+        'Shared size for text and icon-only badges. A single SVG child automatically receives square, padding-free styling.',
+      options: ['large', 'medium', 'small'],
+    },
     tone: {
       control: 'select',
       description: 'Sets the semantic tone and color of the badge.',
@@ -84,6 +90,7 @@ export default {
     },
   },
   args: {
+    size: 'medium',
     tone: 'brand',
     variant: 'fill',
   },
@@ -92,7 +99,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Badge component conveys small pieces of information, such as statuses, categories, or counts. It supports seven semantic tones (`brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`) and three visual variants (`fill`, `outline`, `soft`).',
+          'The Badge component conveys small pieces of information, such as statuses, categories, or counts. It supports seven semantic tones and three visual variants (`fill`, `outline`, `soft`). The three sizes (`large`, `medium`, `small`) work for both text and icon-only content. A single SVG child automatically becomes square and padding-free, preserving the compact icon dimensions.',
       },
       subtitle: 'A compact element for displaying status, labels, or counts.',
     },
@@ -106,6 +113,75 @@ export default {
 } satisfies Meta<typeof Badge>
 
 type Story = StoryObj<typeof Badge>
+
+export const Sizes: Story = {
+  name: 'Size / Text and Icon',
+  render: () => (
+    <div className="flex flex-col gap-sm">
+      {(['large', 'medium', 'small'] as const).flatMap((size) =>
+        VARIANTS.map((variant) => (
+          <div
+            key={`${size}-${variant}`}
+            data-testid={`${size}-${variant}`}
+            className="flex items-center gap-sm"
+          >
+            <Badge size={size} variant={variant} role="img" aria-label="Featured">
+              <>
+                <TagIcon />
+              </>
+            </Badge>
+            <Badge size={size} variant={variant}>
+              <>
+                <TagIcon /> Featured
+              </>
+            </Badge>
+            <Badge size={size} variant={variant}>
+              7
+            </Badge>
+          </div>
+        )),
+      )}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for (const [index, size] of ['large', 'medium', 'small'].entries()) {
+      for (const variant of VARIANTS) {
+        const row = canvas.getByTestId(`${size}-${variant}`),
+          [iconOnly, labeled, count] = Array.from(row.children) as HTMLElement[],
+          icon = iconOnly.querySelector('svg')!,
+          reference = document.createElement('div')
+
+        reference.style.width = `var(--spacing-${['lg', 'md', 'sm'][index]})`
+        reference.style.height = `var(--spacing-${['sm', 'xs', '2xs'][index]})`
+        row.append(reference)
+
+        try {
+          const bounds = iconOnly.getBoundingClientRect(),
+            style = getComputedStyle(iconOnly)
+
+          await expect(bounds.width).toBeCloseTo(reference.getBoundingClientRect().width, 1)
+          await expect(bounds.height).toBeCloseTo(bounds.width, 1)
+          await expect(style.paddingLeft).toBe('0px')
+          await expect(style.paddingRight).toBe('0px')
+          await expect(icon.getBoundingClientRect().width).toBeCloseTo(
+            reference.getBoundingClientRect().height,
+            1,
+          )
+          for (const badge of [labeled, count]) {
+            await expect(Number.parseFloat(getComputedStyle(badge).paddingLeft)).toBeGreaterThan(0)
+            await expect(badge.getBoundingClientRect().height).toBeCloseTo(bounds.height, 1)
+          }
+          await expect(labeled.querySelector('svg')!.getBoundingClientRect().height).toBeCloseTo(
+            Number.parseFloat(getComputedStyle(labeled).fontSize),
+            1,
+          )
+        } finally {
+          reference.remove()
+        }
+      }
+    }
+  },
+}
 
 // ─── Playground ──────────────────────────────────────────────────────────────
 

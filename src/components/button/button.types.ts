@@ -251,14 +251,14 @@ export const buttonVariants = cva(
     },
     variants: {
       size: {
-        extraSmall: 'h-md gap-3xs px-2xs style-text-default--2 [&>svg]:size-xs',
-        iconExtraSmall: 'size-md p-[0px] [&>svg]:size-xs',
-        iconLarge: 'size-2xl p-[0px] [&>svg]:size-lg',
-        iconMedium: 'size-xl p-[0px] [&>svg]:size-md',
-        iconSmall: 'size-lg p-[0px] [&>svg]:size-sm',
-        large: 'h-2xl min-w-2xl gap-xs px-md style-text-default-1 [&>svg]:size-lg',
-        medium: 'h-xl min-w-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-md',
-        small: 'h-lg min-w-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-sm',
+        extraSmall:
+          'h-md gap-3xs px-2xs font-body text-xs leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-xs',
+        large:
+          'h-2xl min-w-2xl gap-xs px-md font-body text-lg leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-2xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-lg',
+        medium:
+          'h-xl min-w-xl gap-2xs px-sm font-body text-base leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-md',
+        small:
+          'h-lg min-w-lg gap-3xs px-xs font-body text-sm leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-sm',
       },
       tone: {
         accent: '',

@@ -21,7 +21,7 @@ export function LayerTreeExpandAll({ className, ref, ...props }: LayerTreeExpand
       {() => (
         <Button
           aria-label="Expand or collapse all layers"
-          size="iconMedium"
+          size="medium"
           tone="neutral"
           variant="ghost"
           onClick={handleClick}

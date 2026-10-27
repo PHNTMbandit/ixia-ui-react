@@ -7,17 +7,17 @@ export const toggleGroupVariants = cva(
   {
     compoundVariants: [
       {
-        className: 'h-lg px-3xs',
+        className: 'p-3xs',
         size: 'small',
         variant: 'default',
       },
       {
-        className: 'h-xl px-2xs',
+        className: 'p-2xs',
         size: 'medium',
         variant: 'default',
       },
       {
-        className: 'h-2xl px-xs',
+        className: 'p-2xs',
         size: 'large',
         variant: 'default',
       },

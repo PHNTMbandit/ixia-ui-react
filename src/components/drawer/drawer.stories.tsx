@@ -34,7 +34,7 @@ const DrawerDemo = ({ showTitle = true, showDescription = true, ...props }: Draw
                 )}
               </div>
               <Drawer.Close>
-                <Button aria-label="Close drawer" size="iconSmall" tone="neutral" variant="ghost">
+                <Button aria-label="Close drawer" size="small" tone="neutral" variant="ghost">
                   <XIcon weight="bold" />
                 </Button>
               </Drawer.Close>
@@ -319,12 +319,7 @@ export const Controlled: Story = {
                   <div className="flex items-start justify-between">
                     <Drawer.Title>Controlled Drawer</Drawer.Title>
                     <Drawer.Close>
-                      <Button
-                        aria-label="Close drawer"
-                        size="iconSmall"
-                        tone="neutral"
-                        variant="ghost"
-                      >
+                      <Button aria-label="Close drawer" size="small" tone="neutral" variant="ghost">
                         <XIcon weight="bold" />
                       </Button>
                     </Drawer.Close>
@@ -360,7 +355,7 @@ export const NavigationMenu: Story = {
     <Drawer.Provider>
       <Drawer swipeDirection="left">
         <Drawer.Trigger>
-          <Button aria-label="Open menu" size="iconMedium" tone="neutral" variant="ghost">
+          <Button aria-label="Open menu" size="medium" tone="neutral" variant="ghost">
             <ListIcon weight="bold" />
           </Button>
         </Drawer.Trigger>
@@ -370,7 +365,7 @@ export const NavigationMenu: Story = {
               <div className="mb-lg flex items-center justify-between">
                 <span className="style-text-strong-0 text-on-surface">Menu</span>
                 <Drawer.Close>
-                  <Button aria-label="Close menu" size="iconSmall" tone="neutral" variant="ghost">
+                  <Button aria-label="Close menu" size="small" tone="neutral" variant="ghost">
                     <XIcon weight="bold" />
                   </Button>
                 </Drawer.Close>
@@ -419,7 +414,7 @@ export const BottomSheet: Story = {
               <div className="flex items-center justify-between">
                 <Drawer.Title>Quick Actions</Drawer.Title>
                 <Drawer.Close>
-                  <Button aria-label="Close sheet" size="iconSmall" tone="neutral" variant="ghost">
+                  <Button aria-label="Close sheet" size="small" tone="neutral" variant="ghost">
                     <XIcon weight="bold" />
                   </Button>
                 </Drawer.Close>
@@ -472,7 +467,7 @@ export const DetailPanel: Story = {
                   </span>
                 </div>
                 <Drawer.Close>
-                  <Button aria-label="Close panel" size="iconSmall" tone="neutral" variant="ghost">
+                  <Button aria-label="Close panel" size="small" tone="neutral" variant="ghost">
                     <XIcon weight="bold" />
                   </Button>
                 </Drawer.Close>
@@ -540,7 +535,7 @@ export const FormDrawer: Story = {
                 <Drawer.Close>
                   <Button
                     aria-label="Close form"
-                    size="iconSmall"
+                    size="small"
                     tone="neutral"
                     type="button"
                     variant="ghost"
@@ -611,7 +606,7 @@ export const NestedDrawers: Story = {
               <div className="flex items-start justify-between">
                 <Drawer.Title>Settings</Drawer.Title>
                 <Drawer.Close>
-                  <Button aria-label="Close drawer" size="iconSmall" tone="neutral" variant="ghost">
+                  <Button aria-label="Close drawer" size="small" tone="neutral" variant="ghost">
                     <XIcon weight="bold" />
                   </Button>
                 </Drawer.Close>
@@ -632,7 +627,7 @@ export const NestedDrawers: Story = {
                         <Drawer.Close>
                           <Button
                             aria-label="Close nested drawer"
-                            size="iconSmall"
+                            size="small"
                             tone="neutral"
                             variant="ghost"
                           >
@@ -663,7 +658,7 @@ export const NestedDrawers: Story = {
                         <Drawer.Close>
                           <Button
                             aria-label="Close nested drawer"
-                            size="iconSmall"
+                            size="small"
                             tone="neutral"
                             variant="ghost"
                           >

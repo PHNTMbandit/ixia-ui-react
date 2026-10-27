@@ -153,7 +153,7 @@ export const Horizontal: Story = {
         </Meter.Track>
         <Meter.Value />
       </Meter>
-      <Button aria-label="Cancel upload" size={'iconSmall'} tone="error" variant="ghost">
+      <Button aria-label="Cancel upload" size="small" tone="error" variant="ghost">
         <XIcon weight="bold" />
       </Button>
     </div>

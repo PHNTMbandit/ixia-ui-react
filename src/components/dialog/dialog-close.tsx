@@ -13,7 +13,7 @@ export function DialogClose({ className, ref, ...props }: DialogCloseProps) {
       ref={ref}
       {...props}
       render={
-        <Button aria-label="Close" variant="ghost" size="iconExtraSmall" tone="error">
+        <Button aria-label="Close" variant="ghost" size="extraSmall" tone="error">
           <XIcon weight="bold" />
         </Button>
       }

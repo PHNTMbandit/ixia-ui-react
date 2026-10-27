@@ -44,7 +44,7 @@ export function CodeBlockDownload({ className, children, ref, ...props }: CodeBl
     <Button
       aria-label="Download file"
       onClick={handleClick}
-      size="iconMedium"
+      size="medium"
       variant="ghost"
       tone="neutral"
       className={cn('', className)}

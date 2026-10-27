@@ -29,7 +29,7 @@ export function SidebarToggle({ className, children, ref, ...props }: SidebarTog
       aria-label="Toggle sidebar"
       className={cn('shrink-0 border-none', className)}
       ref={ref}
-      size="iconMedium"
+      size="medium"
       variant="ghost"
       onClick={handleClick}
       {...props}
