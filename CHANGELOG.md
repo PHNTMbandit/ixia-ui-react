@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.2...v1.4.3) (2026-10-27)
+
+
+### Bug Fixes
+
+* update pre-push script and enhance build:css script to copy theme styles ([4964429](https://github.com/PHNTMbandit/ixia-ui-react/commit/4964429d023b0c78a64860560f74113f584714cb))
+
 ## [1.4.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.1...v1.4.2) (2026-10-27)
 
 
