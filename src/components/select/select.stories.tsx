@@ -1,6 +1,7 @@
 import { BowlFoodIcon, CaretUpDownIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 
 import { Select } from './index'
 import type { SelectProps, SelectTriggerProps } from './select.types'
@@ -64,6 +65,7 @@ const apples = [
     size = 'medium',
     placeholder = 'Select an apple',
     disabled = false,
+    iconOnly = false,
   }: {
     defaultValue?: string | string[]
     multiple?: boolean
@@ -71,20 +73,32 @@ const apples = [
     size?: SelectSize
     placeholder?: string
     disabled?: boolean
+    iconOnly?: boolean
   }) => (
     <Select defaultValue={defaultValue} multiple={multiple} disabled={disabled}>
-      <Select.Trigger aria-label={placeholder} variant={variant} size={size}>
-        <Select.Value placeholder={placeholder}>
-          {(value: keyof typeof apples) => (
-            <>
-              <BowlFoodIcon />
-              {apples.find((apple) => apple.value === value)?.label || placeholder}
-            </>
-          )}
-        </Select.Value>
-        <Select.Icon>
-          <CaretUpDownIcon weight="bold" />
-        </Select.Icon>
+      <Select.Trigger
+        aria-label={placeholder}
+        variant={variant}
+        size={size}
+        className={iconOnly ? 'aspect-square justify-center p-0' : undefined}
+      >
+        {iconOnly ? (
+          <BowlFoodIcon />
+        ) : (
+          <>
+            <Select.Value placeholder={placeholder}>
+              {(value: keyof typeof apples) => (
+                <>
+                  <BowlFoodIcon />
+                  {apples.find((apple) => apple.value === value)?.label || placeholder}
+                </>
+              )}
+            </Select.Value>
+            <Select.Icon>
+              <CaretUpDownIcon weight="bold" />
+            </Select.Icon>
+          </>
+        )}
       </Select.Trigger>
       <Select.Popup alignItemWithTrigger={false} sideOffset={8}>
         <Select.List>
@@ -346,6 +360,161 @@ export const SizeLarge: Story = {
     },
   },
   render: () => <AppleSelect size="large" />,
+}
+
+export const IndicatorSizes: Story = {
+  name: 'Composition / Indicator Sizes',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The dropdown indicator is one size smaller than the leading value icon at each trigger size.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex items-center gap-sm">
+      {SIZES.map((size) => (
+        <div key={size} data-testid={size}>
+          <AppleSelect size={size} defaultValue="fuji" />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for (const [index, size] of SIZES.entries()) {
+      const row = canvas.getByTestId(size),
+        valueIcon = row.querySelector('[data-value] svg')!,
+        indicator = row.querySelector('[data-slot="select-icon"] svg')!,
+        reference = document.createElement('div')
+
+      reference.style.width = `var(--spacing-${['sm', 'md', 'lg'][index]})`
+      reference.style.height = `var(--spacing-${['xs', 'sm', 'md'][index]})`
+      row.append(reference)
+
+      try {
+        const bounds = reference.getBoundingClientRect()
+
+        await expect(valueIcon.getBoundingClientRect().width).toBeCloseTo(bounds.width, 1)
+        await expect(valueIcon.getBoundingClientRect().height).toBeCloseTo(bounds.width, 1)
+        await expect(indicator.getBoundingClientRect().width).toBeCloseTo(bounds.height, 1)
+        await expect(indicator.getBoundingClientRect().height).toBeCloseTo(bounds.height, 1)
+      } finally {
+        reference.remove()
+      }
+    }
+  },
+}
+
+export const IconSmall: Story = {
+  name: 'Size / Icon Small',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Compact icon-only trigger using the small size with square, padding-free styling.',
+      },
+    },
+  },
+  render: () => <AppleSelect size="small" iconOnly />,
+}
+
+export const IconMedium: Story = {
+  name: 'Size / Icon Medium',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default icon-only trigger using the medium size and an accessible label.',
+      },
+    },
+  },
+  render: () => <AppleSelect size="medium" iconOnly />,
+}
+
+export const IconLarge: Story = {
+  name: 'Size / Icon Large',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Prominent icon-only trigger using the large size with a proportionally larger icon.',
+      },
+    },
+  },
+  render: () => <AppleSelect size="large" iconOnly />,
+}
+
+export const IconSizes: Story = {
+  name: 'Composition / Icon Sizes',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'All three icon-only sizes across primary, secondary, and ghost variants. Use the regular size prop with aspect-square, justify-center, and p-0 utilities; no separate icon size is needed.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-sm">
+      {VARIANTS.map((variant) => (
+        <div key={variant} className="flex items-center gap-sm">
+          {SIZES.map((size) => (
+            <div key={size} data-testid={`${variant}-${size}`}>
+              <AppleSelect variant={variant} size={size} iconOnly />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    for (const variant of VARIANTS) {
+      for (const [index, size] of SIZES.entries()) {
+        const row = canvas.getByTestId(`${variant}-${size}`),
+          trigger = within(row).getByRole('combobox'),
+          bounds = trigger.getBoundingClientRect(),
+          reference = document.createElement('div')
+
+        reference.style.width = `var(--spacing-${['lg', 'xl', '2xl'][index]})`
+        reference.style.height = `var(--spacing-${['sm', 'md', 'lg'][index]})`
+        row.append(reference)
+
+        try {
+          await expect(trigger).toHaveAccessibleName('Select an apple')
+          await expect(Number.parseFloat(getComputedStyle(trigger).lineHeight)).toBeCloseTo(
+            Number.parseFloat(getComputedStyle(trigger).fontSize),
+            1,
+          )
+          await expect(bounds.width).toBeCloseTo(reference.getBoundingClientRect().width, 1)
+          await expect(bounds.height).toBeCloseTo(bounds.width, 1)
+          await expect(getComputedStyle(trigger).paddingLeft).toBe('0px')
+          await expect(getComputedStyle(trigger).paddingRight).toBe('0px')
+          await expect(trigger.querySelector('svg')!.getBoundingClientRect().width).toBeCloseTo(
+            reference.getBoundingClientRect().height,
+            1,
+          )
+        } finally {
+          reference.remove()
+        }
+      }
+    }
+
+    const trigger = within(canvas.getByTestId('primary-medium')).getByRole('combobox'),
+      page = within(canvasElement.ownerDocument.body)
+
+    trigger.focus()
+    await userEvent.keyboard('{ArrowDown}')
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
+    await userEvent.click(await page.findByRole('option', { name: /^Fuji$/ }))
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+    trigger.focus()
+    await userEvent.keyboard('{ArrowDown}')
+    await expect(await page.findByRole('option', { name: /^Fuji$/ })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+  },
 }
 
 export const Grouped: Story = {

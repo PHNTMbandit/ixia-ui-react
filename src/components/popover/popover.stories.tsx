@@ -55,17 +55,17 @@ export const Animated: Story = {
   render: (args) => (
     <div className="flex gap-2xs">
       <Popover.Trigger handle={popoverHandle} payload={NotificationsPanel}>
-        <Button aria-label="Notifications" size="iconMedium" variant="ghost" tone="neutral">
+        <Button aria-label="Notifications" size="medium" variant="ghost" tone="neutral">
           <BellIcon weight="bold" />
         </Button>
       </Popover.Trigger>
       <Popover.Trigger handle={popoverHandle} payload={ProfilePanel} nativeButton={false}>
-        <Button aria-label="Profile" size="iconMedium" variant="ghost" tone="neutral">
+        <Button aria-label="Profile" size="medium" variant="ghost" tone="neutral">
           <UserIcon weight="bold" />
         </Button>
       </Popover.Trigger>
       <Popover.Trigger handle={popoverHandle} payload={ActivityPanel} nativeButton={false}>
-        <Button aria-label="Activity" size="iconMedium" variant="ghost" tone="neutral">
+        <Button aria-label="Activity" size="medium" variant="ghost" tone="neutral">
           <ChartBarIcon weight="bold" />
         </Button>
       </Popover.Trigger>

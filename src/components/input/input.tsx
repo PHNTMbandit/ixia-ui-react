@@ -267,7 +267,7 @@ export function Input({
         </div>
         <Button
           aria-label={clearFilesLabel}
-          size="iconMedium"
+          size="medium"
           variant="ghost"
           tone="error"
           onClick={clearFiles}

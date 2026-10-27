@@ -87,7 +87,7 @@ export function ComboboxInput({
               <Button
                 aria-label="Clear selection"
                 onClick={onClick}
-                size="iconExtraSmall"
+                size="extraSmall"
                 variant="ghost"
                 tone="error"
               >
@@ -101,7 +101,7 @@ export function ComboboxInput({
               <Button
                 aria-label="Open popup"
                 onClick={onClick}
-                size="iconExtraSmall"
+                size="extraSmall"
                 variant={getTriggerVariant(state.open)}
                 tone="brand"
               >

@@ -8,16 +8,7 @@ import { ButtonGroup } from './button-group'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
   VARIANTS = ['fill', 'outline', 'ghost', 'soft', 'elevated'] as const,
-  SIZES = [
-    'large',
-    'iconLarge',
-    'medium',
-    'iconMedium',
-    'small',
-    'iconSmall',
-    'extraSmall',
-    'iconExtraSmall',
-  ] as const
+  SIZES = ['large', 'medium', 'small', 'extraSmall'] as const
 
 type Tone = (typeof TONES)[number]
 
@@ -69,7 +60,8 @@ export default {
     },
     size: {
       control: 'radio',
-      description: 'Controls child button height, padding, and icon sizing.',
+      description:
+        'Controls child button height, padding, and icon sizing. Icon-only children automatically become square with no padding.',
       options: SIZES,
       table: {
         defaultValue: { summary: 'medium' },
@@ -103,7 +95,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Button Group component combines related buttons into one cohesive unit. It supports multiple variants, tones, sizes, and orientations to fit different interaction patterns such as segmented controls, toolbars, and compact action groups.',
+          'The Button Group component combines related buttons into one cohesive unit. Its four sizes (`large`, `medium`, `small`, `extraSmall`) apply to both labeled and icon-only children, including mixed groups. Icon-only buttons automatically become square and padding-free. It supports multiple variants, tones, and orientations.',
       },
       subtitle: 'Groups related actions into a single connected control.',
     },
@@ -349,7 +341,7 @@ export const Large: Story = {
 
 export const IconSmall: Story = {
   args: {
-    size: 'iconSmall',
+    size: 'small',
   },
   name: 'Size / Icon Small',
   render: (args) => (
@@ -361,7 +353,7 @@ export const IconSmall: Story = {
 
 export const IconMedium: Story = {
   args: {
-    size: 'iconMedium',
+    size: 'medium',
   },
   name: 'Size / Icon Medium',
   render: (args) => (
@@ -373,7 +365,7 @@ export const IconMedium: Story = {
 
 export const IconLarge: Story = {
   args: {
-    size: 'iconLarge',
+    size: 'large',
   },
   name: 'Size / Icon Large',
   render: (args) => (
@@ -395,56 +387,86 @@ export const SizeParity: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-md">
-      {SIZES.map((size) => (
-        <div key={size} data-testid={size} className="flex items-start gap-md">
-          <Button size={size} aria-label="Standalone Action">
-            <PlusIcon />
-            {!size.startsWith('icon') && 'Action'}
-          </Button>
-          {(['horizontal', 'vertical'] as const).map((orientation) => (
-            <ButtonGroup key={orientation} size={size} orientation={orientation}>
-              <Button aria-label={`${orientation} Action`}>
-                <PlusIcon />
-                {!size.startsWith('icon') && 'Action'}
-              </Button>
-            </ButtonGroup>
-          ))}
-        </div>
-      ))}
+      {SIZES.flatMap((size) =>
+        [false, true].map((iconOnly) => (
+          <div
+            key={`${size}-${iconOnly}`}
+            data-testid={`${size}-${iconOnly}`}
+            className="flex items-start gap-md"
+          >
+            <Button size={size} aria-label="Standalone Action">
+              <PlusIcon />
+              {!iconOnly && 'Action'}
+            </Button>
+            {(['horizontal', 'vertical'] as const).map((orientation) => (
+              <ButtonGroup key={orientation} size={size} orientation={orientation}>
+                <Button aria-label={`${orientation} Action`}>
+                  <PlusIcon />
+                  {!iconOnly && 'Action'}
+                </Button>
+                <Button aria-label={`${orientation} opposite Action`} data-testid="opposite">
+                  <PlusIcon />
+                  {iconOnly && 'Action'}
+                </Button>
+              </ButtonGroup>
+            ))}
+          </div>
+        )),
+      )}
     </div>
   ),
   play: async ({ canvas }) => {
     for (const size of SIZES) {
-      const row = canvas.getByTestId(size)
-      const standalone = row.querySelector('button')!
-      const reference = getComputedStyle(standalone)
-      const referenceIcon = getComputedStyle(standalone.querySelector('svg')!)
+      for (const iconOnly of [false, true]) {
+        const row = canvas.getByTestId(`${size}-${iconOnly}`),
+          standalone = row.querySelector('button')!,
+          reference = getComputedStyle(standalone),
+          referenceIcon = getComputedStyle(standalone.querySelector('svg')!)
 
-      for (const grouped of row.querySelectorAll('div > button')) {
-        if (grouped === standalone) continue
-        const actual = getComputedStyle(grouped)
-        const icon = getComputedStyle(grouped.querySelector('svg')!)
-        for (const property of [
-          'height',
-          'paddingLeft',
-          'paddingRight',
-          'fontSize',
-          'lineHeight',
-        ] as const) {
-          if (size.startsWith('icon') && (property === 'fontSize' || property === 'lineHeight'))
-            continue
-          await expect(actual[property], `${size}: ${property}`).toBe(reference[property])
-        }
-        await expect(icon.width, `${size}: SVG width`).toBe(referenceIcon.width)
-        await expect(icon.height, `${size}: SVG height`).toBe(referenceIcon.height)
-        if (size.startsWith('icon')) {
-          await expect(actual.width, `${size}: icon button width`).toBe(reference.width)
-        } else {
-          await expect(actual.gap, `${size}: gap`).toBe(reference.gap)
+        for (const grouped of row.querySelectorAll('button:not([data-testid="opposite"])')) {
+          if (grouped === standalone) continue
+          const actual = getComputedStyle(grouped),
+            icon = getComputedStyle(grouped.querySelector('svg')!)
+
+          for (const property of [
+            'height',
+            'paddingLeft',
+            'paddingRight',
+            'fontSize',
+            'lineHeight',
+          ] as const) {
+            await expect(actual[property], `${size}: ${property}`).toBe(reference[property])
+          }
+          await expect(icon.width, `${size}: SVG width`).toBe(referenceIcon.width)
+          await expect(icon.height, `${size}: SVG height`).toBe(referenceIcon.height)
+          if (iconOnly) {
+            await expect(actual.width, `${size}: icon button width`).toBe(reference.width)
+          } else {
+            await expect(actual.gap, `${size}: gap`).toBe(reference.gap)
+          }
         }
       }
     }
   },
+}
+
+export const IconExtraSmall: Story = {
+  args: {
+    size: 'extraSmall',
+  },
+  name: 'Size / Icon Extra Small',
+  render: (args) => (
+    <ButtonGroup {...args}>
+      <TwoIconButtons />
+    </ButtonGroup>
+  ),
+}
+
+export const ExtraSmall: Story = {
+  args: {
+    size: 'extraSmall',
+  },
+  name: 'Size / Extra Small',
 }
 
 export const SegmentedControl: Story = {

@@ -224,21 +224,13 @@ export const buttonGroupVariants = cva(
       },
       size: {
         extraSmall:
-          '*:style-text-default--2 [&>button]:h-md [&>button]:min-w-0 [&>button]:gap-3xs [&>button]:px-2xs [&>button>svg]:size-xs',
-        iconExtraSmall:
-          '*:size-md [&>button]:size-md [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-xs',
-        iconLarge:
-          '*:size-2xl [&>button]:size-2xl [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-lg',
-        iconMedium:
-          '*:size-xl [&>button]:size-xl [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-md',
-        iconSmall:
-          '*:size-lg [&>button]:size-lg [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-sm',
+          '*:font-body *:text-xs *:leading-none *:font-medium [&>button]:h-md [&>button]:min-w-0 [&>button]:gap-3xs [&>button]:px-2xs [&>button>svg]:size-xs [&>button[data-icon-only]:has(>svg:only-child)]:size-md [&>button[data-icon-only]:has(>svg:only-child)]:p-0',
         large:
-          '*:style-text-default-1 [&>button]:h-2xl [&>button]:min-w-2xl [&>button]:gap-xs [&>button]:px-md [&>button>svg]:size-lg',
+          '*:font-body *:text-lg *:leading-none *:font-medium [&>button]:h-2xl [&>button]:min-w-2xl [&>button]:gap-xs [&>button]:px-md [&>button>svg]:size-lg [&>button[data-icon-only]:has(>svg:only-child)]:size-2xl [&>button[data-icon-only]:has(>svg:only-child)]:p-0',
         medium:
-          '*:style-text-default-0 [&>button]:h-xl [&>button]:min-w-xl [&>button]:gap-2xs [&>button]:px-sm [&>button>svg]:size-md',
+          '*:font-body *:text-base *:leading-none *:font-medium [&>button]:h-xl [&>button]:min-w-xl [&>button]:gap-2xs [&>button]:px-sm [&>button>svg]:size-md [&>button[data-icon-only]:has(>svg:only-child)]:size-xl [&>button[data-icon-only]:has(>svg:only-child)]:p-0',
         small:
-          '*:style-text-default--1 [&>button]:h-lg [&>button]:min-w-lg [&>button]:gap-3xs [&>button]:px-xs [&>button>svg]:size-sm',
+          '*:font-body *:text-sm *:leading-none *:font-medium [&>button]:h-lg [&>button]:min-w-lg [&>button]:gap-3xs [&>button]:px-xs [&>button>svg]:size-sm [&>button[data-icon-only]:has(>svg:only-child)]:size-lg [&>button[data-icon-only]:has(>svg:only-child)]:p-0',
       },
       tone: {
         accent: '[&>*+*]:before:bg-accent-border',

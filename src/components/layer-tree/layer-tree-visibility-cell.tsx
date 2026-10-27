@@ -35,7 +35,7 @@ export function LayerTreeVisibilityCell({
         return (
           <Button
             aria-label="Toggle layer visibility"
-            size="iconSmall"
+            size="small"
             tone="neutral"
             variant="ghost"
             onClick={() => handleClick(isVisible)}

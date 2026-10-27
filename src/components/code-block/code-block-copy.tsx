@@ -37,7 +37,7 @@ export function CodeBlockCopy({ className, children, ref, ...props }: CodeBlockC
     <Button
       aria-label="Copy code"
       onClick={handleClick}
-      size="iconMedium"
+      size="medium"
       variant="ghost"
       tone="neutral"
       className={cn('', className)}

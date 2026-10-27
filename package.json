@@ -34,7 +34,13 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles": "./dist/styles.css"
+    "./styles": "./dist/styles.css",
+    "./themes/hogarth": "./dist/themes/hogarth.css",
+    "./themes/mabel": "./dist/themes/mabel.css",
+    "./themes/maculata": "./dist/themes/maculata.css",
+    "./themes/monadelpha": "./dist/themes/monadelpha.css",
+    "./themes/venus": "./dist/themes/venus.css",
+    "./themes/viridiflora": "./dist/themes/viridiflora.css"
   },
   "publishConfig": {
     "access": "public"

@@ -119,7 +119,7 @@ function CalendarNextMonthButton({
       {...props}
       variant="ghost"
       tone="neutral"
-      size="iconMedium"
+      size="medium"
       className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
       onClick={onClick}
       disabled={disabled}
@@ -139,7 +139,7 @@ function CalendarPreviousMonthButton({
       {...props}
       variant="ghost"
       tone="neutral"
-      size="iconMedium"
+      size="medium"
       className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
       onClick={onClick}
       disabled={disabled}

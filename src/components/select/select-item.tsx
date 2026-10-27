@@ -10,7 +10,7 @@ export function SelectItem({ className, children, ref, ...props }: SelectItemPro
     <BaseSelect.Item
       className={cn(
         // oxlint-disable-next-line tailwindcss/no-unknown-classes
-        'group/item grid min-h-lg cursor-default grid-cols-[1fr_0.75rem] items-center gap-xs rounded-lg px-2xs py-3xs transition-colors outline-none select-none group-data-[side=none]:pr-xs hover:cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:bg-neutral-container-high data-highlighted:text-neutral-on-container data-highlighted:before:absolute data-highlighted:before:inset-x-3xs data-highlighted:before:inset-y-[0px] data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-selected:bg-neutral-default data-selected:text-neutral-on-default [&_svg]:size-sm',
+        'group/item grid min-h-lg cursor-default grid-cols-[1fr_0.75rem] items-center gap-xs rounded-lg px-2xs py-3xs transition-colors outline-none select-none group-data-[side=none]:pr-xs hover:cursor-pointer data-highlighted:relative data-highlighted:z-0 data-highlighted:bg-neutral-container-high data-highlighted:text-neutral-on-container data-highlighted:before:absolute data-highlighted:before:inset-x-3xs data-highlighted:before:inset-y-[0px] data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-selected:bg-neutral-default data-selected:text-neutral-on-default [&_svg]:size-md',
         className,
       )}
       ref={ref}

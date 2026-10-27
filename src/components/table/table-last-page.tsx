@@ -23,7 +23,7 @@ export function TableLastPage({ className, children, ref, ...props }: TableLastP
       ref={ref}
       variant="outline"
       tone="neutral"
-      size="iconMedium"
+      size="medium"
       {...props}
     >
       {children}

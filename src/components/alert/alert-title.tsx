@@ -7,7 +7,7 @@ export function AlertTitle({ className, ref, ...props }: AlertTitleProps) {
     <div
       data-slot="alert-title"
       className={cn(
-        'flex items-center gap-2xs style-text-strong-0 [&:not(:has(~_[data-slot=alert-description]))]:leading-0',
+        'flex items-center gap-2xs font-heading text-base font-bold [&:has(~_[data-slot=alert-description])]:leading-[1.2] [&:not(:has(~_[data-slot=alert-description]))]:leading-none',
         className,
       )}
       ref={ref}

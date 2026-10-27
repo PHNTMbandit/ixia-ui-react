@@ -6,7 +6,7 @@ export function BreadcrumbLink({ className, ref, ...props }: BreadcrumbLinkProps
   return (
     <div
       className={cn(
-        'inline-flex h-lg items-center justify-center gap-3xs rounded-full px-2xs style-text-default--1 text-on-surface-variant transition-all hover:cursor-pointer hover:bg-neutral-container active:scale-[0.98] active:bg-neutral-container disabled:opacity-50 [&>svg]:size-sm',
+        'inline-flex h-lg items-center justify-center gap-3xs rounded-full px-2xs font-body text-sm leading-none font-medium text-on-surface-variant transition-all hover:cursor-pointer hover:bg-neutral-container active:scale-[0.98] active:bg-neutral-container disabled:opacity-50 [&>svg]:size-sm',
         className,
       )}
       ref={ref}

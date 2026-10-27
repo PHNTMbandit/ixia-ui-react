@@ -2,6 +2,7 @@ import { FileCssIcon, FileJsIcon, FileTsIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { codeToHtml } from 'shiki/bundle/web'
 import type { BundledLanguage } from 'shiki/bundle/web'
+import { expect } from 'storybook/test'
 
 import { Button } from '../button'
 import type { CodeBlockValue } from './code-block.types'
@@ -287,4 +288,25 @@ export const NoSelect: Story = {
       </CodeBlock.Window>
     </CodeBlock>
   ),
+  play: async ({ canvas }) => {
+    const name = canvas.getByText('button.jsx'),
+      icon = name.querySelector('svg')
+
+    if (!icon) {
+      throw new globalThis.Error('Expected a file icon beside the code block name')
+    }
+
+    const style = getComputedStyle(name),
+      nameBounds = name.getBoundingClientRect(),
+      iconBounds = icon.getBoundingClientRect()
+
+    await expect(Number.parseFloat(style.lineHeight)).toBeCloseTo(
+      Number.parseFloat(style.fontSize),
+      1,
+    )
+    await expect(iconBounds.y + iconBounds.height / 2).toBeCloseTo(
+      nameBounds.y + nameBounds.height / 2,
+      1,
+    )
+  },
 }

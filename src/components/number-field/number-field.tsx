@@ -70,22 +70,6 @@ function NumberField({
       }
 
       onValueChange?.(...args)
-    },
-    getButtonSize = () => {
-      switch (size) {
-        case 'small': {
-          return 'iconSmall'
-        }
-        case 'medium': {
-          return 'iconMedium'
-        }
-        case 'large': {
-          return 'iconLarge'
-        }
-        default: {
-          return 'iconMedium'
-        }
-      }
     }
 
   return (
@@ -119,7 +103,7 @@ function NumberField({
               {...stepperProps}
               tone="error"
               variant="ghost"
-              size={getButtonSize()}
+              size={size ?? 'medium'}
               className="shrink-0 rounded-r-none"
             >
               <MinusIcon weight="bold" />
@@ -149,7 +133,7 @@ function NumberField({
               {...stepperProps}
               tone="success"
               variant="ghost"
-              size={getButtonSize()}
+              size={size ?? 'medium'}
               className="shrink-0 rounded-l-none"
             >
               <PlusIcon weight="bold" />

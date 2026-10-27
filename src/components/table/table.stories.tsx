@@ -186,7 +186,7 @@ function ToolbarIconButton({
   ...props
 }: React.ComponentProps<typeof Button> & { label: string }) {
   return (
-    <Button aria-label={label} size="iconMedium" tone="neutral" variant="ghost" {...props}>
+    <Button aria-label={label} size="medium" tone="neutral" variant="ghost" {...props}>
       {children}
     </Button>
   )
@@ -1200,7 +1200,7 @@ export const GridView: StoryObj = {
               <table.Search placeholder="Search people..." />
               <table.ViewModeToggle
                 aria-label="Toggle view mode"
-                size="iconMedium"
+                size="medium"
                 tone="neutral"
                 variant="ghost"
               >

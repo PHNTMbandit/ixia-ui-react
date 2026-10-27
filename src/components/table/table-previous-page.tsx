@@ -21,7 +21,7 @@ export function TablePreviousPage({ className, children, ref, ...props }: TableP
       ref={ref}
       variant="outline"
       tone="neutral"
-      size="iconMedium"
+      size="medium"
       {...props}
     >
       {children}

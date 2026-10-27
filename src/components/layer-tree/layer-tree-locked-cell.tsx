@@ -35,7 +35,7 @@ export function LayerTreeLockedCell({
         return (
           <Button
             aria-label="Toggle layer lock"
-            size="iconSmall"
+            size="small"
             tone="neutral"
             variant="ghost"
             onClick={() => handleClick(isLocked)}

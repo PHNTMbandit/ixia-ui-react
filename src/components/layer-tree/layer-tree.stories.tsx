@@ -240,16 +240,16 @@ export const Default = {
               <Button
                 aria-label="Add layer"
                 tone="neutral"
-                size="iconMedium"
+                size="medium"
                 variant="ghost"
                 onClick={addLayer}
               >
                 <PlusIcon weight="bold" />
               </Button>
               <table.LayerTreeSort />
-              <table.LayerTreeVisibilityAll size="iconMedium" />
-              <table.LayerTreeLockedAll size="iconMedium" />
-              <table.LayerTreeExpandAll size="iconMedium" />
+              <table.LayerTreeVisibilityAll size="medium" />
+              <table.LayerTreeLockedAll size="medium" />
+              <table.LayerTreeExpandAll size="medium" />
             </div>
             <table.LayerTreeSearch placeholder="Search layers..." />
           </table.LayerTreeFooter>
