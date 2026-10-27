@@ -54,7 +54,7 @@ export const buttonGroupVariants = cva(
       },
       {
         className:
-          'border-neutral-border text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
+          'border-border text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
@@ -224,18 +224,21 @@ export const buttonGroupVariants = cva(
       },
       size: {
         extraSmall:
-          '*:style-text-default--2 [&>button]:h-md [&>button]:px-2xs [&>button]:[&>svg]:size-2xs',
+          '*:style-text-default--2 [&>button]:h-md [&>button]:min-w-0 [&>button]:gap-3xs [&>button]:px-2xs [&>button>svg]:size-xs',
         iconExtraSmall:
-          '*:size-md [&>button]:size-md [&>button]:p-[0px] [&>button]:[&>svg]:size-2xs',
-        iconLarge: '*:size-2xl [&>button]:size-2xl [&>button]:p-[0px] [&>button]:[&>svg]:size-md',
-        iconMedium: '*:size-xl [&>button]:size-xl [&>button]:p-[0px] [&>button]:[&>svg]:size-sm',
-        iconSmall: '*:size-lg [&>button]:size-lg [&>button]:p-[0px] [&>button]:[&>svg]:size-xs',
+          '*:size-md [&>button]:size-md [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-xs',
+        iconLarge:
+          '*:size-2xl [&>button]:size-2xl [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-lg',
+        iconMedium:
+          '*:size-xl [&>button]:size-xl [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-md',
+        iconSmall:
+          '*:size-lg [&>button]:size-lg [&>button]:min-w-0 [&>button]:p-[0px] [&>button>svg]:size-sm',
         large:
-          '*:style-text-default-2 [&>button]:h-2xl [&>button]:px-md [&>button]:[&>svg]:size-md',
+          '*:style-text-default-1 [&>button]:h-2xl [&>button]:min-w-2xl [&>button]:gap-xs [&>button]:px-md [&>button>svg]:size-lg',
         medium:
-          '*:style-text-default-0 [&>button]:h-xl [&>button]:px-sm [&>button]:[&>svg]:size-sm',
+          '*:style-text-default-0 [&>button]:h-xl [&>button]:min-w-xl [&>button]:gap-2xs [&>button]:px-sm [&>button>svg]:size-md',
         small:
-          '*:style-text-default--1 [&>button]:h-lg [&>button]:px-xs [&>button]:[&>svg]:size-xs',
+          '*:style-text-default--1 [&>button]:h-lg [&>button]:min-w-lg [&>button]:gap-3xs [&>button]:px-xs [&>button>svg]:size-sm',
       },
       tone: {
         accent: '[&>*+*]:before:bg-accent-border',

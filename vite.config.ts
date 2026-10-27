@@ -166,6 +166,7 @@ export default defineConfig({
     dts: true,
     entry: ['src/index.ts'],
     format: ['esm'],
+    platform: 'browser',
     sourcemap: true,
   },
   plugins: lazyPlugins(() => [react({ compiler: true }), tailwindcss()]),

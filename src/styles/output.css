@@ -2691,6 +2691,13 @@
     line-height: normal;
     letter-spacing: normal;
   }
+  :is(.\*\:style-text-default-1 > *) {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-lg);
+    line-height: normal;
+    letter-spacing: normal;
+  }
   :is(.\*\:style-text-default-2 > *) {
     font-family: var(--font-body);
     font-weight: 500;
@@ -6113,6 +6120,27 @@
   .\[\&\>button\]\:h-xl > button {
     height: var(--spacing-xl);
   }
+  .\[\&\>button\]\:min-w-0 > button {
+    min-width: var(--spacing-0);
+  }
+  .\[\&\>button\]\:min-w-2xl > button {
+    min-width: var(--spacing-2xl);
+  }
+  .\[\&\>button\]\:min-w-lg > button {
+    min-width: var(--spacing-lg);
+  }
+  .\[\&\>button\]\:min-w-xl > button {
+    min-width: var(--spacing-xl);
+  }
+  .\[\&\>button\]\:gap-2xs > button {
+    gap: var(--spacing-2xs);
+  }
+  .\[\&\>button\]\:gap-3xs > button {
+    gap: var(--spacing-3xs);
+  }
+  .\[\&\>button\]\:gap-xs > button {
+    gap: var(--spacing-xs);
+  }
   .\[\&\>button\]\:p-\[0px\] > button {
     padding: 0px;
   }
@@ -6264,6 +6292,22 @@
   }
   .\[\&\>button\:hover\]\:text-warning-on-container > button:hover {
     color: var(--color-warning-on-container);
+  }
+  .\[\&\>button\>svg\]\:size-lg > button > svg {
+    width: var(--spacing-lg);
+    height: var(--spacing-lg);
+  }
+  .\[\&\>button\>svg\]\:size-md > button > svg {
+    width: var(--spacing-md);
+    height: var(--spacing-md);
+  }
+  .\[\&\>button\>svg\]\:size-sm > button > svg {
+    width: var(--spacing-sm);
+    height: var(--spacing-sm);
+  }
+  .\[\&\>button\>svg\]\:size-xs > button > svg {
+    width: var(--spacing-xs);
+    height: var(--spacing-xs);
   }
   .\[\&\>input\]\:pr-\[2rem\] > input {
     padding-right: 2rem;

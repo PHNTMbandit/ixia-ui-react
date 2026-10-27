@@ -1,5 +1,6 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { Button } from '../button/button'
 import { Input } from '../input/index'
@@ -380,6 +381,70 @@ export const IconLarge: Story = {
       <TwoIconButtons />
     </ButtonGroup>
   ),
+}
+
+export const SizeParity: Story = {
+  name: 'Size / Button Parity',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Grouped buttons match standalone button heights, padding, typography, and direct-child SVG sizes at every size and orientation.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-md">
+      {SIZES.map((size) => (
+        <div key={size} data-testid={size} className="flex items-start gap-md">
+          <Button size={size} aria-label="Standalone Action">
+            <PlusIcon />
+            {!size.startsWith('icon') && 'Action'}
+          </Button>
+          {(['horizontal', 'vertical'] as const).map((orientation) => (
+            <ButtonGroup key={orientation} size={size} orientation={orientation}>
+              <Button aria-label={`${orientation} Action`}>
+                <PlusIcon />
+                {!size.startsWith('icon') && 'Action'}
+              </Button>
+            </ButtonGroup>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for (const size of SIZES) {
+      const row = canvas.getByTestId(size)
+      const standalone = row.querySelector('button')!
+      const reference = getComputedStyle(standalone)
+      const referenceIcon = getComputedStyle(standalone.querySelector('svg')!)
+
+      for (const grouped of row.querySelectorAll('div > button')) {
+        if (grouped === standalone) continue
+        const actual = getComputedStyle(grouped)
+        const icon = getComputedStyle(grouped.querySelector('svg')!)
+        for (const property of [
+          'height',
+          'paddingLeft',
+          'paddingRight',
+          'fontSize',
+          'lineHeight',
+        ] as const) {
+          if (size.startsWith('icon') && (property === 'fontSize' || property === 'lineHeight'))
+            continue
+          await expect(actual[property], `${size}: ${property}`).toBe(reference[property])
+        }
+        await expect(icon.width, `${size}: SVG width`).toBe(referenceIcon.width)
+        await expect(icon.height, `${size}: SVG height`).toBe(referenceIcon.height)
+        if (size.startsWith('icon')) {
+          await expect(actual.width, `${size}: icon button width`).toBe(reference.width)
+        } else {
+          await expect(actual.gap, `${size}: gap`).toBe(reference.gap)
+        }
+      }
+    }
+  },
 }
 
 export const SegmentedControl: Story = {
