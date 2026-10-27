@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.1...v1.4.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* **toggle:** enhance icon sizing tests with accessible queries ([d12cc20](https://github.com/PHNTMbandit/ixia-ui-react/commit/d12cc2014d15e6c3efbb615d3470d74a1d57133d))
+* update select component styles and add icon-only functionality ([c84b283](https://github.com/PHNTMbandit/ixia-ui-react/commit/c84b2838c55b29dbf22946f6dc5f1afdfb50c241))
+
 ## [1.4.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.0...v1.4.1) (2026-10-27)
 
 
