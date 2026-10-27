@@ -398,6 +398,9 @@
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
+  .top-2xs {
+    top: var(--spacing-2xs);
+  }
   .top-3xs {
     top: var(--spacing-3xs);
   }
@@ -1164,23 +1167,14 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-shrink {
-    flex-shrink: 1;
-  }
   .shrink-0 {
     flex-shrink: 0;
-  }
-  .flex-grow {
-    flex-grow: 1;
   }
   .grow {
     flex-grow: 1;
   }
   .border-collapse {
     border-collapse: collapse;
-  }
-  .border-separate {
-    border-collapse: separate;
   }
   .border-separate\! {
     border-collapse: separate !important;
@@ -2137,9 +2131,6 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  .text-wrap {
-    text-wrap: wrap;
-  }
   .wrap-break-word {
     overflow-wrap: break-word;
   }
@@ -2362,9 +2353,6 @@
   }
   .shadow-xs {
     box-shadow: var(--shadow-xs) var(--ixia-shadow);
-  }
-  .ring-brand-border-strong {
-    --tw-ring-color: var(--color-brand-border-strong);
   }
   .ring-brand-border-strong\/20 {
     --tw-ring-color: var(--color-brand-border-strong);
@@ -5870,15 +5858,6 @@
   }
   .\[\&\:has\(\[data-chips\]\:not\(\:empty\)\)\]\:rounded-xl:has([data-chips]:not(:empty)) {
     border-radius: var(--radius-xl);
-  }
-  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:aspect-square:has([data-value]:has( > svg:only-child)) {
-    aspect-ratio: 1 / 1;
-  }
-  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:justify-center:has([data-value]:has( > svg:only-child)) {
-    justify-content: center;
-  }
-  .\[\&\:has\(\[data-value\]\:has\(\>svg\:only-child\)\)\]\:p-0:has([data-value]:has( > svg:only-child)) {
-    padding: var(--spacing-0);
   }
   .\[\&\:has\(\[data-value\]\>svg\:only-child\)\]\:aspect-square:has([data-value] > svg:only-child) {
     aspect-ratio: 1 / 1;

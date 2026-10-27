@@ -36,10 +36,6 @@ export function CodeBlockDownload({ className, children, ref, ...props }: CodeBl
       }
     }
 
-  if (React.isValidElement(currentValue.content)) {
-    return undefined
-  }
-
   return (
     <Button
       aria-label="Download file"

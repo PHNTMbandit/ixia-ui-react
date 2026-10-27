@@ -102,6 +102,13 @@ async function fetchUserData(userId: string): Promise<User> {
     label: 'CSS',
     name: 'styles.css',
   },
+  {
+    content: await highlightCode(`import {Button} from 'ixia-ui-react'`, 'javascript'),
+    icon: <FileJsIcon weight="bold" />,
+    id: '4',
+    label: 'JavaScript',
+    name: 'import.js',
+  },
 ]
 
 export default {
@@ -254,7 +261,7 @@ export const NoHeader: Story = {
     },
   },
   render: (args) => (
-    <CodeBlock className="w-[800px]" {...args}>
+    <CodeBlock className="w-[800px]" {...args} defaultValue={data[4]}>
       <CodeBlock.Window>
         <CodeBlock.Actions>
           <CodeBlock.Download />
