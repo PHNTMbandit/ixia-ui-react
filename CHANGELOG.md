@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.5.0...v1.6.0) (2026-10-28)
+
+
+### Features
+
+* add SiteHeader component with group, title, and separator subcomponents ([730004d](https://github.com/PHNTMbandit/ixia-ui-react/commit/730004d850760fb70e664dd72a3ed3cfb2fcb1c0))
+
 # [1.5.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.7...v1.5.0) (2026-10-28)
 
 
