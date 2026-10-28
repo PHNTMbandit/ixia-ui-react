@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.7...v1.5.0) (2026-10-28)
+
+
+### Features
+
+* add IconProvider to allow for custom icon packs ([598ce87](https://github.com/PHNTMbandit/ixia-ui-react/commit/598ce87c86d4c3e73b3d529aba98a90eb075e101))
+
 ## [1.4.7](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.6...v1.4.7) (2026-10-28)
 
 

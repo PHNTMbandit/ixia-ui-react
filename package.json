@@ -1,6 +1,6 @@
 {
   "name": "ixia-ui-react",
-  "version": "1.4.7",
+  "version": "1.5.0",
   "description": "A React component library for building polished product interfaces with composable primitives and Tailwind CSS styling.",
   "keywords": [
     "accessible-ui",
