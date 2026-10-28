@@ -1,4 +1,3 @@
-import { CaretUpDownIcon } from '@phosphor-icons/react'
 import type { RowData } from '@tanstack/react-table'
 import { useState } from 'react'
 
@@ -6,6 +5,7 @@ import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
 import { Form, FormFooter } from '../form'
+import { Icon } from '../icon'
 import {
   Select,
   SelectIcon,
@@ -91,7 +91,7 @@ export function TableSelectFilterForm<TData extends RowData>({
             {(value) => getSelectValueLabel(value)}
           </SelectValue>
           <SelectIcon>
-            <CaretUpDownIcon weight="bold" />
+            <Icon name="chevronsUpDown" />
           </SelectIcon>
         </SelectTrigger>
         <SelectPopup alignItemWithTrigger={false} sideOffset={8}>

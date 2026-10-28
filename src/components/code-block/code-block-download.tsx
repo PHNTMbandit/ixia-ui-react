@@ -1,16 +1,16 @@
-import { CheckIcon, DownloadIcon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useCodeBlock } from './code-block'
 import type { CodeBlockDownloadProps } from './code-block.types'
 
 const DOWNLOAD_TIMEOUT = 2000,
   DOWNLOAD_STATUS_ICON = {
-    false: <DownloadIcon weight="bold" className="animate-in zoom-in" />,
-    true: <CheckIcon weight="bold" className="animate-in zoom-in" />,
+    false: <Icon name="download" className="animate-in zoom-in" />,
+    true: <Icon name="selected" className="animate-in zoom-in" />,
   }
 
 export function CodeBlockDownload({

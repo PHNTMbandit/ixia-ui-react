@@ -1,8 +1,7 @@
-import { CheckIcon, FileArrowUpIcon, TrashIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { Meter, MeterFooter, MeterIndicator, MeterTrack, MeterValue } from '../meter'
 import type { DropzoneFilesListProps } from './dropzone.types'
 import { formatFileSize, getFileKey, useDropzone } from './dropzone.utils'
@@ -37,12 +36,12 @@ export function DropzoneFilesList({ className, children, ref, ...props }: Dropzo
           >
             {isUploading && (
               <div className="flex items-center justify-center rounded-full bg-brand-container p-xs">
-                <FileArrowUpIcon className="size-md text-brand-on-container" />
+                <Icon name="fileUpload" className="size-md text-brand-on-container" />
               </div>
             )}
             {isUploaded && (
               <div className="flex items-center justify-center rounded-full bg-success-container p-xs">
-                <CheckIcon className="size-md text-success-on-container" />
+                <Icon name="selected" className="size-md text-success-on-container" />
               </div>
             )}
             <div className="flex w-full flex-col justify-between gap-3xs">
@@ -67,7 +66,7 @@ export function DropzoneFilesList({ className, children, ref, ...props }: Dropzo
               )}
             </div>
             <Button variant="ghost" tone="error" onClick={() => removeFile(file)}>
-              <TrashIcon weight="bold" />
+              <Icon name="delete" />
             </Button>
           </li>
         )

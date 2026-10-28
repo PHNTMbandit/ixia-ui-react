@@ -1,8 +1,8 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
-import { CaretUpDownIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { ComboboxTriggerProps } from './combobox.types'
 
 function getPlaceholderLabel(placeholder: ComboboxTriggerProps['placeholder']): string | undefined {
@@ -31,7 +31,7 @@ export function ComboboxTrigger({
     >
       <BaseCombobox.Value placeholder={<span className="opacity-70">{placeholder}</span>} />
       <BaseCombobox.Icon>
-        <CaretUpDownIcon />
+        <Icon name="chevronsUpDown" />
       </BaseCombobox.Icon>
       {children}
     </BaseCombobox.Trigger>

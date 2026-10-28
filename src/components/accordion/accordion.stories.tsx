@@ -1,5 +1,6 @@
 import {
   BellIcon,
+  CaretDownIcon,
   CheckCircleIcon,
   InfoIcon,
   WarningIcon,
@@ -9,7 +10,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import {
   Accordion,
+  AccordionExpandIcon,
   AccordionHeader,
+  AccordionHeaderContent,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
@@ -72,9 +75,14 @@ const SingleItem = ({ tone = 'brand' }: { tone?: Tone }) => {
     return (
       <Accordion.Item tone={tone}>
         <Accordion.Header>
-          <Accordion.Icon>{TONE_ICONS[tone]}</Accordion.Icon>
-          <Accordion.Title>{title}</Accordion.Title>
-          <Accordion.Subtitle>{subtitle}</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>{TONE_ICONS[tone]}</Accordion.Icon>
+            <Accordion.Title>{title}</Accordion.Title>
+            <Accordion.Subtitle>{subtitle}</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>{body}</Accordion.Panel>
       </Accordion.Item>
@@ -121,11 +129,16 @@ export default {
     <Accordion className="w-[520px]">
       <Accordion.Item {...args}>
         <Accordion.Header>
-          <Accordion.Icon>
-            <InfoIcon weight="duotone" />
-          </Accordion.Icon>
-          <Accordion.Title>Accordion Item</Accordion.Title>
-          <Accordion.Subtitle>A brief description of this section</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>
+              <InfoIcon weight="duotone" />
+            </Accordion.Icon>
+            <Accordion.Title>Accordion Item</Accordion.Title>
+            <Accordion.Subtitle>A brief description of this section</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>
           Expand this panel to reveal additional content. You can place any content here, including
@@ -138,6 +151,8 @@ export default {
     Accordion,
     AccordionItem,
     AccordionHeader,
+    AccordionHeaderContent,
+    AccordionExpandIcon,
     AccordionPanel,
     AccordionSubtitle,
     AccordionTitle,
@@ -207,11 +222,16 @@ export const Nested: Story = {
     <Accordion className="w-[520px]">
       <Accordion.Item tone="brand">
         <Accordion.Header>
-          <Accordion.Icon>
-            <InfoIcon weight="duotone" />
-          </Accordion.Icon>
-          <Accordion.Title>Parent Accordion Item</Accordion.Title>
-          <Accordion.Subtitle>Expand to reveal a nested accordion</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>
+              <InfoIcon weight="duotone" />
+            </Accordion.Icon>
+            <Accordion.Title>Parent Accordion Item</Accordion.Title>
+            <Accordion.Subtitle>Expand to reveal a nested accordion</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>
           <Accordion variant="ghost" multiple>
@@ -223,11 +243,16 @@ export const Nested: Story = {
       </Accordion.Item>
       <Accordion.Item tone="neutral">
         <Accordion.Header>
-          <Accordion.Icon>
-            <InfoIcon weight="duotone" />
-          </Accordion.Icon>
-          <Accordion.Title>Sibling Parent Item</Accordion.Title>
-          <Accordion.Subtitle>Regular parent accordion content</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>
+              <InfoIcon weight="duotone" />
+            </Accordion.Icon>
+            <Accordion.Title>Sibling Parent Item</Accordion.Title>
+            <Accordion.Subtitle>Regular parent accordion content</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>
           This is a standard panel next to the nested example for quick comparison.
@@ -247,8 +272,13 @@ export const WithoutSubtitle: Story = {
       {TONES.map((tone) => (
         <Accordion.Item key={tone} tone={tone}>
           <Accordion.Header>
-            <Accordion.Icon>{TONE_ICONS[tone]}</Accordion.Icon>
-            <Accordion.Title>{TONE_CONTENT[tone].title}</Accordion.Title>
+            <Accordion.HeaderContent>
+              <Accordion.Icon>{TONE_ICONS[tone]}</Accordion.Icon>
+              <Accordion.Title>{TONE_CONTENT[tone].title}</Accordion.Title>
+            </Accordion.HeaderContent>
+            <Accordion.ExpandIcon>
+              <CaretDownIcon weight="bold" />
+            </Accordion.ExpandIcon>
           </Accordion.Header>
           <Accordion.Panel>{TONE_CONTENT[tone].body}</Accordion.Panel>
         </Accordion.Item>
@@ -278,25 +308,40 @@ export const AllSizes: Story = {
     <Accordion className="w-[520px]">
       <Accordion.Item size="small" tone="brand">
         <Accordion.Header>
-          <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
-          <Accordion.Title>Small Accordion Item</Accordion.Title>
-          <Accordion.Subtitle>This is a small accordion item</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
+            <Accordion.Title>Small Accordion Item</Accordion.Title>
+            <Accordion.Subtitle>This is a small accordion item</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>Content for the small accordion item.</Accordion.Panel>
       </Accordion.Item>
       <Accordion.Item size="medium" tone="brand">
         <Accordion.Header>
-          <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
-          <Accordion.Title>Medium Accordion Item</Accordion.Title>
-          <Accordion.Subtitle>This is a medium accordion item</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
+            <Accordion.Title>Medium Accordion Item</Accordion.Title>
+            <Accordion.Subtitle>This is a medium accordion item</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>Content for the medium accordion item.</Accordion.Panel>
       </Accordion.Item>
       <Accordion.Item size="large" tone="brand">
         <Accordion.Header>
-          <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
-          <Accordion.Title>Large Accordion Item</Accordion.Title>
-          <Accordion.Subtitle>This is a large accordion item</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
+            <Accordion.Title>Large Accordion Item</Accordion.Title>
+            <Accordion.Subtitle>This is a large accordion item</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>Content for the large accordion item.</Accordion.Panel>
       </Accordion.Item>
@@ -309,8 +354,13 @@ export const NoIcon: Story = {
     <Accordion className="w-[520px]">
       <Accordion.Item tone="brand">
         <Accordion.Header>
-          <Accordion.Title>Accordion Item Without Icon</Accordion.Title>
-          <Accordion.Subtitle>This item has no icon in the header</Accordion.Subtitle>
+          <Accordion.HeaderContent>
+            <Accordion.Title>Accordion Item Without Icon</Accordion.Title>
+            <Accordion.Subtitle>This item has no icon in the header</Accordion.Subtitle>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" />
+          </Accordion.ExpandIcon>
         </Accordion.Header>
         <Accordion.Panel>Content for the accordion item without an icon.</Accordion.Panel>
       </Accordion.Item>

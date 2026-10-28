@@ -62,6 +62,8 @@ type AccordionHeaderProps = React.ComponentProps<typeof BaseAccordion.Header>
 type AccordionTitleProps = React.ComponentProps<'div'>
 type AccordionSubtitleProps = React.ComponentProps<'div'>
 type AccordionIconProps = React.ComponentProps<'div'>
+type AccordionExpandIconProps = React.ComponentProps<'div'>
+type AccordionHeaderContentProps = React.ComponentProps<'div'>
 
 export type {
   AccordionProps,
@@ -71,5 +73,7 @@ export type {
   AccordionSubtitleProps,
   AccordionIconProps,
   AccordionPanelProps,
+  AccordionExpandIconProps,
+  AccordionHeaderContentProps,
 }
 export { accordionVariants, accordionItemVariants }

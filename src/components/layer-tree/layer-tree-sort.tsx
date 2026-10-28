@@ -1,8 +1,7 @@
-import { ArrowsDownUpIcon, SortAscendingIcon, SortDescendingIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import {
   Menu,
   MenuCheckboxItem,
@@ -42,7 +41,7 @@ export function LayerTreeSort({ className, children, ref, ...props }: LayerTreeS
     <Menu>
       <MenuTrigger className={cn('shrink-0', className)} ref={ref} {...props}>
         <Button aria-label="Sort layers" variant="ghost" size="medium" tone="neutral">
-          <ArrowsDownUpIcon weight="bold" />
+          <Icon name="sort" />
         </Button>
       </MenuTrigger>
       <MenuPopup align="end">
@@ -62,14 +61,14 @@ export function LayerTreeSort({ className, children, ref, ...props }: LayerTreeS
                       checked={column.getIsSorted() === 'asc'}
                       onClick={() => handleSort(column.id, 'asc')}
                     >
-                      <SortDescendingIcon weight="bold" />
+                      <Icon name="sortDescending" />
                       {ascendingLabel}
                     </MenuCheckboxItem>
                     <MenuCheckboxItem
                       checked={column.getIsSorted() === 'desc'}
                       onClick={() => handleSort(column.id, 'desc')}
                     >
-                      <SortAscendingIcon weight="bold" />
+                      <Icon name="sortAscending" />
                       {descendingLabel}
                     </MenuCheckboxItem>
                   </MenuPopup>

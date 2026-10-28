@@ -1,8 +1,8 @@
-import { PercentIcon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group'
 import { Popover, PopoverTrigger, PopoverContent, PopoverPanel } from '../popover'
 import { Separator } from '../separator'
@@ -99,7 +99,7 @@ export function ColorPickerInput({
         <>
           <Separator orientation="vertical" className="h-md" />
           <InputGroupAddon>
-            <PercentIcon weight="bold" />
+            <Icon name="percent" />
           </InputGroupAddon>
           <InputGroupInput
             aria-label="Transparency percentage"

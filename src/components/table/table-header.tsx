@@ -1,7 +1,6 @@
-import { FunnelSimpleIcon, SortAscendingIcon, SortDescendingIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { useTableContext as useRegisteredTableContext } from './table-context'
 import { useTableContext } from './table-feature-context'
 import type { TableHeaderProps } from './table.types'
@@ -64,10 +63,10 @@ export function TableHeader({ className, children, ref, ...props }: TableHeaderP
                               <div className="flex items-center gap-2xs">
                                 <table.FlexRender header={renderHeader} />
                               </div>
-                              {sorting === 'asc' && <SortDescendingIcon weight="bold" />}
-                              {sorting === 'desc' && <SortAscendingIcon weight="bold" />}
+                              {sorting === 'asc' && <Icon name="sortDescending" />}
+                              {sorting === 'desc' && <Icon name="sortAscending" />}
                               {!sorting && renderHeader.column.getCanSort() && (
-                                <FunnelSimpleIcon weight="bold" />
+                                <Icon name="columnFilter" />
                               )}
                             </div>
                           )}

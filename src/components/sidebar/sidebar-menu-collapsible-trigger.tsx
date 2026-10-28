@@ -1,8 +1,7 @@
-import { CaretRightIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { CollapsibleTrigger } from '../collapsible'
+import { Icon } from '../icon'
 import { PopoverTrigger } from '../popover'
 import { useSidebar } from './sidebar-provider'
 import type { SidebarMenuCollapsibleTriggerProps } from './sidebar.types'
@@ -27,8 +26,8 @@ export function SidebarMenuCollapsibleTrigger({
           )}
         >
           {children}
-          <CaretRightIcon
-            weight="bold"
+          <Icon
+            name="chevronRight"
             className="absolute right-2xs size-xs text-on-surface-variant"
           />
         </button>

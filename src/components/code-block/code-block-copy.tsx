@@ -1,16 +1,16 @@
-import { CheckIcon, CopyIcon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useCodeBlock } from './code-block'
 import type { CodeBlockCopyProps } from './code-block.types'
 
 const COPY_TIMEOUT = 2000,
   COPY_STATUS_ICON = {
-    false: <CopyIcon weight="bold" className="animate-in zoom-in" />,
-    true: <CheckIcon weight="bold" className="animate-in zoom-in" />,
+    false: <Icon name="copy" className="animate-in zoom-in" />,
+    true: <Icon name="selected" className="animate-in zoom-in" />,
   }
 
 export function CodeBlockCopy({

@@ -1,8 +1,8 @@
 import { ContextMenu as BaseContextMenu } from '@base-ui/react/context-menu'
-import { CheckIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { ContextMenuRadioItemProps } from './context-menu.types'
 
 export function ContextMenuRadioItem({
@@ -22,7 +22,7 @@ export function ContextMenuRadioItem({
     >
       <span className="col-start-1 min-w-3xl">{children}</span>
       <BaseContextMenu.RadioItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
-        <CheckIcon className="size-sm" weight="bold" />
+        <Icon name="selected" className="size-sm" />
       </BaseContextMenu.RadioItemIndicator>
     </BaseContextMenu.RadioItem>
   )

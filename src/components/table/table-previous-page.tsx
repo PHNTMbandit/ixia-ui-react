@@ -1,8 +1,7 @@
-import { CaretLeftIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useTableContext } from './table-feature-context'
 import type { TablePreviousPageProps } from './table.types'
 
@@ -24,8 +23,7 @@ export function TablePreviousPage({ className, children, ref, ...props }: TableP
       size="medium"
       {...props}
     >
-      {children}
-      <CaretLeftIcon weight="bold" />
+      {children ?? <Icon name="chevronLeft" />}
     </Button>
   )
 }

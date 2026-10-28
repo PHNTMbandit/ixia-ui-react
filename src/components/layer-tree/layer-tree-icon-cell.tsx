@@ -1,15 +1,15 @@
-import { FolderIcon, FolderOpenIcon } from '@phosphor-icons/react'
-import type { Icon } from '@phosphor-icons/react'
 import { createElement } from 'react'
 import type { ReactNode } from 'react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
+import type { IconComponent } from '../icon'
 import { useCellContext, useTableContext } from './layer-tree-context'
 import type { LayerTreeIconCellProps } from './layer-tree.types'
 
 export function LayerTreeIconCell({ className, children, ref, ...props }: LayerTreeIconCellProps) {
-  const cell = useCellContext<Icon>(),
+  const cell = useCellContext<IconComponent>(),
     table = useTableContext(),
     icon = cell.getValue(),
     { row } = cell,
@@ -20,11 +20,11 @@ export function LayerTreeIconCell({ className, children, ref, ...props }: LayerT
       {() => {
         const isExpanded = row.getIsExpanded()
 
-        let iconNode: ReactNode = createElement(icon, { weight: 'bold' })
+        let iconNode: ReactNode = createElement(icon)
         if (hasChildren && isExpanded) {
-          iconNode = <FolderOpenIcon />
+          iconNode = <Icon name="folderOpen" />
         } else if (hasChildren) {
-          iconNode = <FolderIcon weight="fill" />
+          iconNode = <Icon name="folder" />
         }
 
         return (

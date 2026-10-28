@@ -1,8 +1,7 @@
-import { LockSimpleIcon, LockSimpleOpenIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useTableContext } from './layer-tree-context'
 import type { LayerTreeLockedAllProps } from './layer-tree.types'
 
@@ -38,8 +37,8 @@ export function LayerTreeLockedAll({
             {...props}
           >
             {children}
-            {isLocked && <LockSimpleIcon weight="fill" />}
-            {!isLocked && <LockSimpleOpenIcon weight="bold" />}
+            {isLocked && <Icon name="locked" />}
+            {!isLocked && <Icon name="unlocked" />}
           </Button>
         )
       }}

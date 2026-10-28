@@ -1,12 +1,12 @@
 import { Dialog as BaseDialog } from '@base-ui/react/dialog'
-import { XIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import type { DialogCloseProps } from './dialog.types'
 
-export function DialogClose({ className, ref, ...props }: DialogCloseProps) {
+export function DialogClose({ className, children, ref, ...props }: DialogCloseProps) {
   return (
     <BaseDialog.Close
       className={cn('absolute top-xs right-xs', className)}
@@ -14,7 +14,7 @@ export function DialogClose({ className, ref, ...props }: DialogCloseProps) {
       {...props}
       render={
         <Button aria-label="Close" variant="ghost" size="extraSmall" tone="error">
-          <XIcon weight="bold" />
+          {children ?? <Icon name="close" />}
         </Button>
       }
     />

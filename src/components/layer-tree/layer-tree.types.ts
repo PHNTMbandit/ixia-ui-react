@@ -11,6 +11,7 @@ import type { VariantProps } from 'class-variance-authority'
 import React from 'react'
 
 import type { Button } from '../button'
+import type { IconComponent } from '../icon'
 import type { InputGroup } from '../input-group'
 
 declare module '@tanstack/react-table' {
@@ -65,7 +66,7 @@ type LayerTreeLockedAllProps = React.ComponentProps<typeof Button>
 type LayerTreeVisibilityCellProps = React.ComponentProps<typeof Button>
 type LayerTreeVisibilityAllProps = React.ComponentProps<typeof Button>
 type LayerTreeNodeIconProps = React.ComponentProps<'div'> & {
-  icon: React.ElementType
+  icon: IconComponent
 }
 type LayerTreeTextCellProps = React.ComponentProps<'span'> &
   VariantProps<typeof layerTreeTextCellVariants>

@@ -1,7 +1,6 @@
-import { SortAscendingIcon, SortDescendingIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import {
   Menu,
   MenuCheckboxItem,
@@ -48,14 +47,14 @@ export function TableSortMenu({ className, ref, ...props }: TableSortMenuProps) 
                       checked={column.getIsSorted() === 'asc'}
                       onClick={() => handleSort(column.id, 'asc')}
                     >
-                      <SortDescendingIcon weight="bold" />
+                      <Icon name="sortDescending" />
                       {ascendingLabel}
                     </MenuCheckboxItem>
                     <MenuCheckboxItem
                       checked={column.getIsSorted() === 'desc'}
                       onClick={() => handleSort(column.id, 'desc')}
                     >
-                      <SortAscendingIcon weight="bold" />
+                      <Icon name="sortAscending" />
                       {descendingLabel}
                     </MenuCheckboxItem>
                   </MenuPopup>
