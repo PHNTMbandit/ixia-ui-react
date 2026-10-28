@@ -5,6 +5,7 @@ import { SidebarGroup } from './sidebar-group'
 import { SidebarGroupContent } from './sidebar-group-content'
 import { SidebarGroupLabel } from './sidebar-group-label'
 import { SidebarHeader } from './sidebar-header'
+import { SidebarInset } from './sidebar-inset'
 import { SidebarMenu } from './sidebar-menu'
 import { SidebarMenuBadge } from './sidebar-menu-badge'
 import { SidebarMenuButton } from './sidebar-menu-button'
@@ -22,6 +23,7 @@ const Sidebar = Object.assign(SidebarRoot, {
   GroupContent: SidebarGroupContent,
   GroupLabel: SidebarGroupLabel,
   Header: SidebarHeader,
+  Inset: SidebarInset,
   Menu: SidebarMenu,
   MenuBadge: SidebarMenuBadge,
   MenuButton: SidebarMenuButton,
@@ -40,6 +42,7 @@ export type {
   SidebarGroupLabelProps,
   SidebarGroupProps,
   SidebarHeaderProps,
+  SidebarInsetProps,
   SidebarMenuButtonProps,
   SidebarMenuProps,
   SidebarProps,
@@ -56,6 +59,7 @@ export { SidebarGroup } from './sidebar-group'
 export { SidebarGroupContent } from './sidebar-group-content'
 export { SidebarGroupLabel } from './sidebar-group-label'
 export { SidebarHeader } from './sidebar-header'
+export { SidebarInset } from './sidebar-inset'
 export { SidebarMenu } from './sidebar-menu'
 export { SidebarProvider, useSidebar } from './sidebar-provider'
 export { SidebarToggle } from './sidebar-toggle'
