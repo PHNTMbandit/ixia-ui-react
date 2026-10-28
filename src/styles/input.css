@@ -419,8 +419,8 @@
   --ixia-neutral-container-high: light-dark(var(--neutral-200), var(--neutral-700));
   --ixia-neutral-on-container: light-dark(var(--neutral-900), var(--neutral-50));
   --ixia-neutral-on-container-muted: light-dark(var(--neutral-600), var(--neutral-300));
-  --ixia-neutral-border: light-dark(var(--neutral-400), var(--neutral-600));
-  --ixia-neutral-border-strong: light-dark(var(--neutral-500), var(--neutral-400));
+  --ixia-neutral-border: light-dark(var(--neutral-200), var(--neutral-800));
+  --ixia-neutral-border-strong: light-dark(var(--neutral-400), var(--neutral-600));
   --ixia-neutral-shadow: light-dark(#14110f2e, #00000059);
   --ixia-error-default: light-dark(var(--red-600), var(--red-400));
   --ixia-error-muted: light-dark(var(--red-700), var(--red-300));
@@ -479,8 +479,8 @@
   --ixia-on-surface-variant: light-dark(var(--neutral-700), var(--neutral-200));
   --ixia-on-surface-muted: light-dark(var(--neutral-600), var(--neutral-300));
   --ixia-on-surface-disabled: light-dark(var(--neutral-400), var(--neutral-600));
-  --ixia-border: light-dark(var(--neutral-300), var(--neutral-600));
-  --ixia-border-strong: light-dark(var(--neutral-500), var(--neutral-400));
+  --ixia-border: light-dark(var(--neutral-200), var(--neutral-800));
+  --ixia-border-strong: light-dark(var(--neutral-400), var(--neutral-700));
   --ixia-surface-inverse: light-dark(var(--neutral-900), var(--neutral-100));
   --ixia-on-surface-inverse: light-dark(var(--neutral-50), var(--neutral-900));
   --ixia-surface-focus-ring: var(--ixia-brand-default);
