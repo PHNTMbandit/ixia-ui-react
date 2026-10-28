@@ -1,11 +1,11 @@
-import type { Icon } from '@phosphor-icons/react'
+import type { IconComponent } from '@/components/icon'
 
 type ThemeValue = 'light' | 'dark' | 'system'
 
 interface Theme {
   value: ThemeValue
   label: string
-  icon: Icon
+  icon: IconComponent
 }
 
 interface ThemeProviderState {

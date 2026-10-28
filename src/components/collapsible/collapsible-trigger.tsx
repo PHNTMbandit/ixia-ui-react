@@ -1,9 +1,9 @@
 import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible'
-import { CaretRightIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import type { CollapsibleTriggerProps } from './collapsible.types'
 
 export function CollapsibleTrigger({
@@ -24,8 +24,8 @@ export function CollapsibleTrigger({
           {...props}
         >
           {children}
-          <CaretRightIcon
-            weight="bold"
+          <Icon
+            name="chevronRight"
             className="ml-auto transition-all ease-out group-data-panel-open/trigger:rotate-90"
           />
         </Button>

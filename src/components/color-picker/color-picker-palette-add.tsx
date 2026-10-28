@@ -1,7 +1,6 @@
-import { PlusIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import { useColorPicker } from './color-picker'
 import type { ColorPickerPaletteAddProps } from './color-picker.types'
 
@@ -28,8 +27,7 @@ export function ColorPickerPaletteAdd({
       ref={ref}
       {...props}
     >
-      {children}
-      <PlusIcon weight="bold" />
+      {children ?? <Icon name="add" />}
     </button>
   )
 }

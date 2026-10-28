@@ -1,8 +1,7 @@
-import { DotsThreeIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { Menu, MenuPopup, MenuRadioGroup, MenuRadioItem, MenuTrigger } from '../menu'
 import { useTableContext } from './table-feature-context'
 import type { TablePagingProps } from './table.types'
@@ -119,7 +118,7 @@ export function TablePaging({
                     variant="outline"
                     className="shrink-0"
                   >
-                    <DotsThreeIcon weight="bold" />
+                    <Icon name="ellipsis" />
                   </Button>
                 </MenuTrigger>
                 <MenuPopup align="center">

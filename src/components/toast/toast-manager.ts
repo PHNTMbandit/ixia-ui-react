@@ -1,11 +1,11 @@
 import { Toast as BaseToast } from '@base-ui/react/toast'
 import type { ToastManagerAddOptions } from '@base-ui/react/toast'
-import type { Icon } from '@phosphor-icons/react'
 
+import type { IconComponent } from '../icon'
 import type { ToastVariant } from './toast.types'
 
 type ToastAddOptions = ToastManagerAddOptions<object> & {
-  icon?: Icon
+  icon?: IconComponent
   variant?: ToastVariant
 }
 

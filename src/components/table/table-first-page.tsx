@@ -1,8 +1,7 @@
-import { CaretLineLeftIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useTableContext } from './table-feature-context'
 import type { TableFirstPageProps } from './table.types'
 
@@ -26,8 +25,7 @@ export function TableFirstPage({ className, children, ref, ...props }: TableFirs
       size="medium"
       {...props}
     >
-      {children}
-      <CaretLineLeftIcon weight="bold" />
+      {children ?? <Icon name="firstPage" />}
     </Button>
   )
 }

@@ -1,9 +1,9 @@
-import { FunnelIcon } from '@phosphor-icons/react'
 import type { RowData } from '@tanstack/react-table'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import {
   Popover,
   PopoverContent,
@@ -30,7 +30,7 @@ export function TableSelectFilterChip<TData extends RowData>({
     <Popover>
       <PopoverTrigger className={cn('', className)} ref={ref} {...props}>
         <Button size="extraSmall" variant="soft">
-          <FunnelIcon />
+          <Icon name="filter" />
           <span>{header}</span>
           <span className="font-light lowercase">{columnFilter.map(String).join(', ')}</span>
           {children}

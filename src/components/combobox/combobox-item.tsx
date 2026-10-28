@@ -1,8 +1,8 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
-import { CheckIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { ComboboxItemProps } from './combobox.types'
 
 export function ComboboxItem({ className, children, ref, ...props }: ComboboxItemProps) {
@@ -17,7 +17,7 @@ export function ComboboxItem({ className, children, ref, ...props }: ComboboxIte
     >
       <span className="col-start-1">{children}</span>
       <BaseCombobox.ItemIndicator className="col-start-2 place-self-end self-center">
-        <CheckIcon className="size-sm" weight="bold" />
+        <Icon name="selected" className="size-sm" />
       </BaseCombobox.ItemIndicator>
     </BaseCombobox.Item>
   )

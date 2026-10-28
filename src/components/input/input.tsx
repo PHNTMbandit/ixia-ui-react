@@ -1,17 +1,17 @@
 import { Input as BaseInput } from '@base-ui/react/input'
-import { UploadIcon, XIcon } from '@phosphor-icons/react'
 import { useRef, useState } from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { formatFileSize, inputVariants } from './input.types'
 import type { InputProps } from './input.types'
 
 const DEFAULT_COLOR = '#000000',
   EMPTY_FILE_COUNT = 0,
   SINGLE_FILE_COUNT = 1,
-  defaultFileUploadButtonIcon = <UploadIcon weight="bold" />,
+  defaultFileUploadButtonIcon = <Icon name="upload" />,
   defaultFilesSelectedLabel = (count: number) => `${count} files selected`,
   defaultMaxFilesErrorLabel = (maxFiles: number) => {
     if (maxFiles === SINGLE_FILE_COUNT) {
@@ -272,7 +272,7 @@ export function Input({
           tone="error"
           onClick={clearFiles}
         >
-          <XIcon weight="bold" />
+          <Icon name="close" />
         </Button>
       </div>
     )

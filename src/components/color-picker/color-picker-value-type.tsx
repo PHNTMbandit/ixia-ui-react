@@ -1,7 +1,6 @@
-import { CaretUpDownIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import {
   Select,
   SelectIcon,
@@ -42,7 +41,7 @@ export function ColorPickerValueType({
           {(value: string) => VALUE_TYPES.find((type) => type.value === value)?.label ?? value}
         </SelectValue>
         <SelectIcon>
-          <CaretUpDownIcon weight="bold" />
+          <Icon name="chevronsUpDown" />
         </SelectIcon>
       </SelectTrigger>
       <SelectPopup sideOffset={8}>

@@ -1,8 +1,7 @@
-import { EyeClosedIcon, EyeIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useCellContext, useTableContext } from './layer-tree-context'
 import type { LayerTreeVisibilityCellProps } from './layer-tree.types'
 
@@ -44,8 +43,8 @@ export function LayerTreeVisibilityCell({
             {...props}
           >
             {children}
-            {isVisible && <EyeIcon weight="bold" />}
-            {!isVisible && <EyeClosedIcon weight="bold" />}
+            {isVisible && <Icon name="visible" />}
+            {!isVisible && <Icon name="hidden" />}
           </Button>
         )
       }}

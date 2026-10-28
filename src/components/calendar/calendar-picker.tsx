@@ -1,153 +1,15 @@
-import {
-  DayPicker,
-  getDefaultClassNames,
-  isDateRange,
-  DayButton,
-  labelDayButton,
-} from '@daypicker/react'
+import { DayPicker, getDefaultClassNames, isDateRange, labelDayButton } from '@daypicker/react'
 import type { OnSelectHandler, PropsBase } from '@daypicker/react'
-import { CaretLeftIcon, CaretRightIcon, CaretUpDownIcon } from '@phosphor-icons/react'
-import type { ChangeEvent, ComponentProps } from 'react'
 
 import { cn } from '@/utils/cn'
 
-import { Button } from '../button'
-import { buttonVariants } from '../button/button.types'
-import {
-  Select,
-  SelectIcon,
-  SelectItem,
-  SelectList,
-  SelectPopup,
-  SelectTitle,
-  SelectTrigger,
-  SelectValue,
-} from '../select'
 import { useCalendar } from './calendar'
-import type { CalendarPickerProps, CalendarSelected } from './calendar.types'
-
-type CalendarComponents = NonNullable<PropsBase['components']>
-
-function CalendarDayButton({ className, modifiers, ...props }: ComponentProps<typeof DayButton>) {
-  return (
-    <DayButton
-      {...props}
-      modifiers={modifiers}
-      className={cn(
-        buttonVariants({ size: 'medium', tone: 'neutral', variant: 'ghost' }),
-        'text-inherit hover:bg-brand-container hover:text-brand-on-container',
-        modifiers.selected && 'hover:bg-brand-default hover:text-brand-on-default',
-        className,
-      )}
-    />
-  )
-}
-
-function createSelectTarget(value: string): HTMLSelectElement {
-  const element = document.createElement('select'),
-    option = Object.assign(document.createElement('option'), { value })
-
-  element.append(option)
-  element.value = value
-
-  return element
-}
-
-function CalendarDropdown({
-  options,
-  onChange,
-  value,
-  'aria-label': ariaLabel,
-}: ComponentProps<NonNullable<CalendarComponents['Dropdown']>>) {
-  const handleValueChange = (newValue: string | null) => {
-    if (onChange) {
-      const element = createSelectTarget(newValue ?? ''),
-        syntheticEvent = {
-          bubbles: false,
-          cancelable: false,
-          currentTarget: element,
-          defaultPrevented: false,
-          eventPhase: Event.NONE,
-          isDefaultPrevented: () => false,
-          isPropagationStopped: () => false,
-          isTrusted: false,
-          nativeEvent: new Event('change'),
-          persist: () => undefined,
-          preventDefault: () => undefined,
-          stopPropagation: () => undefined,
-          target: element,
-          timeStamp: performance.now(),
-          type: 'change',
-        } satisfies ChangeEvent<HTMLSelectElement>
-
-      onChange(syntheticEvent)
-    }
-  }
-
-  return (
-    <Select<string> value={value?.toString()} onValueChange={handleValueChange}>
-      <SelectTrigger variant="ghost" aria-label={ariaLabel}>
-        <SelectValue>{options?.find((option) => option.value === value)?.label}</SelectValue>
-        <SelectIcon>
-          <CaretUpDownIcon weight="bold" />
-        </SelectIcon>
-      </SelectTrigger>
-      <SelectPopup>
-        <SelectList>
-          {options?.map((option) => (
-            <SelectItem
-              key={option.value}
-              value={option.value.toString()}
-              disabled={option.disabled}
-            >
-              <SelectTitle>{option.label}</SelectTitle>
-            </SelectItem>
-          ))}
-        </SelectList>
-      </SelectPopup>
-    </Select>
-  )
-}
-
-function CalendarNextMonthButton({
-  onClick,
-  disabled,
-  ...props
-}: ComponentProps<NonNullable<CalendarComponents['NextMonthButton']>>) {
-  return (
-    <Button
-      {...props}
-      variant="ghost"
-      tone="neutral"
-      size="medium"
-      className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      <CaretRightIcon weight="bold" />
-    </Button>
-  )
-}
-
-function CalendarPreviousMonthButton({
-  onClick,
-  disabled,
-  ...props
-}: ComponentProps<NonNullable<CalendarComponents['PreviousMonthButton']>>) {
-  return (
-    <Button
-      {...props}
-      variant="ghost"
-      tone="neutral"
-      size="medium"
-      className={cn('hover:bg-neutral-container-high hover:text-neutral-on-container')}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      <CaretLeftIcon weight="bold" />
-    </Button>
-  )
-}
+import { CalendarChevron } from './calendar-chevron'
+import { CalendarDayButton } from './calendar-day-button'
+import { CalendarDropdown } from './calendar-dropdown'
+import { CalendarNextMonthButton } from './calendar-next-month-button'
+import { CalendarPreviousMonthButton } from './calendar-previous-month-button'
+import type { CalendarComponents, CalendarPickerProps, CalendarSelected } from './calendar.types'
 
 function getMultipleSelected(selectedDates: CalendarSelected | undefined): Date[] | undefined {
   if (Array.isArray(selectedDates)) {
@@ -178,6 +40,13 @@ function labelDayButtonWithVisibleText(...args: Parameters<typeof labelDayButton
 }
 
 const defaultClassNames = getDefaultClassNames(),
+  defaultComponents: CalendarComponents = {
+    Chevron: CalendarChevron,
+    DayButton: CalendarDayButton,
+    Dropdown: CalendarDropdown,
+    NextMonthButton: CalendarNextMonthButton,
+    PreviousMonthButton: CalendarPreviousMonthButton,
+  },
   calendarClassNames: PropsBase['classNames'] = {
     caption_label: 'style-text-strong-0',
     day: cn(
@@ -202,16 +71,11 @@ const defaultClassNames = getDefaultClassNames(),
     today: cn('text-brand-default! data-selected:text-brand-on-default!', defaultClassNames.today),
     week: cn('', defaultClassNames.week),
     weekdays: cn('style-text-default-0 text-on-surface-muted', defaultClassNames.weekdays),
-  },
-  calendarComponents: CalendarComponents = {
-    DayButton: CalendarDayButton,
-    Dropdown: CalendarDropdown,
-    NextMonthButton: CalendarNextMonthButton,
-    PreviousMonthButton: CalendarPreviousMonthButton,
   }
 
 export function CalendarPicker({
   className,
+  components,
   mode = 'single',
   selected,
   onSelect,
@@ -226,7 +90,7 @@ export function CalendarPicker({
     baseProps: PropsBase = {
       className,
       classNames: calendarClassNames,
-      components: calendarComponents,
+      components: { ...defaultComponents, ...components },
       labels: { labelDayButton: labelDayButtonWithVisibleText },
       ...props,
     }

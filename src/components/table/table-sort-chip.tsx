@@ -1,9 +1,9 @@
-import { SortAscendingIcon, SortDescendingIcon } from '@phosphor-icons/react'
 import type { RowData } from '@tanstack/react-table'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { useTableContext } from './table-feature-context'
 import { TableSortMenu } from './table-sort-menu'
 import type { TableSortChipProps } from './table.types'
@@ -35,8 +35,8 @@ export function TableSortChip<TData extends RowData>({
         return (
           <TableSortMenu className={cn('', className)} ref={ref} {...props}>
             <Button size="extraSmall" variant="soft">
-              {columnSort === 'asc' && <SortDescendingIcon />}
-              {columnSort === 'desc' && <SortAscendingIcon />}
+              {columnSort === 'asc' && <Icon name="sortDescending" />}
+              {columnSort === 'desc' && <Icon name="sortAscending" />}
               <span>{getColumnHeaderLabel(column)}</span>
               <span className="font-light lowercase">
                 {columnSort === 'asc' && ascendingLabel}

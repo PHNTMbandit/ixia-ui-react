@@ -1,8 +1,8 @@
-import { MagnifyingGlassIcon } from '@phosphor-icons/react'
 import type { ChangeEvent } from 'react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group'
 import { useTableContext } from './table-feature-context'
 import type { TableSearchProps } from './table.types'
@@ -18,7 +18,7 @@ export function TableSearch({ className, ref, ...props }: TableSearchProps) {
       {(globalFilter) => (
         <InputGroup variant={props.variant ?? 'outline'} className="flex-1">
           <InputGroupAddon>
-            <MagnifyingGlassIcon weight="bold" />
+            <Icon name="search" />
           </InputGroupAddon>
           <InputGroupInput
             className={cn('', className)}

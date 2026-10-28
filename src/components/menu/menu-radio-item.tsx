@@ -1,8 +1,8 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu'
-import { CheckIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { MenuRadioItemProps } from './menu.types'
 
 export function MenuRadioItem({ className, children, ref, ...props }: MenuRadioItemProps) {
@@ -17,7 +17,7 @@ export function MenuRadioItem({ className, children, ref, ...props }: MenuRadioI
     >
       <span className="col-start-1 min-w-3xl">{children}</span>
       <BaseMenu.RadioItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
-        <CheckIcon className="size-sm" weight="bold" />
+        <Icon name="selected" className="size-sm" />
       </BaseMenu.RadioItemIndicator>
     </BaseMenu.RadioItem>
   )

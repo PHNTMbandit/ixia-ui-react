@@ -1,7 +1,6 @@
-import { MagnifyingGlassIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../input-group'
 import { useTableContext } from './layer-tree-context'
 import type { LayerTreeSearchProps } from './layer-tree.types'
@@ -20,7 +19,7 @@ export function LayerTreeSearch({
       {(globalFilter) => (
         <InputGroup className={cn('', className)} ref={ref} {...props}>
           <InputGroupAddon>
-            <MagnifyingGlassIcon weight="bold" />
+            <Icon name="search" />
           </InputGroupAddon>
           <InputGroupInput
             placeholder={placeholder}

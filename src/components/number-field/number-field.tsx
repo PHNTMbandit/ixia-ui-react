@@ -1,10 +1,10 @@
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field'
-import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { numberFieldVariants } from './number-field.types'
 import type { NumberFieldTypesProps } from './number-field.types'
 
@@ -106,7 +106,7 @@ function NumberField({
               size={size ?? 'medium'}
               className="shrink-0 rounded-r-none"
             >
-              <MinusIcon weight="bold" />
+              <Icon name="minus" />
             </Button>
           )}
         />
@@ -136,7 +136,7 @@ function NumberField({
               size={size ?? 'medium'}
               className="shrink-0 rounded-l-none"
             >
-              <PlusIcon weight="bold" />
+              <Icon name="add" />
             </Button>
           )}
         />

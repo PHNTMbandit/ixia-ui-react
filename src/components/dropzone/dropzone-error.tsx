@@ -1,7 +1,6 @@
-import { WarningCircleIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { DropzoneErrorProps } from './dropzone.types'
 import { useDropzone } from './dropzone.utils'
 
@@ -19,7 +18,7 @@ export function DropzoneError({ className, children, ref, ...props }: DropzoneEr
       role="alert"
       {...props}
     >
-      <WarningCircleIcon weight="bold" />
+      <Icon name="error" />
       {children ?? fileError}
     </p>
   )

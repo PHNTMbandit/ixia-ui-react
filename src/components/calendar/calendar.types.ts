@@ -1,4 +1,4 @@
-import type { DateRange, Mode, PropsBase } from '@daypicker/react'
+import type { DateRange, DayButton, Mode, PropsBase } from '@daypicker/react'
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 import type React from 'react'
@@ -50,6 +50,18 @@ type CalendarPanelProps = React.ComponentProps<'div'> & VariantProps<typeof cale
 type CalendarHeaderProps = React.ComponentProps<'div'>
 type CalendarSummaryProps = React.ComponentProps<'div'>
 type CalendarFooterProps = React.ComponentProps<'div'>
+type CalendarComponents = NonNullable<PropsBase['components']>
+type CalendarChevronProps = React.ComponentProps<NonNullable<CalendarComponents['Chevron']>>
+type CalendarNextMonthButtonProps = React.ComponentProps<
+  NonNullable<CalendarComponents['NextMonthButton']>
+>
+type CalendarPreviousMonthButtonProps = React.ComponentProps<
+  NonNullable<CalendarComponents['PreviousMonthButton']>
+>
+type CalendarDropdownProps = React.ComponentProps<NonNullable<CalendarComponents['Dropdown']>> & {
+  children?: React.ReactNode
+}
+type CalendarDayButtonProps = React.ComponentProps<typeof DayButton>
 
 export type {
   CalendarSelected,
@@ -62,5 +74,11 @@ export type {
   CalendarHeaderProps,
   CalendarSummaryProps,
   CalendarFooterProps,
+  CalendarNextMonthButtonProps,
+  CalendarChevronProps,
+  CalendarPreviousMonthButtonProps,
+  CalendarDropdownProps,
+  CalendarDayButtonProps,
+  CalendarComponents,
 }
 export { calendarPanelVariants }

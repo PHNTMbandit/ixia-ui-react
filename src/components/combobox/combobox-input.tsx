@@ -1,10 +1,10 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
-import { CaretDownIcon, XIcon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import { InputGroup, InputGroupAddon } from '../input-group'
 import { Separator } from '../separator'
 import type { ComboboxInputProps } from './combobox.types'
@@ -91,7 +91,7 @@ export function ComboboxInput({
                 variant="ghost"
                 tone="error"
               >
-                <XIcon weight="bold" />
+                <Icon name="close" />
               </Button>
             )}
           />
@@ -105,7 +105,7 @@ export function ComboboxInput({
                 variant={getTriggerVariant(state.open)}
                 tone="brand"
               >
-                <CaretDownIcon weight="bold" />
+                <Icon name="chevronDown" />
               </Button>
             )}
           />

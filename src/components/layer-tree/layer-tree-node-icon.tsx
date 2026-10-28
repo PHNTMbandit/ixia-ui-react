@@ -1,7 +1,6 @@
-import { FolderIcon, FolderOpenIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import { useCellContext } from './layer-tree-context'
 import type { LayerTreeNodeIconProps } from './layer-tree.types'
 
@@ -15,12 +14,12 @@ export function LayerTreeNodeIcon({
   const cell = useCellContext(),
     { row } = cell,
     hasChildren = row.getCanExpand() && Boolean(row.getLeafRows().length)
-  let nodeIcon = <NodeIcon weight="bold" />
+  let nodeIcon = <NodeIcon />
 
   if (hasChildren) {
-    nodeIcon = <FolderIcon weight="fill" />
+    nodeIcon = <Icon name="folder" />
     if (row.getIsExpanded()) {
-      nodeIcon = <FolderOpenIcon />
+      nodeIcon = <Icon name="folderOpen" />
     }
   }
 

@@ -1,7 +1,6 @@
-import { CaretUpDownIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import {
   Select,
   SelectIcon,
@@ -37,7 +36,7 @@ export function CodeBlockSelect({ className, children, ref, ...props }: CodeBloc
           {(value: keyof typeof items) => items.find((item) => item.id === value)?.label}
         </SelectValue>
         <SelectIcon>
-          <CaretUpDownIcon weight="bold" />
+          <Icon name="chevronsUpDown" />
         </SelectIcon>
       </SelectTrigger>
       <SelectPopup>

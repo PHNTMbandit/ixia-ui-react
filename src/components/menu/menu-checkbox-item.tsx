@@ -1,8 +1,8 @@
 import { Menu as BaseMenu } from '@base-ui/react/menu'
-import { CheckIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { MenuCheckboxItemProps } from './menu.types'
 
 export function MenuCheckboxItem({ className, children, ref, ...props }: MenuCheckboxItemProps) {
@@ -17,7 +17,7 @@ export function MenuCheckboxItem({ className, children, ref, ...props }: MenuChe
     >
       <span className="col-start-1 flex items-center gap-2xs">{children}</span>
       <BaseMenu.CheckboxItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
-        <CheckIcon className="size-sm" weight="bold" />
+        <Icon name="selected" className="size-sm" />
       </BaseMenu.CheckboxItemIndicator>
     </BaseMenu.CheckboxItem>
   )

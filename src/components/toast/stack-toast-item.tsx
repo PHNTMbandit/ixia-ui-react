@@ -1,17 +1,11 @@
 import { Toast as BaseToast } from '@base-ui/react/toast'
-import {
-  CheckCircleIcon,
-  InfoIcon,
-  WarningCircleIcon,
-  WarningIcon,
-  XIcon,
-} from '@phosphor-icons/react'
-import type { Icon } from '@phosphor-icons/react'
 import React from 'react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
+import type { IconComponent } from '../icon'
 import { Separator } from '../separator'
 import type { StackToastItemProps, ToastVariant } from './toast.types'
 
@@ -78,22 +72,22 @@ function getVariantBorderColor(variant: ToastVariant | undefined): string {
   }
 }
 
-function getVariantIcon(variant: ToastVariant | undefined, icon?: Icon) {
+function getVariantIcon(variant: ToastVariant | undefined, icon?: IconComponent) {
   if (icon) {
-    return React.createElement(icon, { weight: 'fill' })
+    return React.createElement(icon)
   }
   switch (variant) {
     case 'error': {
-      return <WarningCircleIcon weight="fill" />
+      return <Icon name="error" weight="fill" />
     }
     case 'success': {
-      return <CheckCircleIcon weight="fill" />
+      return <Icon name="success" weight="fill" />
     }
     case 'warning': {
-      return <WarningIcon weight="fill" />
+      return <Icon name="warning" weight="fill" />
     }
     default: {
-      return <InfoIcon weight="fill" />
+      return <Icon name="info" weight="fill" />
     }
   }
 }
@@ -174,7 +168,7 @@ export function StackToastItem({ className, ref, toast, ...props }: StackToastIt
               </svg>
             </span>
 
-            <XIcon className="size-sm shrink-0" weight="bold" />
+            <Icon name="close" className="size-sm shrink-0" />
           </BaseToast.Close>
         </div>
       </BaseToast.Content>

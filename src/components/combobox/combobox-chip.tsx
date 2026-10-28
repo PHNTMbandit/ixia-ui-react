@@ -1,9 +1,9 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
-import { XIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
+import { Icon } from '../icon'
 import type { ComboboxChipProps } from './combobox.types'
 
 export function ComboboxChip({ className, children, ref, ...props }: ComboboxChipProps) {
@@ -27,7 +27,7 @@ export function ComboboxChip({ className, children, ref, ...props }: ComboboxChi
             tone="error"
             size="extraSmall"
           >
-            <XIcon className="size-sm" weight="bold" />
+            <Icon name="close" className="size-sm" />
           </Button>
         )}
       />

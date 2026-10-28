@@ -1,7 +1,6 @@
-import { DotsThreeIcon } from '@phosphor-icons/react'
-
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { BreadcrumbEllipsisProps } from './breadcrumb.types'
 
 export function BreadcrumbEllipsis({
@@ -19,8 +18,7 @@ export function BreadcrumbEllipsis({
       ref={ref}
       {...props}
     >
-      {children}
-      <DotsThreeIcon weight="bold" />
+      {children ?? <Icon name="ellipsis" />}
     </div>
   )
 }

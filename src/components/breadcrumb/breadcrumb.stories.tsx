@@ -1,4 +1,4 @@
-import { BookIcon, HouseIcon } from '@phosphor-icons/react'
+import { BookIcon, CaretRightIcon, DotsThreeIcon, HouseIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Breadcrumb } from './index'
@@ -9,12 +9,16 @@ const DefaultTrail = () => (
       <HouseIcon weight="bold" />
       Home
     </Breadcrumb.Link>
-    <Breadcrumb.Separator />
+    <Breadcrumb.Separator>
+      <CaretRightIcon weight="bold" />
+    </Breadcrumb.Separator>
     <Breadcrumb.Link>
       <BookIcon weight="bold" />
       Documentation
     </Breadcrumb.Link>
-    <Breadcrumb.Separator />
+    <Breadcrumb.Separator>
+      <CaretRightIcon weight="bold" />
+    </Breadcrumb.Separator>
     <Breadcrumb.Item>Buttons</Breadcrumb.Item>
   </Breadcrumb>
 )
@@ -95,11 +99,19 @@ export const CollapsedPath: Story = {
         <HouseIcon weight="bold" />
         Home
       </Breadcrumb.Link>
-      <Breadcrumb.Separator />
-      <Breadcrumb.Ellipsis />
-      <Breadcrumb.Separator />
+      <Breadcrumb.Separator>
+        <CaretRightIcon weight="bold" />
+      </Breadcrumb.Separator>
+      <Breadcrumb.Ellipsis>
+        <DotsThreeIcon weight="bold" />
+      </Breadcrumb.Ellipsis>
+      <Breadcrumb.Separator>
+        <CaretRightIcon weight="bold" />
+      </Breadcrumb.Separator>
       <Breadcrumb.Link>Documentation</Breadcrumb.Link>
-      <Breadcrumb.Separator />
+      <Breadcrumb.Separator>
+        <CaretRightIcon weight="bold" />
+      </Breadcrumb.Separator>
       <Breadcrumb.Item>Button Group</Breadcrumb.Item>
     </Breadcrumb>
   ),
@@ -120,12 +132,16 @@ export const IconFirstLink: Story = {
         <HouseIcon weight="bold" />
         Dashboard
       </Breadcrumb.Link>
-      <Breadcrumb.Separator />
+      <Breadcrumb.Separator>
+        <CaretRightIcon weight="bold" />
+      </Breadcrumb.Separator>
       <Breadcrumb.Link>
         <BookIcon weight="bold" />
         Components
       </Breadcrumb.Link>
-      <Breadcrumb.Separator />
+      <Breadcrumb.Separator>
+        <CaretRightIcon weight="bold" />
+      </Breadcrumb.Separator>
       <Breadcrumb.Item>Breadcrumb</Breadcrumb.Item>
     </Breadcrumb>
   ),
@@ -175,7 +191,11 @@ export const Ellipsis: Story = {
       },
     },
   },
-  render: () => <Breadcrumb.Ellipsis />,
+  render: () => (
+    <Breadcrumb.Ellipsis>
+      <DotsThreeIcon weight="bold" />
+    </Breadcrumb.Ellipsis>
+  ),
 }
 
 export const Separator: Story = {
@@ -187,5 +207,9 @@ export const Separator: Story = {
       },
     },
   },
-  render: () => <Breadcrumb.Separator />,
+  render: () => (
+    <Breadcrumb.Separator>
+      <CaretRightIcon weight="bold" />
+    </Breadcrumb.Separator>
+  ),
 }

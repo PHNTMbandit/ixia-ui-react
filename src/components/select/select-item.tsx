@@ -1,8 +1,8 @@
 import { Select as BaseSelect } from '@base-ui/react/select'
-import { CheckIcon } from '@phosphor-icons/react'
 
 import { cn } from '@/utils/cn'
 
+import { Icon } from '../icon'
 import type { SelectItemProps } from './select.types'
 
 export function SelectItem({ className, children, ref, ...props }: SelectItemProps) {
@@ -17,7 +17,7 @@ export function SelectItem({ className, children, ref, ...props }: SelectItemPro
     >
       <BaseSelect.ItemText className="flex flex-col">{children}</BaseSelect.ItemText>
       <BaseSelect.ItemIndicator className="place-self-end self-center [&>svg]:size-sm">
-        <CheckIcon weight="bold" />
+        <Icon name="selected" />
       </BaseSelect.ItemIndicator>
     </BaseSelect.Item>
   )
