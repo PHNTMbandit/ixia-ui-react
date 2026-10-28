@@ -13,6 +13,7 @@ import {
   UserIcon,
 } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 
 import { Avatar, AvatarFallback } from '../avatar'
@@ -211,7 +212,7 @@ export default {
     docs: {
       description: {
         component:
-          'Sidebar is a layout-aware navigation surface built from composable primitives such as groups, menu items, badges, and collapsible sections. Pair `SidebarProvider` with `Sidebar` to control side placement and collapse mode (`icon`, `offcanvas`, `none`). Use `SidebarToggle` to expose runtime control in app-shell layouts.',
+          'Sidebar is a layout-aware navigation surface built from composable primitives such as groups, menu items, badges, and collapsible sections. Pair `SidebarProvider` with `Sidebar` to control side placement and collapse mode (`icon`, `offcanvas`, `none`). Use `SidebarToggle` to expose runtime control in app-shell layouts. Closed offcanvas sidebars (including mobile) hide their contents and remove them from keyboard navigation and the accessibility tree; desktop icon-collapse mode remains interactive.',
       },
       subtitle:
         'A composable navigation sidebar with collapse modes, grouped menus, and app-shell behavior.',
@@ -338,6 +339,55 @@ export const NonCollapsible: Story = {
   ),
 }
 
+export const ClosedOffcanvas: Story = {
+  name: 'Behavior / Closed Offcanvas',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A closed offcanvas sidebar keeps its content mounted but invisible and inert. An external toggle restores the content. The same behavior applies when mobile viewports switch the sidebar to offcanvas mode.',
+      },
+    },
+  },
+  render: (args) => (
+    <div className={APP_FRAME_CLASS}>
+      <Sidebar.Provider id="closed-offcanvas-sidebar" defaultOpen={false} collapsible="offcanvas">
+        <Sidebar {...args} data-testid="offcanvas-sidebar">
+          <Sidebar.Content>
+            <PrimaryNavigation />
+          </Sidebar.Content>
+        </Sidebar>
+        <Sidebar.Inset>
+          <Sidebar.Toggle>Toggle sidebar</Sidebar.Toggle>
+          <p>Workspace Content</p>
+        </Sidebar.Inset>
+      </Sidebar.Provider>
+    </div>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const sidebar = canvas.getByTestId('offcanvas-sidebar'),
+      dashboard = canvas.getByText('Dashboard'),
+      toggle = canvas.getByRole('button', { name: 'Toggle sidebar' })
+
+    await expect(sidebar).not.toBeVisible()
+    await expect(sidebar).toHaveAttribute('inert')
+    await expect(sidebar).toHaveAttribute('aria-hidden', 'true')
+    await expect(dashboard).not.toBeVisible()
+    await expect(canvas.queryByRole('button', { name: 'Dashboard' })).not.toBeInTheDocument()
+
+    await userEvent.click(toggle)
+    await expect(sidebar).toBeVisible()
+    await expect(sidebar).not.toHaveAttribute('inert')
+    await expect(sidebar).not.toHaveAttribute('aria-hidden')
+    await expect(canvas.getByRole('button', { name: 'Dashboard' })).toBeVisible()
+
+    await userEvent.click(toggle)
+    await expect(sidebar).not.toBeVisible()
+    await expect(dashboard).not.toBeVisible()
+    await expect(sidebar).toHaveAttribute('inert')
+  },
+}
+
 export const GhostTone: Story = {
   args: {
     tone: 'ghost',
@@ -365,7 +415,7 @@ export const MobileResponsive: Story = {
     docs: {
       description: {
         story:
-          'On mobile viewports the sidebar automatically switches to offcanvas mode, so an open sidebar collapses into an overlay driven by `useMediaQuery`. Use `SidebarToggle` to slide it in and out.',
+          'On mobile viewports the sidebar switches to offcanvas mode and starts closed, including when resizing from an open desktop sidebar. Use `SidebarToggle` to open the mobile overlay. Desktop open state and its saved preference are preserved independently; returning to mobile starts closed again.',
       },
     },
     viewport: {
