@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.5...v1.4.6) (2026-10-28)
+
+
+### Bug Fixes
+
+* **borders:** update border color variables for improved contrast ([ce0e939](https://github.com/PHNTMbandit/ixia-ui-react/commit/ce0e939cc57fa83b68873e46110a9606a070db2c))
+
 ## [1.4.5](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.4...v1.4.5) (2026-10-28)
 
 
