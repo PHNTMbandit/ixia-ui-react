@@ -47,8 +47,13 @@ function SidebarProvider({
 }: SidebarContextProps) {
   const cookieName = `sidebar-state-${id}`,
     [openState, setOpenState] = React.useState<boolean>(defaultOpen),
+    [mobileOpen, setMobileOpen] = React.useState(false),
     isMobile = useMediaQuery('mobile'),
     setOpen = (value: boolean | ((open: boolean) => boolean)) => {
+      if (isMobile) {
+        setMobileOpen((prev) => resolveOpenState(value, prev))
+        return
+      }
       setOpenState((prev) => {
         const nextOpen = resolveOpenState(value, prev)
 
@@ -64,9 +69,17 @@ function SidebarProvider({
     },
     trigger = () => setOpen((prev) => !prev)
 
-  let effectiveCollapsible = collapsible
+  React.useEffect(() => {
+    if (!isMobile) {
+      setMobileOpen(false)
+    }
+  }, [isMobile])
+
+  let effectiveCollapsible = collapsible,
+    open = openState
   if (isMobile) {
     effectiveCollapsible = 'offcanvas'
+    open = mobileOpen
   }
 
   return (
@@ -76,7 +89,7 @@ function SidebarProvider({
         defaultOpen,
         id,
         isMobile,
-        open: openState,
+        open,
         setOpen,
         side,
         trigger,
@@ -84,7 +97,7 @@ function SidebarProvider({
     >
       <div
         className={cn(
-          'relative size-full min-h-0',
+          'relative flex min-h-0 w-full min-w-0 flex-1',
           side === 'left' && 'flex flex-row',
           side === 'right' && 'flex flex-row-reverse',
           className,

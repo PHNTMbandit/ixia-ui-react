@@ -88,6 +88,7 @@ export function Sidebar({
 }: SidebarProps) {
   const { open, setOpen, isMobile, collapsible, side } = useSidebar(),
     sidebarRef = React.useRef<HTMLDivElement>(null),
+    isHidden = collapsible === 'offcanvas' && !open,
     layout: SidebarLayoutProps = { collapsible, isMobile, open, width }
 
   React.useEffect(() => {
@@ -121,6 +122,7 @@ export function Sidebar({
         tone === 'ghost' && 'bg-transparent',
         getGapClasses(layout),
         getPositionClasses(layout),
+        isHidden && 'invisible',
         collapsible === 'offcanvas' && !open && 'border-none',
         open && 'p-md',
         collapsible === 'icon' && !open && 'py-md',
@@ -131,6 +133,8 @@ export function Sidebar({
       ref={sidebarRef}
       style={getWidthStyle(layout)}
       {...props}
+      aria-hidden={isHidden || undefined}
+      inert={isHidden}
     />
   )
 }
