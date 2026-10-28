@@ -1,3 +1,12 @@
+## [1.4.7](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.6...v1.4.7) (2026-10-28)
+
+
+### Bug Fixes
+
+* **sidebar:** add SidebarInset component ([6223821](https://github.com/PHNTMbandit/ixia-ui-react/commit/62238211ee1db916b937f0544815579e7199d510))
+* **sidebar:** enhance offcanvas behavior and accessibility ([571c4a3](https://github.com/PHNTMbandit/ixia-ui-react/commit/571c4a345b39b8ea4960bee897ac112073682bb3))
+* **sidebar:** improve accessibility checks in sidebar stories ([5bd3c54](https://github.com/PHNTMbandit/ixia-ui-react/commit/5bd3c54bef1fcf8c824272fb0ea3e3e0269df2e4))
+
 ## [1.4.6](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.4.5...v1.4.6) (2026-10-28)
 
 
