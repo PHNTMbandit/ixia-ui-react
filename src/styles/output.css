@@ -401,9 +401,6 @@
   .top-2xs {
     top: var(--spacing-2xs);
   }
-  .top-3xs {
-    top: var(--spacing-3xs);
-  }
   .top-\[0px\] {
     top: 0px;
   }
@@ -430,9 +427,6 @@
   }
   .right-2xs {
     right: var(--spacing-2xs);
-  }
-  .right-3xs {
-    right: var(--spacing-3xs);
   }
   .right-\[0px\] {
     right: 0px;

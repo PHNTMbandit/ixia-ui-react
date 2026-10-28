@@ -16,7 +16,10 @@ interface CodeBlockValue {
   id: string
   label: string
   name: string
-  content: string | React.ReactNode
+  /** Original source used for copying, downloading, and the plain-code fallback. */
+  code?: string
+  /** Custom presentation. Strings render as text; wrap trusted highlighter HTML explicitly. */
+  content?: React.ReactNode
   icon?: React.ReactNode
 }
 

@@ -5,6 +5,15 @@ import type { CodeBlockWindowProps } from './code-block.types'
 
 export function CodeBlockWindow({ className, children, ref, ...props }: CodeBlockWindowProps) {
   const { currentValue } = useCodeBlock()
+  let { content } = currentValue
+
+  if (content === undefined && currentValue.code !== undefined) {
+    content = (
+      <pre>
+        <code>{currentValue.code}</code>
+      </pre>
+    )
+  }
 
   return (
     <div
@@ -13,10 +22,7 @@ export function CodeBlockWindow({ className, children, ref, ...props }: CodeBloc
       {...props}
     >
       {children}
-      {typeof currentValue.content === 'string' && (
-        <div dangerouslySetInnerHTML={{ __html: currentValue.content }} />
-      )}
-      {typeof currentValue.content !== 'string' && currentValue.content}
+      {content}
     </div>
   )
 }
