@@ -13,15 +13,22 @@ const DOWNLOAD_TIMEOUT = 2000,
     true: <CheckIcon weight="bold" className="animate-in zoom-in" />,
   }
 
-export function CodeBlockDownload({ className, children, ref, ...props }: CodeBlockDownloadProps) {
+export function CodeBlockDownload({
+  className,
+  children,
+  disabled,
+  ref,
+  ...props
+}: CodeBlockDownloadProps) {
   const { currentValue } = useCodeBlock(),
+    { code } = currentValue,
     [downloaded, setDownloaded] = React.useState(false),
     handleClick = async () => {
-      if (typeof currentValue.content !== 'string') {
-        return
-      }
       try {
-        const blob = new Blob([currentValue.content]),
+        if (code === undefined) {
+          throw new Error('No source code available to download')
+        }
+        const blob = new Blob([code], { type: 'text/plain;charset=utf-8' }),
           url = URL.createObjectURL(blob),
           link = document.createElement('a')
         link.href = url
@@ -46,6 +53,7 @@ export function CodeBlockDownload({ className, children, ref, ...props }: CodeBl
       className={cn('', className)}
       ref={ref}
       {...props}
+      disabled={disabled || code === undefined}
     >
       {children}
       {DOWNLOAD_STATUS_ICON[`${downloaded}`]}

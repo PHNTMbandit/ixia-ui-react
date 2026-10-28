@@ -13,15 +13,22 @@ const COPY_TIMEOUT = 2000,
     true: <CheckIcon weight="bold" className="animate-in zoom-in" />,
   }
 
-export function CodeBlockCopy({ className, children, ref, ...props }: CodeBlockCopyProps) {
+export function CodeBlockCopy({
+  className,
+  children,
+  disabled,
+  ref,
+  ...props
+}: CodeBlockCopyProps) {
   const { currentValue } = useCodeBlock(),
+    { code } = currentValue,
     [copied, setCopied] = React.useState(false),
     handleClick = async () => {
-      if (typeof currentValue.content !== 'string') {
-        return
-      }
       try {
-        await navigator.clipboard.writeText(currentValue.content)
+        if (code === undefined) {
+          throw new Error('No source code available to copy')
+        }
+        await navigator.clipboard.writeText(code)
         setCopied(true)
         setTimeout(() => setCopied(false), COPY_TIMEOUT)
       } catch (error) {
@@ -32,13 +39,14 @@ export function CodeBlockCopy({ className, children, ref, ...props }: CodeBlockC
   return (
     <Button
       aria-label="Copy code"
-      onClick={handleClick}
-      size="medium"
-      variant="ghost"
-      tone="neutral"
       className={cn('', className)}
+      onClick={handleClick}
       ref={ref}
+      size="medium"
+      tone="neutral"
+      variant="ghost"
       {...props}
+      disabled={disabled || code === undefined}
     >
       {children}
       {COPY_STATUS_ICON[`${copied}`]}
