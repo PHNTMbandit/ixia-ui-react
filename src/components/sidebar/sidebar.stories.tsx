@@ -13,7 +13,7 @@ import {
   UserIcon,
 } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect } from 'storybook/test'
+import { expect, waitFor } from 'storybook/test'
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 
 import { Avatar, AvatarFallback } from '../avatar'
@@ -186,6 +186,19 @@ const TONES = ['primary', 'secondary', 'ghost'] as const,
   )
 
 export default {
+  afterEach: async ({ canvasElement }) => {
+    // Theme color transitions must settle before accessibility contrast checks.
+    await waitFor(() => {
+      const animations = canvasElement
+        .getAnimations({ subtree: true })
+        .filter(
+          (animation) =>
+            (animation.playState === 'running' || animation.pending) &&
+            animation.effect?.getComputedTiming().endTime !== Infinity,
+        )
+      expect(animations).toHaveLength(0)
+    })
+  },
   argTypes: {
     tone: {
       control: { type: 'select' },
@@ -379,7 +392,7 @@ export const ClosedOffcanvas: Story = {
     await expect(sidebar).toBeVisible()
     await expect(sidebar).not.toHaveAttribute('inert')
     await expect(sidebar).not.toHaveAttribute('aria-hidden')
-    await expect(canvas.getByRole('button', { name: 'Dashboard' })).toBeVisible()
+    await expect(await canvas.findByRole('button', { name: 'Dashboard' })).toBeVisible()
 
     await userEvent.click(toggle)
     await expect(sidebar).not.toBeVisible()
