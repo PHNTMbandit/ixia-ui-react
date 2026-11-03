@@ -1849,7 +1849,7 @@ export const LayoutCompositions: StoryObj = {
         bottomInset = Number.parseFloat(getComputedStyle(bottom).paddingLeft),
         framed = example.id !== 'ghost'
 
-      await expect(layoutGap).toBeGreaterThan(0)
+      await expect(layoutGap, `${example.id}: layout gap`).toBeGreaterThan(0)
       await expect(
         getComputedStyle(container).marginTop,
         `${example.id}: container margin top`,
@@ -1860,25 +1860,27 @@ export const LayoutCompositions: StoryObj = {
       ).toBe('0px')
       await expect(top.parentElement).toBe(example.topInside ? container : layout)
       await expect(bottom.parentElement).toBe(example.bottomInside ? container : layout)
-      await expect(topInset > 0).toBe(framed && example.topInside && example.id !== 'overrides')
-      await expect(bottomInset > 0).toBe(framed && example.bottomInside)
-      await expect(Number.parseFloat(getComputedStyle(top).paddingTop) > 0).toBe(
+      await expect(topInset > 0, `${example.id}: top inset`).toBe(
         framed && example.topInside && example.id !== 'overrides',
       )
-      await expect(Number.parseFloat(getComputedStyle(bottom).paddingBottom) > 0).toBe(
+      await expect(bottomInset > 0, `${example.id}: bottom inset`).toBe(
         framed && example.bottomInside,
       )
+      await expect(
+        Number.parseFloat(getComputedStyle(top).paddingTop) > 0,
+        `${example.id}: top vertical inset`,
+      ).toBe(framed && example.topInside && example.id !== 'overrides')
+      await expect(
+        Number.parseFloat(getComputedStyle(bottom).paddingBottom) > 0,
+        `${example.id}: bottom vertical inset`,
+      ).toBe(framed && example.bottomInside)
       if (example.id !== 'toolbar') {
         await expect(
           getComputedStyle(toolbar).paddingLeft,
           `${example.id}: nested toolbar inset`,
         ).toBe('0px')
       }
-      if (example.id === 'overrides') {
-        await expect(getComputedStyle(container).rowGap, `${example.id}: custom gap`).toBe('0px')
-      } else {
-        await expect(Number.parseFloat(getComputedStyle(container).rowGap)).toBe(layoutGap)
-      }
+      await expect(getComputedStyle(container).rowGap, `${example.id}: container gap`).toBe('0px')
       if (!example.topInside) {
         await expect(
           container.getBoundingClientRect().top - top.getBoundingClientRect().bottom,
@@ -1890,8 +1892,9 @@ export const LayoutCompositions: StoryObj = {
         ).toBeCloseTo(layoutGap, 1)
       }
       await expect(
-        Number.parseFloat(getComputedStyle(viewport.querySelector('thead')!).borderTopWidth) > 0,
-      ).toBe(framed && example.topInside)
+        Number.parseFloat(getComputedStyle(viewport).borderTopWidth) > 0,
+        `${example.id}: viewport border`,
+      ).toBe(framed && example.id === 'toolbar')
     }
   },
 }
@@ -1996,9 +1999,9 @@ export const SwitchDatasets: StoryObj = {
       viewport = canvas.getByTestId('dataset-viewport').getBoundingClientRect(),
       bottomBar = canvas.getByTestId('dataset-bottombar').getBoundingClientRect()
 
-    await expect(tabs.top - topBar.bottom).toBeGreaterThan(0)
+    await expect(tabs.top - topBar.bottom).toBeCloseTo(0, 1)
     await expect(viewport.top).toBeCloseTo(tabs.bottom, 1)
-    await expect(bottomBar.top - viewport.bottom).toBeGreaterThan(0)
+    await expect(bottomBar.top - viewport.bottom).toBeCloseTo(0, 1)
     await expect(canvas.getByTestId('dataset-results')).toHaveTextContent(/of\s*24/)
     await userEvent.click(canvas.getByRole('tab', { name: 'Dataset 2' }))
     await expect(canvas.getByTestId('dataset-results')).toHaveTextContent(/of\s*36/)

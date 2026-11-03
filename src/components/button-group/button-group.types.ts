@@ -95,7 +95,7 @@ export const buttonGroupVariants = cva(
       },
       {
         className:
-          'border-neutral-border-strong text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
+          'border-neutral-border text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },

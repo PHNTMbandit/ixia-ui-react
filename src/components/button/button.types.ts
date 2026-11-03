@@ -90,7 +90,7 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'border-neutral-border-strong text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
+          'border-neutral-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
