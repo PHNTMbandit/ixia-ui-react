@@ -1,5 +1,6 @@
 import { NavigationMenu as NavigationMenuRoot } from './navigation-menu'
 import { NavigationMenuContent } from './navigation-menu-content'
+import { NavigationMenuContentLink } from './navigation-menu-content-link'
 import { NavigationMenuIcon } from './navigation-menu-icon'
 import { NavigationMenuItem } from './navigation-menu-item'
 import { NavigationMenuLink } from './navigation-menu-link'
@@ -9,6 +10,7 @@ import { NavigationMenuTrigger } from './navigation-menu-trigger'
 
 const NavigationMenu = Object.assign(NavigationMenuRoot, {
   Content: NavigationMenuContent,
+  ContentLink: NavigationMenuContentLink,
   Icon: NavigationMenuIcon,
   Item: NavigationMenuItem,
   Link: NavigationMenuLink,
@@ -18,6 +20,7 @@ const NavigationMenu = Object.assign(NavigationMenuRoot, {
 })
 
 export type {
+  NavigationMenuContentLinkProps,
   NavigationMenuContentProps,
   NavigationMenuIconProps,
   NavigationMenuItemProps,
@@ -29,6 +32,7 @@ export type {
 } from './navigation-menu.types'
 
 export { NavigationMenuContent } from './navigation-menu-content'
+export { NavigationMenuContentLink } from './navigation-menu-content-link'
 export { NavigationMenuIcon } from './navigation-menu-icon'
 export { NavigationMenuItem } from './navigation-menu-item'
 export { NavigationMenuLink } from './navigation-menu-link'

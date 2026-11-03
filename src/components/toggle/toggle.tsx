@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn'
 import { hasSingleElementChild } from '@/utils/has-single-element-child'
 
 import { ToggleGroupContext } from '../toggle-group/toggle-group-context'
-import { toggleVariants } from './toggle.types'
+import { toggleGroupHoverVariants, toggleVariants } from './toggle.types'
 import type { ToggleProps } from './toggle.types'
 
 function getContent(children: ToggleProps['children'], state: ToggleState): ReactNode {
@@ -37,7 +37,11 @@ export function Toggle({ size, tone, className, children, ref, ...props }: Toggl
           <button
             {...innerProps}
             data-icon-only={iconOnly}
-            className={cn(toggleVariants({ className, size: effectiveSize, tone }))}
+            className={cn(
+              toggleVariants({ size: effectiveSize, tone }),
+              toggleGroupContext?.hasBackground && toggleGroupHoverVariants({ tone }),
+              className,
+            )}
             type="button"
           >
             {content}

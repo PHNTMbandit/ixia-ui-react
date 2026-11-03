@@ -15,7 +15,10 @@ const css = await readFile(new URL('../../styles/input.css', import.meta.url), '
 await test('exports current ixia semantic aliases without treating gradients as color variables', () => {
   const colors = collection(COLLECTIONS.colors)
   assert.ok(colors.variables.length > 0)
-  assert.ok(variables.tokens['color/neutral/subtle'])
+  for (const tone of ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning']) {
+    assert.ok(variables.tokens[`color/${tone}/container`])
+    assert.equal(variables.tokens[`color/${tone}/subtle`], undefined)
+  }
   assert.ok(!colors.variables.some((entry) => /gradient/i.test(entry.name)))
   for (const entry of colors.variables) {
     assert.equal(entry.type, 'COLOR')
@@ -32,15 +35,18 @@ await test('exports current ixia semantic aliases without treating gradients as 
 
 await test('preserves the dark neutral sRGB mix and its light primitive alias', () => {
   const colors = collection(COLLECTIONS.colors),
-    subtle = colors.variables.find((entry) => entry.codeSyntax === 'var(--color-neutral-subtle)'),
+    container = colors.variables.find(
+      (entry) => entry.codeSyntax === 'var(--color-neutral-container)',
+    ),
     palette = collection(COLLECTIONS.palette),
     primitive = (name) => palette.variables.find((entry) => entry.name === name).values.Default,
     first = primitive('neutral/900'),
     second = primitive('neutral/800')
-  assert.deepEqual(subtle.values.Light, { alias: `${COLLECTIONS.palette}::neutral/200` })
+  assert.ok(container)
+  assert.deepEqual(container.values.Light, { alias: `${COLLECTIONS.palette}::neutral/200` })
   for (const channel of ['r', 'g', 'b', 'a']) {
     assert.ok(
-      Math.abs(subtle.values.Dark[channel] - (first[channel] * 0.2 + second[channel] * 0.8)) <
+      Math.abs(container.values.Dark[channel] - (first[channel] * 0.2 + second[channel] * 0.8)) <
         1e-10,
     )
   }

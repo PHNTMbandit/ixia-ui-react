@@ -42,126 +42,127 @@ export const buttonGroupVariants = cva(
       },
       {
         className:
-          'bg-brand-subtle text-brand-on-container [&>button:hover]:bg-brand-container-high',
+          'bg-brand-container text-brand-on-container [&>button:hover]:bg-brand-container-high',
         tone: 'brand',
         variant: 'secondary',
       },
       {
         className:
-          'bg-accent-subtle text-accent-on-container [&>button:hover]:bg-accent-container-high',
+          'bg-accent-container text-accent-on-container [&>button:hover]:bg-accent-container-high',
         tone: 'accent',
         variant: 'secondary',
       },
       {
         className:
-          'bg-neutral-subtle text-neutral-on-container [&>button:hover]:bg-neutral-container-high',
+          'bg-neutral-container text-neutral-on-container [&>button:hover]:bg-neutral-container-high',
         tone: 'neutral',
         variant: 'secondary',
       },
       {
         className:
-          'bg-error-subtle text-error-on-container [&>button:hover]:bg-error-container-high',
+          'bg-error-container text-error-on-container [&>button:hover]:bg-error-container-high',
         tone: 'error',
         variant: 'secondary',
       },
       {
-        className: 'bg-info-subtle text-info-on-container [&>button:hover]:bg-info-container-high',
+        className:
+          'bg-info-container text-info-on-container [&>button:hover]:bg-info-container-high',
         tone: 'info',
         variant: 'secondary',
       },
       {
         className:
-          'bg-success-subtle text-success-on-container [&>button:hover]:bg-success-container-high',
+          'bg-success-container text-success-on-container [&>button:hover]:bg-success-container-high',
         tone: 'success',
         variant: 'secondary',
       },
       {
         className:
-          'bg-warning-subtle text-warning-on-container [&>button:hover]:bg-warning-container-high',
+          'bg-warning-container text-warning-on-container [&>button:hover]:bg-warning-container-high',
         tone: 'warning',
         variant: 'secondary',
       },
       {
         className:
-          'border-brand-border text-brand-default [&>button:hover]:bg-brand-subtle [&>button:hover]:text-brand-on-container',
+          'border-brand-border text-brand-default [&>button:hover]:bg-brand-container [&>button:hover]:text-brand-on-container',
         tone: 'brand',
         variant: 'outline',
       },
       {
         className:
-          'border-accent-border text-accent-default [&>button:hover]:bg-accent-subtle [&>button:hover]:text-accent-on-container',
+          'border-accent-border text-accent-default [&>button:hover]:bg-accent-container [&>button:hover]:text-accent-on-container',
         tone: 'accent',
         variant: 'outline',
       },
       {
         className:
-          'border-neutral-border text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
+          'border-neutral-border text-neutral-default [&>button:hover]:bg-neutral-container [&>button:hover]:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
       {
         className:
-          'border-error-border text-error-default [&>button:hover]:bg-error-subtle [&>button:hover]:text-error-on-container',
+          'border-error-border text-error-default [&>button:hover]:bg-error-container [&>button:hover]:text-error-on-container',
         tone: 'error',
         variant: 'outline',
       },
       {
         className:
-          'border-info-border text-info-default [&>button:hover]:bg-info-subtle [&>button:hover]:text-info-on-container',
+          'border-info-border text-info-default [&>button:hover]:bg-info-container [&>button:hover]:text-info-on-container',
         tone: 'info',
         variant: 'outline',
       },
       {
         className:
-          'border-success-border text-success-default [&>button:hover]:bg-success-subtle [&>button:hover]:text-success-on-container',
+          'border-success-border text-success-default [&>button:hover]:bg-success-container [&>button:hover]:text-success-on-container',
         tone: 'success',
         variant: 'outline',
       },
       {
         className:
-          'border-warning-border text-warning-default [&>button:hover]:bg-warning-subtle [&>button:hover]:text-warning-on-container',
+          'border-warning-border text-warning-default [&>button:hover]:bg-warning-container [&>button:hover]:text-warning-on-container',
         tone: 'warning',
         variant: 'outline',
       },
       {
         className:
-          'text-brand-default [&>button:hover]:bg-brand-subtle [&>button:hover]:text-brand-on-container',
+          'text-brand-default [&>button:hover]:bg-brand-container [&>button:hover]:text-brand-on-container',
         tone: 'brand',
         variant: 'ghost',
       },
       {
         className:
-          'text-accent-default [&>button:hover]:bg-accent-subtle [&>button:hover]:text-accent-on-container',
+          'text-accent-default [&>button:hover]:bg-accent-container [&>button:hover]:text-accent-on-container',
         tone: 'accent',
         variant: 'ghost',
       },
       {
         className:
-          'text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
+          'text-neutral-default [&>button:hover]:bg-neutral-container [&>button:hover]:text-neutral-on-container',
         tone: 'neutral',
         variant: 'ghost',
       },
       {
         className:
-          'text-error-default [&>button:hover]:bg-error-subtle [&>button:hover]:text-error-on-container',
+          'text-error-default [&>button:hover]:bg-error-container [&>button:hover]:text-error-on-container',
         tone: 'error',
         variant: 'ghost',
       },
       {
         className:
-          'text-info-default [&>button:hover]:bg-info-subtle [&>button:hover]:text-info-on-container',
+          'text-info-default [&>button:hover]:bg-info-container [&>button:hover]:text-info-on-container',
         tone: 'info',
         variant: 'ghost',
       },
       {
         className:
-          'text-success-default [&>button:hover]:bg-success-subtle [&>button:hover]:text-success-on-container',
+          'text-success-default [&>button:hover]:bg-success-container [&>button:hover]:text-success-on-container',
         tone: 'success',
         variant: 'ghost',
       },
       {
         className:
-          'text-warning-default [&>button:hover]:bg-warning-subtle [&>button:hover]:text-warning-on-container',
+          'text-warning-default [&>button:hover]:bg-warning-container [&>button:hover]:text-warning-on-container',
         tone: 'warning',
         variant: 'ghost',
       },

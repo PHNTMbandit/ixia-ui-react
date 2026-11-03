@@ -42,114 +42,117 @@ export const buttonVariants = cva(
         variant: 'fill',
       },
       {
-        className: 'bg-brand-subtle text-brand-on-container hover:bg-brand-container-high',
+        className: 'bg-brand-container text-brand-on-container hover:bg-brand-container-high',
         tone: 'brand',
         variant: 'secondary',
       },
       {
-        className: 'bg-accent-subtle text-accent-on-container hover:bg-accent-container-high',
+        className: 'bg-accent-container text-accent-on-container hover:bg-accent-container-high',
         tone: 'accent',
         variant: 'secondary',
       },
       {
-        className: 'bg-neutral-subtle text-neutral-on-container hover:bg-neutral-container-high',
+        className: 'bg-neutral-container text-neutral-on-container hover:bg-neutral-container-high',
         tone: 'neutral',
         variant: 'secondary',
       },
       {
-        className: 'bg-error-subtle text-error-on-container hover:bg-error-container-high',
+        className: 'bg-error-container text-error-on-container hover:bg-error-container-high',
         tone: 'error',
         variant: 'secondary',
       },
       {
-        className: 'bg-info-subtle text-info-on-container hover:bg-info-container-high',
+        className: 'bg-info-container text-info-on-container hover:bg-info-container-high',
         tone: 'info',
         variant: 'secondary',
       },
       {
-        className: 'bg-success-subtle text-success-on-container hover:bg-success-container-high',
+        className: 'bg-success-container text-success-on-container hover:bg-success-container-high',
         tone: 'success',
         variant: 'secondary',
       },
       {
-        className: 'bg-warning-subtle text-warning-on-container hover:bg-warning-container-high',
+        className: 'bg-warning-container text-warning-on-container hover:bg-warning-container-high',
         tone: 'warning',
         variant: 'secondary',
       },
       {
         className:
-          'border-brand-border text-brand-default hover:bg-brand-subtle hover:text-brand-on-container',
+          'border-brand-border text-brand-default hover:bg-brand-container hover:text-brand-on-container',
         tone: 'brand',
         variant: 'outline',
       },
       {
         className:
-          'border-accent-border text-accent-default hover:bg-accent-subtle hover:text-accent-on-container',
+          'border-accent-border text-accent-default hover:bg-accent-container hover:text-accent-on-container',
         tone: 'accent',
         variant: 'outline',
       },
       {
         className:
-          'border-neutral-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
+          'border-neutral-border text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
       {
         className:
-          'border-error-border text-error-default hover:bg-error-subtle hover:text-error-on-container',
+          'border-error-border text-error-default hover:bg-error-container hover:text-error-on-container',
         tone: 'error',
         variant: 'outline',
       },
       {
         className:
-          'border-info-border text-info-default hover:bg-info-subtle hover:text-info-on-container',
+          'border-info-border text-info-default hover:bg-info-container hover:text-info-on-container',
         tone: 'info',
         variant: 'outline',
       },
       {
         className:
-          'border-success-border text-success-default hover:bg-success-subtle hover:text-success-on-container',
+          'border-success-border text-success-default hover:bg-success-container hover:text-success-on-container',
         tone: 'success',
         variant: 'outline',
       },
       {
         className:
-          'border-warning-border text-warning-default hover:bg-warning-subtle hover:text-warning-on-container',
+          'border-warning-border text-warning-default hover:bg-warning-container hover:text-warning-on-container',
         tone: 'warning',
         variant: 'outline',
       },
       {
-        className: 'text-brand-default hover:bg-brand-subtle hover:text-brand-on-container',
+        className: 'text-brand-default hover:bg-brand-container hover:text-brand-on-container',
         tone: 'brand',
         variant: 'ghost',
       },
       {
-        className: 'text-accent-default hover:bg-accent-subtle hover:text-accent-on-container',
+        className: 'text-accent-default hover:bg-accent-container hover:text-accent-on-container',
         tone: 'accent',
         variant: 'ghost',
       },
       {
-        className: 'text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
+        className:
+          'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'ghost',
       },
       {
-        className: 'text-error-default hover:bg-error-subtle hover:text-error-on-container',
+        className: 'text-error-default hover:bg-error-container hover:text-error-on-container',
         tone: 'error',
         variant: 'ghost',
       },
       {
-        className: 'text-info-default hover:bg-info-subtle hover:text-info-on-container',
+        className: 'text-info-default hover:bg-info-container hover:text-info-on-container',
         tone: 'info',
         variant: 'ghost',
       },
       {
-        className: 'text-success-default hover:bg-success-subtle hover:text-success-on-container',
+        className:
+          'text-success-default hover:bg-success-container hover:text-success-on-container',
         tone: 'success',
         variant: 'ghost',
       },
       {
-        className: 'text-warning-default hover:bg-warning-subtle hover:text-warning-on-container',
+        className:
+          'text-warning-default hover:bg-warning-container hover:text-warning-on-container',
         tone: 'warning',
         variant: 'ghost',
       },

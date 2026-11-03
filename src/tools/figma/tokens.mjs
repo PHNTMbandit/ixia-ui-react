@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url'
 
 // Turns src/styles/input.css into Figma variable collections and text styles that follow the
 // Primitives → Semantics structure (with Utopia fluid min/max modes) and writes them into
-// Generated/library.json. Runs on every plugin build, so token changes need no re-capture.
+// Generated/library.json. Token definitions are regenerated on every plugin build.
+// Recapture Storybook layers after shared styles or token names change.
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'],
   SIZES = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'],

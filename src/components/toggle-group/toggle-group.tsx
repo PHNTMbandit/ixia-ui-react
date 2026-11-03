@@ -13,9 +13,10 @@ export function ToggleGroup({
   ref,
   ...props
 }: ToggleGroupProps) {
-  const displaySize = size ?? 'medium'
+  const displaySize = size ?? 'medium',
+    hasBackground = variant === undefined || variant === 'default'
   return (
-    <ToggleGroupContext.Provider value={{ size: displaySize }}>
+    <ToggleGroupContext.Provider value={{ hasBackground, size: displaySize }}>
       <BaseToggleGroup
         className={cn(toggleGroupVariants({ className, size: displaySize, variant }))}
         data-size={displaySize}
