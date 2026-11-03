@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.7.0...v1.8.0) (2026-11-03)
+
+
+### Bug Fixes
+
+* add required 'name' property to CodeBlockValue interface ([96e53ed](https://github.com/PHNTMbandit/ixia-ui-react/commit/96e53ed3bbd126ab46933fb41c00824cb23f08a7))
+
+
+### Features
+
+* enhance CodeBlock and Tabs components with customizable padding and border options ([5435724](https://github.com/PHNTMbandit/ixia-ui-react/commit/5435724c24866ce91c84ce93711b66868681e69e))
+* refactor theme styles by removing subtle color variables ([c784c01](https://github.com/PHNTMbandit/ixia-ui-react/commit/c784c0170a20889958384d7e5bf8ba0d46bbbe11))
+
 # [1.7.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.6.0...v1.7.0) (2026-11-03)
 
 
