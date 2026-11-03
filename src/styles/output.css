@@ -1064,8 +1064,14 @@
   .w-\[900px\] {
     width: 900px;
   }
+  .w-\[1000px\] {
+    width: 1000px;
+  }
   .w-\[1100px\] {
     width: 1100px;
+  }
+  .w-\[1200px\] {
+    width: 1200px;
   }
   .w-\[calc\(100\%\+var\(--spacing-xl\)\)\] {
     width: calc(100% + var(--spacing-xl));
@@ -1988,6 +1994,9 @@
   .pb-xs {
     padding-bottom: var(--spacing-xs);
   }
+  .pl-\(--code-block-header-padding-left\) {
+    padding-left: var(--code-block-header-padding-left);
+  }
   .pl-2xl {
     padding-left: var(--spacing-2xl);
   }
@@ -2144,6 +2153,9 @@
   }
   .font-heading {
     font-family: var(--font-heading);
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
   }
   .text-\[0\.95rem\] {
     font-size: 0.95rem;
@@ -2691,6 +2703,9 @@
   }
   .\[--bleed\:3rem\] {
     --bleed: 3rem;
+  }
+  .\[--code-block-header-padding-left\:var\(--spacing-2xs\)\] {
+    --code-block-header-padding-left: var(--spacing-2xs);
   }
   .\[--gap\:0\.75rem\] {
     --gap: 0.75rem;
@@ -3618,6 +3633,9 @@
   }
   .has-data-\[slot\=alert-icon\]\:has-data-\[slot\=alert-action\]\:grid-cols-\[auto_1fr_auto\]:has([data-slot="alert-icon"]):has([data-slot="alert-action"]) {
     grid-template-columns: auto 1fr auto;
+  }
+  .has-data-\[slot\=code-block-tabs\]\:\[--code-block-header-padding-left\:0px\]:has([data-slot="code-block-tabs"]) {
+    --code-block-header-padding-left: 0px;
   }
   .has-data-\[slot\=dialog-description\]\:grid-rows-\[auto_auto\]:has([data-slot="dialog-description"]) {
     grid-template-rows: auto auto;
@@ -5700,6 +5718,9 @@
   .\[\&_\[role\=tab\]\]\:pb-2xs [role=tab] {
     padding-bottom: var(--spacing-2xs);
   }
+  .\[\&_\[role\=tab\]\]\:pb-3xs [role=tab] {
+    padding-bottom: var(--spacing-3xs);
+  }
   .\[\&_\[role\=tab\]\]\:pb-sm [role=tab] {
     padding-bottom: var(--spacing-sm);
   }
@@ -5790,8 +5811,23 @@
   .\[\&_\[role\=tab\]\]\:data-active\:text-warning-on-default [role=tab][data-active] {
     color: var(--color-warning-on-default);
   }
+  .\[\&_\[role\=tablist\]\]\:mt-md [role=tablist] {
+    margin-top: var(--spacing-md);
+  }
+  .\[\&_\[role\=tablist\]\]\:mt-sm [role=tablist] {
+    margin-top: var(--spacing-sm);
+  }
+  .\[\&_\[role\=tablist\]\]\:mt-xl [role=tablist] {
+    margin-top: var(--spacing-xl);
+  }
+  .\[\&_\[role\=tablist\]\]\:mt-xs [role=tablist] {
+    margin-top: var(--spacing-xs);
+  }
   .\[\&_\[role\=tablist\]\]\:h-2xl [role=tablist] {
     height: var(--spacing-2xl);
+  }
+  .\[\&_\[role\=tablist\]\]\:h-3xl [role=tablist] {
+    height: var(--spacing-3xl);
   }
   .\[\&_\[role\=tablist\]\]\:h-lg [role=tablist] {
     height: var(--spacing-lg);
@@ -5826,6 +5862,10 @@
   .\[\&_\[role\=tablist\]\]\:rounded-full [role=tablist] {
     border-radius: var(--radius-full);
   }
+  .\[\&_\[role\=tablist\]\]\:border-b-0 [role=tablist] {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 0px;
+  }
   .\[\&_\[role\=tablist\]\]\:border-b-\[1px\] [role=tablist] {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
@@ -5844,6 +5884,12 @@
   }
   .\[\&_\[role\=tablist\]\]\:p-xs [role=tablist] {
     padding: var(--spacing-xs);
+  }
+  .\[\&_\[role\=tablist\]\]\:pt-md [role=tablist] {
+    padding-top: var(--spacing-md);
+  }
+  .\[\&_\[role\=tablist\]\]\:pt-xs [role=tablist] {
+    padding-top: var(--spacing-xs);
   }
   .\[\&_button\]\:shrink-0 button {
     flex-shrink: 0;
@@ -6004,14 +6050,26 @@
     --tw-leading: 1.2;
     line-height: 1.2;
   }
+  :is(.\*\*\:\[\[role\=presentation\]\]\:-bottom-px *):is([role=presentation]) {
+    bottom: -1px;
+  }
+  :is(.\*\*\:\[\[role\=presentation\]\]\:bottom-\[-1\.5px\] *):is([role=presentation]) {
+    bottom: -1.5px;
+  }
   :is(.\*\*\:\[\[role\=presentation\]\]\:bottom-\[-2px\] *):is([role=presentation]) {
     bottom: -2px;
   }
   :is(.\*\*\:\[\[role\=presentation\]\]\:bottom-\[-3px\] *):is([role=presentation]) {
     bottom: -3px;
   }
+  :is(.\*\*\:\[\[role\=presentation\]\]\:bottom-px *):is([role=presentation]) {
+    bottom: 1px;
+  }
   :is(.\*\*\:\[\[role\=presentation\]\]\:h-\[2px\] *):is([role=presentation]) {
     height: 2px;
+  }
+  :is(.\*\*\:\[\[role\=presentation\]\]\:h-\[4px\] *):is([role=presentation]) {
+    height: 4px;
   }
   :is(.\*\*\:\[\[role\=presentation\]\]\:h-px *):is([role=presentation]) {
     height: 1px;

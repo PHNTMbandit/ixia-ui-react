@@ -1,6 +1,6 @@
 import { cn } from '@/utils/cn'
 
-import { Tabs, TabsIndicator, TabsList, TabsTab } from '../tabs'
+import { Tabs, TabsList, TabsTab } from '../tabs'
 import { useCodeBlock } from './code-block'
 import type { CodeBlockTabsProps } from './code-block.types'
 
@@ -18,17 +18,17 @@ export function CodeBlockTabs({ className, children, ref, ...props }: CodeBlockT
       value={currentValue.id}
       onValueChange={handleOnValueChange}
       className={cn('', className)}
-      variant="ghost"
+      variant="underline"
+      showBorder={false}
       ref={ref}
       {...props}
     >
-      <TabsList>
+      <TabsList data-slot="code-block-tabs">
         {items.map(({ id, label }) => (
           <TabsTab key={id} value={id}>
             {label}
           </TabsTab>
         ))}
-        <TabsIndicator />
       </TabsList>
       {children}
     </Tabs>

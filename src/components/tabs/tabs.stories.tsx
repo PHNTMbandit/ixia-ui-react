@@ -1,7 +1,9 @@
 import { CodeIcon, EyeIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect } from 'storybook/test'
+import { useState } from 'react'
+import { expect, within } from 'storybook/test'
 
+import { Button } from '../button'
 import { Tabs } from './index'
 
 export default {
@@ -9,6 +11,14 @@ export default {
     fill: {
       control: 'boolean',
       description: 'Whether tabs should fill available width.',
+      table: {
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+      },
+    },
+    showBorder: {
+      control: 'boolean',
+      description: 'Whether underline tabs show a bottom border.',
       table: {
         defaultValue: { summary: 'true' },
         type: { summary: 'boolean' },
@@ -113,6 +123,87 @@ export const VariantUnderline: Story = {
     await expect(lastTab.right).toBeCloseTo(list.right, 0)
   },
   render: (args) => BasicTemplate(args),
+}
+
+function UnderlineBorderExample() {
+  const [showBorder, setShowBorder] = useState(false),
+    borderOptions = [{ id: 'default' }, { id: 'controlled', showBorder }]
+
+  return (
+    <div className="w-[500px] space-y-md">
+      <Button onClick={() => setShowBorder((value) => !value)}>Toggle underline border</Button>
+      {(['small', 'medium', 'large'] as const).map((size) => (
+        <section className="space-y-xs" key={size}>
+          <h3 className="style-text-strong-0 capitalize">{size}</h3>
+          {borderOptions.map(({ id, ...options }) => (
+            <Tabs
+              key={id}
+              defaultValue="first"
+              variant="underline"
+              size={size}
+              data-testid={`${size}-${id}`}
+              {...options}
+            >
+              <Tabs.List>
+                <Tabs.Tab value="first">First</Tabs.Tab>
+                <Tabs.Tab value="second">Second</Tabs.Tab>
+              </Tabs.List>
+            </Tabs>
+          ))}
+        </section>
+      ))}
+      <Tabs defaultValue="first" variant="ghost" showBorder={showBorder} data-testid="ghost">
+        <Tabs.List>
+          <Tabs.Tab value="first">First</Tabs.Tab>
+          <Tabs.Tab value="second">Second</Tabs.Tab>
+        </Tabs.List>
+      </Tabs>
+    </div>
+  )
+}
+
+export const UnderlineBorder: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Underline tabs show a bottom border by default. Set `showBorder={false}` to hide it without hiding the active-tab indicator.',
+      },
+    },
+  },
+  render: () => <UnderlineBorderExample />,
+  play: async ({ canvas, userEvent }) => {
+    const expectBorder = async (root: HTMLElement, width: string) => {
+        const list = within(root).getByRole('tablist')
+
+        await expect(getComputedStyle(list).borderBottomWidth).toBe(width)
+        await expect(list.querySelector('[role="presentation"]')).toBeInTheDocument()
+        await expect(root).not.toHaveAttribute('showborder')
+      },
+      expectBorders = async (controlledWidth: string) => {
+        for (const size of ['small', 'medium', 'large']) {
+          await expectBorder(canvas.getByTestId(`${size}-default`), '1px')
+          await expectBorder(canvas.getByTestId(`${size}-controlled`), controlledWidth)
+        }
+        await expectBorder(canvas.getByTestId('ghost'), '0px')
+      },
+      toggle = canvas.getByRole('button', { name: 'Toggle underline border' })
+
+    await expectBorders('0px')
+    const secondTab = within(canvas.getByTestId('medium-controlled')).getByRole('tab', {
+      name: 'Second',
+    })
+    await userEvent.click(secondTab)
+    await expect(secondTab).toHaveAttribute('aria-selected', 'true')
+
+    await userEvent.click(toggle)
+    await expectBorders('1px')
+    await expect(secondTab).toHaveAttribute('aria-selected', 'true')
+
+    await userEvent.click(toggle)
+    await expectBorders('0px')
+    await expect(secondTab).toHaveAttribute('aria-selected', 'true')
+  },
 }
 
 export const VariantGhost: Story = {

@@ -1,11 +1,12 @@
 import { FileCssIcon, FileJsIcon, FileTsIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
 import { codeToHtml } from 'shiki/bundle/web'
 import type { BundledLanguage } from 'shiki/bundle/web'
 import { expect, spyOn } from 'storybook/test'
 
 import { Button } from '../button'
-import type { CodeBlockValue } from './code-block.types'
+import type { CodeBlockProps, CodeBlockValue } from './code-block.types'
 import { CodeBlock } from './index'
 
 async function highlightCode(code: string, lang: BundledLanguage) {
@@ -225,6 +226,7 @@ export const SourceAndPresentation: Story = {
     defaultValue: presentationItems[0],
   },
   parameters: {
+    layout: 'fullscreen',
     docs: {
       description: {
         story:
@@ -233,7 +235,7 @@ export const SourceAndPresentation: Story = {
     },
   },
   render: (args) => (
-    <CodeBlock className="w-[800px]" {...args}>
+    <CodeBlock {...args}>
       <CodeBlock.Header>
         <CodeBlock.Tabs />
         <CodeBlock.Name />
@@ -383,8 +385,8 @@ export const Tabs: Story = {
     },
   },
   render: (args) => (
-    <CodeBlock className="w-[800px]" {...args}>
-      <CodeBlock.Header>
+    <CodeBlock className="w-[1000px]" {...args}>
+      <CodeBlock.Header data-testid="tabs-header">
         <CodeBlock.Tabs />
         <CodeBlock.Name />
       </CodeBlock.Header>
@@ -396,9 +398,117 @@ export const Tabs: Story = {
       </CodeBlock.Window>
     </CodeBlock>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const list = canvas.getByRole('tablist'),
+      header = canvas.getByTestId('tabs-header'),
+      cssTab = canvas.getByRole('tab', { name: 'CSS' })
+
+    await expect(getComputedStyle(list).borderBottomWidth).toBe('0px')
+    await expect(getComputedStyle(header).borderBottomWidth).toBe('1px')
+    await expect(list.querySelector('[role="presentation"]')).toBeVisible()
+    await userEvent.click(cssTab)
+    await expect(cssTab).toHaveAttribute('aria-selected', 'true')
+    await expect(canvas.getByText('styles.css')).toBeVisible()
+  },
 }
 
 // ─── Layout Variations ───────────────────────────────────────────────────────
+
+function HeaderPaddingExample(args: CodeBlockProps) {
+  const [showTabs, setShowTabs] = useState(false)
+
+  return (
+    <div className="flex w-[800px] flex-col gap-md">
+      <Button onClick={() => setShowTabs((value) => !value)}>Switch navigation</Button>
+      <CodeBlock {...args}>
+        <CodeBlock.Header data-testid="default-header">
+          {showTabs ? (
+            <div>
+              <CodeBlock.Tabs />
+            </div>
+          ) : (
+            <CodeBlock.Select />
+          )}
+          <CodeBlock.Name />
+        </CodeBlock.Header>
+      </CodeBlock>
+      <CodeBlock {...args}>
+        <CodeBlock.Header data-testid="custom-header" className="px-lg">
+          {showTabs ? <CodeBlock.Tabs showBorder /> : <CodeBlock.Select />}
+          <CodeBlock.Name />
+        </CodeBlock.Header>
+      </CodeBlock>
+      <CodeBlock {...args}>
+        <CodeBlock.Header data-testid="plain-header">
+          <CodeBlock.Name />
+        </CodeBlock.Header>
+      </CodeBlock>
+    </div>
+  )
+}
+
+export const HeaderPadding: Story = {
+  name: 'Layout / Header Padding',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Headers use 2xs padding on both sides with a select or no navigation. Tabs are flush to the left; use `className` to customize the padding. The second header also opts back into the tabs border.',
+      },
+    },
+  },
+  render: (args) => <HeaderPaddingExample {...args} />,
+  play: async ({ canvas, userEvent }) => {
+    const defaultHeader = canvas.getByTestId('default-header'),
+      customHeader = canvas.getByTestId('custom-header'),
+      plainHeader = canvas.getByTestId('plain-header'),
+      reference = document.createElement('div')
+
+    reference.style.position = 'absolute'
+    reference.style.visibility = 'hidden'
+    reference.style.width = 'var(--spacing-2xs)'
+    defaultHeader.append(reference)
+
+    const spacing = reference.getBoundingClientRect().width
+    reference.style.width = 'var(--spacing-lg)'
+    const customSpacing = reference.getBoundingClientRect().width
+    reference.remove()
+
+    const expectPadding = async (header: HTMLElement, left: number, right: number) => {
+      const style = getComputedStyle(header)
+
+      await expect(Number.parseFloat(style.paddingLeft)).toBeCloseTo(left, 1)
+      await expect(Number.parseFloat(style.paddingRight)).toBeCloseTo(right, 1)
+    }
+
+    await expect(spacing).toBeGreaterThan(0)
+    await expect(customSpacing).toBeGreaterThan(0)
+    await expectPadding(defaultHeader, spacing, spacing)
+    await expectPadding(customHeader, customSpacing, customSpacing)
+    await expectPadding(plainHeader, spacing, spacing)
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Switch navigation' }))
+    await expectPadding(defaultHeader, 0, spacing)
+    await expectPadding(customHeader, customSpacing, customSpacing)
+    await expectPadding(plainHeader, spacing, spacing)
+    const customTabsList = customHeader.querySelector('[role="tablist"]')
+    if (!(customTabsList instanceof HTMLElement)) {
+      throw new Error('Expected the custom header to contain a tab list')
+    }
+    await expect(getComputedStyle(customTabsList).borderBottomWidth).toBe('1px')
+
+    defaultHeader.setAttribute('dir', 'rtl')
+    try {
+      await expectPadding(defaultHeader, 0, spacing)
+    } finally {
+      defaultHeader.removeAttribute('dir')
+    }
+
+    await userEvent.click(canvas.getByRole('button', { name: 'Switch navigation' }))
+    await expectPadding(defaultHeader, spacing, spacing)
+    await expectPadding(customHeader, customSpacing, customSpacing)
+  },
+}
 
 export const NoHeader: Story = {
   name: 'Layout / No Header',
