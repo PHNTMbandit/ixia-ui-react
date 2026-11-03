@@ -9,6 +9,7 @@ import {
 } from './color-channel-slider.utils'
 
 export default {
+  title: 'Components/Color Channel Slider',
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -19,7 +20,15 @@ export default {
     size: 'medium',
   },
   component: ColorChannelSlider,
-  title: 'Components/Color Channel Slider',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'The Color Channel Slider adjusts a single channel of a color, such as hue, saturation, lightness or transparency, over a track that previews the resulting colors. Track helpers generate the matching gradient for each channel. It is available in `small`, `medium` and `large` sizes and is the building block behind the Color Picker sliders.',
+      },
+      subtitle: 'A slider for adjusting one channel of a color.',
+    },
+  },
 } satisfies Meta<typeof ColorChannelSlider>
 
 type Story = StoryObj<typeof ColorChannelSlider>

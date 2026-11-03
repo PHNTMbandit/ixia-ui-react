@@ -61,8 +61,9 @@ export default {
     docs: {
       description: {
         component:
-          'Every icon in the library resolves from a registry that defaults to Phosphor. Wrap any part of your app in IconProvider to swap icons from another pack; providers can be nested and only replace the names they list. Parts that wrap an icon, such as Accordion.ExpandIcon, Breadcrumb.Separator, Dialog.Close and the calendar navigation buttons, also accept your own children.',
+          'The Icon component renders the named system icons used across Cartyx UI, such as chevrons, status indicators, file actions and sorting controls. Icons inherit the current text color and are sized with size utilities. Wrap an area in IconProvider to change the icon weight or replace individual icons with your own components.',
       },
+      subtitle: 'The shared set of system icons used by Cartyx UI components.',
     },
   },
 } as Meta<typeof Icon>

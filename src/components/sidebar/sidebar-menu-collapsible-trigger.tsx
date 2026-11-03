@@ -39,7 +39,7 @@ export function SidebarMenuCollapsibleTrigger({
     <CollapsibleTrigger
       variant="ghost"
       className={cn(
-        'inline-flex! w-full! animate-in! justify-start! overflow-hidden! text-left! whitespace-nowrap! fade-in-0! slide-in-from-left-2! [&>svg]:size-sm! [&>svg]:flex-none [&>svg]:shrink-0',
+        'inline-flex! w-full! animate-in! justify-start! overflow-hidden! text-left! whitespace-nowrap! slide-in-from-left-2! [&>svg]:size-sm! [&>svg]:flex-none [&>svg]:shrink-0',
         !showText && 'mx-auto',
         !open && 'size-xl *:hidden [&>svg]:block',
         open && 'h-xl pl-sm',

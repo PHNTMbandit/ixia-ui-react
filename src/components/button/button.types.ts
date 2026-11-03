@@ -42,6 +42,41 @@ export const buttonVariants = cva(
         variant: 'fill',
       },
       {
+        className: 'bg-brand-subtle text-brand-on-container hover:bg-brand-container-high',
+        tone: 'brand',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-accent-subtle text-accent-on-container hover:bg-accent-container-high',
+        tone: 'accent',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-neutral-subtle text-neutral-on-container hover:bg-neutral-container-high',
+        tone: 'neutral',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-error-subtle text-error-on-container hover:bg-error-container-high',
+        tone: 'error',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-info-subtle text-info-on-container hover:bg-info-container-high',
+        tone: 'info',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-success-subtle text-success-on-container hover:bg-success-container-high',
+        tone: 'success',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-warning-subtle text-warning-on-container hover:bg-warning-container-high',
+        tone: 'warning',
+        variant: 'secondary',
+      },
+      {
         className:
           'border-brand-border text-brand-default hover:bg-brand-subtle hover:text-brand-on-container',
         tone: 'brand',
@@ -55,7 +90,7 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'border-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
+          'border-neutral-border text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
@@ -275,6 +310,7 @@ export const buttonVariants = cva(
         ghost: 'active:scale-95',
         link: 'size-fit! p-0! underline decoration-transparent underline-offset-2 [&>svg]:transition-colors',
         outline: 'border active:scale-95',
+        secondary: 'active:scale-95',
         soft: 'border active:scale-95',
       },
     },

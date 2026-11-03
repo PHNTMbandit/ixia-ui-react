@@ -20,9 +20,9 @@ const navigationMenuTriggerVariants = cva(
       },
       variants: {
         size: {
-          large: 'h-2xl gap-xs px-md style-text-default-2 [&>svg]:size-md',
-          medium: 'h-xl gap-2xs px-sm style-text-default-0 [&>svg]:size-sm',
-          small: 'h-lg gap-3xs px-xs style-text-default--1 [&>svg]:size-xs',
+          large: 'h-2xl gap-lg px-md style-text-default-2 [&>svg]:size-lg',
+          medium: 'h-xl gap-md px-sm style-text-default-0 [&>svg]:size-md',
+          small: 'h-lg gap-sm px-xs style-text-default--1 [&>svg]:size-sm',
         },
         tone: {
           accent:

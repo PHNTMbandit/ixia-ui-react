@@ -234,7 +234,7 @@ const PERSON_LABELS_EN: PersonLabels = {
     enableGlobalFilter: false,
     enableHiding: false,
     enableSorting: false,
-    header: ({ header }) => <header.TableCheckboxHeader />,
+    header: ({ header }) => <header.CheckboxHeader />,
     id: 'select',
     size: 48,
   }),
@@ -567,7 +567,7 @@ export const TopAndBottomBars: StoryObj = {
 
     return (
       <table.AppTable>
-        <table.Container>
+        <table.Container className="h-dvh">
           <table.TopBar>
             <div className="flex items-center justify-between gap-md">
               <div className="flex flex-col">
@@ -881,51 +881,6 @@ export const Pagination: StoryObj = {
               <table.NextPage />
               <table.LastPage />
             </table.Pagination>
-          </table.BottomBar>
-        </table.Container>
-      </table.AppTable>
-    )
-  },
-}
-
-export const StickyBars: StoryObj = {
-  name: 'Sticky bars',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'For long tables inside a scrolling container, set `sticky` on `TopBar` and `BottomBar` to keep search and the results summary in view. Give the container a height, `overflow-auto`, and a background so scrolled rows do not show through.',
-      },
-    },
-  },
-  render: () => {
-    const table = useAppTable({
-      columns: orderColumns,
-      data: React.useMemo(() => makeOrders(60), []),
-      initialState: { pagination: { pageIndex: 0, pageSize: 60 } },
-      key: 'orders-sticky',
-    })
-
-    return (
-      <table.AppTable>
-        <table.Container className="max-h-[28rem] overflow-auto bg-surface">
-          <table.TopBar className="bg-surface" sticky>
-            <table.Toolbar>
-              <table.Search placeholder="Search orders..." />
-            </table.Toolbar>
-          </table.TopBar>
-          <table.Viewport>
-            <table.Header />
-            <table.Body />
-          </table.Viewport>
-          <table.BottomBar sticky>
-            <table.Results>
-              {(start, end, total) => (
-                <span>
-                  {start}–{end} of {total} orders
-                </span>
-              )}
-            </table.Results>
           </table.BottomBar>
         </table.Container>
       </table.AppTable>
@@ -1412,7 +1367,7 @@ export const AllCellTypes: StoryObj = {
         columnHelper.display({
           cell: ({ cell }) => <cell.CheckboxCell />,
           enableSorting: false,
-          header: ({ header }) => <header.TableCheckboxHeader />,
+          header: ({ header }) => <header.CheckboxHeader />,
           id: 'select',
           size: 48,
         }),
@@ -1894,7 +1849,7 @@ export const LayoutCompositions: StoryObj = {
         bottomInset = Number.parseFloat(getComputedStyle(bottom).paddingLeft),
         framed = example.id !== 'ghost'
 
-      await expect(layoutGap).toBeGreaterThan(0)
+      await expect(layoutGap, `${example.id}: layout gap`).toBeGreaterThan(0)
       await expect(
         getComputedStyle(container).marginTop,
         `${example.id}: container margin top`,
@@ -1905,25 +1860,27 @@ export const LayoutCompositions: StoryObj = {
       ).toBe('0px')
       await expect(top.parentElement).toBe(example.topInside ? container : layout)
       await expect(bottom.parentElement).toBe(example.bottomInside ? container : layout)
-      await expect(topInset > 0).toBe(framed && example.topInside && example.id !== 'overrides')
-      await expect(bottomInset > 0).toBe(framed && example.bottomInside)
-      await expect(Number.parseFloat(getComputedStyle(top).paddingTop) > 0).toBe(
+      await expect(topInset > 0, `${example.id}: top inset`).toBe(
         framed && example.topInside && example.id !== 'overrides',
       )
-      await expect(Number.parseFloat(getComputedStyle(bottom).paddingBottom) > 0).toBe(
+      await expect(bottomInset > 0, `${example.id}: bottom inset`).toBe(
         framed && example.bottomInside,
       )
+      await expect(
+        Number.parseFloat(getComputedStyle(top).paddingTop) > 0,
+        `${example.id}: top vertical inset`,
+      ).toBe(framed && example.topInside && example.id !== 'overrides')
+      await expect(
+        Number.parseFloat(getComputedStyle(bottom).paddingBottom) > 0,
+        `${example.id}: bottom vertical inset`,
+      ).toBe(framed && example.bottomInside)
       if (example.id !== 'toolbar') {
         await expect(
           getComputedStyle(toolbar).paddingLeft,
           `${example.id}: nested toolbar inset`,
         ).toBe('0px')
       }
-      if (example.id === 'overrides') {
-        await expect(getComputedStyle(container).rowGap, `${example.id}: custom gap`).toBe('0px')
-      } else {
-        await expect(Number.parseFloat(getComputedStyle(container).rowGap)).toBe(layoutGap)
-      }
+      await expect(getComputedStyle(container).rowGap, `${example.id}: container gap`).toBe('0px')
       if (!example.topInside) {
         await expect(
           container.getBoundingClientRect().top - top.getBoundingClientRect().bottom,
@@ -1935,8 +1892,9 @@ export const LayoutCompositions: StoryObj = {
         ).toBeCloseTo(layoutGap, 1)
       }
       await expect(
-        Number.parseFloat(getComputedStyle(viewport.querySelector('thead')!).borderTopWidth) > 0,
-      ).toBe(framed && example.topInside)
+        Number.parseFloat(getComputedStyle(viewport).borderTopWidth) > 0,
+        `${example.id}: viewport border`,
+      ).toBe(framed && example.id === 'toolbar')
     }
   },
 }
@@ -2041,9 +1999,9 @@ export const SwitchDatasets: StoryObj = {
       viewport = canvas.getByTestId('dataset-viewport').getBoundingClientRect(),
       bottomBar = canvas.getByTestId('dataset-bottombar').getBoundingClientRect()
 
-    await expect(tabs.top - topBar.bottom).toBeGreaterThan(0)
+    await expect(tabs.top - topBar.bottom).toBeCloseTo(0, 1)
     await expect(viewport.top).toBeCloseTo(tabs.bottom, 1)
-    await expect(bottomBar.top - viewport.bottom).toBeGreaterThan(0)
+    await expect(bottomBar.top - viewport.bottom).toBeCloseTo(0, 1)
     await expect(canvas.getByTestId('dataset-results')).toHaveTextContent(/of\s*24/)
     await userEvent.click(canvas.getByRole('tab', { name: 'Dataset 2' }))
     await expect(canvas.getByTestId('dataset-results')).toHaveTextContent(/of\s*36/)

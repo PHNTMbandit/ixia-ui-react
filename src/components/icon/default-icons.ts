@@ -30,6 +30,8 @@ import {
   PlusIcon,
   SortAscendingIcon,
   SortDescendingIcon,
+  StackIcon,
+  ThreeDIcon,
   TrashIcon,
   UploadIcon,
   WarningCircleIcon,
@@ -40,8 +42,8 @@ import {
 
 import type { DefaultIconRegistry } from './icon.types'
 
-/** Phosphor icons used when the consumer does not supply their own. */
 export const defaultIcons: DefaultIconRegistry = {
+  '3d': ThreeDIcon,
   add: PlusIcon,
   chevronDown: CaretDownIcon,
   chevronLeft: CaretLeftIcon,
@@ -65,6 +67,7 @@ export const defaultIcons: DefaultIconRegistry = {
   hidden: EyeClosedIcon,
   info: InfoIcon,
   lastPage: CaretLineRightIcon,
+  layers: StackIcon,
   locked: LockSimpleIcon,
   minus: MinusIcon,
   percent: PercentIcon,

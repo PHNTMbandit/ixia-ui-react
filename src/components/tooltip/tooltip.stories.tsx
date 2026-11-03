@@ -6,11 +6,14 @@ import { Tooltip } from './index'
 export default {
   component: Tooltip,
   parameters: {
-    description: {
-      component:
-        'Tooltip provides contextual hints without adding permanent UI clutter. These stories show placement, offset configuration, and common composition patterns.',
+    docs: {
+      description: {
+        component:
+          'Tooltip provides contextual hints without adding permanent UI clutter. These stories show placement, offset configuration, and common composition patterns.',
+      },
+      subtitle:
+        'Tooltips display informative text when users hover over, focus, or tap an element.',
     },
-    subtitle: 'Tooltips display informative text when users hover over, focus, or tap an element.',
   },
   subcomponents: { TooltipContent: Tooltip.Content, TooltipTrigger: Tooltip.Trigger },
   title: 'Components/Tooltip',

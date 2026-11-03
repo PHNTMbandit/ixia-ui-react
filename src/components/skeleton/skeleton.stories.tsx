@@ -25,11 +25,13 @@ export default {
   },
   component: Skeleton,
   parameters: {
-    description: {
-      component:
-        'The Skeleton component is used to display placeholder loading skeletons while content is being fetched or loaded. It provides a visual indication to users that data is being loaded, enhancing the user experience during wait times.',
+    docs: {
+      description: {
+        component:
+          'The Skeleton component is used to display placeholder loading skeletons while content is being fetched or loaded. It provides a visual indication to users that data is being loaded, enhancing the user experience during wait times.',
+      },
+      subtitle: 'A component for displaying loading skeletons.',
     },
-    subtitle: 'A component for displaying loading skeletons.',
   },
   title: 'Components/Skeleton',
 } satisfies Meta<typeof Skeleton>

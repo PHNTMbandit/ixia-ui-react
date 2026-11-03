@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority'
 
 import type { Separator } from '../separator'
 
-const siteHeaderGroupVariants = cva('flex items-center gap-xs', {
+const siteHeaderGroupVariants = cva('flex items-center gap-3xs', {
   defaultVariants: {
     position: 'start',
   },

@@ -55,6 +55,15 @@ export default {
     variant: 'elevated',
   },
   component: ColorPicker,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'The Color Picker lets users choose a color with a saturation/lightness area, hue, transparency and lightness sliders, and a typed value input that switches between formats. A saved palette (with an optional limit) keeps frequently used colors one click away. It comes in three visual variants: `elevated`, `outline` and `ghost`.',
+      },
+      subtitle: 'A composable control for selecting, entering and saving colors.',
+    },
+  },
   title: 'Components/Color Picker',
 } satisfies Meta<typeof ColorPicker>
 

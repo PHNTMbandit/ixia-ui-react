@@ -5,7 +5,7 @@ import { expect } from 'storybook/test'
 import { Button } from './button'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
-  VARIANTS = ['fill', 'outline', 'ghost', 'soft', 'elevated', 'link'] as const,
+  VARIANTS = ['fill', 'secondary', 'outline', 'ghost', 'soft', 'elevated', 'link'] as const,
   SIZES = ['large', 'medium', 'small', 'extraSmall'] as const
 
 type Tone = (typeof TONES)[number]
@@ -128,7 +128,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Button component is the primary action trigger across the interface. It supports six visual variants (`fill`, `outline`, `ghost`, `soft`, `elevated`, `link`), seven semantic tones (`brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`), and four sizes (`large`, `medium`, `small`, `extraSmall`). Tailwind automatically makes buttons with a single SVG child square and padding-free; use the same size for text and icon-only buttons. Icon-only buttons must have an accessible label.',
+          'The Button component is the primary action trigger across the interface. It supports seven visual variants (`fill`, `secondary`, `outline`, `ghost`, `soft`, `elevated`, `link`), seven semantic tones (`brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`), and four sizes (`large`, `medium`, `small`, `extraSmall`). Secondary is a borderless, lower-emphasis fill using the ghost hover tint at rest. Tailwind automatically makes buttons with a single SVG child square and padding-free; use the same size for text and icon-only buttons. Icon-only buttons must have an accessible label.',
       },
       subtitle: 'Displays a button or a component that looks like a button.',
     },
@@ -267,6 +267,32 @@ export const Fill: Story = {
     },
   },
   render: () => <VariantShowcase variant="fill" />,
+}
+
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+  },
+  name: 'Variant / Secondary',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Borderless, lower-emphasis fill. At rest it uses the ghost hover tint, with a stronger container tint on hover.',
+      },
+    },
+  },
+  render: () => <VariantShowcase variant="secondary" />,
+  play: async ({ canvasElement }) => {
+    const buttons = canvasElement.querySelectorAll('button')
+    expect(buttons).toHaveLength(TONES.length)
+    for (const button of buttons) {
+      const style = getComputedStyle(button)
+      expect(style.borderTopWidth).toBe('0px')
+      expect(style.backgroundColor).not.toBe('rgba(0, 0, 0, 0)')
+      expect(button.disabled).toBe(false)
+    }
+  },
 }
 
 export const Outline: Story = {

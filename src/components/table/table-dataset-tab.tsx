@@ -25,7 +25,7 @@ export function TableDatasetTab({ className, children, ref, ...props }: TableDat
     <Tabs
       value={currentDataset.id}
       onValueChange={handleTabChange}
-      className={cn('[[data-slot=table-container]>&]:-mb-md', className)}
+      className={cn(className)}
       ref={ref}
       {...props}
       data-slot="table-dataset-tab"
