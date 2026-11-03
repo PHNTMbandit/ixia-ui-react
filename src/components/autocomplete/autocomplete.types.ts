@@ -7,10 +7,8 @@ type AutocompleteProps = React.ComponentProps<typeof BaseAutocomplete.Root>
 type AutocompleteInputGroupProps = React.ComponentProps<'div'> & VariantProps<typeof inputVariants>
 type AutocompleteInputGroupAddonProps = React.ComponentProps<'div'>
 type AutocompleteInputGroupInputProps = React.ComponentProps<typeof BaseAutocomplete.Input>
-type AutocompleteContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner> & {
-  emptyText?: string
-}
-
+type AutocompleteContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner>
+type AutocompleteEmptyProps = React.ComponentProps<typeof BaseAutocomplete.Empty>
 type AutocompleteGridContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner> & {
   placeholder?: string
   emptyText: string
@@ -42,5 +40,6 @@ export type {
   AutocompleteRowProps,
   AutocompleteTriggerProps,
   AutocompleteStatusProps,
+  AutocompleteEmptyProps,
 }
 export { useFilter }

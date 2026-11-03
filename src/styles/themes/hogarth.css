@@ -4,7 +4,7 @@
   /* Yellow is a lifted ladder: light mode needs 800 for text-safe fills. */
   --ixia-brand-default: light-dark(var(--yellow-800), var(--yellow-500));
   --ixia-brand-muted: light-dark(var(--yellow-900), var(--yellow-400));
-  --ixia-brand-subtle: light-dark(var(--yellow-50), var(--yellow-950));
+  --ixia-brand-subtle: light-dark(var(--yellow-100), var(--yellow-950));
   --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
   --ixia-brand-container: light-dark(var(--yellow-100), var(--yellow-950));
   --ixia-brand-container-low: light-dark(var(--white), var(--neutral-950));
@@ -24,7 +24,7 @@
   --ixia-brand-gradient-subtle: linear-gradient(135deg, #eeb40029, #f9dc841f, #ffd2d914);
   --ixia-accent-default: light-dark(var(--rose-600), var(--rose-400));
   --ixia-accent-muted: light-dark(var(--rose-700), var(--rose-300));
-  --ixia-accent-subtle: light-dark(var(--rose-50), var(--rose-950));
+  --ixia-accent-subtle: light-dark(var(--rose-100), var(--rose-950));
   --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
   --ixia-accent-container: light-dark(var(--rose-100), var(--rose-950));
   --ixia-accent-container-low: light-dark(var(--white), var(--neutral-950));

@@ -12,11 +12,13 @@ const RANGES = {
 export default {
   component: SliderGroup,
   parameters: {
-    description: {
-      component:
-        'SliderGroup owns the shared value and configuration for a slider and its companions. Use SliderGroupSlider (instead of the standalone Slider) when SliderInput or SliderValue must stay in sync with the slider; SliderLabel, SliderDescription and SliderIcon provide layout and context.',
+    docs: {
+      description: {
+        component:
+          'SliderGroup owns the shared value and configuration for a slider and its companions. Use SliderGroupSlider (instead of the standalone Slider) when SliderInput or SliderValue must stay in sync with the slider; SliderLabel, SliderDescription and SliderIcon provide layout and context.',
+      },
+      subtitle: 'Groups a slider with labels, icons, a value readout and a number input.',
     },
-    subtitle: 'Groups a slider with labels, icons, a value readout and a number input.',
   },
   title: 'Components/Slider Group',
 } satisfies Meta<typeof SliderGroup>

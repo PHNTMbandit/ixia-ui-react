@@ -1,4 +1,3 @@
-// oxlint-disable no-ternary
 import { cn } from '@/utils/cn'
 
 import { useTableContext } from './table-feature-context'
@@ -10,24 +9,28 @@ export function TableViewport({ grow, className, children, ref, ...props }: Tabl
 
   if (isGridView) {
     return (
-      <div data-slot="table-viewport" className={cn('size-full', className)} ref={ref} {...props}>
+      <div
+        data-slot="table-viewport"
+        className={cn('min-h-0 min-w-0 overflow-auto', grow && 'flex-1', className)}
+        ref={ref}
+        {...props}
+      >
         {children}
       </div>
     )
   }
 
   return (
-    <table
+    <div
       data-slot="table-viewport"
       className={cn(
-        grow ? 'size-full' : 'h-auto w-full',
-        '[[data-slot=table-container][data-variant=outline]>&:not(:first-child):not([data-slot=table-dataset-tab]+&)>thead]:border-t [[data-slot=table-container][data-variant=outline]>&:not(:first-child):not([data-slot=table-dataset-tab]+&)>thead]:border-border',
-        className,
+        'min-h-0 min-w-0 overflow-auto focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-surface-focus-ring',
+        grow && 'flex-1',
       )}
-      ref={ref}
-      {...props}
     >
-      {children}
-    </table>
+      <table className={cn('w-full', grow && 'h-full', className)} ref={ref} {...props}>
+        {children}
+      </table>
+    </div>
   )
 }

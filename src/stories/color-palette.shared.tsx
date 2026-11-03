@@ -415,4 +415,14 @@ function AccessibilityMatrixView({ brand }: { brand: Brand }) {
   )
 }
 
-export { AccessibilityMatrixView, matrixParameters, PrimitivesView, SemanticTokensView }
+export {
+  AccessibilityMatrixView,
+  matrixParameters,
+  PrimitivesView,
+  ROLES,
+  SemanticTokensView,
+  ThemeFrame,
+  token,
+  useComputed,
+  type Brand,
+}

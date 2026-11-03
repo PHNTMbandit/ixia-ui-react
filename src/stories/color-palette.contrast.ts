@@ -40,14 +40,22 @@ const APCA_BLACK_THRESHOLD = 0.022,
   HEX_PAD = 2,
   HEX_RADIX = 16,
   NON_TEXT_MIN_RATIO = 3,
+  TEXT_MIN_RATIO = 4.5,
   NO_CONTRAST = 0,
   PREFERRED_LC = 90,
   RGB_CHANNELS = /rgba?\((?<channels>[^)]+)\)/,
   RGB_MAX = 255,
+  SRGB_CHANNELS = /color\(srgb (?<channels>[^)]+)\)/,
   SRGB_LINEAR_CUTOFF = 0.04045
 
 function parseRgb(value: string): Rgb | undefined {
-  const channels = RGB_CHANNELS.exec(value)?.groups?.channels?.split(CHANNEL_SEPARATOR).map(Number)
+  let scale = 1
+  if (SRGB_CHANNELS.test(value)) {
+    scale = RGB_MAX
+  }
+  const rgb = RGB_CHANNELS.exec(value)?.groups?.channels,
+    srgb = SRGB_CHANNELS.exec(value)?.groups?.channels,
+    channels = (rgb ?? srgb)?.split(CHANNEL_SEPARATOR).map((channel) => Number(channel) * scale)
   return channels && [channels[0], channels[1], channels[2]]
 }
 
@@ -165,7 +173,7 @@ function verdict(pair: Pair, lc: number, ratio: number) {
     }
     return fail('No: use border-strong')
   }
-  if (abs < pair.target) {
+  if (abs < pair.target || ratio < TEXT_MIN_RATIO) {
     return fail('No: not for text')
   }
   if (abs >= PREFERRED_LC) {
@@ -181,7 +189,7 @@ function targetLabel(pair: Pair) {
   if (pair.kind === 'non-text') {
     return `Lc ${pair.target} + 3:1`
   }
-  return `Lc ${pair.target}`
+  return `Lc ${pair.target} + 4.5:1`
 }
 
 function formatLc(lc: number) {

@@ -1,5 +1,6 @@
 import { CodeIcon, EyeIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import { Tabs } from './index'
 
@@ -48,11 +49,13 @@ export default {
   },
   component: Tabs,
   parameters: {
-    description: {
-      component:
-        'The Tabs component allows users to navigate between different sections of content within the same context. Each tab corresponds to a panel that displays related information when selected.',
+    docs: {
+      description: {
+        component:
+          'The Tabs component allows users to navigate between different sections of content within the same context. Each tab corresponds to a panel that displays related information when selected.',
+      },
+      subtitle: 'A component for organizing content into separate views',
     },
-    subtitle: 'A component for organizing content into separate views',
   },
   subcomponents: {
     TabsIndicator: Tabs.Indicator,
@@ -102,6 +105,12 @@ export const VariantUnderline: Story = {
   args: {
     fill: true,
     variant: 'underline',
+  },
+  play: async ({ canvas }) => {
+    const list = canvas.getByRole('tablist').getBoundingClientRect(),
+      lastTab = canvas.getAllByRole('tab').at(-1)!.getBoundingClientRect()
+
+    await expect(lastTab.right).toBeCloseTo(list.right, 0)
   },
   render: (args) => BasicTemplate(args),
 }
@@ -163,6 +172,14 @@ export const CompositionSettingsPage: Story = {
   args: {
     fill: false,
     variant: 'underline',
+  },
+  play: async ({ canvas }) => {
+    const tablist = canvas.getByRole('tablist'),
+      list = tablist.getBoundingClientRect(),
+      lastTab = canvas.getAllByRole('tab').at(-1)!.getBoundingClientRect()
+
+    await expect(lastTab.right).toBeLessThan(list.right)
+    await expect(getComputedStyle(tablist).borderBottomWidth).not.toBe('0px')
   },
   render: (args) => (
     <div className="w-[500px] space-y-md rounded-lg border border-surface-3 bg-surface p-md">

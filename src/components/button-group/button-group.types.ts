@@ -42,6 +42,47 @@ export const buttonGroupVariants = cva(
       },
       {
         className:
+          'bg-brand-subtle text-brand-on-container [&>button:hover]:bg-brand-container-high',
+        tone: 'brand',
+        variant: 'secondary',
+      },
+      {
+        className:
+          'bg-accent-subtle text-accent-on-container [&>button:hover]:bg-accent-container-high',
+        tone: 'accent',
+        variant: 'secondary',
+      },
+      {
+        className:
+          'bg-neutral-subtle text-neutral-on-container [&>button:hover]:bg-neutral-container-high',
+        tone: 'neutral',
+        variant: 'secondary',
+      },
+      {
+        className:
+          'bg-error-subtle text-error-on-container [&>button:hover]:bg-error-container-high',
+        tone: 'error',
+        variant: 'secondary',
+      },
+      {
+        className: 'bg-info-subtle text-info-on-container [&>button:hover]:bg-info-container-high',
+        tone: 'info',
+        variant: 'secondary',
+      },
+      {
+        className:
+          'bg-success-subtle text-success-on-container [&>button:hover]:bg-success-container-high',
+        tone: 'success',
+        variant: 'secondary',
+      },
+      {
+        className:
+          'bg-warning-subtle text-warning-on-container [&>button:hover]:bg-warning-container-high',
+        tone: 'warning',
+        variant: 'secondary',
+      },
+      {
+        className:
           'border-brand-border text-brand-default [&>button:hover]:bg-brand-subtle [&>button:hover]:text-brand-on-container',
         tone: 'brand',
         variant: 'outline',
@@ -54,7 +95,7 @@ export const buttonGroupVariants = cva(
       },
       {
         className:
-          'border-border text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
+          'border-neutral-border-strong text-neutral-default [&>button:hover]:bg-neutral-subtle [&>button:hover]:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
@@ -246,6 +287,7 @@ export const buttonGroupVariants = cva(
         fill: '',
         ghost: '',
         outline: 'border',
+        secondary: '',
         soft: 'border',
       },
     },

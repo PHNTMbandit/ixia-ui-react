@@ -40,11 +40,13 @@ export default {
   },
   component: ToggleGroup,
   parameters: {
-    description: {
-      component:
-        'Toggle Group organizes related toggles into one control. It supports single selection by default and multiple selections when enabled.',
+    docs: {
+      description: {
+        component:
+          'Toggle Group organizes related toggles into one control. It supports single selection by default and multiple selections when enabled.',
+      },
+      subtitle: 'A group of toggle buttons for single or multiple selections.',
     },
-    subtitle: 'A group of toggle buttons for single or multiple selections.',
   },
   render: (args) => (
     <div className="w-[500px]">

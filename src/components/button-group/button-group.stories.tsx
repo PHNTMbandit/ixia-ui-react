@@ -7,7 +7,7 @@ import { Input } from '../input/index'
 import { ButtonGroup } from './button-group'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
-  VARIANTS = ['fill', 'outline', 'ghost', 'soft', 'elevated'] as const,
+  VARIANTS = ['fill', 'secondary', 'outline', 'ghost', 'soft', 'elevated'] as const,
   SIZES = ['large', 'medium', 'small', 'extraSmall'] as const
 
 type Tone = (typeof TONES)[number]
@@ -244,6 +244,12 @@ export const Fill: Story = {
   },
   name: 'Variant / Fill',
   render: () => <VariantShowcase variant="fill" />,
+}
+
+export const Secondary: Story = {
+  args: { variant: 'secondary' },
+  name: 'Variant / Secondary',
+  render: () => <VariantShowcase variant="secondary" />,
 }
 
 export const Outline: Story = {

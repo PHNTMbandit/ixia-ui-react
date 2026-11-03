@@ -32,11 +32,13 @@ export default {
   },
   component: Slider,
   parameters: {
-    description: {
-      component:
-        'The Slider component allows users to select a value from a continuous or discrete range by dragging a thumb along a track. It is commonly used in forms and settings where users need to adjust values such as volume, brightness, or other numerical inputs. The Slider can be customized with different sizes, tones, and step values to fit various design needs.',
+    docs: {
+      description: {
+        component:
+          'The Slider component allows users to select a value from a continuous or discrete range by dragging a thumb along a track. It is commonly used in forms and settings where users need to adjust values such as volume, brightness, or other numerical inputs. The Slider can be customized with different sizes, tones, and step values to fit various design needs.',
+      },
+      subtitle: 'A component for selecting a value from a range.',
     },
-    subtitle: 'A component for selecting a value from a range.',
   },
   title: 'Components/Slider',
 } satisfies Meta<typeof Slider>

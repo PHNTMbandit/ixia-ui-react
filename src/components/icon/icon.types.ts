@@ -26,6 +26,7 @@ type IconName =
   | 'hidden'
   | 'info'
   | 'lastPage'
+  | 'layers'
   | 'locked'
   | 'minus'
   | 'percent'
@@ -40,6 +41,7 @@ type IconName =
   | 'upload'
   | 'visible'
   | 'warning'
+  | '3d'
 type IconRegistry = Record<IconName, IconComponent>
 type IconOverrides = Partial<IconRegistry>
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone'
@@ -53,12 +55,10 @@ interface IconContextValue {
 
 type IconRenderProps = IconProps & {
   name: IconName
-  /** Overrides the weight of the default Phosphor icon. Ignored for icons supplied through IconProvider. */
   weight?: IconWeight
 }
 interface IconProviderProps {
   icons?: IconOverrides
-  /** Weight applied to every default Phosphor icon below this provider. */
   weight?: IconWeight
   children?: React.ReactNode
 }

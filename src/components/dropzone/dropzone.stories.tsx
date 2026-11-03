@@ -14,6 +14,15 @@ export default {
     },
   },
   component: Dropzone,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'The Dropzone lets users upload files by dragging them into an area or browsing from their device. It validates accepted formats, file size and file count with customizable error messages, lists selected files with upload progress, and provides clear and confirm actions. It supports single or multiple file selection.',
+      },
+      subtitle: 'A drag-and-drop area for selecting and uploading files.',
+    },
+  },
   render: (args) => (
     <Dropzone {...args} className="w-[900px]">
       <Dropzone.Container>

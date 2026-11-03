@@ -234,7 +234,7 @@ const PERSON_LABELS_EN: PersonLabels = {
     enableGlobalFilter: false,
     enableHiding: false,
     enableSorting: false,
-    header: ({ header }) => <header.TableCheckboxHeader />,
+    header: ({ header }) => <header.CheckboxHeader />,
     id: 'select',
     size: 48,
   }),
@@ -567,7 +567,7 @@ export const TopAndBottomBars: StoryObj = {
 
     return (
       <table.AppTable>
-        <table.Container>
+        <table.Container className="h-dvh">
           <table.TopBar>
             <div className="flex items-center justify-between gap-md">
               <div className="flex flex-col">
@@ -881,51 +881,6 @@ export const Pagination: StoryObj = {
               <table.NextPage />
               <table.LastPage />
             </table.Pagination>
-          </table.BottomBar>
-        </table.Container>
-      </table.AppTable>
-    )
-  },
-}
-
-export const StickyBars: StoryObj = {
-  name: 'Sticky bars',
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'For long tables inside a scrolling container, set `sticky` on `TopBar` and `BottomBar` to keep search and the results summary in view. Give the container a height, `overflow-auto`, and a background so scrolled rows do not show through.',
-      },
-    },
-  },
-  render: () => {
-    const table = useAppTable({
-      columns: orderColumns,
-      data: React.useMemo(() => makeOrders(60), []),
-      initialState: { pagination: { pageIndex: 0, pageSize: 60 } },
-      key: 'orders-sticky',
-    })
-
-    return (
-      <table.AppTable>
-        <table.Container className="max-h-[28rem] overflow-auto bg-surface">
-          <table.TopBar className="bg-surface" sticky>
-            <table.Toolbar>
-              <table.Search placeholder="Search orders..." />
-            </table.Toolbar>
-          </table.TopBar>
-          <table.Viewport>
-            <table.Header />
-            <table.Body />
-          </table.Viewport>
-          <table.BottomBar sticky>
-            <table.Results>
-              {(start, end, total) => (
-                <span>
-                  {start}–{end} of {total} orders
-                </span>
-              )}
-            </table.Results>
           </table.BottomBar>
         </table.Container>
       </table.AppTable>
@@ -1412,7 +1367,7 @@ export const AllCellTypes: StoryObj = {
         columnHelper.display({
           cell: ({ cell }) => <cell.CheckboxCell />,
           enableSorting: false,
-          header: ({ header }) => <header.TableCheckboxHeader />,
+          header: ({ header }) => <header.CheckboxHeader />,
           id: 'select',
           size: 48,
         }),
