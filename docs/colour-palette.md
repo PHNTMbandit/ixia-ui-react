@@ -5,6 +5,9 @@ The colour foundation for `ixia-ui-react`. It follows Tailwind's 50–950 scale 
 - CSS: [src/styles/input.css](../src/styles/input.css) (primitives + `--ixia-*` semantic tokens)
 - Alternative brand themes: [src/styles/themes/](../src/styles/themes/) (`mabel`, `viridiflora`, `hogarth`, `venus`, `monadelpha`)
 - Storybook: **Color Palette/Primitives** for the shared scales, plus one **Color Palette/{Theme}** entry per theme with semantic tokens and a live APCA/WCAG matrix
+- **Color Palette/Contrast Specimens**: all six brands, both modes, all role fills
+  and container levels, surface text, inverse surfaces, boundaries, and live buttons.
+  Samples show their font, size, weight, APCA/WCAG measurements and supported status.
 
 Design priority: **accessibility → semantic usability → visual coherence → Ixia identity → aesthetics**.
 
@@ -12,14 +15,20 @@ Design priority: **accessibility → semantic usability → visual coherence →
 
 |  Lc | Use                                                                           |
 | --: | ----------------------------------------------------------------------------- |
-|  90 | Preferred body text                                                           |
-|  75 | Minimum body / paragraph text                                                 |
-|  60 | UI text: labels, buttons, links, captions (≥ 14px semibold or 16px regular)   |
-|  45 | Large text (≥ 24px) and headings, icons                                       |
+|  90 | Small text: 14px regular (Inter); preferred body text                         |
+|  75 | Body: 18px regular; UI text at 16px medium or 14px bold                       |
+|  60 | Non-body UI text: 16px bold, 18px semibold or 24px regular                    |
+|  45 | Non-body headings: 24px bold or 36px regular                                  |
 |  30 | Non-text: control boundaries, focus rings, meaningful icons (also WCAG ≥ 3:1) |
 |  15 | Decorative dividers and outlines that carry no meaning                        |
 
-Text pairs also meet **WCAG AA 4.5:1**. Non-text pairs also meet **WCAG 3:1**.
+Supported text pairs also meet **WCAG AA 4.5:1** (3:1 for the 24px bold specimen).
+Meaningful non-text boundaries also meet **WCAG 3:1**. APCA targets depend on the
+actual font size and weight, not just the token name. The specimen uses Inter
+14/400 and 18/400, plus Manrope 16/700 and 24/700, following
+[APCA's size/weight guidance](https://github.com/Myndex/SAPC-APCA/blob/master/documentation/APCA_in_a_Nutshell.md).
+These are screening targets, not a guarantee of readability for every font or
+viewing condition. APCA is not itself a WCAG conformance certification.
 
 ---
 
@@ -31,8 +40,8 @@ Every chromatic family uses the **same OKLCH lightness for the same step**. As a
 
 | Step | L (OKLCH) | Lc vs white | Lc vs neutral-950 | Intended usage                                                                |
 | ---: | --------: | ----------: | ----------------: | ----------------------------------------------------------------------------- |
-|   50 |     97.5% |          ~0 |             ~−102 | Subtle backgrounds, hover tints (`subtle`)                                    |
-|  100 |     94.8% |          ~8 |              ~−96 | Containers, alerts (`container`); dark-mode text on 900/950                   |
+|   50 |     97.5% |          ~0 |             ~−102 | Very faint decorative backgrounds                                             |
+|  100 |     94.8% |          ~8 |              ~−96 | Hover tints (`subtle`), containers, alerts; dark-mode text on 900/950         |
 |  200 |     90.5% |         ~16 |              ~−87 | Container-high, selected rows; dark-mode body text                            |
 |  300 |     83.5% |         ~29 |              ~−73 | Light-mode decorative borders; dark-mode hover fills and muted text           |
 |  400 |     79.0% |         ~37 |              ~−64 | **Dark-mode interactive fills and coloured text**. Decorative only on light   |
@@ -336,7 +345,7 @@ All six roles share one step pattern. Only the family changes:
 | --------------------- | --------- | ------------- | -------------------------------------------- |
 | `-default`            | 600       | 400           | Interactive fill; coloured UI text and icons |
 | `-muted`              | 700       | 300           | Hover/pressed fill; secondary coloured text  |
-| `-subtle`             | 50        | 950           | Ghost/outline hover background               |
+| `-subtle`             | 100       | 950           | Ghost/outline hover background               |
 | `-on-default`         | `white`   | `neutral-950` | Label on `-default` / `-muted` fills         |
 | `-container`          | 100       | 950           | Alerts, callouts, tinted cards               |
 | `-container-high`     | 200       | 900           | Selected or emphasised container             |
@@ -348,47 +357,84 @@ All six roles share one step pattern. Only the family changes:
 
 ### `neutral` role
 
-| Token                               | Light               | Dark          |
-| ----------------------------------- | ------------------- | ------------- |
-| `--ixia-neutral-default`            | `neutral-800`       | `neutral-100` |
-| `--ixia-neutral-muted`              | `neutral-900`       | `neutral-200` |
-| `--ixia-neutral-subtle`             | `neutral-100`       | `neutral-800` |
-| `--ixia-neutral-on-default`         | `white`             | `neutral-950` |
-| `--ixia-neutral-container`          | `neutral-100`       | `neutral-800` |
-| `--ixia-neutral-container-high`     | `neutral-200`       | `neutral-700` |
-| `--ixia-neutral-on-container`       | `neutral-900`       | `neutral-50`  |
-| `--ixia-neutral-on-container-muted` | `neutral-600`       | `neutral-300` |
-| `--ixia-neutral-border`             | `neutral-400`       | `neutral-600` |
-| `--ixia-neutral-border-strong`      | `neutral-500`       | `neutral-400` |
-| `--ixia-neutral-shadow`             | `neutral-950` @ 18% | `black` @ 35% |
+The shared warm-stone primitives are unchanged. Semantic mappings give ghost/outline
+buttons a visible, restrained hover rather than a near-background tint. Filled
+neutral buttons use a near-black/near-white default with a softer hover, similar
+to shadcn's neutral treatment. These mappings apply to every brand theme.
+
+Dark ghost/outline hover uses a darker mix close to `neutral-800`, not the
+mid-surface highlight. Neutral outlines use `neutral-border-strong` for an
+APCA Lc 30 / WCAG 3:1 boundary on `surface` and `surface-2`. Use a lighter
+boundary on dark `surface-3`; `neutral-500` is not a sufficient boundary there.
+
+| Token                               | Light               | Dark                                           |
+| ----------------------------------- | ------------------- | ---------------------------------------------- |
+| `--ixia-neutral-default`            | `neutral-900`       | `neutral-50`                                   |
+| `--ixia-neutral-muted`              | `neutral-700`       | `neutral-200`                                  |
+| `--ixia-neutral-subtle`             | `neutral-200`       | sRGB mix: 20% `neutral-900`, 80% `neutral-800` |
+| `--ixia-neutral-on-default`         | `white`             | `neutral-950`                                  |
+| `--ixia-neutral-container`          | `neutral-100`       | `neutral-800`                                  |
+| `--ixia-neutral-container-high`     | `neutral-300`       | sRGB mix: 75% `neutral-800`, 25% `neutral-700` |
+| `--ixia-neutral-on-container`       | `neutral-900`       | `neutral-50`                                   |
+| `--ixia-neutral-on-container-muted` | `neutral-700`       | `= on-surface-muted`                           |
+| `--ixia-neutral-border`             | `neutral-300`       | `neutral-600`                                  |
+| `--ixia-neutral-border-strong`      | `neutral-500`       | `neutral-500`                                  |
+| `--ixia-neutral-shadow`             | `neutral-950` @ 18% | `black` @ 35%                                  |
+
+### Secondary buttons
+
+`<Button variant="secondary" tone="neutral">` is a borderless, lower-emphasis
+filled button. At rest it uses `*-subtle` with `*-on-container` text: exactly
+the corresponding ghost button's hover colours. Its hover uses `*-container-high`.
+All seven tones and `ButtonGroup` support it. Existing `soft` buttons retain
+their border; `fill` remains the high-emphasis option.
+
+The secondary text pair is tested at Lc 75 and WCAG 4.5:1 in both states across
+all six brands. That supports 16px medium UI text (or 18px regular body text).
+The library's responsive small/extra-small text can fall below these sizes:
+do not assume a token pair passing at 16px also makes a 10px label safe.
+Use the specimen's size/weight verdict rather than treating every text token
+on every container, or every button size, as supported.
 
 ### Surfaces and global tokens
 
-| Token                          | Light                                              | Dark                             |
-| ------------------------------ | -------------------------------------------------- | -------------------------------- |
-| `--ixia-surface-background`    | `neutral-50`                                       | `neutral-950`                    |
-| `--ixia-surface`               | `white`                                            | `neutral-900`                    |
-| `--ixia-surface-2`             | `white`                                            | `neutral-800`                    |
-| `--ixia-surface-3`             | `white`                                            | `neutral-700`                    |
-| `--ixia-surface-low`           | `neutral-100`                                      | `black`                          |
-| `--ixia-on-surface`            | `neutral-900`                                      | `neutral-50`                     |
-| `--ixia-on-surface-variant`    | `neutral-700`                                      | `neutral-200`                    |
-| `--ixia-on-surface-muted`      | `neutral-600`                                      | `neutral-300`                    |
-| `--ixia-on-surface-disabled`   | `neutral-400`                                      | `neutral-600`                    |
-| `--ixia-border`                | `neutral-300`                                      | `neutral-600`                    |
-| `--ixia-border-strong`         | `neutral-500`                                      | `neutral-400`                    |
-| `--ixia-surface-inverse`       | `neutral-900`                                      | `neutral-100`                    |
-| `--ixia-on-surface-inverse`    | `neutral-50`                                       | `neutral-900`                    |
-| `--ixia-surface-focus-ring`    | `= brand-default` (`orange-600`)                   | `= brand-default` (`orange-400`) |
-| `--ixia-scrim`                 | `neutral-950` @ 80%                                | `black` @ 80%                    |
-| `--ixia-shadow`                | `neutral-950` @ 30%                                | `black` @ 40%                    |
-| `--ixia-shadow-strong`         | `neutral-950` @ 45%                                | `black` @ 60%                    |
-| `--ixia-brand-gradient`        | `orange-800 → orange-500 → amber-400 → yellow-300` | same                             |
-| `--ixia-brand-gradient-subtle` | `orange-500 16% → amber-400 12% → yellow-300 8%`   | same                             |
+| Token                          | Light                                              | Dark                                           |
+| ------------------------------ | -------------------------------------------------- | ---------------------------------------------- |
+| `--ixia-surface-background`    | `neutral-50`                                       | `neutral-950`                                  |
+| `--ixia-surface`               | `white`                                            | `neutral-900`                                  |
+| `--ixia-surface-2`             | `white`                                            | `neutral-800`                                  |
+| `--ixia-surface-3`             | `white`                                            | `neutral-700`                                  |
+| `--ixia-surface-low`           | `neutral-100`                                      | `black`                                        |
+| `--ixia-on-surface`            | `neutral-900`                                      | `neutral-50`                                   |
+| `--ixia-on-surface-variant`    | `neutral-700`                                      | `neutral-300`                                  |
+| `--ixia-on-surface-muted`      | `neutral-600`                                      | sRGB mix: 75% `neutral-400`, 25% `neutral-300` |
+| `--ixia-on-surface-disabled`   | `neutral-400`                                      | `neutral-600`                                  |
+| `--ixia-border`                | `neutral-300`                                      | `neutral-600`                                  |
+| `--ixia-border-strong`         | `neutral-500`                                      | `neutral-400`                                  |
+| `--ixia-surface-inverse`       | `neutral-900`                                      | `neutral-100`                                  |
+| `--ixia-on-surface-inverse`    | `neutral-50`                                       | `neutral-900`                                  |
+| `--ixia-surface-focus-ring`    | `= brand-default` (`orange-600`)                   | `= brand-default` (`orange-400`)               |
+| `--ixia-scrim`                 | `neutral-950` @ 80%                                | `black` @ 80%                                  |
+| `--ixia-shadow`                | `neutral-950` @ 30%                                | `black` @ 40%                                  |
+| `--ixia-shadow-strong`         | `neutral-950` @ 45%                                | `black` @ 60%                                  |
+| `--ixia-brand-gradient`        | `orange-800 → orange-500 → amber-400 → yellow-300` | same                                           |
+| `--ixia-brand-gradient-subtle` | `orange-500 16% → amber-400 12% → yellow-300 8%`   | same                                           |
 
 ### Alternative brand themes
 
-To use one, import it after `input.css` and set `data-brand="<theme>"` (for example `data-brand="venus"`) on `<html>` or on any subtree. Each file overrides only the `brand-*` and `accent-*` tokens, then re-binds their Tailwind `--color-*` aliases and the focus ring inside that scope. Every brand/accent pair in the matrix below was re-checked for every theme, in both light and dark modes, against APCA and WCAG AA. All of them pass.
+To use one, import it after `input.css` and set `data-brand="<theme>"` (for example `data-brand="venus"`) on `<html>` or on any subtree. Each file overrides only the `brand-*` and `accent-*` tokens, then re-binds their Tailwind `--color-*` aliases and the focus ring inside that scope. Supported pairings are tested in both modes for every theme; unsupported size/weight combinations remain visible and explicitly marked in the contrast specimens.
+
+Light-mode chromatic hover tints use step **100**, not 50, including brand/accent
+overrides and the shared status roles. This makes colour easier to see without
+brightening text-safe filled colours into an inaccessible range. Dark chromatic
+tints and filled chromatic colours are unchanged.
+
+Default, variant and muted surface text have distinct emphasis levels. Dark muted
+text mixes steps 400 and 300 to remain WCAG AA on every raised surface rather than
+using step 400 alone. On dark `surface-3`, variant and muted text fall below their
+preferred APCA targets; use `on-surface` for body text and small essential labels there.
+The **Core/Semantics → Interaction States** story compares all six brands in both
+modes and checks text hierarchy, WCAG contrast and neutral hover visibility.
 
 | Theme              | Inspiration                                        | File                     | Brand    | Accent    |
 | ------------------ | -------------------------------------------------- | ------------------------ | -------- | --------- |
@@ -422,8 +468,8 @@ Lc is APCA (text on background; negative means light text on a dark background).
 | `*-muted`              | `surface`            | 80.1 / 6.16     | 70.0 / 9.69    | Lc 60       | Secondary coloured text        | Yes             |
 | `*-on-container`       | `*-container`        | 86.1 / 10.10    | 92.8 / 12.47   | Lc 75       | Alert body text                | Yes             |
 | `*-on-container`       | `*-container-high`   | 77.3 / 8.94     | 88.6 / 7.83    | Lc 75       | Selected container text        | Yes             |
-| `*-on-container`       | `*-subtle`           | 91.6 / 10.83    | 92.8 / 12.47   | Lc 75       | Outline hover text             | Yes             |
-| `*-on-container-muted` | `*-container`        | 70.0 / 4.83     | 68.6 / 9.19    | Lc 60       | Alert description              | Yes             |
+| `*-on-container`       | `*-subtle`           | 86.1 / 10.10    | 92.8 / 9.93    | Lc 75       | Outline hover text             | Yes             |
+| `*-on-container-muted` | `*-container`        | 70.0 / 4.83     | 64.3 / 7.27    | Lc 60       | Alert description              | Yes             |
 | `*-border-strong`      | `surface`            | 57.3 / 3.09     | 37.1 / 4.59    | Lc 30 + 3:1 | Control boundary               | Yes (non-text)  |
 | `*-border`             | `*-container`        | 17.6 / 1.39     | 15.7 / 2.23    | Lc 15       | Alert outline                  | Decorative only |
 
@@ -441,22 +487,22 @@ Lc is APCA (text on background; negative means light text on a dark background).
 
 ### Surfaces
 
-| Foreground            | Background           | Light Lc / WCAG | Dark Lc / WCAG   | Target          | Recommended                                       |
-| --------------------- | -------------------- | --------------- | ---------------- | --------------- | ------------------------------------------------- |
-| `on-surface`          | `surface-background` | 100.8 / 16.02   | −104.2 / 18.06   | Lc 90 preferred | Yes (preferred)                                   |
-| `on-surface`          | `surface`            | 103.6 / 16.68   | −102.9 / 16.02   | Lc 90 preferred | Yes (preferred)                                   |
-| `on-surface`          | `surface-2`          | 103.6 / 16.68   | −99.4 / 12.47    | Lc 90 preferred | Yes (preferred)                                   |
-| `on-surface`          | `surface-3`          | 103.6 / 16.68   | −89.7 / 7.83     | Lc 75           | Yes                                               |
-| `on-surface-variant`  | `surface`            | 88.2 / 8.16     | −91.6 / 13.72    | Lc 75           | Yes                                               |
-| `on-surface-variant`  | `surface-3`          | 88.2 / 8.16     | −78.4 / 6.70     | Lc 75           | Yes                                               |
-| `on-surface-muted`    | `surface-background` | 73.5 / 5.09     | −82.9 / 13.30    | Lc 60           | Yes                                               |
-| `on-surface-muted`    | `surface-3`          | 76.4 / 5.30     | −68.5 / 5.77     | Lc 60           | Yes                                               |
-| `on-surface-inverse`  | `surface-inverse`    | −102.9 / 16.02  | 97.3 / 15.22     | Lc 75           | Yes                                               |
-| `border-strong`       | `surface`            | 60.0 / 3.26     | −63.4 / 8.61     | Lc 30 + 3:1     | Yes (non-text)                                    |
-| `border-strong`       | `surface-3`          | 60.0 / 3.26     | −50.2 / 4.21     | Lc 30 + 3:1     | Yes (non-text)                                    |
-| `border`              | `surface`            | 20.0 / 1.41     | −23.5 / 3.15     | Lc 15           | Decorative only                                   |
-| `border`              | `surface-3`          | 20.0 / 1.41     | **−10.4 / 1.54** | Lc 15           | **No (dark).** Use `border-strong` on `surface-3` |
-| `on-surface-disabled` | `surface`            | 37.2 / 1.94     | −23.5 / 3.15     | Exempt          | **Disabled only.** Never for essential text       |
+| Foreground            | Background           | Light Lc / WCAG | Dark Lc / WCAG   | Target          | Recommended                                                  |
+| --------------------- | -------------------- | --------------- | ---------------- | --------------- | ------------------------------------------------------------ |
+| `on-surface`          | `surface-background` | 100.8 / 16.02   | −104.2 / 18.06   | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface`            | 103.6 / 16.68   | −102.9 / 16.02   | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface-2`          | 103.6 / 16.68   | −99.4 / 12.47    | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface-3`          | 103.6 / 16.68   | −89.7 / 7.83     | Lc 75           | Yes                                                          |
+| `on-surface-variant`  | `surface`            | 88.2 / 8.16     | −81.6 / 11.81    | Lc 75           | Yes                                                          |
+| `on-surface-variant`  | `surface-3`          | 88.2 / 8.16     | −68.5 / 5.77     | Lc 75           | WCAG AA; below APCA body target on dark                      |
+| `on-surface-muted`    | `surface-background` | 73.5 / 5.09     | −69.1 / 10.53    | Lc 60           | Yes                                                          |
+| `on-surface-muted`    | `surface-3`          | 76.4 / 5.30     | −54.6 / 4.57     | Lc 60           | WCAG AA; use primary text for small essential labels on dark |
+| `on-surface-inverse`  | `surface-inverse`    | −102.9 / 16.02  | 97.3 / 15.22     | Lc 75           | Yes                                                          |
+| `border-strong`       | `surface`            | 60.0 / 3.26     | −63.4 / 8.61     | Lc 30 + 3:1     | Yes (non-text)                                               |
+| `border-strong`       | `surface-3`          | 60.0 / 3.26     | −50.2 / 4.21     | Lc 30 + 3:1     | Yes (non-text)                                               |
+| `border`              | `surface`            | 20.0 / 1.41     | −23.5 / 3.15     | Lc 15           | Decorative only                                              |
+| `border`              | `surface-3`          | 20.0 / 1.41     | **−10.4 / 1.54** | Lc 15           | **No (dark).** Use `border-strong` on `surface-3`            |
+| `on-surface-disabled` | `surface`            | 37.2 / 1.94     | −23.5 / 3.15     | Exempt          | **Disabled only.** Never for essential text                  |
 
 ### Combinations flagged: do not use for text
 

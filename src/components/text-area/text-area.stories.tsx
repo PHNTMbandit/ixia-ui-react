@@ -52,11 +52,13 @@ export default {
   },
   component: TextArea,
   parameters: {
-    description: {
-      component:
-        'The TextArea component provides a multi-line input field that allows users to enter and edit larger amounts of text. It supports visual variants, max length feedback, and disabled states for form workflows.',
+    docs: {
+      description: {
+        component:
+          'The TextArea component provides a multi-line input field that allows users to enter and edit larger amounts of text. It supports visual variants, max length feedback, and disabled states for form workflows.',
+      },
+      subtitle: 'A multi-line text input field for user input.',
     },
-    subtitle: 'A multi-line text input field for user input.',
   },
   title: 'Components/Text Area',
 } satisfies Meta<typeof TextArea>

@@ -37,11 +37,7 @@ export function TableBody({ showDivider = true, className, ref, ...props }: Tabl
         }
         return (
           <tbody
-            className={cn(
-              showDivider && 'divide-y divide-border',
-              'overflow-y-auto border-border group-data-[variant=outline]/table:last:border-b',
-              className,
-            )}
+            className={cn(showDivider && 'divide-y divide-border', 'overflow-y-auto', className)}
             ref={ref}
             {...props}
           >

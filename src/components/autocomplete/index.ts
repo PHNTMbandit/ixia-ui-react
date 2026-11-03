@@ -1,6 +1,7 @@
 import { Autocomplete as AutocompleteRoot } from './autocomplete'
 import { AutocompleteCollection } from './autocomplete-collection'
 import { AutocompleteContent } from './autocomplete-content'
+import { AutocompleteEmpty } from './autocomplete-empty'
 import { AutocompleteGridContent } from './autocomplete-grid-content'
 import { AutocompleteGridItem } from './autocomplete-grid-item'
 import { AutocompleteGroup } from './autocomplete-group'
@@ -16,6 +17,7 @@ import { AutocompleteTrigger } from './autocomplete-trigger'
 const Autocomplete = Object.assign(AutocompleteRoot, {
   Collection: AutocompleteCollection,
   Content: AutocompleteContent,
+  Empty: AutocompleteEmpty,
   GridContent: AutocompleteGridContent,
   GridItem: AutocompleteGridItem,
   Group: AutocompleteGroup,
@@ -32,6 +34,7 @@ const Autocomplete = Object.assign(AutocompleteRoot, {
 export type {
   AutocompleteCollectionProps,
   AutocompleteContentProps,
+  AutocompleteEmptyProps,
   AutocompleteGridContentProps,
   AutocompleteGridItemProps,
   AutocompleteGroupLabelProps,
@@ -47,6 +50,7 @@ export type {
 } from './autocomplete.types'
 export { AutocompleteCollection } from './autocomplete-collection'
 export { AutocompleteContent } from './autocomplete-content'
+export { AutocompleteEmpty } from './autocomplete-empty'
 export { AutocompleteGridContent } from './autocomplete-grid-content'
 export { AutocompleteGridItem } from './autocomplete-grid-item'
 export { AutocompleteGroup } from './autocomplete-group'

@@ -76,7 +76,7 @@ const { createAppColumnHelper, useAppTable, useTableContext, useCellContext, use
       }
       return String(index)
     },
-    headerComponents: { TableCheckboxHeader },
+    headerComponents: { CheckboxHeader: TableCheckboxHeader },
     headerContext,
     tableComponents: {
       Body: TableBody,

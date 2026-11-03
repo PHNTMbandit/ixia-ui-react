@@ -50,11 +50,13 @@ export default {
   },
   component: Switch,
   parameters: {
-    description: {
-      component:
-        'The Switch component allows users to toggle between two states, such as on and off. It is commonly used in forms and settings to represent binary options. The Switch can be customized with different states to fit various design needs.',
+    docs: {
+      description: {
+        component:
+          'The Switch component allows users to toggle between two states, such as on and off. It is commonly used in forms and settings to represent binary options. The Switch can be customized with different states to fit various design needs.',
+      },
+      subtitle: 'A toggle switch component for binary choices.',
     },
-    subtitle: 'A toggle switch component for binary choices.',
   },
   title: 'Components/Switch',
 } satisfies Meta<typeof Switch>

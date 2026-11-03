@@ -103,11 +103,13 @@ const AnchoredTriggerButton = ({ tone = 'brand' }: { tone?: Tone }) => {
 export default {
   component: Toast,
   parameters: {
-    description: {
-      component:
-        'Toast provides transient feedback for user actions. This set includes stacked toasts, anchored toasts, action buttons, and icon customization through the toast manager.',
+    docs: {
+      description: {
+        component:
+          'Toast provides transient feedback for user actions. This set includes stacked toasts, anchored toasts, action buttons, and icon customization through the toast manager.',
+      },
+      subtitle: 'A component for displaying brief messages to users.',
     },
-    subtitle: 'A component for displaying brief messages to users.',
   },
   title: 'Components/Toast',
 } satisfies Meta<typeof Toast>

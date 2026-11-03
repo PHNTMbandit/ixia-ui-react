@@ -44,16 +44,14 @@ type TableBodyProps = React.ComponentProps<'tbody'> & {
 }
 type TableToolbarProps = React.ComponentProps<'div'>
 type TableLayoutProps = React.ComponentProps<'div'>
-type TableBottomBarProps = React.ComponentProps<'div'> & {
-  sticky?: boolean
-}
+type TableBottomBarProps = React.ComponentProps<'div'>
 type TableContentProps = React.ComponentProps<'div'>
 type TablePagingProps = React.ComponentProps<'div'> & {
   min?: number
   max?: number
 }
 
-const tableContainerVariants = cva('group/table flex min-w-0 flex-col gap-md', {
+const tableContainerVariants = cva('group/table flex min-w-0 flex-col gap-0', {
     defaultVariants: {
       variant: 'outline',
     },
@@ -102,9 +100,7 @@ const tableContainerVariants = cva('group/table flex min-w-0 flex-col gap-md', {
 
 type TableDatasetTabProps = React.ComponentProps<typeof Tabs>
 type TableContainerProps = React.ComponentProps<'div'> & VariantProps<typeof tableContainerVariants>
-type TableTopBarProps = React.ComponentProps<'div'> & {
-  sticky?: boolean
-}
+type TableTopBarProps = React.ComponentProps<'div'>
 type TableViewModeToggleProps = Omit<React.ComponentProps<typeof Button>, 'children'> & {
   children: (isGridView: boolean) => React.ReactNode
 }

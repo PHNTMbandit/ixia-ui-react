@@ -61,6 +61,21 @@ export type {
   TableSortListProps,
   TableToolbarProps,
   TableViewModeToggleProps,
+  TableDataset,
+  TableDatasetTabProps,
+  TableEmptyProps,
+  TableEmptyContentProps,
+  TableEmptyDescriptionProps,
+  TableEmptyFooterProps,
+  TableEmptyHeaderProps,
+  TableEmptyTitleProps,
+  TableColumnMeta,
+  TableMeta,
+  ViewMode,
+  FilterOperator,
+  DateFilterOperator,
+  NumberFilterOperator,
+  StringFilterOperator,
 } from './table.types'
 export { TableBody } from './table-body'
 export { TableBadgeCell } from './table-badge-cell'
@@ -109,6 +124,13 @@ export { TableStringFilterChip } from './table-string-filter-chip'
 export { TableToolbar } from './table-toolbar'
 export { TableViewModeToggle } from './table-view-mode-toggle'
 export { TableEmpty as TableEmptyMessage } from './table-empty'
+export { TableEmptyContent } from './table-empty-content'
+export { TableEmptyDescription } from './table-empty-description'
+export { TableEmptyFooter } from './table-empty-footer'
+export { TableEmptyHeader } from './table-empty-header'
+export { TableEmptyTitle } from './table-empty-title'
+export { TableDatasetTab } from './table-dataset-tab'
+export { TableDateTimeCell } from './table-date-time-cell'
 export {
   dateFilterFn,
   numberFilterFn,
