@@ -14,8 +14,8 @@ interface CodeBlockProviderState {
 
 interface CodeBlockValue {
   id: string
+  name: string
   label?: string
-  name?: string
   code?: string
   content?: React.ReactNode
   icon?: React.ReactNode
