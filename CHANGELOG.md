@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.6.0...v1.7.0) (2026-11-03)
+
+
+### Features
+
+* add map component ([74e6629](https://github.com/PHNTMbandit/ixia-ui-react/commit/74e66290e788b2dad40358811003e29e734c36e0))
+* enhance table layout tests and update container variants ([aa6a4aa](https://github.com/PHNTMbandit/ixia-ui-react/commit/aa6a4aa0b7ef33a3fab3deef6dd6865fb88b153c))
+
 # [1.6.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.5.0...v1.6.0) (2026-10-28)
 
 
