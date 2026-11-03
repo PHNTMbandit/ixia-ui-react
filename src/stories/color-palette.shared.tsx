@@ -36,8 +36,8 @@ const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '90
   ROLE_SUFFIXES = [
     'default',
     'muted',
-    'subtle',
     'on-default',
+    'container-low',
     'container',
     'container-high',
     'on-container',
@@ -112,11 +112,11 @@ const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '90
         usage: 'Selected container',
       },
       {
-        bg: `${role}-subtle`,
+        bg: `${role}-container-low`,
         fg: `${role}-on-container`,
         kind: 'text',
         target: 75,
-        usage: 'Outline button hover',
+        usage: 'Quiet tinted surface',
       },
       {
         bg: `${role}-container`,

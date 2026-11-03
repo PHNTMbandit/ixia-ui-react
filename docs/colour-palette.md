@@ -41,8 +41,8 @@ Every chromatic family uses the **same OKLCH lightness for the same step**. As a
 | Step | L (OKLCH) | Lc vs white | Lc vs neutral-950 | Intended usage                                                                |
 | ---: | --------: | ----------: | ----------------: | ----------------------------------------------------------------------------- |
 |   50 |     97.5% |          ~0 |             ~−102 | Very faint decorative backgrounds                                             |
-|  100 |     94.8% |          ~8 |              ~−96 | Hover tints (`subtle`), containers, alerts; dark-mode text on 900/950         |
-|  200 |     90.5% |         ~16 |              ~−87 | Container-high, selected rows; dark-mode body text                            |
+|  100 |     94.8% |          ~8 |              ~−96 | Hover tints, containers, alerts; dark-mode text on 900/950                    |
+|  200 |     90.5% |         ~16 |              ~−87 | Neutral containers, container-high, selected rows; dark-mode body text        |
 |  300 |     83.5% |         ~29 |              ~−73 | Light-mode decorative borders; dark-mode hover fills and muted text           |
 |  400 |     79.0% |         ~37 |              ~−64 | **Dark-mode interactive fills and coloured text**. Decorative only on light   |
 |  500 |     64.5% |         ~60 |              ~−41 | Strong borders, icons, charts, large text on light. **Not for body text**     |
@@ -326,7 +326,39 @@ OKLCH is the source of truth. Hex is the sRGB value after gamut mapping (only ch
 
 ## B. Semantic tokens
 
-All semantic tokens use the `--ixia-` prefix and resolve through `light-dark()`. They are exposed to Tailwind as `--color-*` (for example `bg-brand-default`).
+Semantic tokens use the `--ixia-` prefix and are exposed to Tailwind as
+`--color-*` (for example, `bg-brand-default`). Most colour values use
+`light-dark()` to adapt to the current colour scheme.
+
+### Choosing a token
+
+The same suffixes apply to `brand`, `accent`, `neutral`, `error`, `info`,
+`success`, and `warning`. Pick a token by its purpose, not by whether its name
+sounds lighter or darker:
+
+| Tokens                                | Use                                                                                                                                      |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `*-default` / `*-on-default`          | Strong filled controls and their labels; `*-default` also colours text and icons.                                                        |
+| `*-muted` / `*-on-default`            | Interaction fill for a `*-default` control; `*-muted` also colours secondary text and icons.                                             |
+| `*-container-low` / `*-on-container`  | A quieter tinted background, such as a neutral table header.                                                                             |
+| `*-container` / `*-on-container`      | Tinted surfaces, secondary and soft controls, and hover/open states on transparent controls.                                             |
+| `*-container-high` / `*-on-container` | A stronger interaction tint for filled soft/secondary buttons, toggles in filled groups, and highlights inside raised menus and selects. |
+| `*-on-container`                      | Primary text and icons on any of the three container levels.                                                                             |
+| `*-on-container-muted`                | Secondary text on a tinted surface.                                                                                                      |
+| `*-border`, `*-border-strong`         | Decorative and stronger outlines, respectively; check their contrast against the actual surface.                                         |
+| `*-shadow`                            | Decorative coloured shadow.                                                                                                              |
+
+Transparent controls and persistent tinted surfaces intentionally share
+`*-container`; changing it affects both. Use `*-container-high` when a control
+already uses `*-container`, for filled toggle groups, or for highlights inside
+a raised menu. Filled controls use `*-muted` for hover instead. Check text
+contrast and state visibility against every surface on which a custom theme
+uses these tokens.
+
+The former role-level `*-subtle` tokens have been removed. Replace their
+custom-theme overrides and utility classes with the corresponding
+`*-container` tokens. The unrelated decorative `--ixia-brand-gradient-subtle`
+remains available.
 
 ### Role mapping: `brand`, `accent`, `error`, `info`, `success`, `warning`
 
@@ -341,19 +373,19 @@ All six roles share one step pattern. Only the family changes:
 | `success` | `green`  | Distinct from teal (35° apart)                          |
 | `warning` | `amber`  | Ochre/amber. Orange is reserved for the brand           |
 
-| Token suffix          | Light     | Dark          | Purpose                                      |
-| --------------------- | --------- | ------------- | -------------------------------------------- |
-| `-default`            | 600       | 400           | Interactive fill; coloured UI text and icons |
-| `-muted`              | 700       | 300           | Hover/pressed fill; secondary coloured text  |
-| `-subtle`             | 100       | 950           | Ghost/outline hover background               |
-| `-on-default`         | `white`   | `neutral-950` | Label on `-default` / `-muted` fills         |
-| `-container`          | 100       | 950           | Alerts, callouts, tinted cards               |
-| `-container-high`     | 200       | 900           | Selected or emphasised container             |
-| `-on-container`       | 900       | 100           | Text and icons on containers                 |
-| `-on-container-muted` | 700       | 300           | Secondary text on containers                 |
-| `-border`             | 300       | 700           | Decorative outline (Lc ≥ 15)                 |
-| `-border-strong`      | 500       | 500           | Meaningful boundary (Lc ≥ 30, ≥ 3:1)         |
-| `-shadow`             | 700 @ 25% | 400 @ 35%     | Coloured glow                                |
+| Token suffix          | Light     | Dark          | Purpose                                       |
+| --------------------- | --------- | ------------- | --------------------------------------------- |
+| `-default`            | 600       | 400           | Interactive fill; coloured UI text and icons  |
+| `-muted`              | 700       | 300           | Hover/pressed fill; secondary coloured text   |
+| `-on-default`         | `white`   | `neutral-950` | Label on `-default` / `-muted` fills          |
+| `-container`          | 100       | 950           | Tinted surfaces and transparent-control hover |
+| `-container-low`      | `white`   | `neutral-950` | Quiet tinted background                       |
+| `-container-high`     | 200       | 900           | Stronger control or menu highlight            |
+| `-on-container`       | 900       | 100           | Text and icons on containers                  |
+| `-on-container-muted` | 700       | 300           | Secondary text on containers                  |
+| `-border`             | 300       | 700           | Decorative outline (Lc ≥ 15)                  |
+| `-border-strong`      | 500       | 500           | Meaningful boundary (Lc ≥ 30, ≥ 3:1)          |
+| `-shadow`             | 700 @ 25% | 400 @ 35%     | Coloured glow                                 |
 
 ### `neutral` role
 
@@ -363,28 +395,31 @@ neutral buttons use a near-black/near-white default with a softer hover, similar
 to shadcn's neutral treatment. These mappings apply to every brand theme.
 
 Dark ghost/outline hover uses a darker mix close to `neutral-800`, not the
-mid-surface highlight. Neutral outlines use `neutral-border-strong` for an
-APCA Lc 30 / WCAG 3:1 boundary on `surface` and `surface-2`. Use a lighter
-boundary on dark `surface-3`; `neutral-500` is not a sufficient boundary there.
+mid-surface highlight. Neutral outline buttons use `neutral-border`, which
+matches the ordinary `border` token. Both are decorative and do not guarantee
+a 3:1 control boundary; use a separately verified boundary when it is needed.
+`neutral-border-strong` remains available for a stronger neutral outline.
+In light mode, `neutral-container` and the standard border are both
+`neutral-200`, so a neutral border on that container is not visible.
 
-| Token                               | Light               | Dark                                           |
-| ----------------------------------- | ------------------- | ---------------------------------------------- |
-| `--ixia-neutral-default`            | `neutral-900`       | `neutral-50`                                   |
-| `--ixia-neutral-muted`              | `neutral-700`       | `neutral-200`                                  |
-| `--ixia-neutral-subtle`             | `neutral-200`       | sRGB mix: 20% `neutral-900`, 80% `neutral-800` |
-| `--ixia-neutral-on-default`         | `white`             | `neutral-950`                                  |
-| `--ixia-neutral-container`          | `neutral-100`       | `neutral-800`                                  |
-| `--ixia-neutral-container-high`     | `neutral-300`       | sRGB mix: 75% `neutral-800`, 25% `neutral-700` |
-| `--ixia-neutral-on-container`       | `neutral-900`       | `neutral-50`                                   |
-| `--ixia-neutral-on-container-muted` | `neutral-700`       | `= on-surface-muted`                           |
-| `--ixia-neutral-border`             | `neutral-300`       | `neutral-600`                                  |
-| `--ixia-neutral-border-strong`      | `neutral-500`       | `neutral-500`                                  |
-| `--ixia-neutral-shadow`             | `neutral-950` @ 18% | `black` @ 35%                                  |
+| Token                               | Light                      | Dark                                           |
+| ----------------------------------- | -------------------------- | ---------------------------------------------- |
+| `--ixia-neutral-default`            | `neutral-900`              | `neutral-50`                                   |
+| `--ixia-neutral-muted`              | `neutral-700`              | `neutral-200`                                  |
+| `--ixia-neutral-on-default`         | `white`                    | `neutral-950`                                  |
+| `--ixia-neutral-container`          | `neutral-200`              | sRGB mix: 20% `neutral-900`, 80% `neutral-800` |
+| `--ixia-neutral-container-low`      | `neutral-100`              | `neutral-900`                                  |
+| `--ixia-neutral-container-high`     | `neutral-300`              | sRGB mix: 75% `neutral-800`, 25% `neutral-700` |
+| `--ixia-neutral-on-container`       | `neutral-900`              | `neutral-50`                                   |
+| `--ixia-neutral-on-container-muted` | `neutral-700`              | `= on-surface-muted`                           |
+| `--ixia-neutral-border`             | `= border` (`neutral-200`) | `= border` (`neutral-800`)                     |
+| `--ixia-neutral-border-strong`      | `neutral-500`              | `neutral-500`                                  |
+| `--ixia-neutral-shadow`             | `neutral-950` @ 18%        | `black` @ 35%                                  |
 
 ### Secondary buttons
 
 `<Button variant="secondary" tone="neutral">` is a borderless, lower-emphasis
-filled button. At rest it uses `*-subtle` with `*-on-container` text: exactly
+filled button. At rest it uses `*-container` with `*-on-container` text: exactly
 the corresponding ghost button's hover colours. Its hover uses `*-container-high`.
 All seven tones and `ButtonGroup` support it. Existing `soft` buttons retain
 their border; `fill` remains the high-emphasis option.
@@ -404,13 +439,13 @@ on every container, or every button size, as supported.
 | `--ixia-surface`               | `white`                                            | `neutral-900`                                  |
 | `--ixia-surface-2`             | `white`                                            | `neutral-800`                                  |
 | `--ixia-surface-3`             | `white`                                            | `neutral-700`                                  |
-| `--ixia-surface-low`           | `neutral-100`                                      | `black`                                        |
+| `--ixia-surface-low`           | `neutral-200`                                      | `black`                                        |
 | `--ixia-on-surface`            | `neutral-900`                                      | `neutral-50`                                   |
 | `--ixia-on-surface-variant`    | `neutral-700`                                      | `neutral-300`                                  |
 | `--ixia-on-surface-muted`      | `neutral-600`                                      | sRGB mix: 75% `neutral-400`, 25% `neutral-300` |
 | `--ixia-on-surface-disabled`   | `neutral-400`                                      | `neutral-600`                                  |
-| `--ixia-border`                | `neutral-300`                                      | `neutral-600`                                  |
-| `--ixia-border-strong`         | `neutral-500`                                      | `neutral-400`                                  |
+| `--ixia-border`                | `neutral-200`                                      | `neutral-800`                                  |
+| `--ixia-border-strong`         | `neutral-400`                                      | `neutral-700`                                  |
 | `--ixia-surface-inverse`       | `neutral-900`                                      | `neutral-100`                                  |
 | `--ixia-on-surface-inverse`    | `neutral-50`                                       | `neutral-900`                                  |
 | `--ixia-surface-focus-ring`    | `= brand-default` (`orange-600`)                   | `= brand-default` (`orange-400`)               |
@@ -424,10 +459,9 @@ on every container, or every button size, as supported.
 
 To use one, import it after `input.css` and set `data-brand="<theme>"` (for example `data-brand="venus"`) on `<html>` or on any subtree. Each file overrides only the `brand-*` and `accent-*` tokens, then re-binds their Tailwind `--color-*` aliases and the focus ring inside that scope. Supported pairings are tested in both modes for every theme; unsupported size/weight combinations remain visible and explicitly marked in the contrast specimens.
 
-Light-mode chromatic hover tints use step **100**, not 50, including brand/accent
-overrides and the shared status roles. This makes colour easier to see without
-brightening text-safe filled colours into an inaccessible range. Dark chromatic
-tints and filled chromatic colours are unchanged.
+Light-mode chromatic `*-container` tints use step **100**, not 50, including
+brand/accent overrides and the shared status roles. Stronger interaction
+highlights use `*-container-high` (step 200 in the default chromatic palette).
 
 Default, variant and muted surface text have distinct emphasis levels. Dark muted
 text mixes steps 400 and 300 to remain WCAG AA on every raised surface rather than
@@ -451,6 +485,52 @@ Theme-specific notes:
 - **Monadelpha**'s indigo brand sits about 18° from the `info` blue. Info messages should rely on an icon and label, not hue alone.
 - No red-flowered Ixia was used as a brand, because it would collide with `error`.
 
+### Customizing a theme
+
+Import your CSS after the library styles. This example customizes all three
+brand container levels and their text colour, and works on `<html>` or a
+subtree. Other tokens inherit their existing values.
+
+```css
+[data-brand='custom'] {
+  --ixia-brand-container-low: light-dark(var(--orange-50), var(--neutral-950));
+  --ixia-brand-container: light-dark(var(--orange-200), var(--orange-900));
+  --ixia-brand-container-high: light-dark(var(--orange-300), var(--orange-800));
+  --ixia-brand-on-container: light-dark(var(--orange-950), var(--orange-50));
+
+  --color-brand-container-low: var(--ixia-brand-container-low);
+  --color-brand-container: var(--ixia-brand-container);
+  --color-brand-container-high: var(--ixia-brand-container-high);
+  --color-brand-on-container: var(--ixia-brand-on-container);
+}
+```
+
+Rebind the corresponding `--color-*` alias in the same scope for every
+`--ixia-*` token you override: inherited aliases may otherwise have already
+resolved against the outer theme. If overriding a token used by another
+semantic token, rebind that dependent token too. For example, to keep neutral
+outlines matched to a scoped standard border:
+
+```css
+[data-brand='custom'] {
+  --ixia-border: light-dark(var(--neutral-300), var(--neutral-700));
+  --ixia-neutral-border: var(--ixia-border);
+  --color-border: var(--ixia-border);
+  --color-neutral-border: var(--color-border);
+}
+```
+
+Set `data-theme="light"` or `data-theme="dark"` on `<html>` or an ancestor to
+choose the `light-dark()` branch; without it, the browser's colour scheme is
+used. Check both modes and the actual text, control, and surface combinations.
+Popup components render through portals, usually under `<body>`, so a theme on
+an arbitrary subtree does not automatically reach those popups. Set the theme
+on `<html>` when popups must inherit it, or theme their portal container when
+that is supported.
+
+The existing files in `src/styles/themes/` are complete examples of rebinding
+the brand, accent, and focus-ring tokens.
+
 ---
 
 ## C. Accessibility matrix
@@ -459,19 +539,19 @@ Lc is APCA (text on background; negative means light text on a dark background).
 
 ### Role pairs: worst case across all seven roles
 
-| Foreground             | Background           | Light Lc / WCAG | Dark Lc / WCAG | Target      | Usage                          | Recommended     |
-| ---------------------- | -------------------- | --------------- | -------------- | ----------- | ------------------------------ | --------------- |
-| `*-on-default`         | `*-default`          | 77.8 / 4.75     | 64.1 / 9.28    | Lc 60       | Filled button / badge label    | Yes             |
-| `*-on-default`         | `*-muted`            | 85.3 / 6.16     | 72.2 / 10.92   | Lc 60       | Hover label                    | Yes             |
-| `*-default`            | `surface`            | 72.3 / 4.75     | 61.4 / 8.23    | Lc 60       | Coloured UI text, links, icons | Yes             |
-| `*-default`            | `surface-background` | 69.5 / 4.56     | 62.7 / 9.28    | Lc 60       | Coloured UI text               | Yes             |
-| `*-muted`              | `surface`            | 80.1 / 6.16     | 70.0 / 9.69    | Lc 60       | Secondary coloured text        | Yes             |
-| `*-on-container`       | `*-container`        | 86.1 / 10.10    | 92.8 / 12.47   | Lc 75       | Alert body text                | Yes             |
-| `*-on-container`       | `*-container-high`   | 77.3 / 8.94     | 88.6 / 7.83    | Lc 75       | Selected container text        | Yes             |
-| `*-on-container`       | `*-subtle`           | 86.1 / 10.10    | 92.8 / 9.93    | Lc 75       | Outline hover text             | Yes             |
-| `*-on-container-muted` | `*-container`        | 70.0 / 4.83     | 64.3 / 7.27    | Lc 60       | Alert description              | Yes             |
-| `*-border-strong`      | `surface`            | 57.3 / 3.09     | 37.1 / 4.59    | Lc 30 + 3:1 | Control boundary               | Yes (non-text)  |
-| `*-border`             | `*-container`        | 17.6 / 1.39     | 15.7 / 2.23    | Lc 15       | Alert outline                  | Decorative only |
+| Foreground             | Background           | Light Lc / WCAG | Dark Lc / WCAG | Target      | Usage                          | Recommended                |
+| ---------------------- | -------------------- | --------------- | -------------- | ----------- | ------------------------------ | -------------------------- |
+| `*-on-default`         | `*-default`          | 77.8 / 4.75     | 64.1 / 9.28    | Lc 60       | Filled button / badge label    | Yes                        |
+| `*-on-default`         | `*-muted`            | 85.3 / 6.16     | 72.2 / 10.92   | Lc 60       | Hover label                    | Yes                        |
+| `*-default`            | `surface`            | 72.3 / 4.75     | 61.4 / 8.23    | Lc 60       | Coloured UI text, links, icons | Yes                        |
+| `*-default`            | `surface-background` | 69.5 / 4.56     | 62.7 / 9.28    | Lc 60       | Coloured UI text               | Yes                        |
+| `*-muted`              | `surface`            | 80.1 / 6.16     | 70.0 / 9.69    | Lc 60       | Secondary coloured text        | Yes                        |
+| `*-on-container`       | `*-container`        | 86.1 / 10.10    | 92.8 / 13.17   | Lc 75       | Alert body text                | Yes                        |
+| `*-on-container`       | `*-container-high`   | 77.3 / 8.94     | 88.6 / 7.83    | Lc 75       | Selected container text        | Yes                        |
+| `*-on-container`       | `*-container-low`    | 96.1 / 11.55    | 95.4 / 16.02   | Lc 75       | Quiet container text           | Yes                        |
+| `*-on-container-muted` | `*-container`        | 71.0 / 5.39     | 65.1 / 7.68    | Lc 60       | Alert description              | Yes                        |
+| `*-border-strong`      | `surface`            | 57.3 / 3.09     | 37.1 / 4.59    | Lc 30 + 3:1 | Control boundary               | Yes (non-text)             |
+| `*-border`             | `*-container`        | 0.0 / 1.00      | 0.0 / 1.06     | Lc 15       | Alert outline                  | Neutral may not be visible |
 
 ### Brand (orange) in detail
 
@@ -487,22 +567,22 @@ Lc is APCA (text on background; negative means light text on a dark background).
 
 ### Surfaces
 
-| Foreground            | Background           | Light Lc / WCAG | Dark Lc / WCAG   | Target          | Recommended                                                  |
-| --------------------- | -------------------- | --------------- | ---------------- | --------------- | ------------------------------------------------------------ |
-| `on-surface`          | `surface-background` | 100.8 / 16.02   | −104.2 / 18.06   | Lc 90 preferred | Yes (preferred)                                              |
-| `on-surface`          | `surface`            | 103.6 / 16.68   | −102.9 / 16.02   | Lc 90 preferred | Yes (preferred)                                              |
-| `on-surface`          | `surface-2`          | 103.6 / 16.68   | −99.4 / 12.47    | Lc 90 preferred | Yes (preferred)                                              |
-| `on-surface`          | `surface-3`          | 103.6 / 16.68   | −89.7 / 7.83     | Lc 75           | Yes                                                          |
-| `on-surface-variant`  | `surface`            | 88.2 / 8.16     | −81.6 / 11.81    | Lc 75           | Yes                                                          |
-| `on-surface-variant`  | `surface-3`          | 88.2 / 8.16     | −68.5 / 5.77     | Lc 75           | WCAG AA; below APCA body target on dark                      |
-| `on-surface-muted`    | `surface-background` | 73.5 / 5.09     | −69.1 / 10.53    | Lc 60           | Yes                                                          |
-| `on-surface-muted`    | `surface-3`          | 76.4 / 5.30     | −54.6 / 4.57     | Lc 60           | WCAG AA; use primary text for small essential labels on dark |
-| `on-surface-inverse`  | `surface-inverse`    | −102.9 / 16.02  | 97.3 / 15.22     | Lc 75           | Yes                                                          |
-| `border-strong`       | `surface`            | 60.0 / 3.26     | −63.4 / 8.61     | Lc 30 + 3:1     | Yes (non-text)                                               |
-| `border-strong`       | `surface-3`          | 60.0 / 3.26     | −50.2 / 4.21     | Lc 30 + 3:1     | Yes (non-text)                                               |
-| `border`              | `surface`            | 20.0 / 1.41     | −23.5 / 3.15     | Lc 15           | Decorative only                                              |
-| `border`              | `surface-3`          | 20.0 / 1.41     | **−10.4 / 1.54** | Lc 15           | **No (dark).** Use `border-strong` on `surface-3`            |
-| `on-surface-disabled` | `surface`            | 37.2 / 1.94     | −23.5 / 3.15     | Exempt          | **Disabled only.** Never for essential text                  |
+| Foreground            | Background           | Light Lc / WCAG | Dark Lc / WCAG | Target          | Recommended                                                  |
+| --------------------- | -------------------- | --------------- | -------------- | --------------- | ------------------------------------------------------------ |
+| `on-surface`          | `surface-background` | 100.8 / 16.02   | −104.2 / 18.06 | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface`            | 103.6 / 16.68   | −102.9 / 16.02 | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface-2`          | 103.6 / 16.68   | −99.4 / 12.47  | Lc 90 preferred | Yes (preferred)                                              |
+| `on-surface`          | `surface-3`          | 103.6 / 16.68   | −89.7 / 7.83   | Lc 75           | Yes                                                          |
+| `on-surface-variant`  | `surface`            | 88.2 / 8.16     | −81.6 / 11.81  | Lc 75           | Yes                                                          |
+| `on-surface-variant`  | `surface-3`          | 88.2 / 8.16     | −68.5 / 5.77   | Lc 75           | WCAG AA; below APCA body target on dark                      |
+| `on-surface-muted`    | `surface-background` | 73.5 / 5.09     | −69.1 / 10.53  | Lc 60           | Yes                                                          |
+| `on-surface-muted`    | `surface-3`          | 76.4 / 5.30     | −54.6 / 4.57   | Lc 60           | WCAG AA; use primary text for small essential labels on dark |
+| `on-surface-inverse`  | `surface-inverse`    | −102.9 / 16.02  | 97.3 / 15.22   | Lc 75           | Yes                                                          |
+| `border-strong`       | `surface`            | 37.2 / 1.94     | −12.1 / 2.05   | Lc 30 + 3:1     | Below 3:1; not a sufficient control boundary                 |
+| `border-strong`       | `surface-3`          | 37.2 / 1.94     | 0.0 / 1.00     | Lc 30 + 3:1     | Not visible on dark `surface-3`                              |
+| `border`              | `surface`            | 10.7 / 1.22     | 0.0 / 1.29     | Lc 15           | Decorative only; may be difficult to see                     |
+| `border`              | `surface-3`          | 10.7 / 1.22     | 8.9 / 1.59     | Lc 15           | Decorative only; below the visibility target                 |
+| `on-surface-disabled` | `surface`            | 37.2 / 1.94     | −23.5 / 3.15   | Exempt          | **Disabled only.** Never for essential text                  |
 
 ### Combinations flagged: do not use for text
 
@@ -586,12 +666,12 @@ The lightness ladder came first. Steps were placed so that each one hits an APCA
 - 400 → Lc ≈ −62 to −68 on dark, and `neutral-950` text on it at Lc ≈ 64–69
 - 300 / 100 → Lc 70+ / 90+ on dark
 
-The 600 step was then darkened from 55.5% to 54% L so that the same pairs also pass WCAG AA (`green-600` had been 4.46:1). A script checked all 210 semantic pairs in both themes, plus every brand/accent pair in each alternative theme. One pair fails, and it is documented above: `border` on `surface-3` in dark mode.
+The 600 step was then darkened from 55.5% to 54% L so that the same pairs also pass WCAG AA (`green-600` had been 4.46:1). The live contrast matrix checks semantic pairs in both modes and alternative themes. The standard neutral borders are deliberately light and do not meet every visibility or control-boundary target; check the actual surface before relying on them.
 
 ### 6. How the semantic tokens were chosen
 
 - Each role uses the **same step pattern**, so a component that works for `brand` works for `error` without retesting.
-- Hover states always **increase** label contrast. In light mode the hover goes 600 → 700. In dark mode it goes 400 → 300.
+- Filled-button hover uses the higher-contrast `*-muted` fill: in light mode it goes 600 → 700, and in dark mode it goes 400 → 300.
 - **Dark mode is not an inversion.** Fills move to 400 with near-black labels, containers move to 950/900 (not 900/800, to keep separation from `surface`), and borders move to 700 so they stay visible on deep tints.
 - **Info uses blue, not cyan.** Cyan sat too close to the teal accent.
 - **Warning uses amber, not orange.** Orange is reserved for the brand, so warnings never look like primary actions.
@@ -600,22 +680,22 @@ The 600 step was then darkened from 55.5% to 54% L so that the same pairs also p
 
 ### 7. Text vs background vs decorative
 
-| Use                          | Light theme                               | Dark theme                       |
-| ---------------------------- | ----------------------------------------- | -------------------------------- |
-| Body text                    | neutral 700–950, chromatic 700–950        | neutral 50–300, chromatic 50–200 |
-| UI text / links / labels     | chromatic 600+                            | chromatic 300–400                |
-| Large text, icons            | 500+                                      | 400–500                          |
-| Interactive fills            | 600 (hover 700)                           | 400 (hover 300)                  |
-| Backgrounds / containers     | 50–200                                    | 900–950                          |
-| Meaningful borders           | 500                                       | 400–500                          |
-| Decorative borders, dividers | 300 (neutral 300–400)                     | 600–700                          |
-| Charts / data viz            | 400–600 of any family, including `violet` | same                             |
+| Use                          | Light theme                               | Dark theme                          |
+| ---------------------------- | ----------------------------------------- | ----------------------------------- |
+| Body text                    | neutral 700–950, chromatic 700–950        | neutral 50–300, chromatic 50–200    |
+| UI text / links / labels     | chromatic 600+                            | chromatic 300–400                   |
+| Large text, icons            | 500+                                      | 400–500                             |
+| Interactive fills            | 600 (hover 700)                           | 400 (hover 300)                     |
+| Backgrounds / containers     | 50–200                                    | 900–950                             |
+| Meaningful borders           | Verify contrast against the surface       | Verify contrast against the surface |
+| Decorative borders, dividers | 300 (neutral 200)                         | 700 (neutral 800)                   |
+| Charts / data viz            | 400–600 of any family, including `violet` | same                                |
 
 ### 8. Limitations and usage rules
 
 1. **Brand vs error.** `orange-600` and `red-600` have identical lightness (Lc 0 against each other). Users with protan/deutan colour vision may not tell them apart. Destructive actions must always include an icon and/or explicit label, and must never rely on colour alone. The Mabel theme (rose brand) has the same constraint.
 2. **Dark-mode coloured text on raised surfaces.** `*-default` (400) reaches Lc 61–66 on `surface` and `surface-background` but only about 58 on `surface-2`. On `surface-2` and `surface-3`, use `*-muted` (300) for coloured text.
-3. **Dark `surface-3`** is too close to `border` for dividers (Lc −10). Use `border-strong`, or spacing, on `surface-3`.
+3. **Dark `surface-3`** is too close to `border` for dividers, and matches `border-strong` exactly. Use a separately contrast-checked boundary or spacing on that surface.
 4. **Disabled text** (`on-surface-disabled`) intentionally fails contrast. It is exempt under WCAG, but never put essential information in it.
 5. **Yellow** has a lifted ladder. Its text-safe step on light is 700, not 600.
 6. **Dark-mode fills (400)** carry labels at Lc 64–69. That is enough for ≥ 14px semibold or ≥ 16px regular, but not for tiny text such as captions under 12px.

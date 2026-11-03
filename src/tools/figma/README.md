@@ -38,6 +38,8 @@ vp run figma:build
 
 Merging replaces the selected families in the local export, not components in Figma.
 Use a full export after changing shared tokens or styles to avoid retaining older captures.
+In particular, renamed or removed tokens require fresh story and component captures:
+`figma:build` updates the variable definitions but does not rebind previously captured layers.
 
 To refresh only the component and story descriptions shown in the Figma documentation (for
 example after editing Storybook `parameters.docs.description`), keep the existing captures:

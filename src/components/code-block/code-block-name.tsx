@@ -6,6 +6,10 @@ import type { CodeBlockNameProps } from './code-block.types'
 export function CodeBlockName({ className, children, ref, ...props }: CodeBlockNameProps) {
   const { currentValue } = useCodeBlock()
 
+  if (!currentValue?.name) {
+    return undefined
+  }
+
   return (
     <div
       className={cn(

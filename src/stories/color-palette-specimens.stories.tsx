@@ -20,7 +20,7 @@ const PROFILES = [
     { family: 'heading', name: 'Bold UI label', size: 16, weight: 700, target: 60 },
     { family: 'heading', name: 'Heading', size: 24, weight: 700, target: 45 },
   ] as const,
-  CONTAINERS = ['subtle', 'container-low', 'container', 'container-high'] as const,
+  CONTAINERS = ['container-low', 'container', 'container-high'] as const,
   SURFACES = ['surface-background', 'surface', 'surface-2', 'surface-3', 'surface-low'] as const,
   BRANDS: Brand[] = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadelpha']
 

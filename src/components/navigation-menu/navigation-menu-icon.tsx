@@ -7,6 +7,7 @@ import type { NavigationMenuIconProps } from './navigation-menu.types'
 export function NavigationMenuIcon({ className, ref, ...props }: NavigationMenuIconProps) {
   return (
     <BaseNavigationMenu.Icon
+      data-slot="nav-menu-icon"
       className={cn(
         'transition-transform duration-200 ease-[ease] data-popup-open:rotate-180',
         className,

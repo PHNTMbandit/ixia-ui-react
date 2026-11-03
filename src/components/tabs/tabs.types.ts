@@ -138,6 +138,11 @@ const tabsVariants = cva('', {
       variant: 'underline',
     },
     {
+      class: '[&_[role=tablist]]:border-b-[1px]',
+      showBorder: true,
+      variant: 'underline',
+    },
+    {
       class:
         '[&_[role=presentation]]:rounded-full [&_[role=tab]]:rounded-full [&_[role=tablist]]:rounded-full',
       size: 'small',
@@ -181,19 +186,19 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=tab]]:px-lg [&_[role=tab]]:pb-sm [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-lg [&_[role=tablist]]:gap-md [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-3px] **:[[role=presentation]]:h-[2px]',
+        '[&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-md **:[[role=presentation]]:h-px',
       size: 'small',
       variant: 'underline',
     },
     {
       class:
-        '[&_[role=tab]]:px-xl [&_[role=tab]]:pb-xs [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-lg [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-2px] **:[[role=presentation]]:h-px',
+        '[&_[role=tab]]:px-xl [&_[role=tab]]:style-text-default-0 [&_[role=tablist]]:h-2xl [&_[role=tablist]]:gap-lg **:[[role=presentation]]:-bottom-px **:[[role=presentation]]:h-px',
       size: 'medium',
       variant: 'underline',
     },
     {
       class:
-        '[&_[role=tab]]:px-2xl [&_[role=tab]]:pb-2xs [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-2xl [&_[role=tablist]]:gap-xl [&_[role=tablist]]:border-b-[1px] **:[[role=presentation]]:bottom-[-2px] **:[[role=presentation]]:h-px',
+        '[&_[role=tab]]:px-2xl [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-3xl [&_[role=tablist]]:gap-xl **:[[role=presentation]]:h-px',
       size: 'large',
       variant: 'underline',
     },
@@ -210,6 +215,7 @@ const tabsVariants = cva('', {
   ],
   defaultVariants: {
     fill: false,
+    showBorder: true,
     size: 'medium',
     tone: 'brand',
     variant: 'default',
@@ -218,6 +224,10 @@ const tabsVariants = cva('', {
     fill: {
       false: '',
       true: '[&_[role=tab]]:grow [&_[role=tablist]]:w-full',
+    },
+    showBorder: {
+      false: '',
+      true: '',
     },
     size: {
       large: '',

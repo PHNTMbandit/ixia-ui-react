@@ -1,9 +1,14 @@
-import { CaretDownIcon } from '@phosphor-icons/react'
+import { BookIcon, CaretDownIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { CSSProperties } from 'react'
+import { expect, waitFor, within } from 'storybook/test'
 
 import { NavigationMenu } from './index'
+import { navigationMenuContentLinkVariants } from './navigation-menu.types'
 
-const overviewLinks = [
+const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
+  MODES = ['light', 'dark'] as const,
+  overviewLinks = [
     {
       description: 'Install and assemble your first component.',
       href: '/react/overview/quick-start',
@@ -43,6 +48,12 @@ const overviewLinks = [
     },
   ] as const
 
+const interactionTheme: CSSProperties & Record<`--${string}`, string> = {}
+for (const tone of TONES) {
+  interactionTheme[`--color-${tone}-container`] = 'rgb(72, 116, 160)'
+  interactionTheme[`--color-${tone}-container-high`] = 'rgb(184, 146, 108)'
+}
+
 export default {
   component: NavigationMenu,
   parameters: {
@@ -61,7 +72,12 @@ A collection of links and menus for website navigation, built on top of
       <NavigationMenuTrigger>
         <NavigationMenuIcon />
       </NavigationMenuTrigger>
-      <NavigationMenuContent />
+      <NavigationMenuContent>
+        <NavigationMenuContentLink href="/guide" />
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink href="/about" />
     </NavigationMenuItem>
   </NavigationMenuList>
   <NavigationMenuPopup />  — Shared floating popup (Portal → Positioner → Popup → Viewport)
@@ -70,12 +86,18 @@ A collection of links and menus for website navigation, built on top of
 
 > **Important:** \`<NavigationMenuPopup />\` must be placed **outside** of
 > \`<NavigationMenuList>\` as a sibling. It is shared across all items in the list.
+
+Use \`NavigationMenu.Link\` for top-level navigation without a popup and
+\`NavigationMenu.ContentLink\` for cards inside popup content. Both render anchors
+and support \`href\`, \`active\`, \`render\` (for router links), and \`closeOnClick\`.
+Set \`closeOnClick\` to close the popup when a content link is selected.
         `,
       },
     },
   },
   subcomponents: {
     NavigationMenuContent: NavigationMenu.Content,
+    NavigationMenuContentLink: NavigationMenu.ContentLink,
     NavigationMenuIcon: NavigationMenu.Icon,
     NavigationMenuItem: NavigationMenu.Item,
     NavigationMenuLink: NavigationMenu.Link,
@@ -87,6 +109,167 @@ A collection of links and menus for website navigation, built on top of
 } as Meta<typeof NavigationMenu>
 
 type Story = StoryObj<typeof NavigationMenu>
+
+export const LinkBehavior: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Top-level links navigate without opening a popup. Content links use a card layout ' +
+          'and can close the popup on selection. `active` exposes the current page to assistive technology.',
+      },
+    },
+  },
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    const page = within(canvasElement.ownerDocument.body)
+    const topLink = canvas.getByRole('link', { name: 'Current page' })
+    await expect(topLink).toHaveAttribute('href', '#current-page')
+    await expect(topLink).toHaveAttribute('aria-current', 'page')
+    await expect(topLink).toHaveClass('underline')
+    await userEvent.click(topLink)
+    await expect(page.queryByRole('link', { name: /Read the guide/ })).not.toBeInTheDocument()
+    await userEvent.click(canvas.getByRole('button', { name: 'Resources' }))
+    const contentLink = await page.findByRole('link', { name: /Read the guide/ })
+    await expect(contentLink.tagName).toBe('A')
+    await expect(contentLink).toHaveAttribute('href', '#guide')
+    await expect(contentLink).toHaveAttribute('aria-current', 'page')
+    await expect(contentLink).toHaveAttribute('data-composed-link')
+    await expect(contentLink).toHaveClass('underline')
+    await expect(contentLink).toHaveClass('hover:bg-neutral-container')
+    await expect(getComputedStyle(contentLink).display).toBe('block')
+    contentLink.focus()
+    await expect(contentLink).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
+    await waitFor(() =>
+      expect(page.queryByRole('link', { name: /Read the guide/ })).not.toBeInTheDocument(),
+    )
+  },
+  render: (args) => (
+    <NavigationMenu {...args}>
+      <NavigationMenu.List>
+        <NavigationMenu.Item>
+          <NavigationMenu.Link
+            href="#current-page"
+            active
+            className={(state) => (state.active ? 'underline' : undefined)}
+            onClick={(event) => event.preventDefault()}
+          >
+            Current page
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+        <NavigationMenu.Item>
+          <NavigationMenu.Trigger>Resources</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            <NavigationMenu.ContentLink
+              href="#guide"
+              active
+              closeOnClick
+              className={(state) => (state.active ? 'underline' : undefined)}
+              render={<a data-composed-link />}
+              onClick={(event) => event.preventDefault()}
+            >
+              <h3 className="style-text-strong-0">Read the guide</h3>
+              <p className="style-text-prose--1">Learn how to build your first component.</p>
+            </NavigationMenu.ContentLink>
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+      <NavigationMenu.Popup />
+    </NavigationMenu>
+  ),
+}
+
+export const LinkVariants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Links and triggers share sizing, icon spacing, typography, and default colours. ' +
+          'Links and triggers use container colours on hover, and triggers keep the same tint while open.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const rows = canvasElement.querySelectorAll<HTMLElement>('[data-variant-pair]')
+    await expect(rows).toHaveLength(3 * TONES.length)
+    for (const row of rows) {
+      const trigger = row.querySelector('button')!
+      const link = row.querySelector<HTMLAnchorElement>('[data-link]')!
+      const tone = row.dataset.variantTone!
+      const triggerStyle = getComputedStyle(trigger)
+      const linkStyle = getComputedStyle(link)
+      for (const property of [
+        'height',
+        'gap',
+        'padding-left',
+        'padding-right',
+        'font-size',
+        'line-height',
+        'color',
+        'border-radius',
+      ]) {
+        await expect(linkStyle.getPropertyValue(property)).toBe(
+          triggerStyle.getPropertyValue(property),
+        )
+      }
+      await expect(getComputedStyle(link.querySelector('svg')!).width).toBe(
+        getComputedStyle(trigger.querySelector('svg')!).width,
+      )
+      await expect(
+        getComputedStyle(link.querySelector('[data-slot=nav-menu-icon]')!).marginLeft,
+      ).toBe(getComputedStyle(trigger.querySelector('[data-slot=nav-menu-icon]')!).marginLeft)
+      await expect(link).not.toHaveAttribute('size')
+      await expect(link.tagName).toBe('A')
+      await expect(link).toHaveAttribute('href', '#navigation-link')
+      await expect(link).toHaveClass(`hover:bg-${tone}-container`)
+      await expect(trigger).toHaveClass(`hover:bg-${tone}-container`)
+      await expect(trigger).toHaveClass(`hover:text-${tone}-on-container`)
+      await expect(trigger).toHaveClass(`data-popup-open:bg-${tone}-container`)
+      await expect(trigger).toHaveClass(`data-popup-open:text-${tone}-on-container`)
+    }
+    for (const tone of TONES) {
+      await expect(navigationMenuContentLinkVariants({ tone }).split(' ')).toContain(
+        `hover:bg-${tone}-container`,
+      )
+    }
+  },
+  render: (args) => (
+    <div className="flex flex-col gap-sm">
+      {(['small', 'medium', 'large'] as const).flatMap((size) =>
+        TONES.map((tone) => (
+          <NavigationMenu
+            {...args}
+            key={`${size}-${tone}`}
+            aria-label={`${size} ${tone} navigation`}
+            data-variant-pair
+            data-variant-tone={tone}
+          >
+            <NavigationMenu.List>
+              <NavigationMenu.Item>
+                <NavigationMenu.Trigger size={size} tone={tone}>
+                  <BookIcon />
+                  {size} {tone}
+                  <NavigationMenu.Icon>
+                    <CaretDownIcon />
+                  </NavigationMenu.Icon>
+                </NavigationMenu.Trigger>
+              </NavigationMenu.Item>
+              <NavigationMenu.Item>
+                <NavigationMenu.Link size={size} tone={tone} href="#navigation-link" data-link>
+                  <BookIcon />
+                  {size} {tone}
+                  <NavigationMenu.Icon>
+                    <CaretDownIcon />
+                  </NavigationMenu.Icon>
+                </NavigationMenu.Link>
+              </NavigationMenu.Item>
+            </NavigationMenu.List>
+          </NavigationMenu>
+        )),
+      )}
+    </div>
+  ),
+}
 
 export const Default: Story = {
   parameters: {
@@ -112,10 +295,10 @@ export const Default: Story = {
             <ul>
               {overviewLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.Link>
+                  <NavigationMenu.ContentLink href={item.href}>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
-                  </NavigationMenu.Link>
+                  </NavigationMenu.ContentLink>
                 </li>
               ))}
             </ul>
@@ -153,10 +336,10 @@ export const MultipleItems: Story = {
             <ul>
               {overviewLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.Link>
+                  <NavigationMenu.ContentLink href={item.href}>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
-                  </NavigationMenu.Link>
+                  </NavigationMenu.ContentLink>
                 </li>
               ))}
             </ul>
@@ -164,6 +347,7 @@ export const MultipleItems: Story = {
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <NavigationMenu.Trigger>
+            <BookIcon weight="bold" />
             Handbook
             <NavigationMenu.Icon>
               <CaretDownIcon weight="bold" />
@@ -173,17 +357,19 @@ export const MultipleItems: Story = {
             <ul>
               {handbookLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.Link>
+                  <NavigationMenu.ContentLink href={item.href}>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
-                  </NavigationMenu.Link>
+                  </NavigationMenu.ContentLink>
                 </li>
               ))}
             </ul>
           </NavigationMenu.Content>
         </NavigationMenu.Item>
         <NavigationMenu.Item>
-          <NavigationMenu.Link>GitHub</NavigationMenu.Link>
+          <NavigationMenu.Link href="https://github.com/PHNTMbandit/ixia-ui-react">
+            GitHub
+          </NavigationMenu.Link>
         </NavigationMenu.Item>
       </NavigationMenu.List>
       <NavigationMenu.Popup />
@@ -196,7 +382,7 @@ export const Sizes: Story = {
     docs: {
       description: {
         story:
-          '`size` is a design-system extension on `NavigationMenuTrigger` (not a Base UI prop). ' +
+          '`size` is shared by `NavigationMenuTrigger` and `NavigationMenuLink`. ' +
           'Available values: `small`, `medium` (default), `large`.',
       },
     },
@@ -244,7 +430,7 @@ export const Tones: Story = {
     docs: {
       description: {
         story:
-          '`tone` is a design-system extension on `NavigationMenuTrigger` (not a Base UI prop). ' +
+          '`tone` is shared by `NavigationMenuTrigger` and `NavigationMenuLink`. ' +
           'Available values: `brand`, `accent`, `neutral`, `error`, `info`, `success`, `warning`.',
       },
     },
@@ -252,33 +438,81 @@ export const Tones: Story = {
   render: (args) => (
     <NavigationMenu {...args}>
       <NavigationMenu.List>
-        {(['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const).map(
-          (tone) => (
-            <NavigationMenu.Item key={tone}>
-              <NavigationMenu.Trigger tone={tone}>
-                {tone.charAt(0).toUpperCase() + tone.slice(1)}
-                <NavigationMenu.Icon>
-                  <CaretDownIcon weight="bold" />
-                </NavigationMenu.Icon>
-              </NavigationMenu.Trigger>
-              <NavigationMenu.Content>
-                {' '}
-                <ul>
-                  {handbookLinks.map((item) => (
-                    <li key={item.href}>
-                      <NavigationMenu.Link tone={tone}>
-                        <h3 className="style-text-strong-0">{item.title}</h3>
-                        <p className="style-text-prose--1">{item.description}</p>
-                      </NavigationMenu.Link>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenu.Content>
-            </NavigationMenu.Item>
-          ),
-        )}
+        {TONES.map((tone) => (
+          <NavigationMenu.Item key={tone}>
+            <NavigationMenu.Trigger tone={tone}>
+              {tone.charAt(0).toUpperCase() + tone.slice(1)}
+              <NavigationMenu.Icon>
+                <CaretDownIcon weight="bold" />
+              </NavigationMenu.Icon>
+            </NavigationMenu.Trigger>
+            <NavigationMenu.Content>
+              {' '}
+              <ul>
+                {handbookLinks.map((item) => (
+                  <li key={item.href}>
+                    <NavigationMenu.ContentLink tone={tone} href={item.href}>
+                      <h3 className="style-text-strong-0">{item.title}</h3>
+                      <p className="style-text-prose--1">{item.description}</p>
+                    </NavigationMenu.ContentLink>
+                  </li>
+                ))}
+              </ul>
+            </NavigationMenu.Content>
+          </NavigationMenu.Item>
+        ))}
       </NavigationMenu.List>
       <NavigationMenu.Popup />
     </NavigationMenu>
+  ),
+}
+
+export const TokenStates: Story = {
+  name: 'Token States',
+  play: async ({ canvasElement, userEvent }) => {
+    const canvas = within(canvasElement)
+    for (const mode of MODES) {
+      const section = within(canvas.getByTestId(`token-states-${mode}`))
+      for (const tone of TONES) {
+        const trigger = section.getByRole('button', { name: new RegExp(`^${tone}$`, 'i') }),
+          previousTransition = trigger.style.transition
+        trigger.style.transition = 'none'
+        try {
+          await userEvent.click(trigger)
+          await waitFor(() => expect(trigger).toHaveAttribute('data-popup-open'))
+          await expect(trigger.matches(':hover')).toBe(false)
+          await expect(getComputedStyle(trigger).backgroundColor).toBe('rgb(72, 116, 160)')
+          await userEvent.keyboard('{Escape}')
+          await waitFor(() => expect(trigger).not.toHaveAttribute('data-popup-open'))
+        } finally {
+          trigger.style.transition = previousTransition
+        }
+      }
+    }
+  },
+  render: () => (
+    <div className="flex flex-col gap-md">
+      {MODES.map((mode) => (
+        <section
+          key={mode}
+          data-testid={`token-states-${mode}`}
+          data-theme={mode}
+          style={interactionTheme}
+          className="rounded-xl bg-surface p-sm"
+        >
+          <NavigationMenu aria-label={`${mode} token states`}>
+            <NavigationMenu.List>
+              {TONES.map((tone) => (
+                <NavigationMenu.Item key={tone}>
+                  <NavigationMenu.Trigger tone={tone}>{tone}</NavigationMenu.Trigger>
+                  <NavigationMenu.Content>{tone} content</NavigationMenu.Content>
+                </NavigationMenu.Item>
+              ))}
+            </NavigationMenu.List>
+            <NavigationMenu.Popup />
+          </NavigationMenu>
+        </section>
+      ))}
+    </div>
   ),
 }

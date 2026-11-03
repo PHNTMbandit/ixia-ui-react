@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react'
 
 interface ToggleGroupContextType {
+  hasBackground: boolean
   size?: 'small' | 'medium' | 'large'
 }
 
