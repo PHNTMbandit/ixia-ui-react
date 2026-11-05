@@ -10,7 +10,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
 import { expect, userEvent, waitFor, within } from 'storybook/test'
 
-import { CalendarFooter } from '..'
+import { CalendarFooter } from '.'
 import { Button } from '../button'
 import { IconProvider } from '../icon'
 import type { IconOverrides, IconProps } from '../icon'

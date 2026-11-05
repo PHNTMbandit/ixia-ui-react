@@ -45,10 +45,33 @@ Import the library styles once in your app entry file:
 import 'ixia-ui-react/styles'
 ```
 
+### Component peer dependencies
+
+Some components rely on larger third-party libraries. These are optional peer dependencies, so install only the ones for the components you use:
+
+| Import                       | Install                                                                                                                                         |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ixia-ui-react/calendar`     | `@daypicker/react`                                                                                                                              |
+| `ixia-ui-react/chart`        | `recharts`                                                                                                                                      |
+| `ixia-ui-react/color-picker` | `chroma-js`                                                                                                                                     |
+| `ixia-ui-react/combobox`     | `@tanstack/react-virtual`                                                                                                                       |
+| `ixia-ui-react/field`        | `@tanstack/react-form`                                                                                                                          |
+| `ixia-ui-react/form`         | `@tanstack/react-form`                                                                                                                          |
+| `ixia-ui-react/layer-tree`   | `@tanstack/react-table` `@dnd-kit/react` `@dnd-kit/dom`                                                                                         |
+| `ixia-ui-react/map`          | `@deck.gl/core` (types only)                                                                                                                    |
+| `ixia-ui-react/map/google`   | `@vis.gl/react-google-maps` `@deck.gl/core` `@deck.gl/google-maps` `@tanstack/react-pacer` `supercluster` `@types/google.maps` `@types/geojson` |
+| `ixia-ui-react/resizeable`   | `react-resizable-panels`                                                                                                                        |
+| `ixia-ui-react/table`        | `@tanstack/react-table` `@tanstack/react-store` `@tanstack/react-form` `zod`                                                                    |
+
 ## Usage
 
+Each component has its own entry point, named after the component, so your app only loads the code and dependencies of the components it imports. There is no root `ixia-ui-react` import.
+
 ```tsx
-import { Button } from 'ixia-ui-react'
+import { Button } from 'ixia-ui-react/button'
+import { useTheme } from 'ixia-ui-react/hooks'
+import { Tooltip } from 'ixia-ui-react/tooltip'
+import { cn } from 'ixia-ui-react/utils'
 
 export function Example() {
   return <Button>Continue</Button>

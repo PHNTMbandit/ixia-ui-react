@@ -1,10 +1,11 @@
 import { Tabs as SwitchTabs } from '@base-ui/react/tabs'
 
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import type { TabsTabProps } from './tabs.types'
 
-export function TabsTab({ className, ...props }: TabsTabProps) {
+export function TabsTab({ className, children, ...props }: TabsTabProps) {
   return (
     <SwitchTabs.Tab
       className={cn(
@@ -12,6 +13,8 @@ export function TabsTab({ className, ...props }: TabsTabProps) {
         className,
       )}
       {...props}
-    />
+    >
+      {trimTextChildren(children)}
+    </SwitchTabs.Tab>
   )
 }

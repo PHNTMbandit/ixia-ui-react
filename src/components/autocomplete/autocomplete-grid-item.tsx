@@ -19,7 +19,7 @@ export function AutocompleteGridItem({
       ref={ref}
       {...props}
     >
-      <span className="text-lg leading-none">{children}</span>
+      <span className="text-lg leading-none text-box-trim">{children}</span>
     </BaseAutocomplete.Item>
   )
 }

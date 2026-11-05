@@ -4,7 +4,7 @@ import React from 'react'
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, LabelList, AreaChart, Area } from 'recharts'
 import { expect, waitFor } from 'storybook/test'
 
-import { TabsTab } from '@/index'
+import { TabsTab } from '@/components/tabs'
 
 import { Tabs, TabsIndicator, TabsList } from '../tabs'
 import type { TabsTabValue } from '../tabs/tabs.types'

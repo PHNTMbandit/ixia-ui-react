@@ -2,6 +2,7 @@ import { Button as BaseButton } from '@base-ui/react'
 
 import { cn } from '@/utils/cn'
 import { hasSingleElementChild } from '@/utils/has-single-element-child'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { buttonVariants } from './button.types'
 import type { ButtonProps } from './button.types'
@@ -20,7 +21,7 @@ export function Button({ tone, variant, size, className, children, ...props }: B
       className={cn(buttonVariants({ className, size, tone, variant }))}
       {...props}
     >
-      {children}
+      {trimTextChildren(children)}
     </BaseButton>
   )
 }

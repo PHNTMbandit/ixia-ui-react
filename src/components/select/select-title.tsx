@@ -1,8 +1,9 @@
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import type { SelectTitleProps } from './select.types'
 
-export function SelectTitle({ className, ref, ...props }: SelectTitleProps) {
+export function SelectTitle({ className, children, ref, ...props }: SelectTitleProps) {
   return (
     <span
       className={cn(
@@ -11,6 +12,8 @@ export function SelectTitle({ className, ref, ...props }: SelectTitleProps) {
       )}
       ref={ref}
       {...props}
-    />
+    >
+      {trimTextChildren(children)}
+    </span>
   )
 }

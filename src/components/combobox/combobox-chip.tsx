@@ -1,6 +1,7 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox'
 
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { Button } from '../button'
 import { Icon } from '../icon'
@@ -16,7 +17,7 @@ export function ComboboxChip({ className, children, ref, ...props }: ComboboxChi
       ref={ref}
       {...props}
     >
-      {children}
+      {trimTextChildren(children)}
       <BaseCombobox.ChipRemove
         aria-label="Remove"
         render={(innerProps) => (

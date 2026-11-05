@@ -19,7 +19,7 @@ export function Switch({ children, className, ref, ...props }: SwitchProps) {
         <BaseSwitch.Thumb className="size-md translate-x-[calc(0%+3px)] rounded-full shadow-2xs transition-transform duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] data-checked:translate-x-[calc(100%--7px)] data-checked:bg-accent-on-default data-unchecked:bg-white" />
       </BaseSwitch.Root>
       {children != undefined && (
-        <span data-slot="switch-label" className="leading-none">
+        <span data-slot="switch-label" className="leading-none text-box-trim">
           {children}
         </span>
       )}

@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
 
 export const badgeVariants = cva(
-  'inline-flex h-md items-center justify-center gap-3xs rounded-full font-body text-xs leading-none font-medium whitespace-nowrap transition-all select-none [&>svg]:shrink-0',
+  'inline-flex h-md items-center justify-center gap-3xs rounded-full font-body font-medium whitespace-nowrap transition-all select-none [&>svg]:shrink-0',
   {
     compoundVariants: [
       {
@@ -120,11 +120,9 @@ export const badgeVariants = cva(
     variants: {
       size: {
         large:
-          'h-lg px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-sm',
+          'h-lg px-xs text-sm leading-none [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-sm',
         medium:
-          'h-md px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-xs',
-        small:
-          'h-sm px-xs [&:where([data-icon-only]:has(>svg:only-child))]:size-sm [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-2xs',
+          'h-md px-xs text-xs leading-none [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-[1em] [&[data-icon-only]>svg:only-child]:size-xs',
       },
       tone: {
         accent: '',

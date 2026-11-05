@@ -65,7 +65,7 @@ export function LayerTree({
                 )}
               >
                 {table.getRow(String(source.id)).renderValue('name') ?? source.id}
-                <Badge className="absolute -top-xs -right-xs" size="small" tone="neutral">
+                <Badge className="absolute -top-xs -right-xs" tone="neutral">
                   {table.getRow(String(source.id))?.subRows.length + PARENT_ROW_COUNT}
                 </Badge>
               </div>

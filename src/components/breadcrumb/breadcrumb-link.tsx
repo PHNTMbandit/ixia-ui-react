@@ -1,8 +1,9 @@
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import type { BreadcrumbLinkProps } from './breadcrumb.types'
 
-export function BreadcrumbLink({ className, ref, ...props }: BreadcrumbLinkProps) {
+export function BreadcrumbLink({ className, children, ref, ...props }: BreadcrumbLinkProps) {
   return (
     <div
       className={cn(
@@ -11,6 +12,8 @@ export function BreadcrumbLink({ className, ref, ...props }: BreadcrumbLinkProps
       )}
       ref={ref}
       {...props}
-    />
+    >
+      {trimTextChildren(children)}
+    </div>
   )
 }

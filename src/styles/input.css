@@ -2,7 +2,6 @@
 @import url('https://utopia.fyi/type/calculator?c=360,12,1.2,1240,16,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12');
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import '@daypicker/react/style.css';
 @source ".";
 
 @layer components {
@@ -680,6 +679,10 @@
   #app > div[style*='--drawer-swipe-progress'] {
     height: 100%;
   }
+}
+/* Centres text on cap-height/baseline instead of rounded font metrics, which drift at fluid sizes and zoom levels. */
+@utility text-box-trim {
+  text-box: trim-both cap alphabetic;
 }
 @utility shadow-* {
   box-shadow: --value(--shadow-*) var(--ixia-shadow);

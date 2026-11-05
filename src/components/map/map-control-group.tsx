@@ -1,7 +1,7 @@
 import { cn } from '@/utils'
 
-import { mapControlGroupVariants } from './google-maps/google-map.utils'
 import type { MapControlGroupProps } from './map.types'
+import { mapControlGroupVariants } from './map.utils'
 
 export function MapControlGroup({
   position,

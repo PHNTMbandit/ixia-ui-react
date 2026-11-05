@@ -1,6 +1,7 @@
 import { Children, isValidElement } from 'react'
 
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { ProgressDescription } from './progress-description'
 import { ProgressTitle } from './progress-title'
@@ -25,7 +26,7 @@ export function ProgressIndicator({ className, children, ref, ...props }: Progre
         ref={ref}
         {...props}
       >
-        {inner}
+        {trimTextChildren(inner)}
       </div>
       {meta.length > EMPTY && (
         <div className="absolute top-full left-1/2 flex w-3xl -translate-x-1/2 translate-y-2xs flex-col gap-3xs">

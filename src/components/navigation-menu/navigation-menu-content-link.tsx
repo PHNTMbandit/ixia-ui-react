@@ -1,5 +1,3 @@
-import { NavigationMenu as BaseNavigationMenu } from '@base-ui/react'
-
 import { cn } from '@/utils/cn'
 
 import { navigationMenuContentLinkVariants } from './navigation-menu.types'
@@ -12,14 +10,8 @@ export function NavigationMenuContentLink({
   ...props
 }: NavigationMenuContentLinkProps) {
   return (
-    <BaseNavigationMenu.Link
-      className={(state) => {
-        const classes = navigationMenuContentLinkVariants({ tone })
-        if (typeof className === 'function') {
-          return cn(classes, className(state))
-        }
-        return cn(classes, className)
-      }}
+    <div
+      className={cn(navigationMenuContentLinkVariants({ tone }), className)}
       ref={ref}
       {...props}
     />
