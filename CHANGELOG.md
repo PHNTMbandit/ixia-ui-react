@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.0.0...v2.1.0) (2026-11-05)
+
+
+### Features
+
+* add copy button component ([f496c07](https://github.com/PHNTMbandit/ixia-ui-react/commit/f496c07fdbc24b76f246136fef9c367108f142dd))
+
 # [2.0.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.8.0...v2.0.0) (2026-11-05)
 
 
