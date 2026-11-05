@@ -1,3 +1,4 @@
+import type { CopyButton } from '../copy-button'
 import type { SelectTrigger } from '../select'
 import type { Tabs } from '../tabs'
 
@@ -22,7 +23,9 @@ interface CodeBlockValue {
 }
 
 type CodeBlockTabsProps = React.ComponentProps<typeof Tabs>
-type CodeBlockCopyProps = React.ComponentProps<'button'>
+type CodeBlockCopyProps = Omit<React.ComponentProps<typeof CopyButton>, 'children' | 'content'> & {
+  children?: React.ReactNode
+}
 type CodeBlockNameProps = React.ComponentProps<'div'>
 type CodeBlockSelectProps = React.ComponentProps<typeof SelectTrigger>
 type CodeBlockHeaderGroupProps = React.ComponentProps<'div'>

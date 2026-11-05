@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { codeToHtml } from 'shiki/bundle/web'
 import type { BundledLanguage } from 'shiki/bundle/web'
-import { expect, spyOn } from 'storybook/test'
+import { expect, spyOn, waitFor } from 'storybook/test'
 
 import { Button } from '../button'
 import type { CodeBlockProps, CodeBlockValue } from './code-block.types'
@@ -286,6 +286,15 @@ export const SourceAndPresentation: Story = {
 
         await userEvent.click(copy)
         await expect(writeText).toHaveBeenLastCalledWith(label === 'Empty' ? '' : exampleCode)
+        if (label === 'Preview') {
+          await waitFor(() => {
+            const icon = copy.querySelector('svg')
+            if (!icon) {
+              throw new Error('Expected the code block copy button to render an icon')
+            }
+            expect(getComputedStyle(icon).animationName).toBe('enter')
+          })
+        }
         await userEvent.click(download)
 
         const blob = createObjectURL.mock.lastCall?.[0]
@@ -344,6 +353,13 @@ export const Playground: Story = {
       </CodeBlock.Window>
     </CodeBlock>
   ),
+  play: async ({ canvas }) => {
+    const icon = canvas.getByRole('button', { name: 'Copy code' }).querySelector('svg')
+    if (!icon) {
+      throw new Error('Expected the code block copy button to render an icon')
+    }
+    await expect(getComputedStyle(icon).animationName).toBe('none')
+  },
 }
 
 // ─── Navigation Patterns ─────────────────────────────────────────────────────

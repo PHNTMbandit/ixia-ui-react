@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
 export const buttonVariants = cva(
-  'inline-flex cursor-pointer items-center justify-center rounded-full whitespace-nowrap transition-all select-none disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex cursor-pointer items-center justify-center rounded-full whitespace-nowrap transition-all select-none disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
   {
     compoundVariants: [
       {
