@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.8.0...v2.0.0) (2026-11-05)
+
+
+### Features
+
+* publish per-component entry points with optional peer dependencies ([0ed7de7](https://github.com/PHNTMbandit/ixia-ui-react/commit/0ed7de747abd4c08677abbd9e3324f3c0035e1c7))
+
+
+### BREAKING CHANGES
+
+* the root ixia-ui-react entry is removed; import from ixia-ui-react/<component>.
+Google map exports, useGoogleMapViewport and useSupercluster move to ixia-ui-react/map/google.
+Install the peer dependencies listed in the README for the components you use.
+
 # [1.8.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v1.7.0...v1.8.0) (2026-11-03)
 
 
