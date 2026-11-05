@@ -1607,6 +1607,10 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-0 {
+    border-style: var(--tw-border-style);
+    border-width: 0px;
+  }
   .border-2 {
     border-style: var(--tw-border-style);
     border-width: 2px;
@@ -2002,6 +2006,9 @@
   }
   .pl-\[calc\(var\(--ixia-spacing-lg\)\+6px\)\] {
     padding-left: calc(var(--ixia-spacing-lg) + 6px);
+  }
+  .pl-\[calc\(var\(--ixia-spacing-md\)-1px\)\] {
+    padding-left: calc(var(--ixia-spacing-md) - 1px);
   }
   .pl-lg {
     padding-left: var(--spacing-lg);
@@ -2749,35 +2756,6 @@
   :is(.\*\:hidden > *) {
     display: none;
   }
-  :is(.\*\:rounded-none > *) {
-    border-radius: 0;
-  }
-  :is(.\*\:bg-transparent > *) {
-    background-color: transparent;
-  }
-  :is(.\*\:font-body > *) {
-    font-family: var(--font-body);
-  }
-  :is(.\*\:text-base > *) {
-    font-size: var(--text-base);
-  }
-  :is(.\*\:text-lg > *) {
-    font-size: var(--text-lg);
-  }
-  :is(.\*\:text-sm > *) {
-    font-size: var(--text-sm);
-  }
-  :is(.\*\:text-xs > *) {
-    font-size: var(--text-xs);
-  }
-  :is(.\*\:leading-none > *) {
-    --tw-leading: 1;
-    line-height: 1;
-  }
-  :is(.\*\:font-medium > *) {
-    --tw-font-weight: var(--font-weight-medium);
-    font-weight: var(--font-weight-medium);
-  }
   .not-first\:pl-2xs:not(:first-child) {
     padding-left: var(--spacing-2xs);
   }
@@ -3420,9 +3398,18 @@
     .not-active\:hover\:bg-warning-container-high:not(:active):hover {
       background-color: var(--color-warning-container-high);
     }
+    .not-active\:hover\:text-neutral-on-container:not(:active):hover {
+      color: var(--color-neutral-on-container);
+    }
     .not-active\:hover\:shadow-md:not(:active):hover {
       --tw-shadow: var(--ixia-shadow-md);
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .not-active\:hover\:shadow-none:not(:active):hover {
+      --tw-shadow: 0 0 #0000;
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .not-active\:hover\:shadow-md:not(:active):hover {
       box-shadow: var(--shadow-md) var(--ixia-shadow);
     }
     .hover\:not-disabled\:bg-accent-container:hover:not(:disabled) {
@@ -3554,6 +3541,12 @@
     --tw-scale-z: 95%;
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
+  .active\:scale-100:active {
+    --tw-scale-x: 100%;
+    --tw-scale-y: 100%;
+    --tw-scale-z: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
   .active\:scale-\[0\.98\]:active {
     scale: 0.98;
   }
@@ -3563,11 +3556,8 @@
   .active\:bg-neutral-container:active {
     background-color: var(--color-neutral-container);
   }
-  :is(.\*\:active\:scale-100\! > *):active {
-    --tw-scale-x: 100% !important;
-    --tw-scale-y: 100% !important;
-    --tw-scale-z: 100% !important;
-    scale: var(--tw-scale-x) var(--tw-scale-y) !important;
+  .active\:bg-surface:active {
+    background-color: var(--color-surface);
   }
   .disabled\:pointer-events-none:disabled {
     pointer-events: none;
@@ -3670,6 +3660,12 @@
   }
   .has-\[\>\:only-child\]\:list-none:has( > :only-child) {
     list-style-type: none;
+  }
+  .aria-disabled\:pointer-events-none[aria-disabled="true"] {
+    pointer-events: none;
+  }
+  .aria-disabled\:opacity-50[aria-disabled="true"] {
+    opacity: 50%;
   }
   .aria-invalid\:bg-error-container[aria-invalid="true"] {
     background-color: var(--color-error-container);
@@ -6246,6 +6242,9 @@
   .\[\&\>\:nth-last-child\(2\)\]\:mr-lg > :nth-last-child(2) {
     margin-right: var(--spacing-lg);
   }
+  .\[\&\>\:where\(\[data-slot\=button\]\,button\)\]\:rounded-none > :where([data-slot=button], button) {
+    border-radius: 0;
+  }
   .\[\&\>\[data-slot\=nav-menu-icon\]\]\:ml-md > [data-slot=nav-menu-icon] {
     margin-left: var(--spacing-md);
   }
@@ -6255,222 +6254,8 @@
   .\[\&\>\[data-slot\=nav-menu-icon\]\]\:ml-xs > [data-slot=nav-menu-icon] {
     margin-left: var(--spacing-xs);
   }
-  .\[\&\>button\]\:h-2xl > button {
-    height: var(--spacing-2xl);
-  }
-  .\[\&\>button\]\:h-lg > button {
-    height: var(--spacing-lg);
-  }
-  .\[\&\>button\]\:h-md > button {
-    height: var(--spacing-md);
-  }
-  .\[\&\>button\]\:h-xl > button {
-    height: var(--spacing-xl);
-  }
-  .\[\&\>button\]\:min-w-0 > button {
-    min-width: var(--spacing-0);
-  }
-  .\[\&\>button\]\:min-w-2xl > button {
-    min-width: var(--spacing-2xl);
-  }
-  .\[\&\>button\]\:min-w-lg > button {
-    min-width: var(--spacing-lg);
-  }
-  .\[\&\>button\]\:min-w-xl > button {
-    min-width: var(--spacing-xl);
-  }
-  .\[\&\>button\]\:gap-2xs > button {
-    gap: var(--spacing-2xs);
-  }
-  .\[\&\>button\]\:gap-3xs > button {
-    gap: var(--spacing-3xs);
-  }
-  .\[\&\>button\]\:gap-xs > button {
-    gap: var(--spacing-xs);
-  }
-  .\[\&\>button\]\:px-2xs > button {
-    padding-inline: var(--spacing-2xs);
-  }
-  .\[\&\>button\]\:px-md > button {
-    padding-inline: var(--spacing-md);
-  }
-  .\[\&\>button\]\:px-sm > button {
-    padding-inline: var(--spacing-sm);
-  }
-  .\[\&\>button\]\:px-xs > button {
-    padding-inline: var(--spacing-xs);
-  }
-  .\[\&\>button\]\:text-inherit > button {
-    color: inherit;
-  }
   .\[\&\>button\]\:line-through > button {
     text-decoration-line: line-through;
-  }
-  @media (hover: hover) {
-    .\[\&\>button\]\:not-active\:hover\:bg-accent-container-high > button:not(:active):hover {
-      background-color: var(--color-accent-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-brand-container-high > button:not(:active):hover {
-      background-color: var(--color-brand-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-error-container-high > button:not(:active):hover {
-      background-color: var(--color-error-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-info-container-high > button:not(:active):hover {
-      background-color: var(--color-info-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-success-container-high > button:not(:active):hover {
-      background-color: var(--color-success-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-surface-3 > button:not(:active):hover {
-      background-color: var(--color-surface-3);
-    }
-    .\[\&\>button\]\:not-active\:hover\:bg-warning-container-high > button:not(:active):hover {
-      background-color: var(--color-warning-container-high);
-    }
-    .\[\&\>button\]\:not-active\:hover\:text-neutral-on-container > button:not(:active):hover {
-      color: var(--color-neutral-on-container);
-    }
-  }
-  .\[\&\>button\]\:active\:bg-accent-container > button:active {
-    background-color: var(--color-accent-container);
-  }
-  .\[\&\>button\]\:active\:bg-brand-container > button:active {
-    background-color: var(--color-brand-container);
-  }
-  .\[\&\>button\]\:active\:bg-error-container > button:active {
-    background-color: var(--color-error-container);
-  }
-  .\[\&\>button\]\:active\:bg-info-container > button:active {
-    background-color: var(--color-info-container);
-  }
-  .\[\&\>button\]\:active\:bg-success-container > button:active {
-    background-color: var(--color-success-container);
-  }
-  .\[\&\>button\]\:active\:bg-surface > button:active {
-    background-color: var(--color-surface);
-  }
-  .\[\&\>button\]\:active\:bg-warning-container > button:active {
-    background-color: var(--color-warning-container);
-  }
-  .\[\&\>button\:hover\]\:bg-accent-container > button:hover {
-    background-color: var(--color-accent-container);
-  }
-  .\[\&\>button\:hover\]\:bg-accent-container-high > button:hover {
-    background-color: var(--color-accent-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-accent-muted > button:hover {
-    background-color: var(--color-accent-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-brand-container > button:hover {
-    background-color: var(--color-brand-container);
-  }
-  .\[\&\>button\:hover\]\:bg-brand-container-high > button:hover {
-    background-color: var(--color-brand-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-brand-muted > button:hover {
-    background-color: var(--color-brand-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-error-container > button:hover {
-    background-color: var(--color-error-container);
-  }
-  .\[\&\>button\:hover\]\:bg-error-container-high > button:hover {
-    background-color: var(--color-error-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-error-muted > button:hover {
-    background-color: var(--color-error-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-info-container > button:hover {
-    background-color: var(--color-info-container);
-  }
-  .\[\&\>button\:hover\]\:bg-info-container-high > button:hover {
-    background-color: var(--color-info-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-info-muted > button:hover {
-    background-color: var(--color-info-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-neutral-container > button:hover {
-    background-color: var(--color-neutral-container);
-  }
-  .\[\&\>button\:hover\]\:bg-neutral-container-high > button:hover {
-    background-color: var(--color-neutral-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-neutral-muted > button:hover {
-    background-color: var(--color-neutral-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-success-container > button:hover {
-    background-color: var(--color-success-container);
-  }
-  .\[\&\>button\:hover\]\:bg-success-container-high > button:hover {
-    background-color: var(--color-success-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-success-muted > button:hover {
-    background-color: var(--color-success-muted);
-  }
-  .\[\&\>button\:hover\]\:bg-warning-container > button:hover {
-    background-color: var(--color-warning-container);
-  }
-  .\[\&\>button\:hover\]\:bg-warning-container-high > button:hover {
-    background-color: var(--color-warning-container-high);
-  }
-  .\[\&\>button\:hover\]\:bg-warning-muted > button:hover {
-    background-color: var(--color-warning-muted);
-  }
-  .\[\&\>button\:hover\]\:text-accent-on-container > button:hover {
-    color: var(--color-accent-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-brand-on-container > button:hover {
-    color: var(--color-brand-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-error-on-container > button:hover {
-    color: var(--color-error-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-info-on-container > button:hover {
-    color: var(--color-info-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-neutral-on-container > button:hover {
-    color: var(--color-neutral-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-success-on-container > button:hover {
-    color: var(--color-success-on-container);
-  }
-  .\[\&\>button\:hover\]\:text-warning-on-container > button:hover {
-    color: var(--color-warning-on-container);
-  }
-  .\[\&\>button\>svg\]\:size-lg > button > svg {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .\[\&\>button\>svg\]\:size-md > button > svg {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&\>button\>svg\]\:size-sm > button > svg {
-    width: var(--spacing-sm);
-    height: var(--spacing-sm);
-  }
-  .\[\&\>button\>svg\]\:size-xs > button > svg {
-    width: var(--spacing-xs);
-    height: var(--spacing-xs);
-  }
-  .\[\&\>button\[data-icon-only\]\:has\(\>svg\:only-child\)\]\:size-2xl > button[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-2xl);
-    height: var(--spacing-2xl);
-  }
-  .\[\&\>button\[data-icon-only\]\:has\(\>svg\:only-child\)\]\:size-lg > button[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-lg);
-    height: var(--spacing-lg);
-  }
-  .\[\&\>button\[data-icon-only\]\:has\(\>svg\:only-child\)\]\:size-md > button[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-md);
-    height: var(--spacing-md);
-  }
-  .\[\&\>button\[data-icon-only\]\:has\(\>svg\:only-child\)\]\:size-xl > button[data-icon-only]:has( > svg:only-child) {
-    width: var(--spacing-xl);
-    height: var(--spacing-xl);
-  }
-  .\[\&\>button\[data-icon-only\]\:has\(\>svg\:only-child\)\]\:p-0 > button[data-icon-only]:has( > svg:only-child) {
-    padding: var(--spacing-0);
   }
   .\[\&\>input\]\:pr-\[2rem\] > input {
     padding-right: 2rem;
@@ -6514,6 +6299,9 @@
   }
   .\[\&\>svg\]\:shrink-0 > svg {
     flex-shrink: 0;
+  }
+  .\[\&\>svg\]\:animate-in > svg {
+    animation: enter var(--tw-animation-duration,var(--tw-duration,.15s))var(--tw-ease,ease)var(--tw-animation-delay,0s)var(--tw-animation-iteration-count,1)var(--tw-animation-direction,normal)var(--tw-animation-fill-mode,none);
   }
   .\[\&\>svg\]\:text-accent-default\/50 > svg {
     color: var(--color-accent-default);
@@ -6588,6 +6376,9 @@
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .\[\&\>svg\]\:zoom-in > svg {
+    --tw-enter-scale: 0;
   }
   @media (hover: hover) {
     .hover\:\[\&\>svg\]\:text-accent-default:hover > svg {

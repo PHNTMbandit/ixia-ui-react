@@ -1,6 +1,7 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect } from 'storybook/test'
+import { expect, fn, userEvent, waitFor } from 'storybook/test'
+import { userEvent as browserUserEvent } from 'vitest/browser'
 
 import { Button } from '../button/button'
 import { Input } from '../input/index'
@@ -8,7 +9,8 @@ import { ButtonGroup } from './button-group'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
   VARIANTS = ['fill', 'secondary', 'outline', 'ghost', 'soft', 'elevated'] as const,
-  SIZES = ['large', 'medium', 'small', 'extraSmall'] as const
+  SIZES = ['large', 'medium', 'small', 'extraSmall'] as const,
+  disabledActivation = fn()
 
 type Tone = (typeof TONES)[number]
 
@@ -95,7 +97,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Button Group component combines related buttons into one cohesive unit. Its four sizes (`large`, `medium`, `small`, `extraSmall`) apply to both labeled and icon-only children, including mixed groups. Icon-only buttons automatically become square and padding-free. It supports multiple variants, tones, and orientations.',
+          'The Button Group component combines related buttons into one cohesive unit. Button children inherit size, tone, and variant unless explicitly overridden. Native buttons and links rendered with Button render receive the same styling; use nativeButton={false} for links. Disabled links use aria-disabled styling and cannot activate. Icon-only buttons automatically become square and padding-free. It supports multiple variants, tones, and orientations.',
       },
       subtitle: 'Groups related actions into a single connected control.',
     },
@@ -466,6 +468,116 @@ export const IconExtraSmall: Story = {
       <TwoIconButtons />
     </ButtonGroup>
   ),
+}
+
+export const LinkButtons: Story = {
+  args: {
+    size: 'large',
+    tone: 'neutral',
+    variant: 'secondary',
+  },
+  name: 'Composition / Links and Disabled Actions',
+  render: (args) => (
+    <ButtonGroup {...args}>
+      <Button>Native action</Button>
+      <Button nativeButton={false} render={<a href="#details" />}>
+        Details
+      </Button>
+      <Button
+        disabled
+        nativeButton={false}
+        onClick={disabledActivation}
+        render={<a href="#unavailable" />}
+      >
+        Unavailable link
+      </Button>
+      <Button disabled onClick={disabledActivation}>
+        Unavailable action
+      </Button>
+    </ButtonGroup>
+  ),
+  play: async ({ canvas }) => {
+    const native = canvas.getByRole('button', { name: 'Native action' }),
+      link = canvas.getByRole('button', { name: 'Details' }),
+      disabledLink = canvas.getByRole('button', { name: 'Unavailable link' }),
+      disabledNative = canvas.getByRole('button', { name: 'Unavailable action' })
+
+    disabledActivation.mockClear()
+    await expect(link.tagName).toBe('A')
+    for (const control of [native, link]) {
+      await expect(control).toHaveAttribute('data-slot', 'button')
+      await expect(control).toHaveAttribute('data-size', 'large')
+      await expect(control).toHaveClass('bg-neutral-container')
+      await expect(getComputedStyle(control).borderRadius).toBe('0px')
+    }
+    await expect(getComputedStyle(link).height).toBe(getComputedStyle(native).height)
+    await expect(getComputedStyle(link).color).toBe(getComputedStyle(native).color)
+
+    for (const control of [disabledLink, disabledNative]) {
+      const event = new MouseEvent('click', { bubbles: true, cancelable: true })
+      control.dispatchEvent(event)
+      if (control === disabledLink) {
+        await expect(event.defaultPrevented).toBe(true)
+      }
+      await expect(disabledActivation).not.toHaveBeenCalled()
+      await waitFor(() => {
+        expect(getComputedStyle(control).opacity).toBe('0.5')
+        expect(getComputedStyle(control).pointerEvents).toBe('none')
+      })
+    }
+
+    disabledLink.focus()
+    await userEvent.keyboard('{Enter} ')
+    await expect(disabledActivation).not.toHaveBeenCalled()
+    await expect(disabledLink).toHaveAttribute('aria-disabled', 'true')
+    await expect(disabledNative).toBeDisabled()
+  },
+}
+
+export const ChildOverrides: Story = {
+  args: {
+    size: 'large',
+    tone: 'neutral',
+    variant: 'secondary',
+  },
+  name: 'Composition / Child Overrides',
+  render: (args) => (
+    <div className="flex items-start gap-md">
+      <ButtonGroup {...args}>
+        <Button>Inherited</Button>
+        <Button
+          nativeButton={false}
+          render={<a href="#custom" />}
+          size="small"
+          tone="accent"
+          variant="ghost"
+        >
+          Override
+        </Button>
+      </ButtonGroup>
+      <Button size="small" tone="accent" variant="ghost">
+        Reference
+      </Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const inherited = canvas.getByRole('button', { name: 'Inherited' }),
+      override = canvas.getByRole('button', { name: 'Override' }),
+      reference = canvas.getByRole('button', { name: 'Reference' }),
+      actual = getComputedStyle(override),
+      expected = getComputedStyle(reference),
+      initialBackground = actual.backgroundColor
+
+    await expect(inherited).toHaveAttribute('data-size', 'large')
+    await expect(override).toHaveAttribute('data-size', 'small')
+    for (const property of ['height', 'fontSize', 'color', 'backgroundColor'] as const) {
+      await expect(actual[property], property).toBe(expected[property])
+    }
+    await browserUserEvent.hover(override)
+    await waitFor(() => {
+      expect(getComputedStyle(override).backgroundColor).not.toBe(initialBackground)
+    })
+  },
 }
 
 export const ExtraSmall: Story = {

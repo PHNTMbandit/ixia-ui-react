@@ -1,17 +1,14 @@
-import React from 'react'
-
 import { cn } from '@/utils/cn'
 
-import { Button } from '../button'
+import { CopyButton } from '../copy-button'
 import { Icon } from '../icon'
 import { useCodeBlock } from './code-block'
 import type { CodeBlockCopyProps } from './code-block.types'
 
-const COPY_TIMEOUT = 2000,
-  COPY_STATUS_ICON = {
-    false: <Icon name="copy" className="animate-in zoom-in" />,
-    true: <Icon name="selected" className="animate-in zoom-in" />,
-  }
+const COPY_STATUS_ICON = {
+  false: <Icon name="copy" />,
+  true: <Icon name="selected" />,
+}
 
 export function CodeBlockCopy({
   className,
@@ -21,35 +18,26 @@ export function CodeBlockCopy({
   ...props
 }: CodeBlockCopyProps) {
   const { currentValue } = useCodeBlock(),
-    { code } = currentValue,
-    [copied, setCopied] = React.useState(false),
-    handleClick = async () => {
-      try {
-        if (code === undefined) {
-          throw new Error('No source code available to copy')
-        }
-        await navigator.clipboard.writeText(code)
-        setCopied(true)
-        setTimeout(() => setCopied(false), COPY_TIMEOUT)
-      } catch (error) {
-        console.error('Failed to copy text:', error)
-      }
-    }
+    { code } = currentValue
 
   return (
-    <Button
+    <CopyButton
       aria-label="Copy code"
       className={cn('', className)}
-      onClick={handleClick}
       ref={ref}
       size="medium"
       tone="neutral"
       variant="ghost"
       {...props}
+      content={code ?? ''}
       disabled={disabled || code === undefined}
     >
-      {children}
-      {COPY_STATUS_ICON[`${copied}`]}
-    </Button>
+      {(copied) => (
+        <>
+          {children}
+          {COPY_STATUS_ICON[`${copied}`]}
+        </>
+      )}
+    </CopyButton>
   )
 }
