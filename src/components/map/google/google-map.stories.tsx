@@ -21,7 +21,8 @@ import { useMap } from '@vis.gl/react-google-maps'
 import type { FeatureCollection, Point } from 'geojson'
 import React from 'react'
 
-import { useGoogleMapViewport, useSupercluster } from '@/hooks'
+import { useGoogleMapViewport } from '@/hooks/use-google-map-viewport'
+import { useSupercluster } from '@/hooks/use-supercluster'
 
 import { Map } from '../index'
 import type {

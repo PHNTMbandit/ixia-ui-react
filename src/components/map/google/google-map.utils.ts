@@ -1,25 +1,7 @@
-import { cva } from 'class-variance-authority'
 import type { GeoJsonProperties } from 'geojson'
 import type { ClusterFeature, ClusterProperties } from 'supercluster'
 
 import type { GoogleMapClusterLayerItem } from './google-map.types'
-
-const mapControlGroupVariants = cva(
-  'absolute z-10 flex flex-col items-center justify-start gap-2xs',
-  {
-    defaultVariants: {
-      position: 'bottom-right',
-    },
-    variants: {
-      position: {
-        'bottom-left': 'bottom-lg left-sm',
-        'bottom-right': 'right-sm bottom-lg',
-        'top-left': 'top-lg left-sm',
-        'top-right': 'top-lg right-sm',
-      },
-    },
-  },
-)
 
 interface GoogleMapSuggestionLabelValue {
   placePrediction: {
@@ -65,4 +47,4 @@ function isClusterFeature<
   )
 }
 
-export { getGoogleMapSuggestionLabel, mapControlGroupVariants, isClusterFeature }
+export { getGoogleMapSuggestionLabel, isClusterFeature }

@@ -1,3 +1,4 @@
+import { readdirSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -122,6 +123,7 @@ export default defineConfig({
       'import/no-cycle': 'warn',
       'import/no-duplicates': 'error',
       'import/no-named-export': 'off',
+      'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
       'import/prefer-default-export': 'off',
       'max-statements': 'off',
       'no-duplicate-imports': 'off',
@@ -203,7 +205,16 @@ export default defineConfig({
   },
   pack: {
     dts: true,
-    entry: ['src/index.ts'],
+    entry: {
+      ...Object.fromEntries(
+        readdirSync('src/components', { withFileTypes: true })
+          .filter((dirent) => dirent.isDirectory())
+          .map((dirent) => [`${dirent.name}/index`, `src/components/${dirent.name}/index.ts`]),
+      ),
+      'hooks/index': 'src/hooks/index.ts',
+      'map/google/index': 'src/components/map/google/index.ts',
+      'utils/index': 'src/utils/index.ts',
+    },
     format: ['esm'],
     platform: 'browser',
     sourcemap: true,

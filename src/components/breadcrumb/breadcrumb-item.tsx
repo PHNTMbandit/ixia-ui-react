@@ -1,8 +1,9 @@
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import type { BreadcrumbItemProps } from './breadcrumb.types'
 
-export function BreadcrumbItem({ className, ref, ...props }: BreadcrumbItemProps) {
+export function BreadcrumbItem({ className, children, ref, ...props }: BreadcrumbItemProps) {
   return (
     <div
       className={cn(
@@ -11,6 +12,8 @@ export function BreadcrumbItem({ className, ref, ...props }: BreadcrumbItemProps
       )}
       ref={ref}
       {...props}
-    />
+    >
+      {trimTextChildren(children)}
+    </div>
   )
 }

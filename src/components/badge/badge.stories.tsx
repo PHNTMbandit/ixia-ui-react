@@ -70,7 +70,7 @@ export default {
       control: 'radio',
       description:
         'Shared size for text and icon-only badges. A single SVG child automatically receives square, padding-free styling.',
-      options: ['large', 'medium', 'small'],
+      options: ['large', 'medium'],
     },
     tone: {
       control: 'select',
@@ -118,7 +118,7 @@ export const Sizes: Story = {
   name: 'Size / Text and Icon',
   render: () => (
     <div className="flex flex-col gap-sm">
-      {(['large', 'medium', 'small'] as const).flatMap((size) =>
+      {(['large', 'medium'] as const).flatMap((size) =>
         VARIANTS.map((variant) => (
           <div
             key={`${size}-${variant}`}
@@ -144,15 +144,15 @@ export const Sizes: Story = {
     </div>
   ),
   play: async ({ canvas }) => {
-    for (const [index, size] of ['large', 'medium', 'small'].entries()) {
+    for (const [index, size] of ['large', 'medium'].entries()) {
       for (const variant of VARIANTS) {
         const row = canvas.getByTestId(`${size}-${variant}`),
           [iconOnly, labeled, count] = Array.from(row.children) as HTMLElement[],
           icon = iconOnly.querySelector('svg')!,
           reference = document.createElement('div')
 
-        reference.style.width = `var(--spacing-${['lg', 'md', 'sm'][index]})`
-        reference.style.height = `var(--spacing-${['sm', 'xs', '2xs'][index]})`
+        reference.style.width = `var(--spacing-${['lg', 'md'][index]})`
+        reference.style.height = `var(--spacing-${['sm', 'xs'][index]})`
         row.append(reference)
 
         try {

@@ -23,54 +23,6 @@ const Map = Object.assign(MapRoot, {
   LayerVisibilityToggle: MapLayerVisibilityToggle,
 })
 
-export {
-  GoogleMap,
-  GoogleMapCluster,
-  GoogleMapClusterLayer,
-  GoogleMapDeckGLOverlay,
-  GoogleMapFrame,
-  GoogleMapGeolocateControl,
-  GoogleMapMarker,
-  GoogleMapMarkerLayer,
-  GoogleMapSearchControl,
-  GoogleMapSearchControlContent,
-  GoogleMapSearchControlEmpty,
-  GoogleMapSearchControlInput,
-  GoogleMapSearchControlInputGroup,
-  GoogleMapSearchControlSubmit,
-  GoogleMapSearchControlSuggestion,
-  GoogleMapsSearchControlResults,
-  GoogleMapsSearchControlStatus,
-  GoogleMapZoomControl,
-  useGoogleMapSearchControl,
-  GoogleMapTiltControl,
-} from './google-maps'
-export type {
-  GoogleMapProps,
-  GoogleMapClusterProps,
-  GoogleMapClusterLayerProps,
-  GoogleMapClusterLayerItem,
-  GoogleMapClusterRenderContext,
-  GoogleMapDeckGLOverlayProps,
-  GoogleMapGeolocateControlProps,
-  GoogleMapFrameProps,
-  GoogleMapMarkerLayerProps,
-  GoogleMapMarkerProps,
-  GoogleMapZoomControlProps,
-  GoogleMapSearchControlValue,
-  GoogleMapSearchControlContextProps,
-  GoogleMapSearchControlProps,
-  GoogleMapSearchControlInputProps,
-  GoogleMapSearchControlInputGroupProps,
-  GoogleMapSearchControlSubmitProps,
-  GoogleMapSearchControlSuggestionProps,
-  GoogleMapSearchControlEmptyProps,
-  GoogleMapsSearchControlResultsProps,
-  GoogleMapsSearchControlStatusProps,
-  GoogleMapSearchControlContentProps,
-  GoogleMapTiltControlProps,
-} from './google-maps'
-
 export { MapControlGroup } from './map-control-group'
 export { MapLayerList } from './map-layer-list'
 export { MapLayerItem } from './map-layer-item'

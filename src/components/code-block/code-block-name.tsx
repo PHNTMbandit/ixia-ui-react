@@ -1,4 +1,5 @@
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { useCodeBlock } from './code-block'
 import type { CodeBlockNameProps } from './code-block.types'
@@ -19,9 +20,9 @@ export function CodeBlockName({ className, children, ref, ...props }: CodeBlockN
       ref={ref}
       {...props}
     >
-      {children}
+      {trimTextChildren(children)}
       {currentValue?.icon}
-      {currentValue.name}
+      {trimTextChildren(currentValue.name)}
     </div>
   )
 }

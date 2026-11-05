@@ -88,3 +88,12 @@ export { GoogleMapClusterLayer } from './google-map-cluster-layer'
 
 export { useGoogleMapSearchControl } from './google-map-search-control.context'
 export { GoogleMap }
+
+// Google map hooks live here (not in `ixia-ui-react/hooks`) so their peer dependencies stay optional.
+export { useGoogleMapViewport } from '@/hooks/use-google-map-viewport'
+export type {
+  UseGoogleMapViewportOptions,
+  UseGoogleMapViewportResult,
+} from '@/hooks/use-google-map-viewport'
+export { useSupercluster } from '@/hooks/use-supercluster'
+export type { UseSuperclusterOptions, UseSuperclusterResult } from '@/hooks/use-supercluster'

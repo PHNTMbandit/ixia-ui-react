@@ -1,8 +1,9 @@
 import { cn } from '@/utils/cn'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import type { KbdProps } from './kbd.types'
 
-export function Kbd({ className, ref, ...props }: KbdProps) {
+export function Kbd({ className, children, ref, ...props }: KbdProps) {
   return (
     <div
       className={cn(
@@ -11,6 +12,8 @@ export function Kbd({ className, ref, ...props }: KbdProps) {
       )}
       ref={ref}
       {...props}
-    />
+    >
+      {trimTextChildren(children)}
+    </div>
   )
 }

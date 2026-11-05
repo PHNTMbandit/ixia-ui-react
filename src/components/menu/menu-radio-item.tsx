@@ -15,7 +15,7 @@ export function MenuRadioItem({ className, children, ref, ...props }: MenuRadioI
       ref={ref}
       {...props}
     >
-      <span className="col-start-1 min-w-3xl">{children}</span>
+      <span className="col-start-1 min-w-3xl text-box-trim">{children}</span>
       <BaseMenu.RadioItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
         <Icon name="selected" className="size-sm" />
       </BaseMenu.RadioItemIndicator>

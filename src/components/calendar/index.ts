@@ -1,3 +1,5 @@
+// Imported here rather than in the main stylesheet so `@daypicker/react` stays an optional peer.
+import '@daypicker/react/style.css'
 import { Calendar as CalendarRoot } from './calendar'
 import { CalendarDayButton } from './calendar-day-button'
 import { CalendarDropdown } from './calendar-dropdown'

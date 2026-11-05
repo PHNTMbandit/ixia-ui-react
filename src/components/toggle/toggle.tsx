@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/utils/cn'
 import { hasSingleElementChild } from '@/utils/has-single-element-child'
+import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { ToggleGroupContext } from '../toggle-group/toggle-group-context'
 import { toggleGroupHoverVariants, toggleVariants } from './toggle.types'
@@ -44,7 +45,7 @@ export function Toggle({ size, tone, className, children, ref, ...props }: Toggl
             )}
             type="button"
           >
-            {content}
+            {trimTextChildren(content)}
           </button>
         )
       }}

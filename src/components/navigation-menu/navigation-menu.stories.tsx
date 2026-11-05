@@ -73,7 +73,7 @@ A collection of links and menus for website navigation, built on top of
         <NavigationMenuIcon />
       </NavigationMenuTrigger>
       <NavigationMenuContent>
-        <NavigationMenuContentLink href="/guide" />
+        <NavigationMenuContentLink />
       </NavigationMenuContent>
     </NavigationMenuItem>
     <NavigationMenuItem>
@@ -87,10 +87,9 @@ A collection of links and menus for website navigation, built on top of
 > **Important:** \`<NavigationMenuPopup />\` must be placed **outside** of
 > \`<NavigationMenuList>\` as a sibling. It is shared across all items in the list.
 
-Use \`NavigationMenu.Link\` for top-level navigation without a popup and
-\`NavigationMenu.ContentLink\` for cards inside popup content. Both render anchors
-and support \`href\`, \`active\`, \`render\` (for router links), and \`closeOnClick\`.
-Set \`closeOnClick\` to close the popup when a content link is selected.
+Use \`NavigationMenu.Link\` for top-level navigation without a popup. It renders an anchor
+and supports \`href\`, \`active\`, \`render\` (for router links), and \`closeOnClick\`.
+\`NavigationMenu.ContentLink\` is a non-interactive \`<div>\` card for content inside the popup.
         `,
       },
     },
@@ -127,21 +126,16 @@ export const LinkBehavior: Story = {
     await expect(topLink).toHaveAttribute('aria-current', 'page')
     await expect(topLink).toHaveClass('underline')
     await userEvent.click(topLink)
-    await expect(page.queryByRole('link', { name: /Read the guide/ })).not.toBeInTheDocument()
+    await expect(page.queryByRole('heading', { name: 'Read the guide' })).not.toBeInTheDocument()
     await userEvent.click(canvas.getByRole('button', { name: 'Resources' }))
-    const contentLink = await page.findByRole('link', { name: /Read the guide/ })
-    await expect(contentLink.tagName).toBe('A')
-    await expect(contentLink).toHaveAttribute('href', '#guide')
-    await expect(contentLink).toHaveAttribute('aria-current', 'page')
-    await expect(contentLink).toHaveAttribute('data-composed-link')
-    await expect(contentLink).toHaveClass('underline')
-    await expect(contentLink).toHaveClass('hover:bg-neutral-container')
-    await expect(getComputedStyle(contentLink).display).toBe('block')
-    contentLink.focus()
-    await expect(contentLink).toHaveFocus()
-    await userEvent.keyboard('{Enter}')
+    const card = (await page.findByRole('heading', { name: 'Read the guide' })).parentElement!
+    await expect(card.tagName).toBe('DIV')
+    await expect(card).toHaveAttribute('data-card')
+    await expect(card).toHaveClass('hover:bg-neutral-container')
+    await expect(getComputedStyle(card).display).toBe('block')
+    await userEvent.keyboard('{Escape}')
     await waitFor(() =>
-      expect(page.queryByRole('link', { name: /Read the guide/ })).not.toBeInTheDocument(),
+      expect(page.queryByRole('heading', { name: 'Read the guide' })).not.toBeInTheDocument(),
     )
   },
   render: (args) => (
@@ -160,14 +154,7 @@ export const LinkBehavior: Story = {
         <NavigationMenu.Item>
           <NavigationMenu.Trigger>Resources</NavigationMenu.Trigger>
           <NavigationMenu.Content>
-            <NavigationMenu.ContentLink
-              href="#guide"
-              active
-              closeOnClick
-              className={(state) => (state.active ? 'underline' : undefined)}
-              render={<a data-composed-link />}
-              onClick={(event) => event.preventDefault()}
-            >
+            <NavigationMenu.ContentLink data-card>
               <h3 className="style-text-strong-0">Read the guide</h3>
               <p className="style-text-prose--1">Learn how to build your first component.</p>
             </NavigationMenu.ContentLink>
@@ -295,7 +282,7 @@ export const Default: Story = {
             <ul>
               {overviewLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.ContentLink href={item.href}>
+                  <NavigationMenu.ContentLink>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
                   </NavigationMenu.ContentLink>
@@ -336,7 +323,7 @@ export const MultipleItems: Story = {
             <ul>
               {overviewLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.ContentLink href={item.href}>
+                  <NavigationMenu.ContentLink>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
                   </NavigationMenu.ContentLink>
@@ -357,7 +344,7 @@ export const MultipleItems: Story = {
             <ul>
               {handbookLinks.map((item) => (
                 <li key={item.href}>
-                  <NavigationMenu.ContentLink href={item.href}>
+                  <NavigationMenu.ContentLink>
                     <h3 className="">{item.title}</h3>
                     <p className="">{item.description}</p>
                   </NavigationMenu.ContentLink>
@@ -451,7 +438,7 @@ export const Tones: Story = {
               <ul>
                 {handbookLinks.map((item) => (
                   <li key={item.href}>
-                    <NavigationMenu.ContentLink tone={tone} href={item.href}>
+                    <NavigationMenu.ContentLink tone={tone}>
                       <h3 className="style-text-strong-0">{item.title}</h3>
                       <p className="style-text-prose--1">{item.description}</p>
                     </NavigationMenu.ContentLink>

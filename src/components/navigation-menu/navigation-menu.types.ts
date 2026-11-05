@@ -86,7 +86,7 @@ const navigationMenuItemClasses =
 type NavigationMenuLinkProps = VariantProps<typeof navigationMenuLinkVariants> &
   React.ComponentProps<typeof NavigationMenu.Link>
 type NavigationMenuContentLinkProps = VariantProps<typeof navigationMenuContentLinkVariants> &
-  React.ComponentProps<typeof NavigationMenu.Link>
+  React.ComponentProps<'div'>
 
 export type {
   NavigationMenuProps,

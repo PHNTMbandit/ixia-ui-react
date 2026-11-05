@@ -112,7 +112,7 @@ async function fetchUserData(userId: string): Promise<User> {
   ),
   await highlightedItem(
     {
-      code: `import { Button } from 'ixia-ui-react'`,
+      code: `import { Button } from 'ixia-ui-react/button'`,
       icon: <FileJsIcon weight="bold" />,
       id: '4',
       label: 'JavaScript',
@@ -557,7 +557,7 @@ export const NoSelect: Story = {
   ),
   play: async ({ canvas }) => {
     const name = canvas.getByText('button.jsx'),
-      icon = name.querySelector('svg')
+      icon = name.closest('div')?.querySelector('svg')
 
     if (!icon) {
       throw new globalThis.Error('Expected a file icon beside the code block name')
