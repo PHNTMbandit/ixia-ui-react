@@ -34,7 +34,7 @@ export function TableSortChip<TData extends RowData>({
 
         return (
           <TableSortMenu className={cn('', className)} ref={ref} {...props}>
-            <Button size="extraSmall" variant="soft">
+            <Button size="extraSmall" variant="secondary">
               {columnSort === 'asc' && <Icon name="sortDescending" />}
               {columnSort === 'desc' && <Icon name="sortAscending" />}
               <span>{getColumnHeaderLabel(column)}</span>

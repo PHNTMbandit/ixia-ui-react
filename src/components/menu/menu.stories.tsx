@@ -294,7 +294,7 @@ export const DestructiveAction: Story = {
   render: () => (
     <Menu>
       <Menu.Trigger>
-        <Button tone="error" variant="soft">
+        <Button tone="error" variant="secondary">
           Open Destructive Menu
         </Button>
       </Menu.Trigger>

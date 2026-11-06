@@ -29,7 +29,7 @@ export function TableSelectFilterChip<TData extends RowData>({
   return (
     <Popover>
       <PopoverTrigger className={cn('', className)} ref={ref} {...props}>
-        <Button size="extraSmall" variant="soft">
+        <Button size="extraSmall" variant="secondary">
           <Icon name="filter" />
           <span>{header}</span>
           <span className="font-light lowercase">{columnFilter.map(String).join(', ')}</span>

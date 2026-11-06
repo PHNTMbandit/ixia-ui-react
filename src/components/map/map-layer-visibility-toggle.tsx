@@ -27,7 +27,7 @@ export function MapLayerVisibilityToggle({
       type="button"
       size="small"
       tone="neutral"
-      variant="soft"
+      variant="secondary"
       aria-label={`Layer visibility: ${layerId}`}
       aria-pressed={visible}
       title="Toggle layer visibility"

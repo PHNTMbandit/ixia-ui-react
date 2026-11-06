@@ -57,13 +57,13 @@ export const AlertSet: Story = {
               <Button
                 size="small"
                 tone={combo.tone as 'brand'}
-                variant="soft"
+                variant="secondary"
                 {...text('label')}
                 {...part('Button', {
                   size: 'small',
                   State: 'Default',
                   tone: combo.tone,
-                  variant: 'soft',
+                  variant: 'secondary',
                 })}
               >
                 Action
