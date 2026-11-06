@@ -78,43 +78,43 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'border-brand-border text-brand-default hover:bg-brand-container hover:text-brand-on-container',
+          'border-brand-border text-brand-default hover:border-brand-border-strong hover:bg-brand-container hover:text-brand-on-container',
         tone: 'brand',
         variant: 'outline',
       },
       {
         className:
-          'border-accent-border text-accent-default hover:bg-accent-container hover:text-accent-on-container',
+          'border-accent-border text-accent-default hover:border-accent-border-strong hover:bg-accent-container hover:text-accent-on-container',
         tone: 'accent',
         variant: 'outline',
       },
       {
         className:
-          'border-neutral-border text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
+          'border-neutral-border text-neutral-default hover:border-neutral-border-strong hover:bg-neutral-container hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
       {
         className:
-          'border-error-border text-error-default hover:bg-error-container hover:text-error-on-container',
+          'border-error-border text-error-default hover:border-error-border-strong hover:bg-error-container hover:text-error-on-container',
         tone: 'error',
         variant: 'outline',
       },
       {
         className:
-          'border-info-border text-info-default hover:bg-info-container hover:text-info-on-container',
+          'border-info-border text-info-default hover:border-info-border-strong hover:bg-info-container hover:text-info-on-container',
         tone: 'info',
         variant: 'outline',
       },
       {
         className:
-          'border-success-border text-success-default hover:bg-success-container hover:text-success-on-container',
+          'border-success-border text-success-default hover:border-success-border-strong hover:bg-success-container hover:text-success-on-container',
         tone: 'success',
         variant: 'outline',
       },
       {
         className:
-          'border-warning-border text-warning-default hover:bg-warning-container hover:text-warning-on-container',
+          'border-warning-border text-warning-default hover:border-warning-border-strong hover:bg-warning-container hover:text-warning-on-container',
         tone: 'warning',
         variant: 'outline',
       },
@@ -155,48 +155,6 @@ export const buttonVariants = cva(
           'text-warning-default hover:bg-warning-container hover:text-warning-on-container',
         tone: 'warning',
         variant: 'ghost',
-      },
-      {
-        className:
-          'border-brand-border bg-brand-container text-brand-on-container hover:border-brand-border-strong hover:bg-brand-container-high',
-        tone: 'brand',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-accent-border bg-accent-container text-accent-on-container hover:border-accent-border-strong hover:bg-accent-container-high',
-        tone: 'accent',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-neutral-border bg-neutral-container text-neutral-on-container hover:border-neutral-border-strong hover:bg-neutral-container-high',
-        tone: 'neutral',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-error-border bg-error-container text-error-on-container hover:border-error-border-strong hover:bg-error-container-high',
-        tone: 'error',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-info-border bg-info-container text-info-on-container hover:border-info-border-strong hover:bg-info-container-high',
-        tone: 'info',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-success-border bg-success-container text-success-on-container hover:border-success-border-strong hover:bg-success-container-high',
-        tone: 'success',
-        variant: 'soft',
-      },
-      {
-        className:
-          'border-warning-border bg-warning-container text-warning-on-container hover:border-warning-border-strong hover:bg-warning-container-high',
-        tone: 'warning',
-        variant: 'soft',
       },
       {
         className:
@@ -314,7 +272,6 @@ export const buttonVariants = cva(
         link: 'size-fit! p-0! underline decoration-transparent underline-offset-2 [&>svg]:transition-colors',
         outline: 'border active:scale-95',
         secondary: 'active:scale-95',
-        soft: 'border active:scale-95',
       },
     },
   },

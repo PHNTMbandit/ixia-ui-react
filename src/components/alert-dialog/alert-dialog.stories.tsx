@@ -289,7 +289,7 @@ export const DestructiveFlow: Story = {
   render: () => (
     <AlertDialog>
       <AlertDialog.Trigger>
-        <Button tone="error" variant="soft">
+        <Button tone="error" variant="secondary">
           <TrashIcon weight="bold" />
           Delete Account
         </Button>
@@ -327,7 +327,7 @@ export const CriticalWarning: Story = {
   render: () => (
     <AlertDialog>
       <AlertDialog.Trigger>
-        <Button tone="warning" variant="soft">
+        <Button tone="warning" variant="secondary">
           <WarningCircleIcon weight="bold" />
           Transfer Ownership
         </Button>

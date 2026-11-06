@@ -125,7 +125,7 @@ function Specimens({ brand }: { brand: Brand }) {
               <article key={role} className="flex min-w-0 flex-col gap-md">
                 <h3 className="style-text-strong-2 capitalize">{role}</h3>
                 <div className="flex flex-wrap gap-xs">
-                  {(['fill', 'secondary', 'soft', 'outline', 'ghost'] as const).map((variant) => (
+                  {(['fill', 'secondary', 'outline', 'ghost'] as const).map((variant) => (
                     <Button key={variant} tone={role} variant={variant}>
                       {variant}
                     </Button>

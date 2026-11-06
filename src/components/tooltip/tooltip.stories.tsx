@@ -82,7 +82,7 @@ export const CompositionIconButtonHelp: Story = {
         <span className="style-text-default-0">API Key</span>
         <Tooltip {...args}>
           <Tooltip.Trigger>
-            <Button size="small" tone="neutral" variant="soft" aria-label="What is this?">
+            <Button size="small" tone="neutral" variant="secondary" aria-label="What is this?">
               ?
             </Button>
           </Tooltip.Trigger>
