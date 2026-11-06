@@ -659,7 +659,7 @@ export const RowSelection: StoryObj = {
                 return (
                   <div className="flex items-center justify-between gap-md">
                     <span className="style-text-default--1 text-on-surface">{count} selected</span>
-                    <Button size="small" tone="error" variant="soft">
+                    <Button size="small" tone="error" variant="secondary">
                       <TrashIcon />
                       Delete
                     </Button>

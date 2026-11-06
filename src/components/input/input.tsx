@@ -251,7 +251,7 @@ export function Input({
     return (
       <div className="flex items-center justify-between gap-lg">
         <div className="flex items-center gap-xs">
-          <Button variant="soft" tone="neutral" onClick={() => inputRef.current?.click()}>
+          <Button variant="secondary" tone="neutral" onClick={() => inputRef.current?.click()}>
             {fileUploadButtonIcon}
             {fileUploadButtonLabel}
           </Button>

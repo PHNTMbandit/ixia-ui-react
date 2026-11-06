@@ -1,14 +1,13 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, fn, userEvent, waitFor } from 'storybook/test'
-import { userEvent as browserUserEvent } from 'vitest/browser'
 
 import { Button } from '../button/button'
 import { Input } from '../input/index'
 import { ButtonGroup } from './button-group'
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const,
-  VARIANTS = ['fill', 'secondary', 'outline', 'ghost', 'soft', 'elevated'] as const,
+  VARIANTS = ['fill', 'secondary', 'outline', 'ghost', 'elevated'] as const,
   SIZES = ['large', 'medium', 'small', 'extraSmall'] as const,
   disabledActivation = fn()
 
@@ -252,6 +251,25 @@ export const Secondary: Story = {
   args: { variant: 'secondary' },
   name: 'Variant / Secondary',
   render: () => <VariantShowcase variant="secondary" />,
+  play: async ({ canvasElement }) => {
+    const buttons = [...canvasElement.querySelectorAll('button')]
+    await expect(buttons).toHaveLength(TONES.length * 3)
+
+    for (const [index, tone] of TONES.entries()) {
+      const groupButtons = buttons.slice(index * 3, (index + 1) * 3),
+        group = groupButtons[0].parentElement!
+      await expect(group).toHaveClass(`bg-${tone}-container`, `text-${tone}-on-container`)
+      await expect(getComputedStyle(group).borderTopWidth).toBe('0px')
+
+      for (const button of groupButtons) {
+        await expect(button).toHaveClass(`bg-${tone}-container`, `text-${tone}-on-container`)
+        await expect(getComputedStyle(button).borderTopWidth).toBe('0px')
+        await expect(getComputedStyle(button).backgroundColor).toBe(
+          getComputedStyle(group).backgroundColor,
+        )
+      }
+    }
+  },
 }
 
 export const Outline: Story = {
@@ -268,14 +286,6 @@ export const Ghost: Story = {
   },
   name: 'Variant / Ghost',
   render: () => <VariantShowcase variant="ghost" />,
-}
-
-export const Soft: Story = {
-  args: {
-    variant: 'soft',
-  },
-  name: 'Variant / Soft',
-  render: () => <VariantShowcase variant="soft" />,
 }
 
 export const Elevated: Story = {
@@ -573,10 +583,14 @@ export const ChildOverrides: Story = {
     for (const property of ['height', 'fontSize', 'color', 'backgroundColor'] as const) {
       await expect(actual[property], property).toBe(expected[property])
     }
-    await browserUserEvent.hover(override)
-    await waitFor(() => {
-      expect(getComputedStyle(override).backgroundColor).not.toBe(initialBackground)
-    })
+    // Real CSS :hover needs Vitest Browser Mode, which throws when imported in the Storybook UI.
+    const browser = await import('vitest/browser').catch(() => undefined)
+    if (browser) {
+      await browser.userEvent.hover(override)
+      await waitFor(() => {
+        expect(getComputedStyle(override).backgroundColor).not.toBe(initialBackground)
+      })
+    }
   },
 }
 
@@ -597,7 +611,7 @@ export const SegmentedControl: Story = {
     },
   },
   render: () => (
-    <ButtonGroup tone="neutral" variant="soft">
+    <ButtonGroup tone="neutral" variant="secondary">
       <Button>Overview</Button>
       <Button>Details</Button>
       <Button>History</Button>

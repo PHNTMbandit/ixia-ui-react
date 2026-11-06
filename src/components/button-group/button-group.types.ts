@@ -148,41 +148,6 @@ export const buttonGroupVariants = cva(
         variant: 'ghost',
       },
       {
-        className: 'border-brand-border bg-brand-container text-brand-on-container',
-        tone: 'brand',
-        variant: 'soft',
-      },
-      {
-        className: 'border-accent-border bg-accent-container text-accent-on-container',
-        tone: 'accent',
-        variant: 'soft',
-      },
-      {
-        className: 'border-neutral-border bg-neutral-container text-neutral-on-container',
-        tone: 'neutral',
-        variant: 'soft',
-      },
-      {
-        className: 'border-error-border bg-error-container text-error-on-container',
-        tone: 'error',
-        variant: 'soft',
-      },
-      {
-        className: 'border-info-border bg-info-container text-info-on-container',
-        tone: 'info',
-        variant: 'soft',
-      },
-      {
-        className: 'border-success-border bg-success-container text-success-on-container',
-        tone: 'success',
-        variant: 'soft',
-      },
-      {
-        className: 'border-warning-border bg-warning-container text-warning-on-container',
-        tone: 'warning',
-        variant: 'soft',
-      },
-      {
         className: 'bg-brand-container text-brand-on-container',
         tone: 'brand',
         variant: 'elevated',
@@ -245,7 +210,6 @@ export const buttonGroupVariants = cva(
         ghost: '',
         outline: 'border',
         secondary: '',
-        soft: 'border',
       },
     },
   },

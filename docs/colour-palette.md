@@ -336,17 +336,17 @@ The same suffixes apply to `brand`, `accent`, `neutral`, `error`, `info`,
 `success`, and `warning`. Pick a token by its purpose, not by whether its name
 sounds lighter or darker:
 
-| Tokens                                | Use                                                                                                                                      |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `*-default` / `*-on-default`          | Strong filled controls and their labels; `*-default` also colours text and icons.                                                        |
-| `*-muted` / `*-on-default`            | Interaction fill for a `*-default` control; `*-muted` also colours secondary text and icons.                                             |
-| `*-container-low` / `*-on-container`  | A quieter tinted background, such as a neutral table header.                                                                             |
-| `*-container` / `*-on-container`      | Tinted surfaces, secondary and soft controls, and hover/open states on transparent controls.                                             |
-| `*-container-high` / `*-on-container` | A stronger interaction tint for filled soft/secondary buttons, toggles in filled groups, and highlights inside raised menus and selects. |
-| `*-on-container`                      | Primary text and icons on any of the three container levels.                                                                             |
-| `*-on-container-muted`                | Secondary text on a tinted surface.                                                                                                      |
-| `*-border`, `*-border-strong`         | Decorative and stronger outlines, respectively; check their contrast against the actual surface.                                         |
-| `*-shadow`                            | Decorative coloured shadow.                                                                                                              |
+| Tokens                                | Use                                                                                                                          |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `*-default` / `*-on-default`          | Strong filled controls and their labels; `*-default` also colours text and icons.                                            |
+| `*-muted` / `*-on-default`            | Interaction fill for a `*-default` control; `*-muted` also colours secondary text and icons.                                 |
+| `*-container-low` / `*-on-container`  | A quieter tinted background, such as a neutral table header.                                                                 |
+| `*-container` / `*-on-container`      | Tinted surfaces, secondary buttons, soft badges, and hover/open states on transparent controls.                              |
+| `*-container-high` / `*-on-container` | A stronger interaction tint for secondary buttons, toggles in filled groups, and highlights inside raised menus and selects. |
+| `*-on-container`                      | Primary text and icons on any of the three container levels.                                                                 |
+| `*-on-container-muted`                | Secondary text on a tinted surface.                                                                                          |
+| `*-border`, `*-border-strong`         | Decorative and stronger outlines, respectively; check their contrast against the actual surface.                             |
+| `*-shadow`                            | Decorative coloured shadow.                                                                                                  |
 
 Transparent controls and persistent tinted surfaces intentionally share
 `*-container`; changing it affects both. Use `*-container-high` when a control
@@ -421,8 +421,9 @@ In light mode, `neutral-container` and the standard border are both
 `<Button variant="secondary" tone="neutral">` is a borderless, lower-emphasis
 filled button. At rest it uses `*-container` with `*-on-container` text: exactly
 the corresponding ghost button's hover colours. Its hover uses `*-container-high`.
-All seven tones and `ButtonGroup` support it. Existing `soft` buttons retain
-their border; `fill` remains the high-emphasis option.
+All seven tones and `ButtonGroup` support it; `fill` remains the high-emphasis
+option. Replace the removed `soft` button and button-group variant with
+`secondary`; the replacement has no border.
 
 The secondary text pair is tested at Lc 75 and WCAG 4.5:1 in both states across
 all six brands. That supports 16px medium UI text (or 18px regular body text).
