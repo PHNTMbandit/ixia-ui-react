@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.1.0...v2.1.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* replace 'soft' variant with 'secondary' in buttons across components ([713e4cb](https://github.com/PHNTMbandit/ixia-ui-react/commit/713e4cbdfbda46bb1e857fcb791e8205a016dfff))
+
 # [2.1.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.0.0...v2.1.0) (2026-11-05)
 
 

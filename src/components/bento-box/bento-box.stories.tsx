@@ -205,7 +205,7 @@ export const FeatureHighlight: Story = {
           </BentoBox.Description>
         </BentoBox.Content>
         <BentoBox.Footer>
-          <Button variant="soft" tone="brand" size="small" className="self-start">
+          <Button variant="secondary" tone="brand" size="small" className="self-start">
             Learn more
           </Button>
         </BentoBox.Footer>
@@ -231,7 +231,12 @@ export const ActionList: Story = {
           <div className="flex flex-col gap-3xs">
             {['Create a project', 'Invite a teammate', 'View billing', 'Open settings'].map(
               (label) => (
-                <Button key={label} variant="soft" tone="neutral" className="w-full justify-start">
+                <Button
+                  key={label}
+                  variant="secondary"
+                  tone="neutral"
+                  className="w-full justify-start"
+                >
                   {label}
                 </Button>
               ),

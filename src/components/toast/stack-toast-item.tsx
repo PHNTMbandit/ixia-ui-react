@@ -130,7 +130,7 @@ export function StackToastItem({ className, ref, toast, ...props }: StackToastIt
                 onClick={onClick}
                 size="small"
                 tone={toast.data?.variant}
-                variant="soft"
+                variant="secondary"
               >
                 {children}
               </Button>

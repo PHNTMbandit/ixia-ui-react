@@ -34,7 +34,7 @@ export function CopyButton({
       onClick={handleClick}
       {...props}
     >
-      {children(copied)}
+      {children?.(copied)}
     </Button>
   )
 }

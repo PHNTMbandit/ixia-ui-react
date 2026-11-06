@@ -43,7 +43,7 @@ export function TableNumberFilterChip<TData extends RowData>({
   return (
     <Popover>
       <PopoverTrigger className={cn('', className)} ref={ref} {...props}>
-        <Button tone="neutral" size="extraSmall" variant="soft">
+        <Button tone="neutral" size="extraSmall" variant="secondary">
           <Icon name="filter" />
           <span>{getColumnHeaderLabel(column)}</span>
           <span className="font-light lowercase">
