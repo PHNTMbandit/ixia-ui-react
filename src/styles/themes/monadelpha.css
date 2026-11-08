@@ -3,9 +3,9 @@
 [data-brand='monadelpha'] {
   --ixia-brand-default: light-dark(var(--indigo-600), var(--indigo-400));
   --ixia-brand-muted: light-dark(var(--indigo-700), var(--indigo-300));
-  --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--indigo-100), var(--indigo-950));
-  --ixia-brand-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container-high: light-dark(var(--indigo-200), var(--indigo-900));
   --ixia-brand-on-container: light-dark(var(--indigo-900), var(--indigo-100));
   --ixia-brand-on-container-muted: light-dark(var(--indigo-700), var(--indigo-300));
@@ -22,9 +22,9 @@
   --ixia-brand-gradient-subtle: linear-gradient(135deg, #737ef929, #8cd3fd1f, #b2eee314);
   --ixia-accent-default: light-dark(var(--teal-600), var(--teal-400));
   --ixia-accent-muted: light-dark(var(--teal-700), var(--teal-300));
-  --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--teal-100), var(--teal-950));
-  --ixia-accent-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container-high: light-dark(var(--teal-200), var(--teal-900));
   --ixia-accent-on-container: light-dark(var(--teal-900), var(--teal-100));
   --ixia-accent-on-container-muted: light-dark(var(--teal-700), var(--teal-300));

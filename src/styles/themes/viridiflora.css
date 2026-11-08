@@ -3,9 +3,9 @@
 [data-brand='viridiflora'] {
   --ixia-brand-default: light-dark(var(--teal-600), var(--teal-400));
   --ixia-brand-muted: light-dark(var(--teal-700), var(--teal-300));
-  --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--teal-100), var(--teal-950));
-  --ixia-brand-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container-high: light-dark(var(--teal-200), var(--teal-900));
   --ixia-brand-on-container: light-dark(var(--teal-900), var(--teal-100));
   --ixia-brand-on-container-muted: light-dark(var(--teal-700), var(--teal-300));
@@ -22,9 +22,9 @@
   --ixia-brand-gradient-subtle: linear-gradient(135deg, #00a49729, #62d0c21f, #b3f0d414);
   --ixia-accent-default: light-dark(var(--orange-600), var(--orange-400));
   --ixia-accent-muted: light-dark(var(--orange-700), var(--orange-300));
-  --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--orange-100), var(--orange-950));
-  --ixia-accent-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container-high: light-dark(var(--orange-200), var(--orange-900));
   --ixia-accent-on-container: light-dark(var(--orange-900), var(--orange-100));
   --ixia-accent-on-container-muted: light-dark(var(--orange-700), var(--orange-300));

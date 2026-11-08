@@ -14,8 +14,10 @@ import type { Computed, Pair } from './color-palette.contrast'
 type Brand = 'maculata' | 'mabel' | 'viridiflora' | 'hogarth' | 'venus' | 'monadelpha'
 
 const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const,
+  ACHROMATIC_STEPS = STEPS,
   FAMILIES = [
-    'neutral',
+    'white',
+    'black',
     'red',
     'orange',
     'amber',
@@ -221,6 +223,7 @@ function PrimitiveSwatch({ family, step }: { family: string; step: string }) {
     <div className="flex min-w-0 flex-col gap-3xs">
       <div
         ref={ref}
+        data-testid={`primitive-${family}-${step}`}
         className="h-xl rounded-md"
         style={{ background: `var(--${family}-${step})`, border: `1px solid ${token('border')}` }}
       />
@@ -332,16 +335,22 @@ function MatrixRow({ pair }: { pair: Pair }) {
 function PrimitivesView() {
   return (
     <div className="flex flex-col gap-sm">
-      {FAMILIES.map((family) => (
-        <div key={family} className="flex flex-col gap-2xs">
-          <h3 className="style-text-strong-0 capitalize">{family}</h3>
-          <div className="gap-xs" style={grid}>
-            {STEPS.map((step) => (
-              <PrimitiveSwatch key={step} family={family} step={step} />
-            ))}
+      {FAMILIES.map((family) => {
+        let steps: readonly string[] = STEPS
+        if (family === 'white' || family === 'black') {
+          steps = ACHROMATIC_STEPS
+        }
+        return (
+          <div key={family} className="flex flex-col gap-2xs">
+            <h3 className="style-text-strong-0 capitalize">{family}</h3>
+            <div className="gap-xs" style={grid}>
+              {steps.map((step) => (
+                <PrimitiveSwatch key={step} family={family} step={step} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
@@ -416,6 +425,7 @@ function AccessibilityMatrixView({ brand }: { brand: Brand }) {
 }
 
 export {
+  ACHROMATIC_STEPS,
   AccessibilityMatrixView,
   matrixParameters,
   PrimitivesView,

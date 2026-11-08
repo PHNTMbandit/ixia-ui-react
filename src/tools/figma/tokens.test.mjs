@@ -33,22 +33,36 @@ await test('exports current ixia semantic aliases without treating gradients as 
   }
 })
 
-await test('preserves the dark neutral sRGB mix and its light primitive alias', () => {
+await test('exports white and black palettes and preserves semantic neutral aliases', () => {
   const colors = collection(COLLECTIONS.colors),
     container = colors.variables.find(
       (entry) => entry.codeSyntax === 'var(--color-neutral-container)',
     ),
-    palette = collection(COLLECTIONS.palette),
-    primitive = (name) => palette.variables.find((entry) => entry.name === name).values.Default,
-    first = primitive('neutral/900'),
-    second = primitive('neutral/800')
+    palette = collection(COLLECTIONS.palette)
   assert.ok(container)
-  assert.deepEqual(container.values.Light, { alias: `${COLLECTIONS.palette}::neutral/200` })
-  for (const channel of ['r', 'g', 'b', 'a']) {
-    assert.ok(
-      Math.abs(container.values.Dark[channel] - (first[channel] * 0.2 + second[channel] * 0.8)) <
-        1e-10,
-    )
+  assert.deepEqual(container.values.Light, { alias: `${COLLECTIONS.palette}::white/400` })
+  assert.deepEqual(container.values.Dark, { alias: `${COLLECTIONS.palette}::black/600` })
+  assert.ok(!palette.variables.some((entry) => entry.name.startsWith('neutral/')))
+  assert.ok(!palette.variables.some((entry) => entry.name === 'white'))
+  assert.equal(variables.tokens['color/white'], `${COLLECTIONS.palette}::white/50`)
+  for (const family of ['white', 'black']) {
+    for (const step of [
+      '50',
+      '100',
+      '200',
+      '300',
+      '400',
+      '500',
+      '600',
+      '700',
+      '800',
+      '900',
+      '950',
+    ]) {
+      const primitive = palette.variables.find((entry) => entry.name === `${family}/${step}`)
+      assert.ok(primitive, `Missing primitive: ${family}/${step}`)
+      assert.equal(primitive.codeSyntax, `var(--${family}-${step})`)
+    }
   }
 })
 

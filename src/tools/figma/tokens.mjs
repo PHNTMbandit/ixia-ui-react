@@ -209,7 +209,7 @@ export function buildVariables(css) {
       values: { Default: color },
     })
   }
-  tokens['color/white'] = `${COLLECTIONS.palette}::white`
+  tokens['color/white'] = `${COLLECTIONS.palette}::white/50`
   tokens['color/black'] = `${COLLECTIONS.palette}::black`
 
   // Semantics: Colours (Light / Dark)

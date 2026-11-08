@@ -3,9 +3,9 @@
 [data-brand='venus'] {
   --ixia-brand-default: light-dark(var(--pink-600), var(--pink-400));
   --ixia-brand-muted: light-dark(var(--pink-700), var(--pink-300));
-  --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--pink-100), var(--pink-950));
-  --ixia-brand-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container-high: light-dark(var(--pink-200), var(--pink-900));
   --ixia-brand-on-container: light-dark(var(--pink-900), var(--pink-100));
   --ixia-brand-on-container-muted: light-dark(var(--pink-700), var(--pink-300));
@@ -22,9 +22,9 @@
   --ixia-brand-gradient-subtle: linear-gradient(135deg, #ce5eaf29, #f497d61f, #ffd2d914);
   --ixia-accent-default: light-dark(var(--emerald-600), var(--emerald-400));
   --ixia-accent-muted: light-dark(var(--emerald-700), var(--emerald-300));
-  --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--emerald-100), var(--emerald-950));
-  --ixia-accent-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container-high: light-dark(var(--emerald-200), var(--emerald-900));
   --ixia-accent-on-container: light-dark(var(--emerald-900), var(--emerald-100));
   --ixia-accent-on-container-muted: light-dark(var(--emerald-700), var(--emerald-300));
