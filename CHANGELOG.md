@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.1.1...v2.2.0) (2026-11-08)
+
+
+### Features
+
+* add table of contents component ([371969a](https://github.com/PHNTMbandit/ixia-ui-react/commit/371969a69b9c102fc34128136c94a5d5fd501da2))
+
 ## [2.1.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.1.0...v2.1.1) (2026-11-06)
 
 
