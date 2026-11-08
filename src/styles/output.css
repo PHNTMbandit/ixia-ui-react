@@ -6,13 +6,10 @@
 @layer theme {
   :root, :host {
     --container-5xl: 64rem;
-    --font-weight-extralight: 200;
     --font-weight-light: 300;
-    --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-spin: spin 1s linear infinite;
@@ -1207,14 +1204,8 @@
   .flex-1 {
     flex: 1;
   }
-  .flex-shrink {
-    flex-shrink: 1;
-  }
   .shrink-0 {
     flex-shrink: 0;
-  }
-  .flex-grow {
-    flex-grow: 1;
   }
   .grow {
     flex-grow: 1;
@@ -1224,9 +1215,6 @@
   }
   .border-collapse {
     border-collapse: collapse;
-  }
-  .border-separate {
-    border-collapse: separate;
   }
   .border-separate\! {
     border-collapse: separate !important;
@@ -2228,9 +2216,6 @@
   .text-pretty {
     text-wrap: pretty;
   }
-  .text-wrap {
-    text-wrap: wrap;
-  }
   .wrap-anywhere {
     overflow-wrap: anywhere;
   }
@@ -2466,9 +2451,6 @@
   .shadow-xs {
     box-shadow: var(--shadow-xs) var(--ixia-shadow);
   }
-  .ring-brand-border-strong {
-    --tw-ring-color: var(--color-brand-border-strong);
-  }
   .ring-brand-border-strong\/20 {
     --tw-ring-color: var(--color-brand-border-strong);
     @supports (color: color-mix(in lab, red, red)) {
@@ -2526,10 +2508,6 @@
   }
   .backdrop-blur-lg {
     --tw-backdrop-blur: blur(var(--blur-lg));
-    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
-    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
-  }
-  .backdrop-filter {
     -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
     backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
   }
@@ -2693,10 +2671,6 @@
   .ease-\[ease\] {
     --tw-ease: ease;
     transition-timing-function: ease;
-  }
-  .ease-in {
-    --tw-ease: var(--ease-in);
-    transition-timing-function: var(--ease-in);
   }
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
@@ -6994,7 +6968,7 @@
   --ixia-surface-3: light-dark(var(--white), var(--neutral-700));
   --ixia-surface-low: light-dark(var(--neutral-200), var(--black));
   --ixia-on-surface: light-dark(var(--neutral-900), var(--neutral-50));
-  --ixia-on-surface-variant: light-dark(var(--neutral-700), var(--neutral-400));
+  --ixia-on-surface-variant: light-dark(var(--neutral-700), var(--neutral-300));
   --ixia-on-surface-muted: light-dark(
     var(--neutral-600),
     var(--neutral-400)
@@ -7002,7 +6976,7 @@
   @supports (color: color-mix(in lab, red, red)) {
     --ixia-on-surface-muted: light-dark(
     var(--neutral-600),
-    color-mix(in srgb, var(--neutral-400) 75%, var(--neutral-500))
+    color-mix(in srgb, var(--neutral-400) 75%, var(--neutral-300))
   );
   }
   --ixia-on-surface-disabled: light-dark(var(--neutral-400), var(--neutral-600));
