@@ -1,11 +1,16 @@
 import { MagnifyingGlassIcon, SpinnerGapIcon, TagIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
+import { expect, userEvent, within } from 'storybook/test'
 
+import { Button } from '../button'
 import { useFilter } from './autocomplete.types'
 import { Autocomplete } from './index'
 
 type AutocompleteMode = 'list' | 'both' | 'inline' | 'none'
+type AutocompleteInputVariant = NonNullable<
+  React.ComponentProps<typeof Autocomplete.InputGroup>['variant']
+>
 
 interface TagItem {
   id: string
@@ -93,7 +98,7 @@ const groupedTags = groupTags(tagsData),
     highlightItemOnHover?: boolean
     keepHighlight?: boolean
     openOnInputClick?: boolean
-    variant?: 'primary' | 'secondary'
+    variant?: AutocompleteInputVariant
   }) => (
     <div className="w-[420px]">
       <Autocomplete
@@ -110,7 +115,8 @@ const groupedTags = groupTags(tagsData),
             <MagnifyingGlassIcon weight="bold" />
           </Autocomplete.InputGroupAddon>
         </Autocomplete.InputGroup>
-        <Autocomplete.Content emptyText="No matches found">
+        <Autocomplete.Content>
+          <Autocomplete.Empty>No matches found</Autocomplete.Empty>
           <Autocomplete.Collection>
             {(tag: TagItem) => (
               <Autocomplete.Item key={tag.id} value={tag}>
@@ -131,7 +137,8 @@ const groupedTags = groupTags(tagsData),
             <TagIcon weight="bold" />
           </Autocomplete.InputGroupAddon>
         </Autocomplete.InputGroup>
-        <Autocomplete.Content emptyText="No grouped results found">
+        <Autocomplete.Content>
+          <Autocomplete.Empty>No grouped results found</Autocomplete.Empty>
           {groupedTags.map((group) => (
             <Autocomplete.Group items={group.items} key={group.value}>
               <Autocomplete.GroupLabel>{group.value}</Autocomplete.GroupLabel>
@@ -239,7 +246,8 @@ const AsyncLoadingTemplate = () => {
             <MagnifyingGlassIcon weight="bold" />
           </Autocomplete.InputGroupAddon>
         </Autocomplete.InputGroup>
-        <Autocomplete.Content emptyText="No matching movies">
+        <Autocomplete.Content>
+          <Autocomplete.Empty>No matching movies</Autocomplete.Empty>
           <Autocomplete.Status>{getStatus()}</Autocomplete.Status>
           <Autocomplete.Collection>
             {(movie: Movie) => (
@@ -321,7 +329,7 @@ export default {
     docs: {
       description: {
         component:
-          'Autocomplete improves text entry by surfacing matching suggestions in real time. This implementation supports list and inline completion modes, grouped results, trigger-based grid pickers, async status feedback, and an input-group composition model for richer controls.',
+          'Autocomplete improves text entry by surfacing matching suggestions in real time. Its input group and grid search support primary, secondary, ghost, and outline surface variants. It also supports list and inline completion modes, grouped results, trigger-based grid pickers, and async status feedback.',
       },
       subtitle: 'An input enhancement that suggests matching options while the user types.',
     },
@@ -353,6 +361,60 @@ export default {
 } satisfies Meta<typeof Autocomplete>
 
 type Story = StoryObj<typeof Autocomplete>
+type VariantStory = StoryObj<{ variant: AutocompleteInputVariant }>
+type GridVariantStory = StoryObj<{ variant?: AutocompleteInputVariant }>
+
+const variantClasses = {
+    ghost: ['bg-transparent', 'outline-transparent'],
+    outline: ['bg-transparent', 'outline-border'],
+    primary: ['bg-surface', 'shadow-2xs'],
+    secondary: ['bg-neutral-container'],
+  } satisfies Record<AutocompleteInputVariant, string[]>,
+  variantBackgrounds = {
+    ghost: 'transparent',
+    outline: 'transparent',
+    primary: 'var(--color-surface)',
+    secondary: 'var(--color-neutral-container)',
+  } satisfies Record<AutocompleteInputVariant, string>,
+  variantArgTypes = {
+    variant: {
+      control: 'select',
+      description: 'Controls the visual surface style of the autocomplete input group.',
+      options: ['primary', 'secondary', 'ghost', 'outline'],
+      table: {
+        defaultValue: { summary: 'primary' },
+      },
+    },
+  } satisfies NonNullable<VariantStory['argTypes']>,
+  variantExample = {
+    render: ({ variant }: { variant: AutocompleteInputVariant }) => (
+      <ListAutocompleteTemplate variant={variant} />
+    ),
+    play: async ({ canvasElement, args }) => {
+      const input = within(canvasElement).getByPlaceholderText('Search tags or components')
+      await expectVariantSurface(input, args.variant)
+    },
+  } satisfies Pick<VariantStory, 'play' | 'render'>
+
+async function expectVariantSurface(input: HTMLElement, variant: AutocompleteInputVariant) {
+  const group = input.parentElement,
+    parent = group?.parentElement
+  if (!group || !parent) {
+    throw new Error('Autocomplete input group is missing')
+  }
+  const swatch = input.ownerDocument.createElement('span')
+  swatch.style.backgroundColor = variantBackgrounds[variant]
+  parent.append(swatch)
+  try {
+    await expect(group).toHaveClass(...variantClasses[variant])
+    await expect(group).toHaveClass('rounded-xl')
+    await expect(getComputedStyle(group).backgroundColor).toBe(
+      getComputedStyle(swatch).backgroundColor,
+    )
+  } finally {
+    swatch.remove()
+  }
+}
 
 export const Playground: Story = {
   name: 'Playground',
@@ -364,6 +426,110 @@ export const Playground: Story = {
       },
     },
   },
+}
+
+export const VariantPlayground: VariantStory = {
+  ...variantExample,
+  args: {
+    variant: 'primary',
+  },
+  argTypes: variantArgTypes,
+  name: 'Variant / Playground',
+}
+
+export const Primary: VariantStory = {
+  ...variantExample,
+  args: { variant: 'primary' },
+  name: 'Variant / Primary',
+}
+
+export const Secondary: VariantStory = {
+  ...variantExample,
+  args: { variant: 'secondary' },
+  name: 'Variant / Secondary',
+}
+
+export const Ghost: VariantStory = {
+  ...variantExample,
+  args: { variant: 'ghost' },
+  name: 'Variant / Ghost',
+}
+
+export const Outline: VariantStory = {
+  ...variantExample,
+  args: { variant: 'outline' },
+  name: 'Variant / Outline',
+}
+
+const gridVariantExample = {
+  render: ({ variant }) => (
+    <Autocomplete defaultOpen grid items={['Alpha', 'Beta', 'Gamma']}>
+      <Autocomplete.Trigger
+        aria-label="Choose an item"
+        render={<Button tone="neutral" variant="outline" />}
+      >
+        Choose an item
+      </Autocomplete.Trigger>
+      <Autocomplete.GridContent
+        emptyText="No items found"
+        placeholder="Search grid"
+        variant={variant}
+      >
+        <Autocomplete.Row>
+          <Autocomplete.Collection>
+            {(item: string) => (
+              <Autocomplete.GridItem key={item} value={item}>
+                {item}
+              </Autocomplete.GridItem>
+            )}
+          </Autocomplete.Collection>
+        </Autocomplete.Row>
+      </Autocomplete.GridContent>
+    </Autocomplete>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement),
+      page = within(canvasElement.ownerDocument.body),
+      trigger = canvas.getByRole('combobox', { name: 'Choose an item' }),
+      input = await page.findByPlaceholderText('Search grid')
+    await expect(trigger).toHaveTextContent('Choose an item')
+    await expect(input.closest('[role="dialog"]')).toHaveAccessibleName('Search grid')
+    await expectVariantSurface(input, args.variant ?? 'primary')
+    await userEvent.type(input, 'Beta')
+    await expect(page.queryByText('Alpha')).not.toBeInTheDocument()
+    await expect(page.getByText('Beta')).toBeInTheDocument()
+    await userEvent.clear(input)
+  },
+} satisfies Pick<GridVariantStory, 'play' | 'render'>
+
+export const GridVariant: GridVariantStory = {
+  ...gridVariantExample,
+  argTypes: variantArgTypes,
+  name: 'Grid Variant / Playground',
+}
+
+export const GridPrimary: GridVariantStory = {
+  ...gridVariantExample,
+  args: { variant: 'primary' },
+  name: 'Grid Variant / Primary',
+}
+
+export const GridSecondary: GridVariantStory = {
+  ...gridVariantExample,
+  args: { variant: 'secondary' },
+  name: 'Grid Variant / Secondary',
+}
+
+export const GridGhost: GridVariantStory = {
+  ...gridVariantExample,
+  args: { variant: 'ghost' },
+  name: 'Grid Variant / Ghost',
+}
+
+export const GridOutline: GridVariantStory = {
+  ...gridVariantExample,
+  args: { variant: 'outline' },
+  name: 'Grid Variant / Outline',
 }
 
 export const ListMode: Story = {

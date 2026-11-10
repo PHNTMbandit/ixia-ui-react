@@ -98,7 +98,7 @@ const navBarVariants = cva('flex h-fit items-center justify-between', {
           brand:
             'text-brand-default hover:bg-brand-container hover:text-brand-on-container data-[active=true]:bg-brand-container data-[active=true]:text-brand-on-container',
           error:
-            'text-error-default hover:bg-error-container hover:text-error-on-container data-[active=true]:bg-error-container data-[active=true]:text-error-on-container',
+            'text-error-on-surface hover:bg-error-container hover:text-error-on-container data-[active=true]:bg-error-container data-[active=true]:text-error-on-container',
           info: 'text-info-default hover:bg-info-container hover:text-info-on-container data-[active=true]:bg-info-container data-[active=true]:text-info-on-container',
           neutral:
             'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container data-[active=true]:bg-neutral-container data-[active=true]:text-neutral-on-container',

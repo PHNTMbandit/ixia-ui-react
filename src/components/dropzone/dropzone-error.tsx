@@ -13,7 +13,10 @@ export function DropzoneError({ className, children, ref, ...props }: DropzoneEr
 
   return (
     <p
-      className={cn('flex items-center gap-2xs style-text-strong--1 text-error-default', className)}
+      className={cn(
+        'flex items-center gap-2xs style-text-strong--1 text-error-on-surface',
+        className,
+      )}
       ref={ref}
       role="alert"
       {...props}

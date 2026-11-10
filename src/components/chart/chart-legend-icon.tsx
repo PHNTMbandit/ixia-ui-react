@@ -11,7 +11,7 @@ export function ChartLegendIcon({ className, children, ref, ...props }: ChartLeg
       style={{
         color,
       }}
-      className={cn('shrink-0 [&>svg]:size-xs', className)}
+      className={cn('shrink-0 [:where(&)>svg]:size-xs', className)}
       ref={ref}
       {...props}
     >

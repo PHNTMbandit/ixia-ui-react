@@ -93,7 +93,7 @@ export const buttonGroupVariants = cva(
         variant: 'outline',
       },
       {
-        className: 'border-error-border text-error-default',
+        className: 'border-error-border text-error-on-surface',
         tone: 'error',
         variant: 'outline',
       },
@@ -128,7 +128,7 @@ export const buttonGroupVariants = cva(
         variant: 'ghost',
       },
       {
-        className: 'text-error-default',
+        className: 'text-error-on-surface',
         tone: 'error',
         variant: 'ghost',
       },

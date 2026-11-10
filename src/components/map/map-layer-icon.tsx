@@ -11,7 +11,7 @@ export function MapLayerIcon({ className, children, ref, ...props }: MapLayerIco
   }
 
   return (
-    <div className={cn('shrink-0 [&>svg]:size-md', className)} ref={ref} {...props}>
+    <div className={cn('shrink-0 [:where(&)>svg]:size-md', className)} ref={ref} {...props}>
       {children}
       {layer.icon}
     </div>

@@ -2,7 +2,7 @@ import type { ContextMenu as BaseContextMenu } from '@base-ui/react/context-menu
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
-import { menuItemToneClasses, menuSubmenuToneClasses } from '../menu/menu-tone'
+import { menuItemBaseClasses, menuItemToneClasses, menuSubmenuToneClasses } from '../menu/menu-tone'
 
 type ContextMenuProps = React.ComponentProps<typeof BaseContextMenu.Root>
 type ContextMenuTriggerProps = React.ComponentProps<typeof BaseContextMenu.Trigger>
@@ -18,28 +18,22 @@ type ContextMenuRadioItemProps = React.ComponentProps<typeof BaseContextMenu.Rad
   VariantProps<typeof contextMenuItemVariants>
 type ContextMenuRadioGroupProps = React.ComponentProps<typeof BaseContextMenu.RadioGroup>
 
-const contextMenuItemVariants = cva(
-    'relative z-0 flex cursor-default items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
-    {
-      defaultVariants: {
-        tone: 'neutral',
-      },
-      variants: {
-        tone: menuItemToneClasses,
-      },
+const contextMenuItemVariants = cva(`flex ${menuItemBaseClasses}`, {
+    defaultVariants: {
+      tone: 'neutral',
     },
-  ),
-  contextMenuSubmenuTriggerVariants = cva(
-    'relative z-0 flex cursor-default items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
-    {
-      defaultVariants: {
-        tone: 'neutral',
-      },
-      variants: {
-        tone: menuSubmenuToneClasses,
-      },
+    variants: {
+      tone: menuItemToneClasses,
     },
-  )
+  }),
+  contextMenuSubmenuTriggerVariants = cva(`flex ${menuItemBaseClasses}`, {
+    defaultVariants: {
+      tone: 'neutral',
+    },
+    variants: {
+      tone: menuSubmenuToneClasses,
+    },
+  })
 
 type ContextMenuItemProps = React.ComponentProps<typeof BaseContextMenu.Item> &
   VariantProps<typeof contextMenuItemVariants>

@@ -13,7 +13,7 @@ export function AutocompleteInputGroupInput({
   return (
     <BaseAutocomplete.Input
       placeholder={placeholder}
-      className={cn('grow text-ellipsis outline-none placeholder:opacity-85', className)}
+      className={cn('grow text-ellipsis outline-none placeholder:text-on-surface-muted', className)}
       ref={ref}
       {...props}
     />

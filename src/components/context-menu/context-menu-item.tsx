@@ -18,11 +18,7 @@ export function ContextMenuItem({
       nativeButton
       ref={ref}
       render={(renderProps) => (
-        <button
-          type="button"
-          {...renderProps}
-          className={cn('w-full gap-2xs [&>svg]:size-sm', renderProps.className)}
-        >
+        <button type="button" {...renderProps} className={cn('w-full', renderProps.className)}>
           {children}
         </button>
       )}

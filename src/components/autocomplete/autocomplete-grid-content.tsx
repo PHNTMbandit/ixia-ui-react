@@ -14,6 +14,7 @@ export function AutocompleteGridContent({
   className,
   children,
   sideOffset = DEFAULT_SIDE_OFFSET,
+  variant,
   ref,
   ...props
 }: AutocompleteGridContentProps) {
@@ -25,9 +26,12 @@ export function AutocompleteGridContent({
         sideOffset={sideOffset}
         {...props}
       >
-        <BaseAutocomplete.Popup className="max-h-[20.5rem] max-w-(--available-width) origin-(--transform-origin) overflow-hidden rounded-lg bg-surface-2 shadow-lg transition-[transform,scale,opacity] [--input-container-height:3rem] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0">
+        <BaseAutocomplete.Popup
+          aria-label={placeholder}
+          className="max-h-[20.5rem] max-w-(--available-width) origin-(--transform-origin) overflow-hidden rounded-lg bg-surface-2 shadow-lg transition-[transform,scale,opacity] [--input-container-height:3rem] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0"
+        >
           <div className="m-3xs flex h-(--input-container-height) items-center justify-center text-center">
-            <AutocompleteInputGroup>
+            <AutocompleteInputGroup variant={variant}>
               <AutocompleteInputGroupInput placeholder={placeholder} />
             </AutocompleteInputGroup>
           </div>

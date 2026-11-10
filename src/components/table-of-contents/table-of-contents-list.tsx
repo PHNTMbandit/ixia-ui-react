@@ -12,7 +12,7 @@ export function TableOfContentsList({
   return (
     <div
       className={cn(
-        "relative ml-3xs flex flex-col before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:rounded-full before:bg-border before:content-['']",
+        "relative ml-3xs flex flex-col before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:rounded-full before:content-['']",
         className,
       )}
       ref={ref}

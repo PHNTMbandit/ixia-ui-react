@@ -3,6 +3,7 @@ import { ContextMenu as BaseContextMenu } from '@base-ui/react/context-menu'
 import { cn } from '@/utils/cn'
 
 import { Icon } from '../icon'
+import { menuItemBaseClasses, menuItemHighlightClasses } from '../menu/menu-tone'
 import type { ContextMenuRadioItemProps } from './context-menu.types'
 
 export function ContextMenuRadioItem({
@@ -14,14 +15,16 @@ export function ContextMenuRadioItem({
   return (
     <BaseContextMenu.RadioItem
       className={cn(
-        'relative z-0 grid cursor-default grid-cols-[1fr_2rem] items-center px-xs py-3xs style-text-default-0 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:content-[""] hover:cursor-pointer data-highlighted:text-neutral-on-container data-highlighted:before:bg-neutral-container-high',
+        'grid grid-cols-[1fr_0.75rem]',
+        menuItemBaseClasses,
+        menuItemHighlightClasses,
         className,
       )}
       ref={ref}
       {...props}
     >
       <span className="col-start-1 min-w-3xl">{children}</span>
-      <BaseContextMenu.RadioItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
+      <BaseContextMenu.RadioItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center [&>svg]:size-sm!">
         <Icon name="selected" className="size-sm" />
       </BaseContextMenu.RadioItemIndicator>
     </BaseContextMenu.RadioItem>

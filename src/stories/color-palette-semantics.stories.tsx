@@ -45,11 +45,12 @@ type Story = StoryObj
 
 const BRANDS = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadelpha'] as const,
   MODES = ['light', 'dark'] as const,
+  SURFACES = ['surface-background', 'surface-low', 'surface', 'surface-2', 'surface-3'] as const,
   TEXT_LEVELS = ['on-surface', 'on-surface-variant', 'on-surface-muted'] as const,
   TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const
 
 const CUSTOM_THEME: CSSProperties & Record<`--${string}`, string> = {
-  '--ixia-brand-container-low': 'light-dark(var(--orange-50), var(--neutral-950))',
+  '--ixia-brand-container-low': 'light-dark(var(--orange-50), var(--black-900))',
   '--ixia-brand-container': 'light-dark(var(--orange-200), var(--orange-900))',
   '--ixia-brand-container-high': 'light-dark(var(--orange-300), var(--orange-800))',
   '--ixia-brand-on-container': 'light-dark(var(--orange-950), var(--orange-50))',
@@ -57,7 +58,7 @@ const CUSTOM_THEME: CSSProperties & Record<`--${string}`, string> = {
   '--color-brand-container': 'var(--ixia-brand-container)',
   '--color-brand-container-high': 'var(--ixia-brand-container-high)',
   '--color-brand-on-container': 'var(--ixia-brand-on-container)',
-  '--ixia-border': 'light-dark(var(--neutral-300), var(--neutral-700))',
+  '--ixia-border': 'light-dark(var(--white-400), var(--black-200))',
   '--ixia-neutral-border': 'var(--ixia-border)',
   '--color-border': 'var(--ixia-border)',
   '--color-neutral-border': 'var(--color-border)',
@@ -81,7 +82,7 @@ export const InteractionStates: Story = {
             key={`${brand}-${mode}`}
             data-brand={brand}
             data-theme={mode}
-            className="flex flex-col gap-md rounded-xl bg-surface p-md text-on-surface"
+            className="flex flex-col gap-md rounded-xl bg-surface-background p-md text-on-surface"
           >
             <h2 className="style-text-strong-1 capitalize">
               {brand} / {mode}
@@ -124,12 +125,13 @@ export const InteractionStates: Story = {
                 secondary hover
               </span>
             </div>
-            {(['surface', 'surface-2', 'surface-3'] as const).map((surface) => (
+            {SURFACES.map((surface) => (
               <div
                 key={surface}
                 className="flex flex-col gap-2xs rounded-lg p-sm"
                 style={{ background: `var(--color-${surface})` }}
               >
+                <h3 className="style-text-strong-0 capitalize">{surface}</h3>
                 {TEXT_LEVELS.map((level) => (
                   <p
                     key={level}
@@ -154,7 +156,22 @@ export const InteractionStates: Story = {
     const canvas = within(canvasElement)
     for (const brand of BRANDS) {
       for (const mode of MODES) {
-        for (const surface of ['surface', 'surface-2', 'surface-3']) {
+        const raisedSurfaces = ['surface-low', 'surface', 'surface-2', 'surface-3'].map(
+          (surface) =>
+            getComputedStyle(canvas.getByTestId(`${brand}-${mode}-${surface}-on-surface`))
+              .backgroundColor,
+        )
+        if (mode === 'light') {
+          expect(raisedSurfaces.slice(1)).toEqual([
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+            'rgb(255, 255, 255)',
+          ])
+          expect(new Set(raisedSurfaces).size).toBe(2)
+        } else {
+          expect(new Set(raisedSurfaces).size).toBe(4)
+        }
+        for (const surface of SURFACES) {
           const contrasts = TEXT_LEVELS.map((level) => {
             const style = getComputedStyle(
               canvas.getByTestId(`${brand}-${mode}-${surface}-${level}`),
@@ -163,8 +180,11 @@ export const InteractionStates: Story = {
             expect(contrast.ratio).toBeGreaterThanOrEqual(4.5)
             return Math.abs(contrast.lc)
           })
-          expect(contrasts[0] - contrasts[1]).toBeGreaterThanOrEqual(11.5)
-          expect(contrasts[1] - contrasts[2]).toBeGreaterThanOrEqual(11.5)
+          expect(contrasts[0]).toBeGreaterThanOrEqual(90)
+          expect(contrasts[1]).toBeGreaterThanOrEqual(75)
+          expect(contrasts[2]).toBeGreaterThanOrEqual(60)
+          expect(contrasts[0] - contrasts[1]).toBeGreaterThanOrEqual(15)
+          expect(contrasts[1] - contrasts[2]).toBeGreaterThanOrEqual(15)
           const hover = getComputedStyle(canvas.getByTestId(`${brand}-${mode}-neutral-hover`)),
             background = getComputedStyle(
               canvas.getByTestId(`${brand}-${mode}-${surface}-on-surface`),
@@ -209,17 +229,24 @@ export const InteractionStates: Story = {
         expect(hovered.backgroundColor).not.toBe(resting.backgroundColor)
         section.append(swatch)
         try {
-          swatch.style.backgroundColor =
-            mode === 'light'
-              ? 'var(--neutral-200)'
-              : 'color-mix(in srgb, var(--neutral-900) 20%, var(--neutral-800))'
+          swatch.style.backgroundColor = mode === 'light' ? 'var(--white-400)' : 'var(--black-600)'
           expect(resting.backgroundColor).toBe(getComputedStyle(swatch).backgroundColor)
         } finally {
           swatch.remove()
         }
+        for (const name of [
+          ...SURFACES,
+          ...TEXT_LEVELS,
+          'neutral-container',
+          'neutral-container-high',
+          'neutral-on-container-muted',
+        ]) {
+          expect(theme.getPropertyValue(`--ixia-${name}`)).not.toContain('color-mix')
+        }
         for (const tone of TONES) {
-          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe('')
-          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe('')
+          const container = theme.getPropertyValue(`--ixia-${tone}-container`).trim()
+          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe(container)
+          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe(container)
         }
         for (const state of [resting, hovered]) {
           const contrast = measure({ background: state.backgroundColor, color: state.color })
@@ -229,6 +256,7 @@ export const InteractionStates: Story = {
       }
     }
     for (const tone of TONES) {
+      const highlight = tone === 'neutral' ? `${tone}-container-high` : `${tone}-container`
       expect(accordionItemVariants({ tone })).toContain(
         `[&:not([data-open])]:hover:bg-${tone}-container`,
       )
@@ -236,17 +264,15 @@ export const InteractionStates: Story = {
       expect(navBarItemVariants({ tone })).toContain(`data-[active=true]:bg-${tone}-container`)
       expect(toggleVariants({ tone })).toContain(`hover:not-disabled:bg-${tone}-container`)
       for (const item of [menuItemVariants({ tone }), contextMenuItemVariants({ tone })]) {
-        expect(item).toContain(`data-highlighted:before:bg-${tone}-container-high`)
+        expect(item).toContain(`data-highlighted:bg-${highlight}`)
       }
       for (const submenu of [
         menuSubmenuTriggerVariants({ tone }),
         contextMenuSubmenuTriggerVariants({ tone }),
       ]) {
-        expect(submenu).toContain(`data-highlighted:before:bg-${tone}-container-high`)
-        expect(submenu).toContain(`data-popup-open:before:bg-${tone}-container-high`)
-        expect(submenu).toContain(
-          `data-highlighted:data-popup-open:before:bg-${tone}-container-high`,
-        )
+        expect(submenu).toContain(`data-highlighted:bg-${highlight}`)
+        expect(submenu).toContain(`data-popup-open:bg-${highlight}`)
+        expect(submenu).toContain(`data-highlighted:data-popup-open:bg-${highlight}`)
       }
     }
   },
@@ -270,7 +296,7 @@ export const CustomTheme: Story = {
           data-brand="custom"
           data-theme={mode}
           style={CUSTOM_THEME}
-          className="flex flex-col gap-sm rounded-xl bg-surface p-md text-on-surface"
+          className="flex flex-col gap-sm rounded-xl bg-surface-background p-md text-on-surface"
         >
           <h2 className="style-text-strong-1 capitalize">Custom theme / {mode}</h2>
           <div className="flex flex-wrap gap-xs">
@@ -319,7 +345,7 @@ export const CustomTheme: Story = {
         const primitives =
           mode === 'light'
             ? ['orange-50', 'orange-200', 'orange-300']
-            : ['neutral-950', 'orange-900', 'orange-800']
+            : ['black-900', 'orange-900', 'orange-800']
         const states = [low, container, high]
         for (const [index, state] of states.entries()) {
           swatch.style.backgroundColor = `var(--${primitives[index]})`
@@ -328,7 +354,7 @@ export const CustomTheme: Story = {
           expect(state.color).toBe(getComputedStyle(swatch).color)
         }
         expect(new Set(states.map((state) => state.backgroundColor)).size).toBe(3)
-        swatch.style.borderColor = mode === 'light' ? 'var(--neutral-300)' : 'var(--neutral-700)'
+        swatch.style.borderColor = mode === 'light' ? 'var(--white-400)' : 'var(--black-200)'
         expect(border.borderTopColor).toBe(getComputedStyle(swatch).borderTopColor)
         expect(outline.borderTopColor).toBe(border.borderTopColor)
         resolvedContainers.push(container.backgroundColor)
@@ -347,7 +373,7 @@ export const MenuHighlights: Story = {
         <section
           key={mode}
           data-theme={mode}
-          className="flex flex-col gap-sm rounded-xl bg-surface p-md text-on-surface"
+          className="flex flex-col gap-sm rounded-xl bg-surface-background p-md text-on-surface"
         >
           <h2 className="style-text-strong-1 capitalize">{mode} menu highlights</h2>
           <Menu>
@@ -400,8 +426,13 @@ export const MenuHighlights: Story = {
           swatch.style.backgroundColor = `var(--color-${tone}-container-high)`
           const high = getComputedStyle(swatch).backgroundColor
           swatch.style.backgroundColor = `var(--color-${tone}-container)`
-          await expect(high).not.toBe(getComputedStyle(swatch).backgroundColor)
-          await waitFor(() => expect(getComputedStyle(item, '::before').backgroundColor).toBe(high))
+          const container = getComputedStyle(swatch).backgroundColor
+          await expect(high).not.toBe(container)
+          await waitFor(() =>
+            expect(getComputedStyle(item).backgroundColor).toBe(
+              tone === 'neutral' ? high : container,
+            ),
+          )
           swatch.style.color = `var(--color-${tone}-on-container)`
           await waitFor(() =>
             expect(getComputedStyle(item).color).toBe(getComputedStyle(swatch).color),

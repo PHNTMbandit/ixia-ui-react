@@ -30,8 +30,14 @@ const BYTES_PER_KILOBYTE = 1000,
 
     return `${size.toFixed(getPrecision(size))} ${units[unitIndex]}`
   },
+  inputSurfaceVariants = {
+    ghost: 'bg-transparent outline-transparent',
+    outline: 'bg-transparent outline-border',
+    primary: 'bg-surface shadow-2xs',
+    secondary: 'bg-neutral-container',
+  } as const,
   inputVariants = cva(
-    'group flex w-full items-center text-ellipsis caret-brand-border-strong outline outline-transparent transition-all placeholder:opacity-60 focus-within:outline-brand-border-strong not-focus-within:hover:outline-border-strong disabled:cursor-not-allowed aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:caret-error-border-strong aria-invalid:outline-error-border aria-invalid:focus-within:outline-error-border-strong aria-invalid:not-focus-within:hover:outline-error-border data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
+    'group flex w-full items-center text-ellipsis caret-brand-border-strong outline outline-transparent transition-all placeholder:text-on-surface-muted focus-within:outline-brand-border-strong not-focus-within:hover:outline-border-strong disabled:cursor-not-allowed aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:caret-error-border-strong aria-invalid:outline-error-border-strong aria-invalid:focus-within:outline-error-border-strong aria-invalid:not-focus-within:hover:outline-error-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
     {
       defaultVariants: {
         size: 'medium',
@@ -43,12 +49,7 @@ const BYTES_PER_KILOBYTE = 1000,
           medium: 'h-xl gap-2xs rounded-xl px-sm style-text-prose-0',
           small: 'h-lg gap-3xs rounded-lg pr-3xs pl-xs style-text-prose--1',
         },
-        variant: {
-          ghost: 'bg-transparent',
-          outline: 'bg-transparent outline outline-border',
-          primary: 'bg-surface shadow-2xs',
-          secondary: 'bg-neutral-container',
-        },
+        variant: inputSurfaceVariants,
       },
     },
   )
@@ -66,4 +67,4 @@ type InputProps = VariantProps<typeof inputVariants> &
     compact?: boolean
   }
 
-export { formatFileSize, inputVariants, type InputProps }
+export { formatFileSize, inputSurfaceVariants, inputVariants, type InputProps }

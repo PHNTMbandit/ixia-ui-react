@@ -6,7 +6,7 @@ import { expect, userEvent, waitFor, within } from 'storybook/test'
 import { Select } from './index'
 import type { SelectProps, SelectTriggerProps } from './select.types'
 
-const VARIANTS = ['primary', 'secondary', 'ghost'] as const,
+const VARIANTS = ['primary', 'secondary', 'ghost', 'outline'] as const,
   SIZES = ['small', 'medium', 'large'] as const
 
 type SelectVariant = NonNullable<SelectTriggerProps['variant']>
@@ -234,7 +234,7 @@ export default {
       description: 'Controls the trigger visual style.',
       options: VARIANTS,
       table: {
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: 'primary' },
       },
     },
   },
@@ -246,7 +246,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Select component presents a controlled or uncontrolled choice list inside a popup. It supports single and multiple selection, grouped options, trigger variants (`default`, `secondary`), trigger sizes (`small`, `medium`, `large`), custom trigger/value composition, and scrollable lists for longer datasets.',
+          'The Select component presents a controlled or uncontrolled choice list inside a popup. It supports single and multiple selection, grouped options, trigger variants (`primary`, `secondary`, `ghost`, `outline`), trigger sizes (`small`, `medium`, `large`), custom trigger/value composition, and scrollable lists for longer datasets. Trigger border and outline colors transition smoothly, with a brand outline only while the popup is open. Invalid triggers retain their error outline. The popup has no border or focus outline.',
       },
       subtitle: 'A composed selection control for choosing one or more options from a popup list.',
     },
@@ -343,6 +343,87 @@ export const VariantGhost: Story = {
     },
   },
   render: () => <AppleSelect variant="ghost" />,
+}
+
+export const VariantOutline: Story = {
+  name: 'Variant / Outline',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Transparent trigger with a neutral border and keyboard focus outline. The border becomes branded only while the popup is open.',
+      },
+    },
+  },
+  render: () => <AppleSelect variant="outline" />,
+  play: async ({ canvas, canvasElement }) => {
+    const trigger = canvas.getByRole('combobox'),
+      page = within(canvasElement.ownerDocument.body),
+      swatch = canvasElement.ownerDocument.createElement('span'),
+      browser =
+        '__vitest_browser_runner__' in globalThis
+          ? await import('vite-plus/test/browser')
+          : undefined
+    swatch.style.outlineColor = 'var(--color-border)'
+    canvasElement.append(swatch)
+
+    try {
+      if (browser) await browser.userEvent.unhover(trigger)
+      await expect(trigger).toHaveClass('bg-transparent', 'outline-border', 'rounded-xl')
+      await expect(getComputedStyle(trigger).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+      await expect(getComputedStyle(trigger).boxShadow).toBe('none')
+      await expect(getComputedStyle(trigger).outlineWidth).toBe('1px')
+      await waitFor(() =>
+        expect(getComputedStyle(trigger).outlineColor).toBe(getComputedStyle(swatch).outlineColor),
+      )
+
+      if (browser) {
+        swatch.style.outlineColor = 'var(--color-border-strong)'
+        await browser.userEvent.hover(trigger)
+        await expect(trigger.matches(':hover')).toBe(true)
+        await waitFor(() =>
+          expect(getComputedStyle(trigger).outlineColor).toBe(
+            getComputedStyle(swatch).outlineColor,
+          ),
+        )
+        await browser.userEvent.unhover(trigger)
+        await browser.userEvent.keyboard('{Shift}')
+        trigger.focus()
+        await expect(trigger.matches(':focus-visible')).toBe(true)
+        swatch.style.outlineColor = 'var(--color-border-strong)'
+        await waitFor(() =>
+          expect(getComputedStyle(trigger).outlineColor).toBe(
+            getComputedStyle(swatch).outlineColor,
+          ),
+        )
+        await userEvent.keyboard('{ArrowDown}')
+      } else {
+        await userEvent.click(trigger)
+      }
+
+      const option = await page.findByRole('option', { name: /^Fuji$/ })
+      await waitFor(() => expect(option).toBeVisible())
+      await userEvent.click(option)
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+      await expect(trigger).toHaveTextContent('Fuji')
+
+      trigger.setAttribute('aria-invalid', 'true')
+      swatch.style.backgroundColor = 'var(--color-error-container)'
+      swatch.style.outlineColor = 'var(--color-error-border-strong)'
+      if (browser) await browser.userEvent.hover(trigger)
+      await waitFor(async () => {
+        await expect(getComputedStyle(trigger).backgroundColor).toBe(
+          getComputedStyle(swatch).backgroundColor,
+        )
+        await expect(getComputedStyle(trigger).outlineColor).toBe(
+          getComputedStyle(swatch).outlineColor,
+        )
+      })
+    } finally {
+      trigger.removeAttribute('aria-invalid')
+      swatch.remove()
+    }
+  },
 }
 
 export const SizeSmall: Story = {
@@ -468,7 +549,7 @@ export const IconSizes: Story = {
     docs: {
       description: {
         story:
-          'All three icon-only sizes across primary, secondary, and ghost variants. The trigger keeps its regular size-based height and uses square, centered, padding-free sizing.',
+          'All three icon-only sizes across primary, secondary, ghost, and outline variants. The trigger keeps its regular size-based height and uses square, centered, padding-free sizing.',
       },
     },
   },
@@ -521,22 +602,109 @@ export const IconSizes: Story = {
       }
     }
 
-    const trigger = within(canvas.getByTestId('primary-medium')).getByRole('combobox'),
-      page = within(canvasElement.ownerDocument.body)
+    const page = within(canvasElement.ownerDocument.body),
+      swatch = canvasElement.ownerDocument.createElement('span'),
+      browser =
+        '__vitest_browser_runner__' in globalThis
+          ? await import('vite-plus/test/browser')
+          : undefined
+    swatch.style.outlineColor = 'var(--color-brand-border-strong)'
+    canvasElement.append(swatch)
 
-    trigger.focus()
-    await userEvent.keyboard('{ArrowDown}')
-    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
-    await userEvent.click(await page.findByRole('option', { name: /^Fuji$/ }))
-    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
-    trigger.focus()
-    await userEvent.keyboard('{ArrowDown}')
-    await expect(await page.findByRole('option', { name: /^Fuji$/ })).toHaveAttribute(
-      'aria-selected',
-      'true',
-    )
-    await userEvent.keyboard('{Escape}')
-    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+    try {
+      for (const variant of VARIANTS) {
+        const trigger = within(canvas.getByTestId(`${variant}-medium`)).getByRole('combobox'),
+          style = getComputedStyle(trigger),
+          duration = trigger.style.transitionDuration
+
+        await expect(style.transitionProperty).toBe('all')
+        await expect(Number.parseFloat(style.transitionDuration)).toBeGreaterThan(0)
+        if (browser) await browser.userEvent.unhover(trigger)
+        trigger.blur()
+        trigger.getAnimations().forEach((animation) => animation.finish())
+        const closedOutline = getComputedStyle(trigger).outlineColor
+
+        try {
+          trigger.style.transitionDuration = '1s'
+          await userEvent.click(trigger)
+          await waitFor(() => expect(trigger).toHaveAttribute('data-popup-open'))
+
+          const transition = trigger
+            .getAnimations()
+            .find(
+              (animation): animation is CSSTransition =>
+                animation instanceof CSSTransition &&
+                animation.transitionProperty === 'outline-color',
+            )
+          if (!transition) throw new Error(`${variant}: missing outline-color transition`)
+          transition.pause()
+          transition.currentTime = 500
+          const intermediateOutline = getComputedStyle(trigger).outlineColor
+          await expect(intermediateOutline).not.toBe(closedOutline)
+          await expect(intermediateOutline).not.toBe(getComputedStyle(swatch).outlineColor)
+          transition.finish()
+
+          const option = await page.findByRole('option', { name: /^Fuji$/ })
+          await waitFor(() => expect(option).toBeVisible())
+          const popup = page.getByRole('listbox').parentElement
+          if (!popup) throw new Error('Select listbox has no popup container')
+          if (browser) {
+            await browser.userEvent.keyboard('{Shift}')
+            popup.focus()
+            await expect(popup.matches(':focus-visible')).toBe(true)
+          }
+          await expect(getComputedStyle(popup).outlineStyle).toBe('none')
+          for (const side of ['Top', 'Right', 'Bottom', 'Left'] as const) {
+            await expect(getComputedStyle(popup)[`border${side}Width`]).toBe('0px')
+          }
+          option.focus()
+          await expect(trigger).not.toHaveFocus()
+          await expect(trigger).toHaveAttribute('data-popup-open')
+          if (browser) await browser.userEvent.hover(trigger)
+          await expect(getComputedStyle(trigger).outlineColor).toBe(
+            getComputedStyle(swatch).outlineColor,
+          )
+
+          trigger.setAttribute('aria-invalid', 'true')
+          swatch.style.outlineColor = 'var(--color-error-border-strong)'
+          trigger.getAnimations().forEach((animation) => animation.finish())
+          await expect(getComputedStyle(trigger).outlineColor).toBe(
+            getComputedStyle(swatch).outlineColor,
+          )
+          trigger.removeAttribute('aria-invalid')
+          swatch.style.outlineColor = 'var(--color-brand-border-strong)'
+          if (browser) await browser.userEvent.unhover(trigger)
+
+          await userEvent.click(option)
+          await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
+          await waitFor(() => expect(trigger).toHaveFocus())
+          trigger.getAnimations().forEach((animation) => animation.finish())
+          await expect(getComputedStyle(trigger).outlineColor).not.toBe(
+            getComputedStyle(swatch).outlineColor,
+          )
+          await userEvent.keyboard('{ArrowDown}')
+          await expect(await page.findByRole('option', { name: /^Fuji$/ })).toHaveAttribute(
+            'aria-selected',
+            'true',
+          )
+          await userEvent.keyboard('{Escape}')
+          await waitFor(() => expect(trigger).not.toHaveAttribute('data-popup-open'))
+          await waitFor(() => expect(trigger).toHaveFocus())
+          trigger.getAnimations().forEach((animation) => animation.finish())
+          await expect(getComputedStyle(trigger).outlineColor).not.toBe(
+            getComputedStyle(swatch).outlineColor,
+          )
+          trigger.blur()
+          trigger.getAnimations().forEach((animation) => animation.finish())
+          await expect(getComputedStyle(trigger).outlineColor).toBe(closedOutline)
+        } finally {
+          trigger.removeAttribute('aria-invalid')
+          trigger.style.transitionDuration = duration
+        }
+      }
+    } finally {
+      swatch.remove()
+    }
   },
 }
 
@@ -617,6 +785,25 @@ export const Disabled: Story = {
     },
   },
   render: () => <AppleSelect variant="primary" size="medium" defaultValue="fuji" disabled />,
+}
+
+export const DisabledOutline: Story = {
+  name: 'State / Disabled Outline',
+  parameters: {
+    docs: {
+      description: {
+        story: 'The outline trigger also supports the disabled state.',
+      },
+    },
+  },
+  render: () => <AppleSelect variant="outline" disabled />,
+  play: async ({ canvas }) => {
+    const trigger = canvas.getByRole('combobox')
+    await expect(trigger).toBeDisabled()
+    await expect(trigger).toHaveClass('outline-border')
+    await userEvent.click(trigger)
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  },
 }
 
 export const WithOnValueChange: Story = {

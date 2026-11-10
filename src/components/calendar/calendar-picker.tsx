@@ -61,7 +61,7 @@ const defaultClassNames = getDefaultClassNames(),
     outside: cn('border-none text-on-surface-muted', defaultClassNames.outside),
     range_end: cn('rounded-l-none bg-brand-default text-brand-on-default'),
     range_middle: cn(
-      'rounded-none! border-y border-brand-border bg-brand-container! text-brand-on-container! transition-none',
+      'rounded-none! border-y border-brand-border-strong bg-brand-container! text-brand-on-container! transition-none',
     ),
     range_start: cn(
       'rounded-r-none bg-brand-default text-brand-on-default',

@@ -1,6 +1,7 @@
 // Imported here rather than in the main stylesheet so `@daypicker/react` stays an optional peer.
 import '@daypicker/react/style.css'
 import { Calendar as CalendarRoot } from './calendar'
+import { CalendarChevron } from './calendar-chevron'
 import { CalendarDayButton } from './calendar-day-button'
 import { CalendarDropdown } from './calendar-dropdown'
 import { CalendarFooter } from './calendar-footer'
@@ -12,6 +13,7 @@ import { CalendarPreviousMonthButton } from './calendar-previous-month-button'
 import { CalendarSummary } from './calendar-summary'
 
 const Calendar = Object.assign(CalendarRoot, {
+  Chevron: CalendarChevron,
   DayButton: CalendarDayButton,
   Dropdown: CalendarDropdown,
   Footer: CalendarFooter,

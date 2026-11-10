@@ -31,7 +31,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=presentation]]:bg-error-default [&_[role=tab]]:data-active:text-error-on-default [&_[role=tab]]:hover:[&:not([data-active])]:text-error-default',
+        '[&_[role=presentation]]:bg-error-default [&_[role=tab]]:data-active:text-error-on-default [&_[role=tab]]:hover:[&:not([data-active])]:text-error-on-surface',
       tone: 'error',
       variant: 'default',
     },
@@ -73,7 +73,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=presentation]]:border-error-border [&_[role=presentation]]:bg-error-container [&_[role=tab]]:data-active:text-error-on-container [&_[role=tab]]:hover:[&:not([data-active])]:text-error-default',
+        '[&_[role=presentation]]:border-error-border [&_[role=presentation]]:bg-error-container [&_[role=tab]]:data-active:text-error-on-container [&_[role=tab]]:hover:[&:not([data-active])]:text-error-on-surface',
       tone: 'error',
       variant: 'ghost',
     },
@@ -115,7 +115,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=presentation]]:bg-error-default [&_[role=tab]]:data-active:text-error-default [&_[role=tab]]:hover:[&:not([data-active])]:text-error-default',
+        '[&_[role=presentation]]:bg-error-default [&_[role=tab]]:data-active:text-error-on-surface [&_[role=tab]]:hover:[&:not([data-active])]:text-error-on-surface',
       tone: 'error',
       variant: 'underline',
     },
@@ -186,7 +186,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-md **:[[role=presentation]]:h-px',
+        '[&_[role=tab]]:px-lg [&_[role=tab]]:style-text-default--1 [&_[role=tablist]]:h-xl [&_[role=tablist]]:gap-md **:[[role=presentation]]:-bottom-px **:[[role=presentation]]:h-px',
       size: 'small',
       variant: 'underline',
     },
@@ -198,7 +198,7 @@ const tabsVariants = cva('', {
     },
     {
       class:
-        '[&_[role=tab]]:px-2xl [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-3xl [&_[role=tablist]]:gap-xl **:[[role=presentation]]:h-px',
+        '[&_[role=tab]]:px-2xl [&_[role=tab]]:style-text-default-1 [&_[role=tablist]]:h-3xl [&_[role=tablist]]:gap-xl **:[[role=presentation]]:-bottom-px **:[[role=presentation]]:h-px',
       size: 'large',
       variant: 'underline',
     },

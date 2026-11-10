@@ -20,18 +20,10 @@ export function ComboboxChip({ className, children, ref, ...props }: ComboboxChi
       {trimTextChildren(children)}
       <BaseCombobox.ChipRemove
         aria-label="Remove"
-        render={(innerProps) => (
-          <Button
-            aria-label="Remove"
-            onClick={() => innerProps.onClick}
-            variant="ghost"
-            tone="error"
-            size="extraSmall"
-          >
-            <Icon name="close" className="size-sm" />
-          </Button>
-        )}
-      />
+        render={<Button variant="ghost" tone="error" size="extraSmall" />}
+      >
+        <Icon name="close" className="size-sm" />
+      </BaseCombobox.ChipRemove>
     </BaseCombobox.Chip>
   )
 }

@@ -54,7 +54,7 @@ export function TextArea({ variant, className, ref, ...props }: TextAreaProps) {
         <span
           className={cn(
             'w-full px-xs py-2xs text-right style-text-default--1 text-on-surface-variant',
-            isMaxLengthExceeded && 'text-error-default',
+            isMaxLengthExceeded && 'text-error-on-surface',
           )}
         >
           {value.length} / {maxLength}

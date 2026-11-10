@@ -13,11 +13,7 @@ export function MenuItem({ tone, className, children, ref, ...props }: MenuItemP
       nativeButton
       ref={ref}
       render={(renderProps) => (
-        <button
-          type="button"
-          {...renderProps}
-          className={cn('w-full gap-2xs [&>svg]:size-sm', renderProps.className)}
-        >
+        <button type="button" {...renderProps} className={cn('w-full', renderProps.className)}>
           {trimTextChildren(children)}
         </button>
       )}

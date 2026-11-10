@@ -16,7 +16,7 @@ export function FieldErrors({ className, children, ref, ...props }: FieldErrorPr
     <ul className={cn('space-y-3xs', className)} ref={ref} {...props}>
       {field.state.meta.errors.map((error) => (
         <li
-          className="flex items-center gap-2xs style-text-strong--1 text-error-default"
+          className="flex items-center gap-2xs style-text-strong--1 text-error-on-surface"
           key={error.message}
         >
           {error.message}

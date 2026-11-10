@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --text: var(--figma-color-text, #1e1e1e);
+        --muted: var(--figma-color-text-secondary, #6b6b6b);
+        --bg: var(--figma-color-bg, #fff);
+        --panel: var(--figma-color-bg-secondary, #f5f5f5);
+        --border: var(--figma-color-border, #e6e6e6);
+        --brand: var(--figma-color-bg-brand, #0d99ff);
+        --on-brand: var(--figma-color-text-onbrand, #fff);
+        --danger: var(--figma-color-text-danger, #dc3412);
+        --success: var(--figma-color-text-success, #14ae5c);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font:
+          12px/1.5 Inter,
+          system-ui,
+          sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      header {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .logo {
+        flex: none;
+        object-fit: contain;
+      }
+
+      h1 {
+        font-size: 15px;
+        margin: 0;
+      }
+
+      .muted {
+        color: var(--muted);
+        margin: 4px 0 0;
+      }
+
+      select {
+        font: inherit;
+        width: 100%;
+        padding: 6px 8px;
+        color: var(--text);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+
+      .hint {
+        color: var(--muted);
+        margin: 6px 0 0;
+      }
+
+      button {
+        font: inherit;
+        font-weight: 600;
+        width: 100%;
+        padding: 10px;
+        cursor: pointer;
+        border: 0;
+        border-radius: 6px;
+        background: var(--brand);
+        color: var(--on-brand);
+      }
+
+      button.secondary {
+        color: var(--text);
+        background: var(--panel);
+        border: 1px solid var(--border);
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .link {
+        width: auto;
+        padding: 0;
+        color: var(--brand);
+        background: none;
+        font-weight: 500;
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: progress;
+      }
+
+      progress {
+        width: 100%;
+        height: 4px;
+        margin-top: 12px;
+        accent-color: var(--brand);
+      }
+
+      #status {
+        font-weight: 600;
+        margin: 8px 0 0;
+      }
+
+      #status[data-tone='error'] {
+        color: var(--danger);
+      }
+
+      #status[data-tone='done'] {
+        color: var(--success);
+      }
+
+      details {
+        margin-top: 12px;
+      }
+
+      summary {
+        cursor: pointer;
+        color: var(--muted);
+      }
+
+      textarea {
+        font:
+          11px/1.4 ui-monospace,
+          monospace;
+        width: 100%;
+        height: 150px;
+        margin-top: 8px;
+        padding: 8px;
+        resize: vertical;
+        color: var(--text);
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <img class="logo" src="%ixia_ICON%" alt="" width="22" height="32" />
+      <div>
+        <h1>ixia UI Sync</h1>
+        <p class="muted" id="summary">Loading component data…</p>
+      </div>
+    </header>
+    <button id="import" disabled>Generate</button>
+    <progress id="progress" max="1" hidden></progress>
+    <p id="status" role="status">Waiting for data…</p>
+    <p class="hint">
+      Data: <span id="source">bundled</span> ·
+      <button id="load" class="link" type="button">Load library.json…</button>
+      <input id="file" type="file" accept=".json,application/json" hidden />
+    </p>
+    <details id="details">
+      <summary>Import report</summary>
+      <textarea id="report" readonly aria-label="Import report"></textarea>
+    </details>
+    <script>
+      const button = document.getElementById('import')
+      const status = document.getElementById('status')
+      const report = document.getElementById('report')
+      const bar = document.getElementById('progress')
+      const file = document.getElementById('file')
+      function setStatus(text, tone) {
+        status.textContent = text
+        status.dataset.tone = tone || ''
+      }
+      function setBusy(busy) {
+        button.disabled = busy
+        bar.hidden = !busy
+        if (busy) bar.removeAttribute('value')
+      }
+      function send() {
+        setBusy(true)
+        setStatus('Starting…')
+        parent.postMessage({ pluginMessage: { type: 'import' } }, '*')
+      }
+      button.onclick = send
+      document.getElementById('load').onclick = () => file.click()
+      file.onchange = async () => {
+        const chosen = file.files[0]
+        if (!chosen) return
+        setStatus(`Reading ${chosen.name}…`)
+        try {
+          const library = JSON.parse(await chosen.text())
+          parent.postMessage({ pluginMessage: { type: 'load', library } }, '*')
+        } catch (error) {
+          setStatus(`Could not read ${chosen.name}: ${error.message}`, 'error')
+        }
+        file.value = ''
+      }
+      window.onmessage = (event) => {
+        const message = event.data.pluginMessage
+        if (!message) return
+        if (message.type === 'ready') {
+          document.getElementById('summary').textContent =
+            `v${message.version} · ${message.components.length} components · ${message.samples} examples · captured ${new Date(message.generatedAt).toLocaleString()}`
+          document.getElementById('source').textContent =
+            message.source === 'file' ? 'loaded file' : 'bundled with the plugin'
+          setBusy(false)
+          setStatus(
+            message.source === 'file'
+              ? 'Library loaded. Generate to rebuild the library.'
+              : 'Ready to generate the full library.',
+          )
+        } else if (message.type === 'progress') {
+          setStatus(message.message)
+          if (typeof message.value === 'number') bar.value = message.value
+        } else {
+          setBusy(false)
+          setStatus(message.message, message.type)
+        }
+        if (message.warnings || message.failures) {
+          report.value = JSON.stringify(
+            { warnings: message.warnings, failedCaptures: message.failures },
+            null,
+            2,
+          )
+          if (message.type !== 'ready' && message.warnings?.length)
+            document.getElementById('details').open = true
+        }
+      }
+    </script>
+  </body>
+</html>

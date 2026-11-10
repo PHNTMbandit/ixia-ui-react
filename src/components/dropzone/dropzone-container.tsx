@@ -34,10 +34,10 @@ export function DropzoneContainer({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={cn(
-          'flex size-full items-center justify-center rounded-xl border-2 border-brand-border bg-surface py-2xl transition-all outline-none',
+          'flex size-full items-center justify-center rounded-xl border-2 border-brand-border-strong bg-surface py-2xl transition-all outline-none',
           !isDisabled && 'cursor-pointer',
           isHovering && 'ring-8 ring-brand-border-strong/20',
-          fileError && 'border-error-border',
+          fileError && 'border-error-border-strong',
           isDisabled && 'cursor-not-allowed opacity-50',
           className,
         )}

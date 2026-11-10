@@ -12,6 +12,7 @@ type AutocompleteEmptyProps = React.ComponentProps<typeof BaseAutocomplete.Empty
 type AutocompleteGridContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner> & {
   placeholder?: string
   emptyText: string
+  variant?: AutocompleteInputGroupProps['variant']
 }
 
 type AutocompleteItemProps = React.ComponentProps<typeof BaseAutocomplete.Item>

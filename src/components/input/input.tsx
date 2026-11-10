@@ -76,7 +76,7 @@ function getFileStatus(options: {
 }) {
   const { fileError, selectedFiles, placeholder, filesSelectedLabel } = options
   if (fileError) {
-    return <span className="style-text-prose-0 text-error-default">{fileError}</span>
+    return <span className="style-text-prose-0 text-error-on-surface">{fileError}</span>
   }
   if (selectedFiles.length === EMPTY_FILE_COUNT) {
     return <span className="style-text-prose-0 text-on-surface-variant">{placeholder}</span>
@@ -139,7 +139,7 @@ export function Input({
         <button
           aria-label="Open color picker"
           className={cn(
-            'relative outline-2 outline-transparent transition-colors focus-within:outline-border hover:cursor-pointer',
+            'relative outline-2 outline-transparent transition-colors focus-within:outline-brand-border-strong hover:cursor-pointer',
             size === 'small' && 'size-lg -outline-offset-2',
             size === 'medium' && 'size-xl -outline-offset-4',
             size === 'large' && 'size-2xl -outline-offset-6',

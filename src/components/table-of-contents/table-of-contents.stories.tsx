@@ -253,6 +253,8 @@ export default {
 type Story = StoryObj<typeof TableOfContents>
 
 export const Playground: Story = {
+  // Smooth scrolling is interrupted in the test browser; the other stories keep it.
+  args: { scrollOptions: { behavior: 'instant', block: 'start', inline: 'nearest' } },
   play: async ({ canvas, userEvent }) => {
     const title = canvas.getByRole('heading', { level: 1 }),
       heading = canvas.getByRole('heading', { level: 2, name: 'Plan the structure' }),

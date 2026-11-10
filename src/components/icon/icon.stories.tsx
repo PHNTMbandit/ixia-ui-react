@@ -61,9 +61,9 @@ export default {
     docs: {
       description: {
         component:
-          'The Icon component renders the named system icons used across Cartyx UI, such as chevrons, status indicators, file actions and sorting controls. Icons inherit the current text color and are sized with size utilities. Wrap an area in IconProvider to change the icon weight or replace individual icons with your own components.',
+          'The Icon component renders the named system icons used across Ixia UI, such as chevrons, status indicators, file actions and sorting controls. Icons inherit the current text color and are sized with size utilities. Wrap an area in IconProvider to change the icon weight or replace individual icons with your own components.',
       },
-      subtitle: 'The shared set of system icons used by Cartyx UI components.',
+      subtitle: 'The shared set of system icons used by Ixia UI components.',
     },
   },
 } as Meta<typeof Icon>

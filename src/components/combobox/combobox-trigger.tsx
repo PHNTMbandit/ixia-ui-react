@@ -23,7 +23,7 @@ export function ComboboxTrigger({
     <BaseCombobox.Trigger
       aria-label={getPlaceholderLabel(placeholder)}
       className={cn(
-        'inline-flex h-xl items-center justify-between gap-xl rounded-xl bg-surface pr-sm pl-md style-text-default-0 outline-2 outline-transparent transition-all hover:cursor-pointer hover:outline-border data-popup-open:outline-brand-border',
+        'inline-flex h-xl items-center justify-between gap-xl rounded-xl bg-surface pr-sm pl-md style-text-default-0 outline-1 outline-border-strong transition-all hover:cursor-pointer hover:outline-2 data-popup-open:outline-brand-border-strong',
         className,
       )}
       ref={ref}

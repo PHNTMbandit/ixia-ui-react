@@ -79,7 +79,7 @@ export function LayerTreeTriggerCell({
       type="button"
       onClick={handleClick}
       className={cn(
-        'flex h-lg min-w-0 grow items-center justify-start gap-2xs truncate rounded-lg px-2xs style-text-default-0 transition-all hover:cursor-pointer [&>svg]:size-sm [&>svg]:shrink-0',
+        'flex h-lg min-target-h min-w-0 grow items-center justify-start gap-2xs truncate rounded-lg px-2xs style-text-default-0 transition-all hover:cursor-pointer [&>svg]:size-sm [&>svg]:shrink-0',
         hasChildren &&
           isDropTarget &&
           'bg-success-container text-success-on-container ring ring-success-border',

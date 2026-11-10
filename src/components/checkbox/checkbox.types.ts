@@ -4,7 +4,7 @@ import type { VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
 
 const checkboxVariants = cva(
-  'group flex size-md items-center justify-center rounded-md shadow-2xs outline-2 outline-transparent transition-colors not-indeterminate:text-accent-on-default indeterminate:text-accent-default hover:cursor-pointer hover:outline-accent-border disabled:cursor-not-allowed disabled:hover:cursor-not-allowed data-checked:bg-accent-default [&_svg]:size-sm',
+  'group target-hit relative flex size-md items-center justify-center rounded-md shadow-2xs outline outline-transparent transition-colors not-indeterminate:text-accent-on-default indeterminate:text-accent-default hover:cursor-pointer hover:outline-2 hover:outline-accent-border-strong disabled:cursor-not-allowed disabled:hover:cursor-not-allowed data-checked:bg-accent-default [&_svg]:size-sm',
   {
     defaultVariants: {
       variant: 'elevated',

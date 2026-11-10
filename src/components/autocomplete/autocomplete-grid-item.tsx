@@ -13,7 +13,7 @@ export function AutocompleteGridItem({
   return (
     <BaseAutocomplete.Item
       className={cn(
-        'group flex h-lg min-w-(--anchor-width) cursor-default items-center rounded-md style-text-prose--1 select-none hover:cursor-pointer hover:bg-accent-default hover:text-surface data-highlighted:relative data-highlighted:z-0 data-highlighted:bg-accent-default data-highlighted:text-surface before:data-highlighted:absolute before:data-highlighted:inset-[0px] before:data-highlighted:z-[-1] before:data-highlighted:rounded-md',
+        'group flex h-lg min-target-h min-w-(--anchor-width) cursor-default items-center rounded-md style-text-prose--1 select-none hover:cursor-pointer hover:bg-accent-default hover:text-accent-on-default data-highlighted:relative data-highlighted:z-0 data-highlighted:bg-accent-default data-highlighted:text-accent-on-default before:data-highlighted:absolute before:data-highlighted:inset-[0px] before:data-highlighted:z-[-1] before:data-highlighted:rounded-md',
         className,
       )}
       ref={ref}

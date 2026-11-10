@@ -43,6 +43,7 @@
   --color-black: var(--ixia-black);
   --color-brand-default: var(--ixia-brand-default);
   --color-brand-muted: var(--ixia-brand-muted);
+  --color-brand-subtle: var(--ixia-brand-subtle);
   --color-brand-on-default: var(--ixia-brand-on-default);
   --color-brand-container: var(--ixia-brand-container);
   --color-brand-container-low: var(--ixia-brand-container-low);
@@ -54,6 +55,7 @@
   --color-brand-shadow: var(--ixia-brand-shadow);
   --color-accent-default: var(--ixia-accent-default);
   --color-accent-muted: var(--ixia-accent-muted);
+  --color-accent-subtle: var(--ixia-accent-subtle);
   --color-accent-on-default: var(--ixia-accent-on-default);
   --color-accent-container: var(--ixia-accent-container);
   --color-accent-container-low: var(--ixia-accent-container-low);
@@ -65,6 +67,7 @@
   --color-accent-shadow: var(--ixia-accent-shadow);
   --color-neutral-default: var(--ixia-neutral-default);
   --color-neutral-muted: var(--ixia-neutral-muted);
+  --color-neutral-subtle: var(--ixia-neutral-subtle);
   --color-neutral-on-default: var(--ixia-neutral-on-default);
   --color-neutral-container: var(--ixia-neutral-container);
   --color-neutral-container-high: var(--ixia-neutral-container-high);
@@ -76,7 +79,9 @@
   --color-neutral-shadow: var(--ixia-neutral-shadow);
   --color-error-default: var(--ixia-error-default);
   --color-error-muted: var(--ixia-error-muted);
+  --color-error-subtle: var(--ixia-error-subtle);
   --color-error-on-default: var(--ixia-error-on-default);
+  --color-error-on-surface: var(--ixia-error-on-surface);
   --color-error-container-low: var(--ixia-error-container-low);
   --color-error-container: var(--ixia-error-container);
   --color-error-container-high: var(--ixia-error-container-high);
@@ -87,6 +92,7 @@
   --color-error-shadow: var(--ixia-error-shadow);
   --color-info-default: var(--ixia-info-default);
   --color-info-muted: var(--ixia-info-muted);
+  --color-info-subtle: var(--ixia-info-subtle);
   --color-info-on-default: var(--ixia-info-on-default);
   --color-info-container: var(--ixia-info-container);
   --color-info-container-low: var(--ixia-info-container-low);
@@ -98,6 +104,7 @@
   --color-info-shadow: var(--ixia-info-shadow);
   --color-success-default: var(--ixia-success-default);
   --color-success-muted: var(--ixia-success-muted);
+  --color-success-subtle: var(--ixia-success-subtle);
   --color-success-on-default: var(--ixia-success-on-default);
   --color-success-container: var(--ixia-success-container);
   --color-success-container-low: var(--ixia-success-container-low);
@@ -109,6 +116,7 @@
   --color-success-shadow: var(--ixia-success-shadow);
   --color-warning-default: var(--ixia-warning-default);
   --color-warning-muted: var(--ixia-warning-muted);
+  --color-warning-subtle: var(--ixia-warning-subtle);
   --color-warning-on-default: var(--ixia-warning-on-default);
   --color-warning-container: var(--ixia-warning-container);
   --color-warning-container-low: var(--ixia-warning-container-low);
@@ -271,19 +279,29 @@
 }
 :root {
   color-scheme: light dark;
-  --white: #ffffff;
   --black: #000000;
-  --neutral-50: #fcfaf8;
-  --neutral-100: #f7f4f0;
-  --neutral-200: #ede8e4;
-  --neutral-300: #ded8d2;
-  --neutral-400: #c0b9b3;
-  --neutral-500: #958d87;
-  --neutral-600: #726a65;
-  --neutral-700: #554e4a;
-  --neutral-800: #36302d;
-  --neutral-900: #221d1a;
-  --neutral-950: #14110f;
+  --white-50: #ffffff;
+  --white-100: #fcfbfa;
+  --white-200: #fcfaf8;
+  --white-300: #f7f4f0;
+  --white-400: #ede8e4;
+  --white-500: #ded8d2;
+  --white-600: #c8c1bb;
+  --white-700: #c0b9b3;
+  --white-800: #958d87;
+  --white-900: #857d77;
+  --white-950: #7d756f;
+  --black-50: #766e69;
+  --black-100: #726a65;
+  --black-200: #514a46;
+  --black-300: #3e3834;
+  --black-400: #36302d;
+  --black-500: #332d2a;
+  --black-600: #322c29;
+  --black-700: #2c2724;
+  --black-800: #221d1a;
+  --black-900: #14110f;
+  --black-950: #090807;
   --red-50: #fff4f2;
   --red-100: #ffe8e4;
   --red-200: #ffd4ce;
@@ -450,13 +468,14 @@
   --rose-900: #640d35;
   --rose-950: #450624;
   /* Semantic tokens: light-dark(light, dark). Mapping + APCA audit: docs/colour-palette.md */
-  --ixia-white: var(--white);
+  --ixia-white: var(--white-50);
   --ixia-black: var(--black);
   --ixia-brand-default: light-dark(var(--orange-600), var(--orange-400));
   --ixia-brand-muted: light-dark(var(--orange-700), var(--orange-300));
-  --ixia-brand-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-subtle: var(--ixia-brand-container);
+  --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--orange-100), var(--orange-950));
-  --ixia-brand-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container-high: light-dark(var(--orange-200), var(--orange-900));
   --ixia-brand-on-container: light-dark(var(--orange-900), var(--orange-100));
   --ixia-brand-on-container-muted: light-dark(var(--orange-700), var(--orange-300));
@@ -473,37 +492,35 @@
   --ixia-brand-gradient-subtle: linear-gradient(135deg, #df640029, #eeac4a1f, #f9dc8414);
   --ixia-accent-default: light-dark(var(--teal-600), var(--teal-400));
   --ixia-accent-muted: light-dark(var(--teal-700), var(--teal-300));
-  --ixia-accent-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-subtle: var(--ixia-accent-container);
+  --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--teal-100), var(--teal-950));
-  --ixia-accent-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container-high: light-dark(var(--teal-200), var(--teal-900));
   --ixia-accent-on-container: light-dark(var(--teal-900), var(--teal-100));
   --ixia-accent-on-container-muted: light-dark(var(--teal-700), var(--teal-300));
   --ixia-accent-border: light-dark(var(--teal-300), var(--teal-700));
   --ixia-accent-border-strong: var(--teal-500);
   --ixia-accent-shadow: light-dark(#006d6540, #62d0c259);
-  --ixia-neutral-default: light-dark(var(--neutral-900), var(--neutral-50));
-  --ixia-neutral-muted: light-dark(var(--neutral-700), var(--neutral-200));
-  --ixia-neutral-on-default: light-dark(var(--white), var(--neutral-950));
-  --ixia-neutral-container: light-dark(
-    var(--neutral-200),
-    color-mix(in srgb, var(--neutral-900) 20%, var(--neutral-800))
-  );
-  --ixia-neutral-container-low: light-dark(var(--neutral-100), var(--neutral-900));
-  --ixia-neutral-container-high: light-dark(
-    var(--neutral-300),
-    color-mix(in srgb, var(--neutral-800) 75%, var(--neutral-700))
-  );
-  --ixia-neutral-on-container: light-dark(var(--neutral-900), var(--neutral-50));
-  --ixia-neutral-on-container-muted: light-dark(var(--neutral-700), var(--ixia-on-surface-muted));
-  --ixia-neutral-border: light-dark(var(--neutral-400), var(--neutral-600));
-  --ixia-neutral-border-strong: light-dark(var(--neutral-500), var(--neutral-500));
+  --ixia-neutral-default: light-dark(var(--black-800), var(--white-200));
+  --ixia-neutral-muted: light-dark(var(--black-200), var(--white-700));
+  --ixia-neutral-subtle: var(--ixia-neutral-container);
+  --ixia-neutral-on-default: light-dark(var(--white-50), var(--black-900));
+  --ixia-neutral-container: light-dark(var(--white-400), var(--black-600));
+  --ixia-neutral-container-low: light-dark(var(--white-300), var(--black-800));
+  --ixia-neutral-container-high: light-dark(var(--white-500), var(--black-300));
+  --ixia-neutral-on-container: light-dark(var(--black-800), var(--white-200));
+  --ixia-neutral-on-container-muted: light-dark(var(--black-200), var(--white-600));
+  --ixia-neutral-border: light-dark(var(--white-700), var(--black-200));
+  --ixia-neutral-border-strong: light-dark(var(--white-800), var(--white-800));
   --ixia-neutral-shadow: light-dark(#14110f2e, #00000059);
   --ixia-error-default: light-dark(var(--red-600), var(--red-400));
   --ixia-error-muted: light-dark(var(--red-700), var(--red-300));
-  --ixia-error-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-error-subtle: var(--ixia-error-container);
+  --ixia-error-on-default: light-dark(var(--white-50), var(--black-900));
+  --ixia-error-on-surface: var(--ixia-error-default);
   --ixia-error-container: light-dark(var(--red-100), var(--red-950));
-  --ixia-error-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-error-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-error-container-high: light-dark(var(--red-200), var(--red-900));
   --ixia-error-on-container: light-dark(var(--red-900), var(--red-100));
   --ixia-error-on-container-muted: light-dark(var(--red-700), var(--red-300));
@@ -512,9 +529,10 @@
   --ixia-error-shadow: light-dark(#af0a2940, #ff9b9359);
   --ixia-info-default: light-dark(var(--blue-600), var(--blue-400));
   --ixia-info-muted: light-dark(var(--blue-700), var(--blue-300));
-  --ixia-info-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-info-subtle: var(--ixia-info-container);
+  --ixia-info-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-info-container: light-dark(var(--blue-100), var(--blue-950));
-  --ixia-info-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-info-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-info-container-high: light-dark(var(--blue-200), var(--blue-900));
   --ixia-info-on-container: light-dark(var(--blue-900), var(--blue-100));
   --ixia-info-on-container-muted: light-dark(var(--blue-700), var(--blue-300));
@@ -523,9 +541,10 @@
   --ixia-info-shadow: light-dark(#2358b440, #8ebdff59);
   --ixia-success-default: light-dark(var(--green-600), var(--green-400));
   --ixia-success-muted: light-dark(var(--green-700), var(--green-300));
-  --ixia-success-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-success-subtle: var(--ixia-success-container);
+  --ixia-success-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-success-container: light-dark(var(--green-100), var(--green-950));
-  --ixia-success-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-success-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-success-container-high: light-dark(var(--green-200), var(--green-900));
   --ixia-success-on-container: light-dark(var(--green-900), var(--green-100));
   --ixia-success-on-container-muted: light-dark(var(--green-700), var(--green-300));
@@ -534,31 +553,29 @@
   --ixia-success-shadow: light-dark(#00713140, #78d28d59);
   --ixia-warning-default: light-dark(var(--amber-600), var(--amber-400));
   --ixia-warning-muted: light-dark(var(--amber-700), var(--amber-300));
-  --ixia-warning-on-default: light-dark(var(--white), var(--neutral-950));
+  --ixia-warning-subtle: var(--ixia-warning-container);
+  --ixia-warning-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-warning-container: light-dark(var(--amber-100), var(--amber-950));
-  --ixia-warning-container-low: light-dark(var(--white), var(--neutral-950));
+  --ixia-warning-container-low: light-dark(var(--white-50), var(--black-900));
   --ixia-warning-container-high: light-dark(var(--amber-200), var(--amber-900));
   --ixia-warning-on-container: light-dark(var(--amber-900), var(--amber-100));
   --ixia-warning-on-container-muted: light-dark(var(--amber-700), var(--amber-300));
   --ixia-warning-border: light-dark(var(--amber-300), var(--amber-700));
   --ixia-warning-border-strong: var(--amber-500);
   --ixia-warning-shadow: light-dark(#864e0040, #eeac4a59);
-  --ixia-surface-background: light-dark(var(--neutral-50), var(--neutral-950));
-  --ixia-surface: light-dark(var(--white), var(--neutral-900));
-  --ixia-surface-2: light-dark(var(--white), var(--neutral-800));
-  --ixia-surface-3: light-dark(var(--white), var(--neutral-700));
-  --ixia-surface-low: light-dark(var(--neutral-200), var(--black));
-  --ixia-on-surface: light-dark(var(--neutral-900), var(--neutral-50));
-  --ixia-on-surface-variant: light-dark(var(--neutral-700), var(--neutral-300));
-  --ixia-on-surface-muted: light-dark(
-    var(--neutral-600),
-    color-mix(in srgb, var(--neutral-400) 75%, var(--neutral-300))
-  );
-  --ixia-on-surface-disabled: light-dark(var(--neutral-400), var(--neutral-600));
-  --ixia-border: light-dark(var(--neutral-200), var(--neutral-800));
-  --ixia-border-strong: light-dark(var(--neutral-400), var(--neutral-700));
-  --ixia-surface-inverse: light-dark(var(--neutral-900), var(--neutral-100));
-  --ixia-on-surface-inverse: light-dark(var(--neutral-50), var(--neutral-900));
+  --ixia-surface-background: light-dark(var(--white-200), var(--black-900));
+  --ixia-surface: light-dark(var(--white-50), var(--black-800));
+  --ixia-surface-2: light-dark(var(--white-50), var(--black-700));
+  --ixia-surface-3: light-dark(var(--white-50), var(--black-500));
+  --ixia-surface-low: light-dark(var(--white-300), var(--black-950));
+  --ixia-on-surface: light-dark(var(--black-900), var(--white-200));
+  --ixia-on-surface-variant: light-dark(var(--black-200), var(--white-500));
+  --ixia-on-surface-muted: light-dark(var(--black-50), var(--white-700));
+  --ixia-on-surface-disabled: light-dark(var(--white-700), var(--black-100));
+  --ixia-border: light-dark(var(--white-400), var(--black-400));
+  --ixia-border-strong: light-dark(var(--white-700), var(--black-200));
+  --ixia-surface-inverse: light-dark(var(--black-800), var(--white-300));
+  --ixia-on-surface-inverse: light-dark(var(--white-200), var(--black-800));
   --ixia-surface-focus-ring: var(--ixia-brand-default);
   --ixia-scrim: light-dark(#14110fcc, #000000cc);
   --ixia-shadow: light-dark(#14110f4d, #00000066);
@@ -684,6 +701,30 @@
 @utility text-box-trim {
   text-box: trim-both cap alphabetic;
 }
+
+/* WCAG 2.5.8: interactive targets must be at least 24x24 CSS px. */
+@utility min-target {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+@utility min-target-h {
+  min-height: 24px;
+}
+
+/* Extends the hit area to 24x24 without changing the visual size; the element must be positioned. */
+@utility target-hit {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 24px);
+    height: max(100%, 24px);
+    translate: -50% -50%;
+  }
+}
+
 @utility shadow-* {
   box-shadow: --value(--shadow-*) var(--ixia-shadow);
 }

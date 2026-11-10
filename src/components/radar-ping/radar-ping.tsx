@@ -16,14 +16,11 @@ export function RadarPing({
     <div className={cn(radarPingVariants({ className, size, tone }))} ref={ref} {...props}>
       {!hidePing && (
         <span
-          className="absolute inline-flex size-full animate-ping rounded-full opacity-75"
+          className="absolute inline-flex size-full animate-ping rounded-full opacity-75 motion-reduce:animate-none"
           data-radar-ping
         />
       )}
-      <span
-        className="relative flex items-center justify-center rounded-full text-surface"
-        data-dot
-      >
+      <span className="relative flex items-center justify-center rounded-full" data-dot>
         {children}
       </span>
     </div>

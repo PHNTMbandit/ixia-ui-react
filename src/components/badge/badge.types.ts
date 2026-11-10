@@ -57,7 +57,7 @@ export const badgeVariants = cva(
         variant: 'outline',
       },
       {
-        className: 'border-error-default text-error-default',
+        className: 'border-error-default text-error-on-surface',
         tone: 'error',
         variant: 'outline',
       },

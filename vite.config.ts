@@ -63,7 +63,7 @@ export default defineConfig({
           '**/*.stories.tsx',
           '**/*.test.{ts,tsx}',
           '**/*.spec.{ts,tsx}',
-          'src/tools/figma/**/*.mjs',
+          'tools/figma/**/*.mjs',
         ],
         rules: {
           'import/no-nodejs-modules': 'off',
@@ -72,7 +72,7 @@ export default defineConfig({
         },
       },
       {
-        files: ['src/tools/figma/**'],
+        files: ['tools/figma/**'],
         rules: {
           // Geometry, CSS parsing and sequential Figma API calls use numeric data and ordered loops.
           'eslint/id-length': 'off',
@@ -96,7 +96,7 @@ export default defineConfig({
         },
       },
       {
-        files: ['src/tools/figma/**/*.test.mjs'],
+        files: ['tools/figma/**/*.test.mjs'],
         rules: {
           'vitest/no-import-node-test': 'off',
           'vitest/prefer-importing-vitest-globals': 'off',
