@@ -17,6 +17,14 @@ type SelectStoryArgs = Omit<SelectProps<string>, 'defaultValue'> & {
   size?: SelectSize
 }
 
+function findVisibleOption(page: ReturnType<typeof within>, name: RegExp) {
+  return waitFor(() => {
+    const option = page.getByRole('option', { name })
+    expect(option).toBeVisible()
+    return option
+  })
+}
+
 const apples = [
     { label: 'Gala', value: 'gala' },
     { label: 'Fuji', value: 'fuji' },
@@ -396,13 +404,13 @@ export const VariantOutline: Story = {
             getComputedStyle(swatch).outlineColor,
           ),
         )
-        await userEvent.keyboard('{ArrowDown}')
       } else {
-        await userEvent.click(trigger)
+        trigger.focus()
       }
+      await userEvent.keyboard('{ArrowDown}')
+      await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
 
-      const option = await page.findByRole('option', { name: /^Fuji$/ })
-      await waitFor(() => expect(option).toBeVisible())
+      const option = await findVisibleOption(page, /^Fuji$/)
       await userEvent.click(option)
       await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
       await expect(trigger).toHaveTextContent('Fuji')
@@ -625,8 +633,11 @@ export const IconSizes: Story = {
         const closedOutline = getComputedStyle(trigger).outlineColor
 
         try {
+          trigger.focus()
+          trigger.getAnimations().forEach((animation) => animation.finish())
+          const focusedOutline = getComputedStyle(trigger).outlineColor
           trigger.style.transitionDuration = '1s'
-          await userEvent.click(trigger)
+          await userEvent.keyboard('{ArrowDown}')
           await waitFor(() => expect(trigger).toHaveAttribute('data-popup-open'))
 
           const transition = trigger
@@ -640,12 +651,11 @@ export const IconSizes: Story = {
           transition.pause()
           transition.currentTime = 500
           const intermediateOutline = getComputedStyle(trigger).outlineColor
-          await expect(intermediateOutline).not.toBe(closedOutline)
+          await expect(intermediateOutline).not.toBe(focusedOutline)
           await expect(intermediateOutline).not.toBe(getComputedStyle(swatch).outlineColor)
           transition.finish()
 
-          const option = await page.findByRole('option', { name: /^Fuji$/ })
-          await waitFor(() => expect(option).toBeVisible())
+          const option = await findVisibleOption(page, /^Fuji$/)
           const popup = page.getByRole('listbox').parentElement
           if (!popup) throw new Error('Select listbox has no popup container')
           if (browser) {

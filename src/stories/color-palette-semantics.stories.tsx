@@ -50,7 +50,8 @@ const BRANDS = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadel
   TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const
 
 const CUSTOM_THEME: CSSProperties & Record<`--${string}`, string> = {
-  '--ixia-brand-container-low': 'light-dark(var(--orange-50), var(--black-900))',
+  '--ixia-brand-container-low':
+    'light-dark(var(--orange-50), color-mix(in srgb, var(--orange-950) 70%, var(--black)))',
   '--ixia-brand-container': 'light-dark(var(--orange-200), var(--orange-900))',
   '--ixia-brand-container-high': 'light-dark(var(--orange-300), var(--orange-800))',
   '--ixia-brand-on-container': 'light-dark(var(--orange-950), var(--orange-50))',
@@ -342,13 +343,17 @@ export const CustomTheme: Story = {
         swatch = canvasElement.ownerDocument.createElement('span')
       section.append(swatch)
       try {
-        const primitives =
+        const backgrounds =
           mode === 'light'
-            ? ['orange-50', 'orange-200', 'orange-300']
-            : ['black-900', 'orange-900', 'orange-800']
+            ? ['var(--orange-50)', 'var(--orange-200)', 'var(--orange-300)']
+            : [
+                'color-mix(in srgb, var(--orange-950) 70%, var(--black))',
+                'var(--orange-900)',
+                'var(--orange-800)',
+              ]
         const states = [low, container, high]
         for (const [index, state] of states.entries()) {
-          swatch.style.backgroundColor = `var(--${primitives[index]})`
+          swatch.style.backgroundColor = backgrounds[index]
           expect(state.backgroundColor).toBe(getComputedStyle(swatch).backgroundColor)
           swatch.style.color = mode === 'light' ? 'var(--orange-950)' : 'var(--orange-50)'
           expect(state.color).toBe(getComputedStyle(swatch).color)

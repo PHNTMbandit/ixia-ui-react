@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 // Turns src/styles/input.css into Figma variable collections and text styles that follow the
 // Primitives → Semantics structure (with Utopia fluid min/max modes) and writes them into
 // Generated/library.json. Runs on every plugin build, so token changes need no re-capture.
-// Every semantic variable aliases a primitive, so switching a semantic mode resolves through it.
+// Semantic variables alias primitives where possible; mixed colors are resolved during export.
 
 const TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'],
   SIZES = ['3xs', '2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'],
@@ -141,6 +141,16 @@ function mix(first, second, weight) {
   }
 }
 
+function mixSrgb(first, second, weight) {
+  const a = first.a * weight + second.a * (1 - weight)
+  if (a === 0) {
+    return { a, b: 0, g: 0, r: 0 }
+  }
+  const channel = (name) =>
+    (first[name] * first.a * weight + second[name] * second.a * (1 - weight)) / a
+  return { a, b: channel('b'), g: channel('g'), r: channel('r') }
+}
+
 function clampPx(value) {
   const args = call(value, 'clamp')
   if (!args) {
@@ -258,7 +268,13 @@ export function buildVariables(css) {
           return undefined
         }
         const weight = a.weight ?? (b.weight === undefined ? 0.5 : 1 - b.weight)
-        return { color: mix(a.color, b.color, weight) }
+        if (mixed[0] === 'in srgb') {
+          return { color: mixSrgb(a.color, b.color, weight) }
+        }
+        if (mixed[0] === 'in oklab') {
+          return { color: mix(a.color, b.color, weight) }
+        }
+        return undefined
       }
       const color = parseColor(value)
       return color ? { color } : undefined

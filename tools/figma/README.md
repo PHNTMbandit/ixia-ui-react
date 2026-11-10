@@ -95,7 +95,7 @@ design system:
 | Collection                 | Modes        | Contents                                             |
 | -------------------------- | ------------ | ---------------------------------------------------- |
 | **Primitives: Colours**    | Default      | Palette (hidden from publishing)                     |
-| **Semantics: Colours**     | Light / Dark | Tone and surface colors, aliased to primitives       |
+| **Semantics: Colours**     | Light / Dark | Tone and surface colors, aliased or resolved         |
 | **Primitives: Spacing**    | Mode 1       | Fluid space values at each viewport extreme (hidden) |
 | **Semantics: Spacing**     | Max / Min    | Space sizes and pairs, aliased to primitives         |
 | **Primitives: Typography** | Mode 1       | Font families, weights and fluid sizes               |
@@ -103,8 +103,9 @@ design system:
 | **Primitives: Border**     | Mode 1       | Radius and stroke pixel values (hidden)              |
 | **Semantics: Border**      | Mode 1       | Radius and stroke widths, aliased to primitives      |
 
-Every semantic variable aliases a primitive. Variables have scopes and **Web** code syntax
-(`var(--color-brand-default)`). Collections and variables are matched by name (case-insensitive),
+Semantic variables alias primitives where possible. Mixed or literal colors are resolved during
+generation and must be regenerated to reflect later primitive changes. Variables have scopes and
+**Web** code syntax (`var(--color-brand-default)`). Collections and variables are matched by name (case-insensitive),
 so an existing file is updated in place. Collections the generator does not own (for example
 **Grid**) are left untouched, as are collections an earlier version generated but this one no
 longer does (for example **Utopia**); delete those in Figma if you no longer need them. If your

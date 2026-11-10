@@ -6,8 +6,14 @@
   --ixia-brand-subtle: var(--ixia-brand-container);
   --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--pink-100), var(--pink-950));
-  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-brand-container-high: light-dark(var(--pink-200), var(--pink-900));
+  --ixia-brand-container-low: light-dark(
+    var(--pink-50),
+    color-mix(in srgb, var(--pink-950) 70%, var(--black))
+  );
+  --ixia-brand-container-high: light-dark(
+    color-mix(in srgb, var(--pink-200) 90%, var(--pink-300)),
+    color-mix(in srgb, var(--pink-900), var(--pink-800))
+  );
   --ixia-brand-on-container: light-dark(var(--pink-900), var(--pink-100));
   --ixia-brand-on-container-muted: light-dark(var(--pink-700), var(--pink-300));
   --ixia-brand-border: light-dark(var(--pink-300), var(--pink-700));
@@ -26,8 +32,14 @@
   --ixia-accent-subtle: var(--ixia-accent-container);
   --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--emerald-100), var(--emerald-950));
-  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-accent-container-high: light-dark(var(--emerald-200), var(--emerald-900));
+  --ixia-accent-container-low: light-dark(
+    var(--emerald-50),
+    color-mix(in srgb, var(--emerald-950) 70%, var(--black))
+  );
+  --ixia-accent-container-high: light-dark(
+    color-mix(in srgb, var(--emerald-200) 90%, var(--emerald-300)),
+    color-mix(in srgb, var(--emerald-900), var(--emerald-800))
+  );
   --ixia-accent-on-container: light-dark(var(--emerald-900), var(--emerald-100));
   --ixia-accent-on-container-muted: light-dark(var(--emerald-700), var(--emerald-300));
   --ixia-accent-border: light-dark(var(--emerald-300), var(--emerald-700));

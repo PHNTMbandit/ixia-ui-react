@@ -43,16 +43,16 @@ Every chromatic family uses the **same OKLCH lightness for the same step**. As a
 
 | Step | L (OKLCH) | Lc vs white | Lc vs black-900 | Intended usage                                                                |
 | ---: | --------: | ----------: | --------------: | ----------------------------------------------------------------------------- |
-|   50 |     97.5% |          ~0 |           ~−102 | Very faint decorative backgrounds                                             |
+|   50 |     97.5% |          ~0 |           ~−102 | Very faint tinted backgrounds                                                 |
 |  100 |     94.8% |          ~8 |            ~−96 | Hover tints, containers, alerts; dark-mode text on 900/950                    |
-|  200 |     90.5% |         ~16 |            ~−87 | Neutral containers, container-high, selected rows; dark-mode body text        |
+|  200 |     90.5% |         ~16 |            ~−87 | Base for light container-high; selected rows and dark-mode body text          |
 |  300 |     83.5% |         ~29 |            ~−73 | Light-mode decorative borders; dark-mode hover fills and muted text           |
 |  400 |     79.0% |         ~37 |            ~−64 | **Dark-mode interactive fills and coloured text**. Decorative only on light   |
 |  500 |     64.5% |         ~60 |            ~−41 | Strong borders, icons, charts, large text on light. **Not for body text**     |
 |  600 |     54.0% |         ~75 |            ~−26 | **Light-mode interactive fills (white label) and coloured UI text**           |
 |  700 |     48.0% |         ~82 |            ~−19 | Light-mode hover fills, secondary coloured text; dark-mode decorative borders |
 |  800 |     40.5% |         ~90 |            ~−11 | Strong text and emphasis on light                                             |
-|  900 |     33.5% |         ~97 |               0 | Text on light containers; dark-mode container-high                            |
+|  900 |     33.5% |         ~97 |               0 | Text on light containers; base for dark container-high                        |
 |  950 |     26.0% |        ~102 |               0 | Dark-mode containers and subtle tints                                         |
 
 Exceptions:
@@ -422,19 +422,23 @@ All six roles share one step pattern. Only the family changes:
 | `success` | `green`  | Distinct from teal (35° apart)                          |
 | `warning` | `amber`  | Ochre/amber. Orange is reserved for the brand           |
 
-| Token suffix          | Light     | Dark        | Purpose                                       |
-| --------------------- | --------- | ----------- | --------------------------------------------- |
-| `-default`            | 600       | 400         | Interactive fill; coloured UI text and icons  |
-| `-muted`              | 700       | 300         | Hover/pressed fill; secondary coloured text   |
-| `-on-default`         | `white`   | `black-900` | Label on `-default` / `-muted` fills          |
-| `-container`          | 100       | 950         | Tinted surfaces and transparent-control hover |
-| `-container-low`      | `white`   | `black-900` | Quiet tinted background                       |
-| `-container-high`     | 200       | 900         | Stronger control or menu highlight            |
-| `-on-container`       | 900       | 100         | Text and icons on containers                  |
-| `-on-container-muted` | 700       | 300         | Secondary text on containers                  |
-| `-border`             | 300       | 700         | Decorative outline (Lc ≥ 15)                  |
-| `-border-strong`      | 500       | 500         | Meaningful boundary (Lc ≥ 30, ≥ 3:1)          |
-| `-shadow`             | 700 @ 25% | 400 @ 35%   | Coloured glow                                 |
+| Token suffix          | Light             | Dark                  | Purpose                                       |
+| --------------------- | ----------------- | --------------------- | --------------------------------------------- |
+| `-default`            | 600               | 400                   | Interactive fill; coloured UI text and icons  |
+| `-muted`              | 700               | 300                   | Hover/pressed fill; secondary coloured text   |
+| `-on-default`         | `white`           | `black-900`           | Label on `-default` / `-muted` fills          |
+| `-container`          | 100               | 950                   | Tinted surfaces and transparent-control hover |
+| `-container-low`      | 50                | 70% 950 + 30% `black` | Quiet tinted background                       |
+| `-container-high`     | 90% 200 + 10% 300 | 50% 900 + 50% 800     | Stronger control or menu highlight            |
+| `-on-container`       | 900               | 100                   | Text and icons on containers                  |
+| `-on-container-muted` | 700               | 300                   | Secondary text on containers                  |
+| `-border`             | 300               | 700                   | Decorative outline (Lc ≥ 15)                  |
+| `-border-strong`      | 500               | 500                   | Meaningful boundary (Lc ≥ 30, ≥ 3:1)          |
+| `-shadow`             | 700 @ 25%         | 400 @ 35%             | Coloured glow                                 |
+
+Container blends use sRGB. The low and high levels retain their role's hue in
+both modes, while keeping the existing container text contrast targets. The
+neutral role continues to use its own warm-stone steps.
 
 ### `neutral` role
 
@@ -515,7 +519,7 @@ To use one, import it after `input.css` and set `data-brand="<theme>"` (for exam
 
 Light-mode chromatic `*-container` tints use step **100**, not 50, including
 brand/accent overrides and the shared status roles. Stronger interaction
-highlights use `*-container-high` (step 200 in the default chromatic palette).
+highlights use the role-coloured `*-container-high` blends described above.
 
 Default, variant and muted surface text have at least **15 Lc between adjacent
 levels** in both modes. Light primary text uses `black-900`; muted text uses
@@ -554,7 +558,10 @@ subtree. Other tokens inherit their existing values.
 
 ```css
 [data-brand='custom'] {
-  --ixia-brand-container-low: light-dark(var(--orange-50), var(--black-900));
+  --ixia-brand-container-low: light-dark(
+    var(--orange-50),
+    color-mix(in srgb, var(--orange-950) 70%, var(--black))
+  );
   --ixia-brand-container: light-dark(var(--orange-200), var(--orange-900));
   --ixia-brand-container-high: light-dark(var(--orange-300), var(--orange-800));
   --ixia-brand-on-container: light-dark(var(--orange-950), var(--orange-50));
@@ -608,8 +615,8 @@ Lc is APCA (text on background; negative means light text on a dark background).
 | `*-default`            | `surface-background` | 69.5 / 4.56     | 62.7 / 9.28    | Lc 60       | Coloured UI text               | Yes                        |
 | `*-muted`              | `surface`            | 80.1 / 6.16     | 70.0 / 9.69    | Lc 60       | Secondary coloured text        | Yes                        |
 | `*-on-container`       | `*-container`        | 86.1 / 10.10    | 92.8 / 13.17   | Lc 75       | Alert body text                | Yes                        |
-| `*-on-container`       | `*-container-high`   | 77.3 / 8.94     | 88.6 / 7.83    | Lc 75       | Selected container text        | Yes                        |
-| `*-on-container`       | `*-container-low`    | 96.1 / 11.55    | 95.4 / 16.02   | Lc 75       | Quiet container text           | Yes                        |
+| `*-on-container`       | `*-container-high`   | 75.9 / 8.76     | 85.9 / 8.70    | Lc 75       | Selected container text        | Yes                        |
+| `*-on-container`       | `*-container-low`    | 91.6 / 10.83    | 94.5 / 15.21   | Lc 75       | Quiet container text           | Yes                        |
 | `*-on-container-muted` | `*-container`        | 71.0 / 5.39     | 65.1 / 7.68    | Lc 60       | Alert description              | Yes                        |
 | `*-border-strong`      | `surface`            | 57.3 / 3.09     | 37.1 / 4.59    | Lc 30 + 3:1 | Control boundary               | Yes (non-text)             |
 | `*-border`             | `*-container`        | 0.0 / 1.00      | 0.0 / 1.06     | Lc 15       | Alert outline                  | Neutral may not be visible |

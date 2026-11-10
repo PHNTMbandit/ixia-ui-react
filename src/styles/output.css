@@ -6942,8 +6942,26 @@
   --ixia-brand-subtle: var(--ixia-brand-container);
   --ixia-brand-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-brand-container: light-dark(var(--orange-100), var(--orange-950));
-  --ixia-brand-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-brand-container-high: light-dark(var(--orange-200), var(--orange-900));
+  --ixia-brand-container-low: light-dark(
+    var(--orange-50),
+    var(--orange-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-brand-container-low: light-dark(
+    var(--orange-50),
+    color-mix(in srgb, var(--orange-950) 70%, var(--black))
+  );
+  }
+  --ixia-brand-container-high: light-dark(
+    var(--orange-200),
+    var(--orange-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-brand-container-high: light-dark(
+    color-mix(in srgb, var(--orange-200) 90%, var(--orange-300)),
+    color-mix(in srgb, var(--orange-900), var(--orange-800))
+  );
+  }
   --ixia-brand-on-container: light-dark(var(--orange-900), var(--orange-100));
   --ixia-brand-on-container-muted: light-dark(var(--orange-700), var(--orange-300));
   --ixia-brand-border: light-dark(var(--orange-300), var(--orange-700));
@@ -6962,8 +6980,26 @@
   --ixia-accent-subtle: var(--ixia-accent-container);
   --ixia-accent-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-accent-container: light-dark(var(--teal-100), var(--teal-950));
-  --ixia-accent-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-accent-container-high: light-dark(var(--teal-200), var(--teal-900));
+  --ixia-accent-container-low: light-dark(
+    var(--teal-50),
+    var(--teal-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-accent-container-low: light-dark(
+    var(--teal-50),
+    color-mix(in srgb, var(--teal-950) 70%, var(--black))
+  );
+  }
+  --ixia-accent-container-high: light-dark(
+    var(--teal-200),
+    var(--teal-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-accent-container-high: light-dark(
+    color-mix(in srgb, var(--teal-200) 90%, var(--teal-300)),
+    color-mix(in srgb, var(--teal-900), var(--teal-800))
+  );
+  }
   --ixia-accent-on-container: light-dark(var(--teal-900), var(--teal-100));
   --ixia-accent-on-container-muted: light-dark(var(--teal-700), var(--teal-300));
   --ixia-accent-border: light-dark(var(--teal-300), var(--teal-700));
@@ -6987,8 +7023,26 @@
   --ixia-error-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-error-on-surface: var(--ixia-error-default);
   --ixia-error-container: light-dark(var(--red-100), var(--red-950));
-  --ixia-error-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-error-container-high: light-dark(var(--red-200), var(--red-900));
+  --ixia-error-container-low: light-dark(
+    var(--red-50),
+    var(--red-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-error-container-low: light-dark(
+    var(--red-50),
+    color-mix(in srgb, var(--red-950) 70%, var(--black))
+  );
+  }
+  --ixia-error-container-high: light-dark(
+    var(--red-200),
+    var(--red-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-error-container-high: light-dark(
+    color-mix(in srgb, var(--red-200) 90%, var(--red-300)),
+    color-mix(in srgb, var(--red-900), var(--red-800))
+  );
+  }
   --ixia-error-on-container: light-dark(var(--red-900), var(--red-100));
   --ixia-error-on-container-muted: light-dark(var(--red-700), var(--red-300));
   --ixia-error-border: light-dark(var(--red-300), var(--red-700));
@@ -6999,8 +7053,26 @@
   --ixia-info-subtle: var(--ixia-info-container);
   --ixia-info-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-info-container: light-dark(var(--blue-100), var(--blue-950));
-  --ixia-info-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-info-container-high: light-dark(var(--blue-200), var(--blue-900));
+  --ixia-info-container-low: light-dark(
+    var(--blue-50),
+    var(--blue-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-info-container-low: light-dark(
+    var(--blue-50),
+    color-mix(in srgb, var(--blue-950) 70%, var(--black))
+  );
+  }
+  --ixia-info-container-high: light-dark(
+    var(--blue-200),
+    var(--blue-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-info-container-high: light-dark(
+    color-mix(in srgb, var(--blue-200) 90%, var(--blue-300)),
+    color-mix(in srgb, var(--blue-900), var(--blue-800))
+  );
+  }
   --ixia-info-on-container: light-dark(var(--blue-900), var(--blue-100));
   --ixia-info-on-container-muted: light-dark(var(--blue-700), var(--blue-300));
   --ixia-info-border: light-dark(var(--blue-300), var(--blue-700));
@@ -7011,8 +7083,26 @@
   --ixia-success-subtle: var(--ixia-success-container);
   --ixia-success-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-success-container: light-dark(var(--green-100), var(--green-950));
-  --ixia-success-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-success-container-high: light-dark(var(--green-200), var(--green-900));
+  --ixia-success-container-low: light-dark(
+    var(--green-50),
+    var(--green-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-success-container-low: light-dark(
+    var(--green-50),
+    color-mix(in srgb, var(--green-950) 70%, var(--black))
+  );
+  }
+  --ixia-success-container-high: light-dark(
+    var(--green-200),
+    var(--green-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-success-container-high: light-dark(
+    color-mix(in srgb, var(--green-200) 90%, var(--green-300)),
+    color-mix(in srgb, var(--green-900), var(--green-800))
+  );
+  }
   --ixia-success-on-container: light-dark(var(--green-900), var(--green-100));
   --ixia-success-on-container-muted: light-dark(var(--green-700), var(--green-300));
   --ixia-success-border: light-dark(var(--green-300), var(--green-700));
@@ -7023,8 +7113,26 @@
   --ixia-warning-subtle: var(--ixia-warning-container);
   --ixia-warning-on-default: light-dark(var(--white-50), var(--black-900));
   --ixia-warning-container: light-dark(var(--amber-100), var(--amber-950));
-  --ixia-warning-container-low: light-dark(var(--white-50), var(--black-900));
-  --ixia-warning-container-high: light-dark(var(--amber-200), var(--amber-900));
+  --ixia-warning-container-low: light-dark(
+    var(--amber-50),
+    var(--amber-950)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-warning-container-low: light-dark(
+    var(--amber-50),
+    color-mix(in srgb, var(--amber-950) 70%, var(--black))
+  );
+  }
+  --ixia-warning-container-high: light-dark(
+    var(--amber-200),
+    var(--amber-900)
+  );
+  @supports (color: color-mix(in lab, red, red)) {
+    --ixia-warning-container-high: light-dark(
+    color-mix(in srgb, var(--amber-200) 90%, var(--amber-300)),
+    color-mix(in srgb, var(--amber-900), var(--amber-800))
+  );
+  }
   --ixia-warning-on-container: light-dark(var(--amber-900), var(--amber-100));
   --ixia-warning-on-container-muted: light-dark(var(--amber-700), var(--amber-300));
   --ixia-warning-border: light-dark(var(--amber-300), var(--amber-700));

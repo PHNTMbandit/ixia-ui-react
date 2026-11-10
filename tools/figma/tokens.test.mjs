@@ -41,6 +41,47 @@ await test('exports subtle and error-on-surface semantic tokens', () => {
   assert.ok(output.tokens['color/error/on/surface'])
 })
 
+await test('exports chromatic container levels with the same sRGB colors as CSS', () => {
+  const roles = {
+      accent: 'teal',
+      brand: 'orange',
+      error: 'red',
+      info: 'blue',
+      success: 'green',
+      warning: 'amber',
+    },
+    primitive = (family, step) => {
+      const variable = palette.variables.find((entry) => entry.name === `${family}/${step}`)
+      assert.ok(variable, `Missing ${family}/${step}`)
+      return variable.values.Default
+    },
+    black = palette.variables.find((entry) => entry.name === 'black').values.Default,
+    assertMix = (actual, first, second, weight) => {
+      for (const channel of ['r', 'g', 'b', 'a']) {
+        const expected = first[channel] * weight + second[channel] * (1 - weight)
+        assert.ok(Math.abs(actual[channel] - expected) < 1e-10, `${channel}: ${actual[channel]}`)
+      }
+    }
+
+  for (const [role, family] of Object.entries(roles)) {
+    const name = role[0].toUpperCase() + role.slice(1),
+      low = semantics.variables.find((entry) => entry.name === `${name}/${name} Container Low`),
+      high = semantics.variables.find((entry) => entry.name === `${name}/${name} Container High`)
+    assert.ok(low, `Missing ${role} container low`)
+    assert.ok(high, `Missing ${role} container high`)
+    assert.deepEqual(low.values.Light, { alias: `${COLLECTIONS.palette}::${family}/50` })
+    assertMix(low.values.Dark, primitive(family, 950), black, 0.7)
+    assertMix(high.values.Light, primitive(family, 200), primitive(family, 300), 0.9)
+    assertMix(high.values.Dark, primitive(family, 900), primitive(family, 800), 0.5)
+  }
+})
+
+await test('rejects unsupported color-mix spaces instead of exporting the wrong color', () => {
+  const invalid = css.replace('color-mix(in srgb,', 'color-mix(in lch,')
+  assert.notEqual(invalid, css)
+  assert.throws(() => buildVariables(invalid), /Cannot resolve --ixia-brand-container-low/)
+})
+
 await test('rejects a flat color token that does not resolve to a primitive', () => {
   const invalid = css.replace('--ixia-white: var(--white-50);', '--ixia-white: var(--missing);')
   assert.notEqual(invalid, css)
