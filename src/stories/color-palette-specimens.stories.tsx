@@ -22,7 +22,85 @@ const PROFILES = [
   ] as const,
   CONTAINERS = ['container-low', 'container', 'container-high'] as const,
   SURFACES = ['surface-background', 'surface', 'surface-2', 'surface-3', 'surface-low'] as const,
-  BRANDS: Brand[] = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadelpha']
+  BRANDS: Brand[] = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadelpha'],
+  BRAND_FAMILIES: Record<Brand, { brand: string; accent: string }> = {
+    maculata: { brand: 'orange', accent: 'teal' },
+    mabel: { brand: 'rose', accent: 'teal' },
+    viridiflora: { brand: 'teal', accent: 'orange' },
+    hogarth: { brand: 'yellow', accent: 'rose' },
+    venus: { brand: 'pink', accent: 'emerald' },
+    monadelpha: { brand: 'indigo', accent: 'teal' },
+  },
+  STATUS_FAMILIES = { error: 'red', info: 'blue', success: 'green', warning: 'amber' }
+
+function expectedContainer(
+  family: string,
+  level: (typeof CONTAINERS)[number],
+  mode: 'light' | 'dark',
+) {
+  if (level === 'container-low') {
+    return mode === 'light'
+      ? `var(--${family}-50)`
+      : `color-mix(in srgb, var(--${family}-950) 70%, var(--black))`
+  }
+  if (level === 'container') {
+    return `var(--${family}-${mode === 'light' ? '100' : '950'})`
+  }
+  return mode === 'light'
+    ? `color-mix(in srgb, var(--${family}-200) 90%, var(--${family}-300))`
+    : `color-mix(in srgb, var(--${family}-900), var(--${family}-800))`
+}
+
+function checkContainerColors(
+  scope: HTMLElement,
+  brand: Brand,
+  mode: 'light' | 'dark',
+  checkRendered: boolean,
+) {
+  const swatch = scope.ownerDocument.createElement('span'),
+    families = { ...STATUS_FAMILIES, ...BRAND_FAMILIES[brand] },
+    lowColors = new Set<string>(),
+    highColors = new Set<string>()
+  scope.append(swatch)
+  try {
+    for (const [role, family] of Object.entries(families)) {
+      const colors = CONTAINERS.map((level) => {
+        swatch.style.backgroundColor = `var(--color-${role}-${level})`
+        const actual = getComputedStyle(swatch).backgroundColor
+        swatch.style.backgroundColor = expectedContainer(family, level, mode)
+        expect(actual, `${brand}/${mode}/${role}/${level}`).toBe(
+          getComputedStyle(swatch).backgroundColor,
+        )
+        if (checkRendered) {
+          const sample = scope.querySelector<HTMLElement>(
+            `[data-palette-role="${role}"] [data-palette-level="${level}"]`,
+          )
+          if (!sample) {
+            throw new Error(`Missing ${brand}/${mode}/${role}/${level} specimen`)
+          }
+          expect(getComputedStyle(sample).backgroundColor).toBe(actual)
+        }
+        return actual
+      })
+      const contrasts = colors.map(
+        (background) => measure({ background, color: 'rgb(0, 0, 0)' }).ratio,
+      )
+      if (mode === 'light') {
+        expect(contrasts[0]).toBeGreaterThan(contrasts[1])
+        expect(contrasts[1]).toBeGreaterThan(contrasts[2])
+      } else {
+        expect(contrasts[0]).toBeLessThan(contrasts[1])
+        expect(contrasts[1]).toBeLessThan(contrasts[2])
+      }
+      lowColors.add(colors[0])
+      highColors.add(colors[2])
+    }
+    expect(lowColors.size).toBe(Object.keys(families).length)
+    expect(highColors.size).toBe(Object.keys(families).length)
+  } finally {
+    swatch.remove()
+  }
+}
 
 function TextSample({
   foreground,
@@ -122,7 +200,7 @@ function Specimens({ brand }: { brand: Brand }) {
         <ThemeFrame key={`${brand}-${mode}`} brand={brand} theme={mode}>
           <div className="grid gap-md xl:grid-cols-2">
             {ROLES.map((role) => (
-              <article key={role} className="flex min-w-0 flex-col gap-md">
+              <article key={role} data-palette-role={role} className="flex min-w-0 flex-col gap-md">
                 <h3 className="style-text-strong-2 capitalize">{role}</h3>
                 <div className="flex flex-wrap gap-xs">
                   {(['fill', 'secondary', 'outline', 'ghost'] as const).map((variant) => (
@@ -140,6 +218,7 @@ function Specimens({ brand }: { brand: Brand }) {
                   return (
                     <div
                       key={suffix}
+                      data-palette-level={suffix}
                       className="flex flex-col gap-sm rounded-xl border p-md"
                       style={{
                         background: token(background),
@@ -234,7 +313,7 @@ export default {
   argTypes: { brand: { control: 'select', options: BRANDS } },
   parameters: { ...matrixParameters, layout: 'padded' },
   render: ({ brand }) => <Specimens brand={brand} />,
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, args: { brand } }) => {
     const samples = canvasElement.querySelectorAll<HTMLElement>('[data-required="true"]')
     expect(samples.length).toBeGreaterThan(300)
     for (const sample of samples) {
@@ -246,6 +325,25 @@ export default {
       }
       expect(Math.abs(lc), sample.outerHTML).toBeGreaterThanOrEqual(Number(sample.dataset.target))
       expect(ratio, sample.outerHTML).toBeGreaterThanOrEqual(Number(sample.dataset.ratioTarget))
+    }
+    for (const mode of ['light', 'dark'] as const) {
+      const scope = canvasElement.querySelector<HTMLElement>(
+        `[data-brand="${brand}"][data-theme="${mode}"]`,
+      )
+      if (!scope) {
+        throw new Error(`Missing ${brand}/${mode} theme scope`)
+      }
+      checkContainerColors(scope, brand, mode, true)
+      if (brand === 'maculata') {
+        const unscoped = canvasElement.ownerDocument.createElement('div')
+        unscoped.dataset.theme = mode
+        canvasElement.append(unscoped)
+        try {
+          checkContainerColors(unscoped, brand, mode, false)
+        } finally {
+          unscoped.remove()
+        }
+      }
     }
   },
 } satisfies Meta<{ brand: Brand }>
