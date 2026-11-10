@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.0...v2.2.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* update ESLint configuration to reflect new directory structure for Figma tools ([e56894d](https://github.com/PHNTMbandit/ixia-ui-react/commit/e56894d639b277db951653b0ee5067ad8184d707))
+
 # [2.2.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.1.1...v2.2.0) (2026-11-08)
 
 
