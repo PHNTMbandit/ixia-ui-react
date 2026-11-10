@@ -21,7 +21,7 @@ export function ColorPickerPaletteAdd({
       aria-label="Add current color to palette"
       onClick={handleClick}
       className={cn(
-        'flex size-md items-center justify-center rounded-lg border border-border-strong text-border-strong hover:cursor-pointer [&>svg]:size-xs',
+        'flex size-md min-target items-center justify-center rounded-lg border border-on-surface-variant text-on-surface-variant hover:cursor-pointer [&>svg]:size-xs',
         className,
       )}
       ref={ref}

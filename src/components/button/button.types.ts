@@ -78,81 +78,78 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'border-brand-border text-brand-default hover:border-brand-border-strong hover:bg-brand-container hover:text-brand-on-container',
+          'border-brand-border text-brand-default hover:border-brand-border-strong hover:bg-brand-subtle hover:text-brand-on-container',
         tone: 'brand',
         variant: 'outline',
       },
       {
         className:
-          'border-accent-border text-accent-default hover:border-accent-border-strong hover:bg-accent-container hover:text-accent-on-container',
+          'border-accent-border text-accent-default hover:border-accent-border-strong hover:bg-accent-subtle hover:text-accent-on-container',
         tone: 'accent',
         variant: 'outline',
       },
       {
         className:
-          'border-neutral-border text-neutral-default hover:border-neutral-border-strong hover:bg-neutral-container hover:text-neutral-on-container',
+          'border-neutral-border text-neutral-default hover:border-neutral-border-strong hover:bg-neutral-subtle hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'outline',
       },
       {
         className:
-          'border-error-border text-error-default hover:border-error-border-strong hover:bg-error-container hover:text-error-on-container',
+          'border-error-border text-error-on-surface hover:border-error-border-strong hover:bg-error-subtle hover:text-error-on-container',
         tone: 'error',
         variant: 'outline',
       },
       {
         className:
-          'border-info-border text-info-default hover:border-info-border-strong hover:bg-info-container hover:text-info-on-container',
+          'border-info-border text-info-default hover:border-info-border-strong hover:bg-info-subtle hover:text-info-on-container',
         tone: 'info',
         variant: 'outline',
       },
       {
         className:
-          'border-success-border text-success-default hover:border-success-border-strong hover:bg-success-container hover:text-success-on-container',
+          'border-success-border text-success-default hover:border-success-border-strong hover:bg-success-subtle hover:text-success-on-container',
         tone: 'success',
         variant: 'outline',
       },
       {
         className:
-          'border-warning-border text-warning-default hover:border-warning-border-strong hover:bg-warning-container hover:text-warning-on-container',
+          'border-warning-border text-warning-default hover:border-warning-border-strong hover:bg-warning-subtle hover:text-warning-on-container',
         tone: 'warning',
         variant: 'outline',
       },
       {
-        className: 'text-brand-default hover:bg-brand-container hover:text-brand-on-container',
+        className: 'text-brand-default hover:bg-brand-subtle hover:text-brand-on-container',
         tone: 'brand',
         variant: 'ghost',
       },
       {
-        className: 'text-accent-default hover:bg-accent-container hover:text-accent-on-container',
+        className: 'text-accent-default hover:bg-accent-subtle hover:text-accent-on-container',
         tone: 'accent',
         variant: 'ghost',
       },
       {
-        className:
-          'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
+        className: 'text-neutral-default hover:bg-neutral-subtle hover:text-neutral-on-container',
         tone: 'neutral',
         variant: 'ghost',
       },
       {
-        className: 'text-error-default hover:bg-error-container hover:text-error-on-container',
+        className: 'text-error-on-surface hover:bg-error-subtle hover:text-error-on-container',
         tone: 'error',
         variant: 'ghost',
       },
       {
-        className: 'text-info-default hover:bg-info-container hover:text-info-on-container',
+        className: 'text-info-default hover:bg-info-subtle hover:text-info-on-container',
         tone: 'info',
         variant: 'ghost',
       },
       {
-        className:
-          'text-success-default hover:bg-success-container hover:text-success-on-container',
+        className: 'text-success-default hover:bg-success-subtle hover:text-success-on-container',
         tone: 'success',
         variant: 'ghost',
       },
       {
-        className:
-          'text-warning-default hover:bg-warning-container hover:text-warning-on-container',
+        className: 'text-warning-default hover:bg-warning-subtle hover:text-warning-on-container',
         tone: 'warning',
         variant: 'ghost',
       },
@@ -217,7 +214,7 @@ export const buttonVariants = cva(
       },
       {
         className:
-          'text-error-default hover:decoration-error-default [&>svg]:text-error-default/50 hover:[&>svg]:text-error-default',
+          'text-error-on-surface hover:decoration-error-default [&>svg]:text-error-default/50 hover:[&>svg]:text-error-default',
         tone: 'error',
         variant: 'link',
       },
@@ -248,13 +245,13 @@ export const buttonVariants = cva(
     variants: {
       size: {
         extraSmall:
-          'h-md gap-3xs px-2xs font-body text-xs leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-xs',
+          'h-md min-target gap-3xs rounded-full px-2xs font-body text-xs leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-md [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [:where(&)>svg]:size-xs',
         large:
-          'h-2xl min-w-2xl gap-xs px-md font-body text-lg leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-2xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-lg',
+          'h-2xl min-w-2xl gap-xs rounded-full px-md font-body text-lg leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-2xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [:where(&)>svg]:size-lg',
         medium:
-          'h-xl min-w-xl gap-2xs px-sm font-body text-base leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-md',
+          'h-xl min-w-xl gap-2xs rounded-full px-sm font-body text-base leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-xl [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [:where(&)>svg]:size-md',
         small:
-          'h-lg min-w-lg gap-3xs px-xs font-body text-sm leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [&>svg]:size-sm',
+          'h-lg min-target gap-3xs rounded-full px-xs font-body text-sm leading-none font-medium [&:where([data-icon-only]:has(>svg:only-child))]:size-lg [&:where([data-icon-only]:has(>svg:only-child))]:p-0 [:where(&)>svg]:size-sm',
       },
       tone: {
         accent: '',
@@ -269,7 +266,7 @@ export const buttonVariants = cva(
         elevated: 'shadow-xs not-active:hover:shadow-md',
         fill: 'active:scale-95',
         ghost: 'active:scale-95',
-        link: 'size-fit! p-0! underline decoration-transparent underline-offset-2 [&>svg]:transition-colors',
+        link: 'size-fit! min-h-0! min-w-0! p-0! underline decoration-transparent underline-offset-2 [&>svg]:transition-colors',
         outline: 'border active:scale-95',
         secondary: 'active:scale-95',
       },

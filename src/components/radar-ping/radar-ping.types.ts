@@ -13,13 +13,19 @@ export const radarPingVariants = cva('absolute top-[0px] right-[0px] flex', {
       small: '-mt-3xs -mr-3xs style-text-default--2 [&_[data-dot]]:size-sm',
     },
     tone: {
-      accent: '[&_[data-dot]]:bg-accent-default [&_[data-radar-ping]]:bg-accent-default',
-      brand: '[&_[data-dot]]:bg-brand-default [&_[data-radar-ping]]:bg-brand-default',
-      error: '[&_[data-dot]]:bg-error-default [&_[data-radar-ping]]:bg-error-default',
-      info: '[&_[data-dot]]:bg-info-default [&_[data-radar-ping]]:bg-info-default',
-      neutral: '[&_[data-dot]]:bg-neutral-default [&_[data-radar-ping]]:bg-neutral-default',
-      success: '[&_[data-dot]]:bg-success-default [&_[data-radar-ping]]:bg-success-default',
-      warning: '[&_[data-dot]]:bg-warning-default [&_[data-radar-ping]]:bg-warning-default',
+      accent:
+        '[&_[data-dot]]:bg-accent-default [&_[data-dot]]:text-accent-on-default [&_[data-radar-ping]]:bg-accent-default',
+      brand:
+        '[&_[data-dot]]:bg-brand-default [&_[data-dot]]:text-brand-on-default [&_[data-radar-ping]]:bg-brand-default',
+      error:
+        '[&_[data-dot]]:bg-error-default [&_[data-dot]]:text-error-on-default [&_[data-radar-ping]]:bg-error-default',
+      info: '[&_[data-dot]]:bg-info-default [&_[data-dot]]:text-info-on-default [&_[data-radar-ping]]:bg-info-default',
+      neutral:
+        '[&_[data-dot]]:bg-neutral-default [&_[data-dot]]:text-neutral-on-default [&_[data-radar-ping]]:bg-neutral-default',
+      success:
+        '[&_[data-dot]]:bg-success-default [&_[data-dot]]:text-success-on-default [&_[data-radar-ping]]:bg-success-default',
+      warning:
+        '[&_[data-dot]]:bg-warning-default [&_[data-dot]]:text-warning-on-default [&_[data-radar-ping]]:bg-warning-default',
     },
   },
 })

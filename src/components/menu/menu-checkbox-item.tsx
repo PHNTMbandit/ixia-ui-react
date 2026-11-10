@@ -4,20 +4,23 @@ import { cn } from '@/utils/cn'
 import { trimTextChildren } from '@/utils/trim-text-children'
 
 import { Icon } from '../icon'
+import { menuItemBaseClasses, menuItemHighlightClasses } from './menu-tone'
 import type { MenuCheckboxItemProps } from './menu.types'
 
 export function MenuCheckboxItem({ className, children, ref, ...props }: MenuCheckboxItemProps) {
   return (
     <BaseMenu.CheckboxItem
       className={cn(
-        'relative z-0 grid h-lg cursor-default grid-cols-[1fr_2rem] items-center px-xs style-text-default-0 transition-colors outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:content-[""] hover:cursor-pointer data-highlighted:text-neutral-on-container data-highlighted:before:bg-neutral-container-high',
+        'grid grid-cols-[1fr_0.75rem]',
+        menuItemBaseClasses,
+        menuItemHighlightClasses,
         className,
       )}
       ref={ref}
       {...props}
     >
       <span className="col-start-1 flex items-center gap-2xs">{trimTextChildren(children)}</span>
-      <BaseMenu.CheckboxItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center">
+      <BaseMenu.CheckboxItemIndicator className="col-start-2 flex items-center justify-center place-self-end self-center [&>svg]:size-sm!">
         <Icon name="selected" className="size-sm" />
       </BaseMenu.CheckboxItemIndicator>
     </BaseMenu.CheckboxItem>

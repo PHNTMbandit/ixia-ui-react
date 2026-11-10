@@ -13,7 +13,7 @@ export function SelectPopup({ className, children, ref, ...props }: SelectPopupP
         ref={ref}
         {...props}
       >
-        <BaseSelect.Popup className="group min-w-(--anchor-width) origin-(--transform-origin) rounded-xl bg-surface-2 bg-clip-padding p-2xs shadow-md transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 data-[side=none]:data-ending-style:scale-90 data-[side=none]:data-ending-style:opacity-0 data-[side=none]:data-starting-style:scale-90 data-[side=none]:data-starting-style:opacity-0">
+        <BaseSelect.Popup className="group min-w-(--anchor-width) origin-(--transform-origin) rounded-xl bg-surface-2 bg-clip-padding p-2xs shadow-md transition-[transform,scale,opacity] outline-none data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0 data-[side=none]:data-ending-style:scale-90 data-[side=none]:data-ending-style:opacity-0 data-[side=none]:data-starting-style:scale-90 data-[side=none]:data-starting-style:opacity-0">
           <BaseSelect.ScrollUpArrow className="top-0 right-0 z-[1px] flex h-md w-full cursor-default items-center justify-center rounded-xl bg-surface-2 before:absolute before:left-0 before:size-full before:content-[''] data-[side=none]:before:-top-full">
             <Icon name="chevronUp" className="size-sm" />
           </BaseSelect.ScrollUpArrow>

@@ -7,7 +7,7 @@ export function BreadcrumbItem({ className, children, ref, ...props }: Breadcrum
   return (
     <div
       className={cn(
-        'inline-flex h-lg items-center justify-center gap-2xs rounded-full px-2xs style-text-default--1 text-accent-default [&>svg]:size-sm',
+        'inline-flex h-lg items-center justify-center gap-2xs rounded-full px-2xs style-text-default--1 text-accent-default [:where(&)>svg]:size-sm',
         className,
       )}
       ref={ref}

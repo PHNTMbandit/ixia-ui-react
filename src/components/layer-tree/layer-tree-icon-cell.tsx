@@ -29,7 +29,7 @@ export function LayerTreeIconCell({ className, children, ref, ...props }: LayerT
 
         return (
           <div
-            className={cn('flex w-fit shrink-0 items-center [&>svg]:size-sm', className)}
+            className={cn('flex w-fit shrink-0 items-center [:where(&)>svg]:size-sm', className)}
             ref={ref}
             {...props}
           >

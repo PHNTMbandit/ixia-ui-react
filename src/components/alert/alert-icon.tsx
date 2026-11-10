@@ -7,7 +7,7 @@ export function AlertIcon({ className, ref, ...props }: AlertIconProps) {
     <div
       data-slot="alert-icon"
       className={cn(
-        'col-start-1 row-start-1 self-start transition-colors [&>svg]:size-md',
+        'col-start-1 row-start-1 self-start transition-colors [:where(&)>svg]:size-md',
         className,
       )}
       ref={ref}

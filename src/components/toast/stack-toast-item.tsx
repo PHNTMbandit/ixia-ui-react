@@ -141,7 +141,7 @@ export function StackToastItem({ className, ref, toast, ...props }: StackToastIt
           )}
           <BaseToast.Close
             aria-label="Close"
-            className="relative flex size-sm items-center justify-center rounded-full bg-transparent p-xs text-on-surface-variant transition-colors hover:cursor-pointer hover:bg-error-container hover:text-error-on-container"
+            className="relative flex size-sm min-target items-center justify-center rounded-full bg-transparent p-xs text-on-surface-variant transition-colors hover:cursor-pointer hover:bg-error-container hover:text-error-on-container"
           >
             <span className="pointer-events-none absolute inset-[0px] z-10 flex items-center justify-center">
               <svg width="100%" height="100%" viewBox="0 0 32 32" className="block -rotate-90">

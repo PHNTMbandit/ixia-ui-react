@@ -11,12 +11,15 @@ export const numberFieldVariants = cva(
     },
     variants: {
       size: {
-        large: '[&_[role="group"]]:h-2xl [&_input]:style-text-default-1',
-        medium: '[&_[role="group"]]:h-xl [&_input]:style-text-default-0',
-        small: '[&_[role="group"]]:h-lg [&_input]:style-text-default--1',
+        large:
+          '[&_[role="group"]]:h-2xl [&_[role="group"]]:rounded-full [&_input]:style-text-default-1',
+        medium:
+          '[&_[role="group"]]:h-xl [&_[role="group"]]:rounded-full [&_input]:style-text-default-0',
+        small:
+          '[&_[role="group"]]:h-lg [&_[role="group"]]:rounded-full [&_input]:style-text-default--1',
       },
       variant: {
-        ghost: '',
+        ghost: '[&_[role="group"]]:outline-transparent',
         primary: '[&_[role="group"]]:bg-surface [&_[role="group"]]:shadow-2xs',
         secondary: '[&_[role="group"]]:bg-neutral-container',
       },

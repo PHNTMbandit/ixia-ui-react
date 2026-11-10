@@ -17,7 +17,7 @@ export function ColorPickerPaletteLimit({
       <span
         className={cn(
           'style-text-prose--2 text-on-surface-variant',
-          isAtLimit && 'text-error-default',
+          isAtLimit && 'text-error-on-surface',
           className,
         )}
         ref={ref}

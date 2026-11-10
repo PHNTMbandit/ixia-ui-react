@@ -6,7 +6,7 @@ export function SliderIcon({ className, ref, ...props }: SliderIconProps) {
   return (
     <div
       data-slot="slider-icon"
-      className={cn('[&>svg]:size-sm [&>svg]:shrink-0', className)}
+      className={cn('[&>svg]:shrink-0 [:where(&)>svg]:size-sm', className)}
       ref={ref}
       {...props}
     />

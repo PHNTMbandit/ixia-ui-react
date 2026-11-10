@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
 const radioVariants = cva(
-  'group flex size-sm shrink-0 items-center justify-center rounded-full outline outline-transparent transition-all hover:outline-border-strong data-checked:bg-brand-default data-checked:outline-brand-border-strong data-disabled:opacity-50',
+  'group target-hit relative flex size-sm shrink-0 items-center justify-center rounded-full outline-transparent transition-all data-checked:bg-brand-default data-checked:outline-brand-border-strong data-disabled:opacity-50',
   {
     defaultVariants: {
       variant: 'elevated',

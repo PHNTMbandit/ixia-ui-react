@@ -584,7 +584,7 @@ export const ChildOverrides: Story = {
       await expect(actual[property], property).toBe(expected[property])
     }
     // Real CSS :hover needs Vitest Browser Mode, which throws when imported in the Storybook UI.
-    const browser = await import('vitest/browser').catch(() => undefined)
+    const browser = await import('vite-plus/test/browser').catch(() => undefined)
     if (browser) {
       await browser.userEvent.hover(override)
       await waitFor(() => {

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
+import { expect, waitFor, within } from 'storybook/test'
 
+import { Input } from '../input'
 import { InputOTP } from './index'
 
 /**
@@ -9,7 +11,7 @@ import { InputOTP } from './index'
  * ## Anatomy
  *
  * ```tsx
- * import { InputOTP, InputOTPSlot, InputOtpSeparator } from '@ixia/ui'
+ * import { InputOTP, InputOTPSlot, InputOtpSeparator } from 'ixia-ui-react/input-otp'
  *
  * <InputOTP length={6}>
  *   <InputOTPSlot />
@@ -65,6 +67,14 @@ export default {
         defaultValue: { summary: 'false' },
       },
     },
+    variant: {
+      control: 'select',
+      description: 'Controls the visual surface style of the OTP slots.',
+      options: ['primary', 'secondary', 'ghost', 'outline'],
+      table: {
+        defaultValue: { summary: 'primary' },
+      },
+    },
     required: {
       control: 'boolean',
       description: 'Marks the field as required for form validation.',
@@ -89,13 +99,14 @@ export default {
     readOnly: false,
     required: false,
     validationType: 'numeric',
+    variant: 'primary',
   },
   component: InputOTP,
   parameters: {
     docs: {
       description: {
         component:
-          'The Input OTP component provides a segmented input experience for collecting one-time passcodes. It supports numeric, alphanumeric, or custom validation, masked entry for sensitive codes, grouped layouts with separators, and auto-submission on completion.',
+          'The Input OTP component provides a segmented input experience for collecting one-time passcodes. Choose elevated primary, secondary, ghost, or outline slot styling. It also supports numeric, alphanumeric, or custom validation, masked entry for sensitive codes, grouped layouts with separators, and auto-submission on completion.',
       },
       subtitle: 'A one-time password input composed of individual character slots.',
     },
@@ -173,6 +184,80 @@ export const FourDigits: Story = {
       <InputOTP.Slot aria-label="Character 4 of 4" />
     </InputOTP>
   ),
+}
+
+const variantExample = {
+  decorators: [
+    (Story, { args }) => (
+      <div className="group" data-variant="secondary">
+        <Story />
+        <Input
+          aria-label="Reference input"
+          data-testid="reference-input"
+          style={{ position: 'absolute', visibility: 'hidden' }}
+          variant={args.variant}
+        />
+      </div>
+    ),
+  ],
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement),
+      group = canvas.getByRole('group', { name: 'One-time password' }),
+      slots = group.querySelectorAll('input:not([type="hidden"])'),
+      reference = getComputedStyle(canvas.getByTestId('reference-input'))
+
+    await expect(slots.length).toBeGreaterThan(0)
+    if (args.variant === undefined || args.variant === 'primary') {
+      await expect(reference.boxShadow).not.toBe('none')
+    }
+    await waitFor(async () => {
+      for (const slot of slots) {
+        const style = getComputedStyle(slot)
+        await expect(slot).toHaveClass('rounded-md')
+        await expect(style.backgroundColor).toBe(reference.backgroundColor)
+        await expect(style.boxShadow).toBe(reference.boxShadow)
+      }
+    })
+  },
+} satisfies Pick<Story, 'decorators' | 'play'>
+
+export const Primary: Story = {
+  ...variantExample,
+  args: {
+    variant: 'primary',
+  },
+  name: 'Variant / Primary',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Uses the same surface color and subtle elevation as a primary Input.',
+      },
+    },
+  },
+}
+
+export const Secondary: Story = {
+  ...variantExample,
+  args: {
+    variant: 'secondary',
+  },
+  name: 'Variant / Secondary',
+}
+
+export const Ghost: Story = {
+  ...variantExample,
+  args: {
+    variant: 'ghost',
+  },
+  name: 'Variant / Ghost',
+}
+
+export const Outline: Story = {
+  ...variantExample,
+  args: {
+    variant: 'outline',
+  },
+  name: 'Variant / Outline',
 }
 
 export const SixDigits: Story = {

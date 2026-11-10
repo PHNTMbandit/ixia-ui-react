@@ -23,7 +23,7 @@ export function ChartTooltipIcon({ className, children, ref, ...props }: ChartTo
       style={{
         color: payload.color,
       }}
-      className={cn('shrink-0 [&>svg]:size-xs', className)}
+      className={cn('shrink-0 [:where(&)>svg]:size-xs', className)}
       ref={ref}
       {...props}
     >

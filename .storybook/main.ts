@@ -12,6 +12,10 @@ const config: StorybookConfig = {
     defaultName: 'Overview',
   },
   framework: '@storybook/react-vite',
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: [
+    '../src/**/*.mdx',
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../tools/figma/fixtures/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
 }
 export default config

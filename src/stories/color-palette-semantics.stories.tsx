@@ -244,8 +244,9 @@ export const InteractionStates: Story = {
           expect(theme.getPropertyValue(`--ixia-${name}`)).not.toContain('color-mix')
         }
         for (const tone of TONES) {
-          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe('')
-          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe('')
+          const container = theme.getPropertyValue(`--ixia-${tone}-container`).trim()
+          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe(container)
+          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe(container)
         }
         for (const state of [resting, hovered]) {
           const contrast = measure({ background: state.backgroundColor, color: state.color })
@@ -255,6 +256,7 @@ export const InteractionStates: Story = {
       }
     }
     for (const tone of TONES) {
+      const highlight = tone === 'neutral' ? `${tone}-container-high` : `${tone}-container`
       expect(accordionItemVariants({ tone })).toContain(
         `[&:not([data-open])]:hover:bg-${tone}-container`,
       )
@@ -262,17 +264,15 @@ export const InteractionStates: Story = {
       expect(navBarItemVariants({ tone })).toContain(`data-[active=true]:bg-${tone}-container`)
       expect(toggleVariants({ tone })).toContain(`hover:not-disabled:bg-${tone}-container`)
       for (const item of [menuItemVariants({ tone }), contextMenuItemVariants({ tone })]) {
-        expect(item).toContain(`data-highlighted:before:bg-${tone}-container-high`)
+        expect(item).toContain(`data-highlighted:bg-${highlight}`)
       }
       for (const submenu of [
         menuSubmenuTriggerVariants({ tone }),
         contextMenuSubmenuTriggerVariants({ tone }),
       ]) {
-        expect(submenu).toContain(`data-highlighted:before:bg-${tone}-container-high`)
-        expect(submenu).toContain(`data-popup-open:before:bg-${tone}-container-high`)
-        expect(submenu).toContain(
-          `data-highlighted:data-popup-open:before:bg-${tone}-container-high`,
-        )
+        expect(submenu).toContain(`data-highlighted:bg-${highlight}`)
+        expect(submenu).toContain(`data-popup-open:bg-${highlight}`)
+        expect(submenu).toContain(`data-highlighted:data-popup-open:bg-${highlight}`)
       }
     }
   },
@@ -426,8 +426,13 @@ export const MenuHighlights: Story = {
           swatch.style.backgroundColor = `var(--color-${tone}-container-high)`
           const high = getComputedStyle(swatch).backgroundColor
           swatch.style.backgroundColor = `var(--color-${tone}-container)`
-          await expect(high).not.toBe(getComputedStyle(swatch).backgroundColor)
-          await waitFor(() => expect(getComputedStyle(item, '::before').backgroundColor).toBe(high))
+          const container = getComputedStyle(swatch).backgroundColor
+          await expect(high).not.toBe(container)
+          await waitFor(() =>
+            expect(getComputedStyle(item).backgroundColor).toBe(
+              tone === 'neutral' ? high : container,
+            ),
+          )
           swatch.style.color = `var(--color-${tone}-on-container)`
           await waitFor(() =>
             expect(getComputedStyle(item).color).toBe(getComputedStyle(swatch).color),

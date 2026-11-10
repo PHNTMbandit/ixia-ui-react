@@ -26,13 +26,13 @@ export function FieldLabel({
       className={cn(
         fieldLabelVariants({ size, variant }),
         className,
-        isInvalid && 'text-error-default',
+        isInvalid && 'text-error-on-surface',
       )}
       ref={ref}
       {...props}
     >
       {children || fieldName}
-      {showRequired && <span className="ml-3xs text-error-default">*</span>}
+      {showRequired && <span className="ml-3xs text-error-on-surface">*</span>}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import type { Menu as BaseMenu } from '@base-ui/react/menu'
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
-import { menuItemToneClasses, menuSubmenuToneClasses } from './menu-tone'
+import { menuItemBaseClasses, menuItemToneClasses, menuSubmenuToneClasses } from './menu-tone'
 
 type MenuProps = React.ComponentProps<typeof BaseMenu.Root>
 type MenuTriggerProps = React.ComponentProps<typeof BaseMenu.Trigger>
@@ -16,28 +16,22 @@ type MenuGroupLabelProps = React.ComponentProps<typeof BaseMenu.GroupLabel>
 type MenuSubmenuProps = React.ComponentProps<typeof BaseMenu.SubmenuRoot>
 type MenuShortcutProps = React.ComponentProps<'div'>
 
-const menuItemVariants = cva(
-    'relative z-0 flex cursor-default items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:bg-transparent before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
-    {
-      defaultVariants: {
-        tone: 'neutral',
-      },
-      variants: {
-        tone: menuItemToneClasses,
-      },
+const menuItemVariants = cva(`flex ${menuItemBaseClasses}`, {
+    defaultVariants: {
+      tone: 'neutral',
     },
-  ),
-  menuSubmenuTriggerVariants = cva(
-    'relative z-0 grid cursor-default grid-cols-[1fr_2rem] items-center px-xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none before:absolute before:inset-x-3xs before:inset-y-[0px] before:z-[-1] before:rounded-md before:transition-colors before:duration-100 before:content-[""] hover:cursor-pointer',
-    {
-      defaultVariants: {
-        tone: 'neutral',
-      },
-      variants: {
-        tone: menuSubmenuToneClasses,
-      },
+    variants: {
+      tone: menuItemToneClasses,
     },
-  )
+  }),
+  menuSubmenuTriggerVariants = cva(`grid grid-cols-[1fr_0.75rem] ${menuItemBaseClasses}`, {
+    defaultVariants: {
+      tone: 'neutral',
+    },
+    variants: {
+      tone: menuSubmenuToneClasses,
+    },
+  })
 
 type MenuItemProps = React.ComponentProps<typeof BaseMenu.Item> &
   VariantProps<typeof menuItemVariants>

@@ -496,7 +496,7 @@ export const IconSizes: Story = {
         rect = button.getBoundingClientRect(),
         reference = document.createElement('div')
 
-      reference.style.width = `var(--spacing-${tokens[index]})`
+      reference.style.width = `max(var(--spacing-${tokens[index]}), 24px)`
       reference.style.height = `var(--spacing-${iconTokens[index]})`
       button.after(reference)
 

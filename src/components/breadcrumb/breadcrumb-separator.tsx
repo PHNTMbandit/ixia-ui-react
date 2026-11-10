@@ -10,7 +10,11 @@ export function BreadcrumbSeparator({
   ...props
 }: BreadcrumbSeparatorProps) {
   return (
-    <div className={cn('text-on-surface-variant [&>svg]:size-xs', className)} ref={ref} {...props}>
+    <div
+      className={cn('text-on-surface-variant [:where(&)>svg]:size-xs', className)}
+      ref={ref}
+      {...props}
+    >
       {children ?? <Icon name="chevronRight" />}
     </div>
   )

@@ -484,7 +484,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Combobox component allows users to select an option from a dropdown list. It provides a user-friendly interface for selecting options, with support for keyboard navigation and accessibility features. The Combobox can be used in various contexts, such as forms, filters, and search inputs.',
+          'The Combobox component allows users to select an option from a dropdown list. Its input supports primary, secondary, ghost, and outline surface variants. It also provides keyboard navigation and accessibility features for forms, filters, and search inputs.',
       },
       subtitle: 'A Combobox component for selecting options from a dropdown list.',
     },
@@ -515,8 +515,66 @@ export default {
 } as Meta<typeof Combobox>
 
 type Story = StoryObj<typeof Combobox>
+type ComboboxInputVariant = NonNullable<React.ComponentProps<typeof Combobox.Input>['variant']>
+type VariantStory = StoryObj<{ variant: ComboboxInputVariant }>
+
+function VariantExample({ variant }: { variant: ComboboxInputVariant }) {
+  return (
+    <Combobox items={fruits}>
+      <Combobox.Input placeholder="Select an option" variant={variant} />
+      <Combobox.Popup>
+        <Combobox.Empty>No options found</Combobox.Empty>
+        <Combobox.List>
+          {(item: Fruit) => (
+            <Combobox.Item key={item.value} value={item}>
+              {item.label}
+            </Combobox.Item>
+          )}
+        </Combobox.List>
+      </Combobox.Popup>
+    </Combobox>
+  )
+}
 
 export const Default: Story = {}
+
+export const VariantPlayground: VariantStory = {
+  args: {
+    variant: 'primary',
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      description: 'Controls the visual surface style of the combobox input.',
+      options: ['primary', 'secondary', 'ghost', 'outline'],
+      table: {
+        defaultValue: { summary: 'primary' },
+      },
+    },
+  },
+  name: 'Variant / Playground',
+  render: ({ variant }) => <VariantExample variant={variant} />,
+}
+
+export const Primary: Story = {
+  name: 'Variant / Primary',
+  render: () => <VariantExample variant="primary" />,
+}
+
+export const Secondary: Story = {
+  name: 'Variant / Secondary',
+  render: () => <VariantExample variant="secondary" />,
+}
+
+export const Ghost: Story = {
+  name: 'Variant / Ghost',
+  render: () => <VariantExample variant="ghost" />,
+}
+
+export const Outline: Story = {
+  name: 'Variant / Outline',
+  render: () => <VariantExample variant="outline" />,
+}
 
 export const MultipleSelection: Story = {
   args: {

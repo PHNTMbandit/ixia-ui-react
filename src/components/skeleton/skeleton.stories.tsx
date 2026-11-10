@@ -57,7 +57,7 @@ export const ShapeRectangle: Story = {
  */
 export const ShapeTextLines: Story = {
   render: () => (
-    <div className="w-full max-w-md space-y-xs">
+    <div className="w-[448px] max-w-full space-y-xs">
       <Skeleton className="h-2xs w-full rounded-sm" />
       <Skeleton className="h-2xs w-11/12 rounded-sm" />
       <Skeleton className="h-2xs w-5/6 rounded-sm" />

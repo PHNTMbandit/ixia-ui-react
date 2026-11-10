@@ -34,7 +34,7 @@ const navigationMenuItemClasses =
         brand:
           'text-brand-default hover:bg-brand-container hover:text-brand-on-container data-popup-open:bg-brand-container data-popup-open:text-brand-on-container',
         error:
-          'text-error-default hover:bg-error-container hover:text-error-on-container data-popup-open:bg-error-container data-popup-open:text-error-on-container',
+          'text-error-on-surface hover:bg-error-container hover:text-error-on-container data-popup-open:bg-error-container data-popup-open:text-error-on-container',
         info: 'text-info-default hover:bg-info-container hover:text-info-on-container data-popup-open:bg-info-container data-popup-open:text-info-on-container',
         neutral:
           'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container data-popup-open:bg-neutral-container data-popup-open:text-neutral-on-container',
@@ -55,7 +55,7 @@ const navigationMenuItemClasses =
       tone: {
         accent: 'text-accent-default hover:bg-accent-container hover:text-accent-on-container',
         brand: 'text-brand-default hover:bg-brand-container hover:text-brand-on-container',
-        error: 'text-error-default hover:bg-error-container hover:text-error-on-container',
+        error: 'text-error-on-surface hover:bg-error-container hover:text-error-on-container',
         info: 'text-info-default hover:bg-info-container hover:text-info-on-container',
         neutral: 'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
         success: 'text-success-default hover:bg-success-container hover:text-success-on-container',

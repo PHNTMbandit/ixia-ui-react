@@ -19,18 +19,18 @@ const sliderVariants = cva('flex h-lg w-full items-center', {
     },
     tone: {
       accent:
-        "[&_[data-slot='slider-thumb']]:border-accent-default [&_[data-slot=slider-indicator]]:bg-accent-default [&_[data-slot=slider-track]]:bg-accent-container-high",
+        "[&_[data-slot='slider-thumb']]:border-accent-default [&_[data-slot=slider-indicator]]:bg-accent-default [&_[data-slot=slider-track]]:bg-border-strong",
       brand:
-        "[&_[data-slot='slider-thumb']]:border-brand-default [&_[data-slot=slider-indicator]]:bg-brand-default [&_[data-slot=slider-track]]:bg-brand-container-high",
+        "[&_[data-slot='slider-thumb']]:border-brand-default [&_[data-slot=slider-indicator]]:bg-brand-default [&_[data-slot=slider-track]]:bg-border-strong",
       error:
-        "[&_[data-slot='slider-thumb']]:border-error-default [&_[data-slot=slider-indicator]]:bg-error-default [&_[data-slot=slider-track]]:bg-error-container-high",
-      info: "[&_[data-slot='slider-thumb']]:border-info-default [&_[data-slot=slider-indicator]]:bg-info-default [&_[data-slot=slider-track]]:bg-info-container-high",
+        "[&_[data-slot='slider-thumb']]:border-error-default [&_[data-slot=slider-indicator]]:bg-error-default [&_[data-slot=slider-track]]:bg-border-strong",
+      info: "[&_[data-slot='slider-thumb']]:border-info-default [&_[data-slot=slider-indicator]]:bg-info-default [&_[data-slot=slider-track]]:bg-border-strong",
       neutral:
-        "[&_[data-slot='slider-thumb']]:border-neutral-default [&_[data-slot=slider-indicator]]:bg-neutral-default [&_[data-slot=slider-track]]:bg-neutral-container-high",
+        "[&_[data-slot='slider-thumb']]:border-neutral-default [&_[data-slot=slider-indicator]]:bg-neutral-default [&_[data-slot=slider-track]]:bg-border-strong",
       success:
-        "[&_[data-slot='slider-thumb']]:border-success-default [&_[data-slot=slider-indicator]]:bg-success-default [&_[data-slot=slider-track]]:bg-success-container-high",
+        "[&_[data-slot='slider-thumb']]:border-success-default [&_[data-slot=slider-indicator]]:bg-success-default [&_[data-slot=slider-track]]:bg-border-strong",
       warning:
-        "[&_[data-slot='slider-thumb']]:border-warning-default [&_[data-slot=slider-indicator]]:bg-warning-default [&_[data-slot=slider-track]]:bg-warning-container-high",
+        "[&_[data-slot='slider-thumb']]:border-warning-default [&_[data-slot=slider-indicator]]:bg-warning-default [&_[data-slot=slider-track]]:bg-border-strong",
     },
   },
 })

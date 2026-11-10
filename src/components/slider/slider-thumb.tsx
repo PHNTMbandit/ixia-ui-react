@@ -39,7 +39,7 @@ export function SliderThumb({ className, ref, hide, ...props }: SliderThumbProps
         <BaseSlider.Thumb
           data-slot="slider-thumb"
           className={cn(
-            'absolute aspect-square rounded-full bg-surface transition-[width,height,opacity] outline-none data-dragging:cursor-grabbing data-dragging:shadow-sm hover:[&:not([data-dragging])]:cursor-pointer',
+            'target-hit absolute aspect-square rounded-full bg-surface transition-[width,height,opacity] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface-focus-ring data-dragging:cursor-grabbing data-dragging:shadow-sm hover:[&:not([data-dragging])]:cursor-pointer',
             className,
           )}
           onPointerEnter={() => setIsHovering(true)}

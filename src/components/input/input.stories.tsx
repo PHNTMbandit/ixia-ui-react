@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 
 import { Input } from './input'
 
@@ -30,7 +31,7 @@ export default {
     variant: {
       control: 'select',
       description: 'Controls the visual surface style of the input.',
-      options: ['primary', 'secondary'],
+      options: ['primary', 'secondary', 'ghost', 'outline'],
       table: {
         defaultValue: { summary: 'primary' },
       },
@@ -48,7 +49,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Input component is a foundational form control for entering text and selecting colors. It supports two visual variants (`primary`, `secondary`), built-in invalid styling via `aria-invalid`, and disabled states. Use it as a standalone field or inside higher-level form compositions.',
+          'The Input component is a foundational form control for entering text and selecting colors. Text inputs and the regular color picker support `primary`, `secondary`, `ghost`, and `outline` visual variants. Text inputs also support invalid styling via `aria-invalid` and disabled states.',
       },
       subtitle: 'A versatile field for text and color input with built-in validation styling.',
     },
@@ -95,6 +96,34 @@ export const Secondary: Story = {
         story: 'Lower-emphasis surface style. Useful on already-raised or dense layouts.',
       },
     },
+  },
+}
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+  },
+  name: 'Variant / Ghost',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Transparent surface with hover, focus, and invalid-state feedback.',
+      },
+    },
+  },
+  play: async ({ args, canvasElement }) => {
+    if (args.variant !== 'ghost' || args.type !== 'text') {
+      return
+    }
+
+    const input = within(canvasElement).getByRole('textbox')
+    await expect(input).toHaveClass('bg-transparent', 'outline-transparent')
+    if (args.size === 'medium' || args.size === undefined) {
+      await expect(input).toHaveClass('rounded-xl')
+    }
+    if (input.getAttribute('aria-invalid') !== 'true') {
+      await expect(getComputedStyle(input).backgroundColor).toBe('rgba(0, 0, 0, 0)')
+    }
   },
 }
 

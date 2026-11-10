@@ -7,6 +7,7 @@ import {
   XCircleIcon,
 } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect } from 'storybook/test'
 
 import {
   Accordion,
@@ -366,4 +367,78 @@ export const NoIcon: Story = {
       </Accordion.Item>
     </Accordion>
   ),
+}
+
+export const IconSizing: Story = {
+  name: 'Icon / Sizing and Override',
+  render: () => (
+    <Accordion className="w-[520px]">
+      {(['small', 'medium', 'large'] as const).map((size) => (
+        <Accordion.Item key={size} size={size} tone="brand" data-testid={size}>
+          <Accordion.Header>
+            <Accordion.HeaderContent>
+              <Accordion.Icon>{TONE_ICONS['brand']}</Accordion.Icon>
+              <Accordion.Title>{size} item</Accordion.Title>
+            </Accordion.HeaderContent>
+            <Accordion.ExpandIcon>
+              <CaretDownIcon weight="bold" />
+            </Accordion.ExpandIcon>
+          </Accordion.Header>
+          <Accordion.Panel>Content</Accordion.Panel>
+        </Accordion.Item>
+      ))}
+      <Accordion.Item tone="brand" data-testid="override">
+        <Accordion.Header>
+          <Accordion.HeaderContent>
+            <Accordion.Icon>
+              <InfoIcon weight="duotone" className="size-xs" />
+            </Accordion.Icon>
+            <Accordion.Title>override item</Accordion.Title>
+          </Accordion.HeaderContent>
+          <Accordion.ExpandIcon>
+            <CaretDownIcon weight="bold" className="size-xs" />
+          </Accordion.ExpandIcon>
+        </Accordion.Header>
+        <Accordion.Panel>Content</Accordion.Panel>
+      </Accordion.Item>
+    </Accordion>
+  ),
+  play: async ({ canvas }) => {
+    const measure = (testId: string) => {
+      const item = canvas.getByTestId(testId),
+        icon = item.querySelector('[data-slot="accordion-icon"] svg')!.getBoundingClientRect(),
+        expand = item
+          .querySelector('[data-slot="accordion-down-icon"] svg')!
+          .getBoundingClientRect(),
+        header = item.querySelector('button')!.getBoundingClientRect()
+
+      return { expand, header, icon }
+    }
+
+    const small = measure('small'),
+      medium = measure('medium'),
+      large = measure('large'),
+      override = measure('override')
+
+    await expect(small.icon.width).toBeLessThan(medium.icon.width)
+    await expect(medium.icon.width).toBeLessThan(large.icon.width)
+    await expect(small.expand.width).toBeLessThan(medium.expand.width)
+    await expect(medium.expand.width).toBeLessThan(large.expand.width)
+
+    const reference = document.createElement('div')
+    reference.style.width = 'var(--spacing-xs)'
+    document.body.append(reference)
+    const xs = reference.getBoundingClientRect().width
+    reference.remove()
+
+    await expect(override.icon.width).toBeCloseTo(xs, 1)
+    await expect(override.expand.width).toBeCloseTo(xs, 1)
+    await expect(override.icon.width).toBeLessThan(medium.icon.width)
+
+    for (const { expand, header, icon } of [small, medium, large, override]) {
+      const headerCenter = header.top + header.height / 2
+      await expect(icon.top + icon.height / 2).toBeCloseTo(headerCenter, 0)
+      await expect(expand.top + expand.height / 2).toBeCloseTo(headerCenter, 0)
+    }
+  },
 }

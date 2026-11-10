@@ -40,11 +40,11 @@ export function ComboboxInput({
 
   if (inline) {
     return (
-      <div className="h-(--input-container-height) py-2xs pr-2xs">
+      <div className="py-2xs pr-2xs">
         <BaseCombobox.Input
           className={cn(
-            'h-xl w-full rounded-lg bg-surface-low px-sm outline-border transition-all not-active:outline-1 focus-within:outline-2 hover:outline-2 focus:caret-brand-default focus:outline-brand-border data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
-            'placeholder:opacity-60',
+            'h-xl w-full rounded-lg bg-surface-low px-sm outline-border-strong transition-all not-active:outline-1 focus-within:outline-2 hover:outline-2 focus:caret-brand-default focus:outline-brand-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
+            'placeholder:text-on-surface-muted',
             'disabled:cursor-not-allowed',
             'text-ellipsis',
             className,
@@ -72,7 +72,7 @@ export function ComboboxInput({
       <BaseCombobox.InputGroup className="relative flex w-full items-center justify-between [&>input]:pr-[2rem] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+1.5rem*2)]">
         <BaseCombobox.Input
           className={cn(
-            'w-full text-ellipsis outline-none placeholder:opacity-60 disabled:cursor-not-allowed',
+            'w-full text-ellipsis outline-none placeholder:text-on-surface-muted disabled:cursor-not-allowed',
             className,
           )}
           id={id}

@@ -114,7 +114,7 @@ export function InputGroupInput({
   return (
     <BaseInput
       className={cn(
-        'w-full grow text-ellipsis outline-none placeholder:opacity-60 disabled:cursor-not-allowed',
+        'w-full grow text-ellipsis outline-none placeholder:text-on-surface-muted disabled:cursor-not-allowed',
         className,
       )}
       ref={ref}
