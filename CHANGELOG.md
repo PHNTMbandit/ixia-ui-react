@@ -1,3 +1,11 @@
+## [2.2.3](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.2...v2.2.3) (2026-11-12)
+
+
+### Bug Fixes
+
+* **code-block:** update state management for controlled selection and improve item handling ([9a558ef](https://github.com/PHNTMbandit/ixia-ui-react/commit/9a558ef3c1230abcb4ece22941b5924f0cb69083))
+* fix failing tests ([703931c](https://github.com/PHNTMbandit/ixia-ui-react/commit/703931cc3b7b0c5c760ec5e6e146e4d5c8163041))
+
 ## [2.2.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.1...v2.2.2) (2026-11-10)
 
 
