@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.1...v2.2.2) (2026-11-10)
+
+
+### Bug Fixes
+
+* **select.stories.tsx:** add findVisibleOption function for improved option visibility handling ([1e996d7](https://github.com/PHNTMbandit/ixia-ui-react/commit/1e996d7e19715b684c5656a0e7dd290eebaefe0c))
+
 ## [2.2.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.0...v2.2.1) (2026-11-10)
 
 
