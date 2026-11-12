@@ -5,17 +5,17 @@ import { useCodeBlock } from './code-block'
 import type { CodeBlockTabsProps } from './code-block.types'
 
 export function CodeBlockTabs({ className, children, ref, ...props }: CodeBlockTabsProps) {
-  const { currentValue, items, setCurrentValue } = useCodeBlock(),
+  const { currentIndex, itemKeys, items, setCurrentValue } = useCodeBlock(),
     handleOnValueChange = (value: string) => {
-      const selectedValue = items.find((item) => item.id === value)
-      if (selectedValue) {
-        setCurrentValue(selectedValue)
+      const index = Number(value)
+      if (Number.isInteger(index)) {
+        setCurrentValue(index)
       }
     }
 
   return (
     <Tabs
-      value={currentValue.id}
+      value={String(currentIndex)}
       onValueChange={handleOnValueChange}
       className={cn('', className)}
       variant="underline"
@@ -24,8 +24,8 @@ export function CodeBlockTabs({ className, children, ref, ...props }: CodeBlockT
       {...props}
     >
       <TabsList data-slot="code-block-tabs">
-        {items.map(({ id, label }) => (
-          <TabsTab key={id} value={id}>
+        {items.map(({ label }, index) => (
+          <TabsTab key={itemKeys[index]} value={String(index)}>
             {label}
           </TabsTab>
         ))}

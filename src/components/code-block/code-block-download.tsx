@@ -21,7 +21,8 @@ export function CodeBlockDownload({
   ...props
 }: CodeBlockDownloadProps) {
   const { currentValue } = useCodeBlock(),
-    { code } = currentValue,
+    code = currentValue?.code,
+    name = currentValue?.name ?? 'snippet.txt',
     [downloaded, setDownloaded] = React.useState(false),
     handleClick = async () => {
       try {
@@ -32,7 +33,7 @@ export function CodeBlockDownload({
           url = URL.createObjectURL(blob),
           link = document.createElement('a')
         link.href = url
-        link.download = currentValue.name
+        link.download = name
         link.click()
         URL.revokeObjectURL(url)
 

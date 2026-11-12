@@ -15,16 +15,16 @@ import { useCodeBlock } from './code-block'
 import type { CodeBlockSelectProps } from './code-block.types'
 
 export function CodeBlockSelect({ className, children, ref, ...props }: CodeBlockSelectProps) {
-  const { currentValue, setCurrentValue, items } = useCodeBlock(),
+  const { currentIndex, itemKeys, setCurrentValue, items } = useCodeBlock(),
     handleChange = (value: unknown) => {
-      const selectedValue = items.find(({ id }) => id === value)
-      if (selectedValue) {
-        setCurrentValue(selectedValue)
+      const index = Number(value)
+      if (Number.isInteger(index)) {
+        setCurrentValue(index)
       }
     }
 
   return (
-    <Select value={currentValue.id} onValueChange={handleChange}>
+    <Select value={String(currentIndex)} onValueChange={handleChange}>
       <SelectTrigger
         aria-label="Select snippet"
         className={cn('', className)}
@@ -32,9 +32,7 @@ export function CodeBlockSelect({ className, children, ref, ...props }: CodeBloc
         {...props}
         variant="ghost"
       >
-        <SelectValue>
-          {(value: keyof typeof items) => items.find((item) => item.id === value)?.label}
-        </SelectValue>
+        <SelectValue>{(value: string) => items[Number(value)]?.label}</SelectValue>
         <SelectIcon>
           <Icon name="chevronsUpDown" />
         </SelectIcon>
@@ -42,8 +40,8 @@ export function CodeBlockSelect({ className, children, ref, ...props }: CodeBloc
       <SelectPopup>
         <SelectList>
           {children}
-          {items.map(({ label, id }) => (
-            <SelectItem key={id} value={id}>
+          {items.map(({ label }, index) => (
+            <SelectItem key={itemKeys[index]} value={String(index)}>
               <SelectTitle>{label}</SelectTitle>
             </SelectItem>
           ))}

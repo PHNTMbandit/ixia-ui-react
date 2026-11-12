@@ -18,7 +18,7 @@ export function CodeBlockCopy({
   ...props
 }: CodeBlockCopyProps) {
   const { currentValue } = useCodeBlock(),
-    { code } = currentValue
+    code = currentValue?.code
 
   return (
     <CopyButton
