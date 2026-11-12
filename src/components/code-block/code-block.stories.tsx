@@ -125,21 +125,33 @@ async function fetchUserData(userId: string): Promise<User> {
 export default {
   argTypes: {
     defaultValue: {
-      description: 'The initially selected code block value from the items array.',
+      description: 'The ID of the initially selected item. Legacy item objects are also accepted.',
       table: {
-        type: { summary: 'CodeBlockValue' },
+        type: { summary: 'string | CodeBlockValue' },
       },
     },
     items: {
       description:
-        'Items with id, label, name, optional code (original source), optional content (custom React presentation), and optional icon. Copy and download use code, never content.',
+        'Items with a unique id, optional label, name, language, code (original source), custom content, and icon. Copy and download use code, never content.',
       table: {
         type: { summary: 'CodeBlockValue[]' },
       },
     },
+    onValueChange: {
+      description: 'Called with the selected item ID.',
+      table: {
+        type: { summary: '(value: string) => void' },
+      },
+    },
+    value: {
+      description: 'The ID of the selected item when using controlled state.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
   },
   args: {
-    defaultValue: data[0],
+    defaultValue: data[0].id,
     items: data,
   },
   component: CodeBlock,
@@ -164,11 +176,13 @@ export default {
 | \`code\` + \`content\` | Custom React presentation | Original source |
 | \`content\` only | Custom React presentation | Disabled |
 
+Use unique item IDs. \`defaultValue\` and controlled \`value\` take an item ID; omit \`defaultValue\` to select the first item. The optional \`language\` is metadata and supplies a default download extension when \`name\` is omitted.
+
 Use the same \`code\` string for a live preview and a highlighted view to export the same source from either. An empty \`code: ''\` is valid and keeps actions enabled. Explicit \`content: null\` suppresses the fallback.
 
 Highlighting belongs to the consumer: pass any highlighter's React output as \`content\`. For highlighters returning HTML strings (such as Shiki), wrap trusted output in an element with \`dangerouslySetInnerHTML\`. CodeBlock itself never interprets strings as HTML.
 
-**Migration:** move original source to \`code\`. Existing highlighted HTML strings must be wrapped explicitly in \`content\`; do not put generated HTML in \`code\`, because it is copied/downloaded verbatim.`,
+**Migration:** move original source to \`code\`, make \`defaultValue\` an item ID, and pass \`language\` separately from \`name\`. Existing highlighted HTML strings must be wrapped explicitly in \`content\`; do not put generated HTML in \`code\`, because it is copied/downloaded verbatim.`,
       },
       subtitle: 'A container for displaying formatted code snippets with optional navigation.',
     },
@@ -194,11 +208,18 @@ const presentationItems: CodeBlockValue[] = [
     id: 'preview',
     label: 'Preview',
     name: 'button.tsx',
+
     code: exampleCode,
     content: <Button>Save changes</Button>,
   },
   await highlightedItem(
-    { id: 'highlighted', label: 'Highlighted', name: 'button.tsx', code: exampleCode },
+    {
+      id: 'highlighted',
+      label: 'Highlighted',
+
+      name: 'button.tsx',
+      code: exampleCode,
+    },
     'tsx',
   ),
   { id: 'plain', label: 'Plain', name: 'button.tsx', code: exampleCode },
@@ -216,14 +237,22 @@ const presentationItems: CodeBlockValue[] = [
     content: <Button>Preview only</Button>,
   },
   { id: 'empty', label: 'Empty', name: 'empty.ts', code: '' },
-  { id: 'hidden', label: 'Hidden', name: 'button.tsx', code: exampleCode, content: null },
+  {
+    id: 'hidden',
+    label: 'Hidden',
+
+    name: 'button.tsx',
+    code: exampleCode,
+    content: null,
+  },
+  { id: 'unnamed', label: 'No name', code: exampleCode },
 ]
 
 export const SourceAndPresentation: Story = {
   name: 'Source and Presentation',
   args: {
     items: presentationItems,
-    defaultValue: presentationItems[0],
+    defaultValue: presentationItems[0].id,
   },
   parameters: {
     layout: 'fullscreen',
@@ -257,7 +286,15 @@ export const SourceAndPresentation: Story = {
       download = canvas.getByRole('button', { name: 'Download file' })
 
     try {
-      for (const label of ['Preview', 'Highlighted', 'Plain', 'Text', 'Empty', 'Hidden']) {
+      for (const label of [
+        'Preview',
+        'Highlighted',
+        'Plain',
+        'Text',
+        'Empty',
+        'Hidden',
+        'No name',
+      ]) {
         await userEvent.click(canvas.getByRole('tab', { name: label }))
         await expect(copy).toBeEnabled()
         await expect(download).toBeEnabled()
@@ -267,7 +304,7 @@ export const SourceAndPresentation: Story = {
           await expect(canvasElement.querySelector('pre')).toBeNull()
         } else if (label === 'Highlighted') {
           await expect(canvasElement.querySelector('pre.shiki')).not.toBeNull()
-        } else if (label === 'Plain' || label === 'Empty') {
+        } else if (label === 'Plain' || label === 'Empty' || label === 'No name') {
           await expect(canvasElement.querySelector('pre code')?.textContent).toBe(
             label === 'Empty' ? '' : exampleCode,
           )
@@ -295,6 +332,9 @@ export const SourceAndPresentation: Story = {
             expect(getComputedStyle(icon).animationName).toBe('enter')
           })
         }
+        if (label === 'No name') {
+          await expect(download).toBeEnabled()
+        }
         await userEvent.click(download)
 
         const blob = createObjectURL.mock.lastCall?.[0]
@@ -306,7 +346,13 @@ export const SourceAndPresentation: Story = {
         if (!(link instanceof HTMLAnchorElement)) {
           throw new Error('Expected the download to use an anchor element')
         }
-        await expect(link.download).toBe(label === 'Empty' ? 'empty.ts' : 'button.tsx')
+        let expectedName = 'button.tsx'
+        if (label === 'Empty') {
+          expectedName = 'empty.ts'
+        } else if (label === 'No name') {
+          expectedName = 'snippet.typescript'
+        }
+        await expect(link.download).toBe(expectedName)
         await expect(revokeObjectURL).toHaveBeenLastCalledWith('blob:code-block-test')
       }
 
@@ -316,8 +362,8 @@ export const SourceAndPresentation: Story = {
       await expect(download).toBeDisabled()
       copy.click()
       download.click()
-      await expect(writeText).toHaveBeenCalledTimes(6)
-      await expect(createObjectURL).toHaveBeenCalledTimes(6)
+      await expect(writeText).toHaveBeenCalledTimes(7)
+      await expect(createObjectURL).toHaveBeenCalledTimes(7)
     } finally {
       writeText.mockRestore()
       createObjectURL.mockRestore()
@@ -537,7 +583,7 @@ export const NoHeader: Story = {
     },
   },
   render: (args) => (
-    <CodeBlock className="w-[800px]" {...args} defaultValue={data[4]}>
+    <CodeBlock className="w-[800px]" {...args} defaultValue={data[4].id}>
       <CodeBlock.Window>
         <CodeBlock.Actions>
           <CodeBlock.Download />
@@ -591,5 +637,80 @@ export const NoSelect: Story = {
       nameBounds.y + nameBounds.height / 2,
       1,
     )
+  },
+}
+
+function ControlledSelectionExample() {
+  const [value, setValue] = useState('javascript'),
+    items: CodeBlockValue[] = [
+      { code: 'const answer = 42', id: 'javascript', label: 'JavaScript', name: 'answer.js' },
+      {
+        code: 'const answer: number = 42',
+        id: 'typescript',
+        label: 'TypeScript',
+        name: 'answer.ts',
+      },
+    ]
+
+  return (
+    <CodeBlock items={items} value={value} onValueChange={setValue}>
+      <CodeBlock.Header>
+        <CodeBlock.Tabs />
+        <CodeBlock.Name />
+      </CodeBlock.Header>
+      <CodeBlock.Window />
+    </CodeBlock>
+  )
+}
+
+export const ControlledSelection: Story = {
+  name: 'State / Controlled Selection',
+  args: {
+    defaultValue: undefined,
+  },
+  render: () => <ControlledSelectionExample />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('tab', { name: 'TypeScript' }))
+    await expect(canvas.getByText('answer.ts')).toBeVisible()
+    await expect(canvas.getByRole('tab', { name: 'TypeScript' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    )
+  },
+}
+
+function DynamicItemsExample() {
+  const [items, setItems] = useState<CodeBlockValue[]>([
+    { code: 'Before update', id: 'sample', label: 'Sample', name: 'sample.txt' },
+  ])
+
+  return (
+    <>
+      <Button
+        onClick={() =>
+          setItems((currentItems) =>
+            currentItems.map((item) => ({ ...item, code: 'After update' })),
+          )
+        }
+      >
+        Update source
+      </Button>
+      <CodeBlock items={items} defaultValue="sample">
+        <CodeBlock.Window />
+      </CodeBlock>
+    </>
+  )
+}
+
+export const DynamicItems: Story = {
+  name: 'State / Updated Items',
+  args: {
+    defaultValue: undefined,
+  },
+  render: () => <DynamicItemsExample />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'Update source' }))
+    await expect(canvas.getByText('After update')).toBeVisible()
+    await expect(canvas.queryByText('Before update')).not.toBeInTheDocument()
   },
 }

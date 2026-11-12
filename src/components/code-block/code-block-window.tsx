@@ -5,9 +5,9 @@ import type { CodeBlockWindowProps } from './code-block.types'
 
 export function CodeBlockWindow({ className, children, ref, ...props }: CodeBlockWindowProps) {
   const { currentValue } = useCodeBlock()
-  let { content } = currentValue
+  let { content } = currentValue ?? {}
 
-  if (content === undefined && currentValue.code !== undefined) {
+  if (content === undefined && currentValue?.code !== undefined) {
     content = (
       <pre>
         <code>{currentValue.code}</code>

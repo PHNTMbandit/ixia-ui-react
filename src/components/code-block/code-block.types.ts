@@ -3,19 +3,23 @@ import type { SelectTrigger } from '../select'
 import type { Tabs } from '../tabs'
 
 type CodeBlockProps = Omit<React.ComponentProps<'div'>, 'defaultValue'> & {
-  defaultValue: CodeBlockValue
+  defaultValue?: string | CodeBlockValue
   items: CodeBlockValue[]
+  onValueChange?: (value: string) => void
+  value?: string
 }
 
 interface CodeBlockProviderState {
-  currentValue: CodeBlockValue
-  setCurrentValue: React.Dispatch<React.SetStateAction<CodeBlockValue>>
+  currentIndex: number
+  currentValue: CodeBlockValue | undefined
+  itemKeys: string[]
   items: CodeBlockValue[]
+  setCurrentValue: (index: number) => void
 }
 
 interface CodeBlockValue {
   id: string
-  name: string
+  name?: string
   label?: string
   code?: string
   content?: React.ReactNode
