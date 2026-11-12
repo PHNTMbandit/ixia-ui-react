@@ -132,7 +132,7 @@ export default {
     },
     items: {
       description:
-        'Items with a unique id, optional label, name, language, code (original source), custom content, and icon. Copy and download use code, never content.',
+        'Items with a unique id, optional label, name, code (original source), custom content, and icon. Copy and download use code, never content.',
       table: {
         type: { summary: 'CodeBlockValue[]' },
       },
@@ -176,13 +176,13 @@ export default {
 | \`code\` + \`content\` | Custom React presentation | Original source |
 | \`content\` only | Custom React presentation | Disabled |
 
-Use unique item IDs. \`defaultValue\` and controlled \`value\` take an item ID; omit \`defaultValue\` to select the first item. The optional \`language\` is metadata and supplies a default download extension when \`name\` is omitted.
+Use unique item IDs. \`defaultValue\` and controlled \`value\` take an item ID; omit \`defaultValue\` to select the first item. Downloads use \`name\` as the file name, falling back to \`snippet.txt\` when it is omitted.
 
 Use the same \`code\` string for a live preview and a highlighted view to export the same source from either. An empty \`code: ''\` is valid and keeps actions enabled. Explicit \`content: null\` suppresses the fallback.
 
 Highlighting belongs to the consumer: pass any highlighter's React output as \`content\`. For highlighters returning HTML strings (such as Shiki), wrap trusted output in an element with \`dangerouslySetInnerHTML\`. CodeBlock itself never interprets strings as HTML.
 
-**Migration:** move original source to \`code\`, make \`defaultValue\` an item ID, and pass \`language\` separately from \`name\`. Existing highlighted HTML strings must be wrapped explicitly in \`content\`; do not put generated HTML in \`code\`, because it is copied/downloaded verbatim.`,
+**Migration:** move original source to \`code\`, and make \`defaultValue\` an item ID. Existing highlighted HTML strings must be wrapped explicitly in \`content\`; do not put generated HTML in \`code\`, because it is copied/downloaded verbatim.`,
       },
       subtitle: 'A container for displaying formatted code snippets with optional navigation.',
     },
@@ -350,7 +350,7 @@ export const SourceAndPresentation: Story = {
         if (label === 'Empty') {
           expectedName = 'empty.ts'
         } else if (label === 'No name') {
-          expectedName = 'snippet.typescript'
+          expectedName = 'snippet.txt'
         }
         await expect(link.download).toBe(expectedName)
         await expect(revokeObjectURL).toHaveBeenLastCalledWith('blob:code-block-test')

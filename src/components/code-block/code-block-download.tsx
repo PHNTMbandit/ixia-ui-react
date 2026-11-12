@@ -22,7 +22,7 @@ export function CodeBlockDownload({
 }: CodeBlockDownloadProps) {
   const { currentValue } = useCodeBlock(),
     code = currentValue?.code,
-    name = currentValue?.name ?? currentValue?.label ?? currentValue?.id ?? 'snippet.txt',
+    name = currentValue?.name ?? 'snippet.txt',
     [downloaded, setDownloaded] = React.useState(false),
     handleClick = async () => {
       try {
