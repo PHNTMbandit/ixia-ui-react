@@ -64,57 +64,48 @@ export function TableDateFilterForm<TData extends RowData>({
       <form.AppForm>
         {children}
         <form.Errors />
-        <form.Set>
-          <form.SetHeading>
-            <form.SetContent>
-              <Field>
-                <form.AppField name="filterOperator">
-                  {(field) => (
-                    <Field>
-                      <field.Errors />
-                      <field.RadioGroup>
-                        {dateFilterOperators.map((operator) => (
-                          <field.Set key={operator}>
-                            <Radio value={operator} variant="inSurface">
-                              {filterOperatorLabels?.[operator] ??
-                                defaultFilterOperatorLabels[operator]}
-                            </Radio>
-                            {field.state.value === operator && (
-                              <>
-                                <form.AppField name="filterValueFrom">
-                                  {(valueField) => (
-                                    <Field>
-                                      <valueField.Errors />
-                                      <valueField.Input type="date" variant="secondary" />
-                                    </Field>
-                                  )}
-                                </form.AppField>
-                                {operator === 'between' && (
-                                  <form.AppField name="filterValueTo">
-                                    {(valueField) => (
-                                      <Field>
-                                        <valueField.Errors />
-                                        <valueField.Input type="date" variant="secondary" />
-                                      </Field>
-                                    )}
-                                  </form.AppField>
-                                )}
-                              </>
+        <form.AppField name="filterOperator">
+          {(field) => (
+            <Field>
+              <field.Errors />
+              <field.RadioGroup>
+                {dateFilterOperators.map((operator) => (
+                  <div className="flex w-full flex-col gap-2xs" key={operator}>
+                    <Radio value={operator} variant="inSurface">
+                      {filterOperatorLabels?.[operator] ?? defaultFilterOperatorLabels[operator]}
+                    </Radio>
+                    {field.state.value === operator && (
+                      <>
+                        <form.AppField name="filterValueFrom">
+                          {(valueField) => (
+                            <Field>
+                              <valueField.Errors />
+                              <valueField.Input type="date" variant="secondary" />
+                            </Field>
+                          )}
+                        </form.AppField>
+                        {operator === 'between' && (
+                          <form.AppField name="filterValueTo">
+                            {(valueField) => (
+                              <Field>
+                                <valueField.Errors />
+                                <valueField.Input type="date" variant="secondary" />
+                              </Field>
                             )}
-                          </field.Set>
-                        ))}
-                      </field.RadioGroup>
-                    </Field>
-                  )}
-                </form.AppField>
-              </Field>
-            </form.SetContent>
-          </form.SetHeading>
-        </form.Set>
-        <form.Footer>
+                          </form.AppField>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ))}
+              </field.RadioGroup>
+            </Field>
+          )}
+        </form.AppField>
+        <form.Actions>
           <form.Reset>{buttonLabels.reset}</form.Reset>
           <form.Submit>{buttonLabels.apply}</form.Submit>
-        </form.Footer>
+        </form.Actions>
       </form.AppForm>
     </Form>
   )

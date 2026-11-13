@@ -20,7 +20,7 @@ import {
 } from '../field'
 import { fieldContext, formContext } from './form-contexts'
 import { FormErrors } from './form-errors'
-import { FormFooter } from './form-footer'
+import { FormActions } from './form-footer'
 import { FormReset } from './form-reset'
 import { FormSubmit } from './form-submit'
 
@@ -45,8 +45,9 @@ export const { useAppForm, withFieldGroup, withForm, useTypedAppFormContext } = 
   },
   fieldContext,
   formComponents: {
+    Actions: FormActions,
     Errors: FormErrors,
-    Footer: FormFooter,
+    Footer: FormActions,
     Reset: FormReset,
     Set: FieldSet,
     SetHeading: FieldLegend,

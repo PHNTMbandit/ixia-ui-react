@@ -2,7 +2,7 @@ import { cn } from '@/utils/cn'
 
 import type { FormFooterProps } from './form.types'
 
-export function FormFooter({
+export function FormActions({
   orientation = 'horizontal',
   className,
   ref,
@@ -11,7 +11,7 @@ export function FormFooter({
   return (
     <div
       className={cn(
-        'flex gap-sm',
+        'flex gap-2xs',
         className,
         orientation === 'horizontal' && 'flex-row',
         orientation === 'vertical' && 'flex-col',
@@ -21,3 +21,5 @@ export function FormFooter({
     />
   )
 }
+
+export const FormFooter = FormActions

@@ -46,11 +46,7 @@ export default {
       subtitle: 'A checkbox component for selecting options.',
     },
   },
-  render: (args) => (
-    <Checkbox {...args} id="checkbox">
-      Checkbox Label
-    </Checkbox>
-  ),
+  render: (args) => <Checkbox {...args} id="checkbox"></Checkbox>,
   title: 'Components/Checkbox',
 } satisfies Meta<typeof Checkbox>
 

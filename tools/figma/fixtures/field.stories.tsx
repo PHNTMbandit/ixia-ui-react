@@ -33,7 +33,7 @@ export const FieldSet: Story = {
   parameters: {
     figma: {
       annotate: [
-        { attrs: { show: 'showRequired=false' }, selector: '[data-figma-target] > div > span' },
+        { attrs: { show: 'showRequired=false' }, selector: '[data-figma-target] > label > span' },
         { attrs: { text: 'error' }, selector: '[data-figma-target] li' },
       ],
       axes: { State: ['Default', 'Invalid'] },

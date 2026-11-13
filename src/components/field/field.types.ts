@@ -43,8 +43,8 @@ const fieldVariants = cva('', {
         /* Two-column grid: the first child (a label, or a checkbox) takes column 1 and every
            other part stacks in column 2, so errors and descriptions align with the control. */
         horizontal:
-          'grid grid-cols-[var(--ixia-field-label-width,auto)_minmax(0,1fr)] items-center gap-x-md gap-y-xs *:col-start-2 *:first:col-start-1',
-        vertical: 'flex flex-col gap-sm',
+          'grid grid-cols-[var(--ixia-field-label-width,auto)_minmax(0,1fr)] items-center gap-x-sm gap-y-2xs *:col-start-2 *:first:col-start-1',
+        vertical: 'flex flex-col gap-2xs',
       },
     },
   }),

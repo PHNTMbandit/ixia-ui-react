@@ -50,10 +50,10 @@ The recommended structure mirrors semantic HTML and accessibility best practices
       </form.AppField>
     </Field.Set>
     
-    <form.Footer>
+    <form.Actions>
       <form.Reset />
       <form.Submit />
-    </form.Footer>
+    </form.Actions>
   </form.AppForm>
 </Form>
 \`\`\`
@@ -73,7 +73,7 @@ The recommended structure mirrors semantic HTML and accessibility best practices
 | **\`field.Input\`** | \`<input>\` | Text input. Auto-connects to field state. |
 | **\`field.Description\`** | \`<p>\` | Helper text below the input. |
 | **\`field.Errors\`** | \`<div>\` | Displays field-level validation errors. |
-| **\`form.Footer\`** | \`<div>\` | Horizontal container for actions. |
+| **\`form.Actions\`** | \`<div>\` | Horizontal container for action buttons (Submit, Reset). |
 | **\`form.Submit\`** | \`<button type="submit">\` | Disables itself while submitting. |
 | **\`form.Reset\`** | \`<button type="reset">\` | Restores form to \`defaultValues\`. |
 
@@ -156,7 +156,7 @@ export const Sections: Story = {
     docs: {
       description: {
         story:
-          'Use `Field.Set` to group related fields. Each set is a semantic `<fieldset>`, and `Field.Legend` is the `<legend>` that screen readers announce when focus enters. Add `form.Errors` to summarize all validation errors, and use `form.Footer` for actions (Submit/Reset buttons).',
+          'Use `Field.Set` to group related fields. Each set is a semantic `<fieldset>`, and `Field.Legend` is the `<legend>` that screen readers announce when focus enters. Add `form.Errors` to summarize all validation errors, and use `form.Actions` for actions (Submit/Reset buttons).',
       },
     },
   },
@@ -259,12 +259,12 @@ export const Sections: Story = {
               )}
             </form.AppField>
           </Field.Set>
-          <form.Footer>
+          <form.Actions>
             <form.Reset tone="error" variant="ghost">
               Reset
             </form.Reset>
             <form.Submit>Create account</form.Submit>
-          </form.Footer>
+          </form.Actions>
         </form.AppForm>
       </Form>
     )
@@ -341,9 +341,9 @@ export const HorizontalLayout: Story = {
               )}
             </form.AppField>
           </Field.Set>
-          <form.Footer>
+          <form.Actions>
             <form.Submit>Save</form.Submit>
-          </form.Footer>
+          </form.Actions>
         </form.AppForm>
       </Form>
     )
@@ -493,12 +493,12 @@ export const SubmitError: Story = {
               </Field>
             )}
           </form.AppField>
-          <form.Footer>
+          <form.Actions>
             <form.Reset tone="error" variant="ghost">
               Reset
             </form.Reset>
             <form.Submit>Submit</form.Submit>
-          </form.Footer>
+          </form.Actions>
         </form.AppForm>
       </Form>
     )
@@ -613,7 +613,7 @@ export const FooterOrientation: Story = {
     docs: {
       description: {
         story:
-          '`form.Footer` lays actions out in a row by default. Use `orientation="vertical"` to stack them in narrow containers such as popovers.',
+          '`form.Actions` lays actions out in a row by default. Use `orientation="vertical"` to stack them in narrow containers such as popovers.',
       },
     },
   },
@@ -630,12 +630,12 @@ export const FooterOrientation: Story = {
             onSubmit={(event) => event.preventDefault()}
           >
             <form.AppForm>
-              <form.Footer orientation={orientation}>
+              <form.Actions orientation={orientation}>
                 <form.Reset tone="neutral" variant="outline">
                   Reset
                 </form.Reset>
                 <form.Submit>Apply</form.Submit>
-              </form.Footer>
+              </form.Actions>
             </form.AppForm>
           </Form>
         ))}
@@ -785,12 +785,12 @@ export const WorkspaceConfiguration: Story = {
               )}
             </form.AppField>
           </Field.Set>
-          <form.Footer>
+          <form.Actions>
             <form.Reset tone="error" variant="ghost">
               Reset
             </form.Reset>
             <form.Submit>Save workspace</form.Submit>
-          </form.Footer>
+          </form.Actions>
         </form.AppForm>
       </Form>
     )
