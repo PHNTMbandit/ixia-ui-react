@@ -39,16 +39,12 @@ function expectedContainer(
   mode: 'light' | 'dark',
 ) {
   if (level === 'container-low') {
-    return mode === 'light'
-      ? `var(--${family}-50)`
-      : `color-mix(in srgb, var(--${family}-950) 70%, var(--black))`
+    return `var(--${family}-${mode === 'light' ? '50' : '950'})`
   }
   if (level === 'container') {
-    return `var(--${family}-${mode === 'light' ? '100' : '950'})`
+    return `var(--${family}-${mode === 'light' ? '100' : '900'})`
   }
-  return mode === 'light'
-    ? `color-mix(in srgb, var(--${family}-200) 90%, var(--${family}-300))`
-    : `color-mix(in srgb, var(--${family}-900), var(--${family}-800))`
+  return `var(--${family}-${mode === 'light' ? '200' : '800'})`
 }
 
 function checkContainerColors(

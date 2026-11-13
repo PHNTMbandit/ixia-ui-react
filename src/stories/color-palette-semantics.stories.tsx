@@ -11,6 +11,7 @@ import '@/styles/themes/viridiflora.css'
 
 import { accordionItemVariants } from '@/components/accordion/accordion.types'
 import { Button } from '@/components/button'
+import { buttonVariants } from '@/components/button/button.types'
 import { ContextMenu } from '@/components/context-menu'
 import {
   contextMenuItemVariants,
@@ -50,8 +51,7 @@ const BRANDS = ['maculata', 'mabel', 'viridiflora', 'hogarth', 'venus', 'monadel
   TONES = ['brand', 'accent', 'neutral', 'error', 'info', 'success', 'warning'] as const
 
 const CUSTOM_THEME: CSSProperties & Record<`--${string}`, string> = {
-  '--ixia-brand-container-low':
-    'light-dark(var(--orange-50), color-mix(in srgb, var(--orange-950) 70%, var(--black)))',
+  '--ixia-brand-container-low': 'light-dark(var(--orange-50), var(--orange-950))',
   '--ixia-brand-container': 'light-dark(var(--orange-200), var(--orange-900))',
   '--ixia-brand-container-high': 'light-dark(var(--orange-300), var(--orange-800))',
   '--ixia-brand-on-container': 'light-dark(var(--orange-950), var(--orange-50))',
@@ -245,9 +245,8 @@ export const InteractionStates: Story = {
           expect(theme.getPropertyValue(`--ixia-${name}`)).not.toContain('color-mix')
         }
         for (const tone of TONES) {
-          const container = theme.getPropertyValue(`--ixia-${tone}-container`).trim()
-          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe(container)
-          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe(container)
+          expect(theme.getPropertyValue(`--ixia-${tone}-subtle`).trim()).toBe('')
+          expect(theme.getPropertyValue(`--color-${tone}-subtle`).trim()).toBe('')
         }
         for (const state of [resting, hovered]) {
           const contrast = measure({ background: state.backgroundColor, color: state.color })
@@ -258,6 +257,9 @@ export const InteractionStates: Story = {
     }
     for (const tone of TONES) {
       const highlight = tone === 'neutral' ? `${tone}-container-high` : `${tone}-container`
+      for (const variant of ['outline', 'ghost'] as const) {
+        expect(buttonVariants({ tone, variant })).toContain(`hover:bg-${tone}-container`)
+      }
       expect(accordionItemVariants({ tone })).toContain(
         `[&:not([data-open])]:hover:bg-${tone}-container`,
       )
@@ -325,6 +327,12 @@ export const CustomTheme: Story = {
             <Button data-testid={`${mode}-outline`} tone="neutral" variant="outline">
               Neutral outline
             </Button>
+            <Button data-testid={`${mode}-brand-outline`} tone="brand" variant="outline">
+              Brand outline
+            </Button>
+            <Button data-testid={`${mode}-brand-ghost`} tone="brand" variant="ghost">
+              Brand ghost
+            </Button>
           </div>
         </section>
       ))}
@@ -332,7 +340,11 @@ export const CustomTheme: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement),
-      resolvedContainers: string[] = []
+      resolvedContainers: string[] = [],
+      browser =
+        '__vitest_browser_runner__' in globalThis
+          ? await import('vite-plus/test/browser')
+          : undefined
     for (const mode of MODES) {
       const section = canvas.getByTestId(`custom-${mode}`),
         low = getComputedStyle(canvas.getByTestId(`${mode}-container-low`)),
@@ -346,11 +358,7 @@ export const CustomTheme: Story = {
         const backgrounds =
           mode === 'light'
             ? ['var(--orange-50)', 'var(--orange-200)', 'var(--orange-300)']
-            : [
-                'color-mix(in srgb, var(--orange-950) 70%, var(--black))',
-                'var(--orange-900)',
-                'var(--orange-800)',
-              ]
+            : ['var(--orange-950)', 'var(--orange-900)', 'var(--orange-800)']
         const states = [low, container, high]
         for (const [index, state] of states.entries()) {
           swatch.style.backgroundColor = backgrounds[index]
@@ -362,6 +370,19 @@ export const CustomTheme: Story = {
         swatch.style.borderColor = mode === 'light' ? 'var(--white-400)' : 'var(--black-200)'
         expect(border.borderTopColor).toBe(getComputedStyle(swatch).borderTopColor)
         expect(outline.borderTopColor).toBe(border.borderTopColor)
+        if (browser) {
+          for (const variant of ['outline', 'ghost']) {
+            const button = canvas.getByTestId(`${mode}-brand-${variant}`)
+            await browser.userEvent.hover(button)
+            expect(button.matches(':hover')).toBe(true)
+            await waitFor(() => {
+              const style = getComputedStyle(button)
+              expect(style.backgroundColor).toBe(container.backgroundColor)
+              expect(style.color).toBe(container.color)
+            })
+            await browser.userEvent.unhover(button)
+          }
+        }
         resolvedContainers.push(container.backgroundColor)
       } finally {
         swatch.remove()
