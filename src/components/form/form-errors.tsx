@@ -52,7 +52,7 @@ export function FormErrors({ className, children, ref, ...props }: FormErrorsPro
         }
 
         return (
-          <Alert className={cn('', className)} ref={ref} tone="error" {...props}>
+          <Alert className={cn('mb-md', className)} ref={ref} tone="error" {...props}>
             <AlertIcon>
               <Icon name="fieldError" />
             </AlertIcon>

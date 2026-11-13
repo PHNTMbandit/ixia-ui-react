@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, waitFor } from 'storybook/test'
 
+import { Field } from '../field'
+import { Form, useAppForm } from '../form'
+import { Label } from '../label'
 import { Checkbox } from './index'
 
 export default {
@@ -46,11 +49,7 @@ export default {
       subtitle: 'A checkbox component for selecting options.',
     },
   },
-  render: (args) => (
-    <Checkbox {...args} id="checkbox">
-      Checkbox Label
-    </Checkbox>
-  ),
+  render: (args) => <Checkbox {...args} id="checkbox"></Checkbox>,
   title: 'Components/Checkbox',
 } satisfies Meta<typeof Checkbox>
 
@@ -65,35 +64,21 @@ export const Playground: Story = {
       },
     },
   },
-  play: async ({ userEvent, canvas, step }) => {
-    const checkbox = canvas.getByRole('checkbox'),
-      initialSize = checkbox.getBoundingClientRect()
+  render: (args) => {
+    const form = useAppForm({ defaultValues: { playground: false } })
 
-    await step('Checkbox should be unchecked initially', async () => {
-      await expect(checkbox).not.toBeChecked()
-      await expect(initialSize.width).toBeGreaterThan(0)
-      await expect(initialSize.height).toBeGreaterThan(0)
-    })
-
-    await step('User can check the checkbox', async () => {
-      const checkbox = canvas.getByRole('checkbox')
-      await userEvent.click(checkbox)
-      await waitFor(async () => {
-        await expect(checkbox).toBeChecked()
-      })
-      await expect(checkbox.getBoundingClientRect().width).toBeCloseTo(initialSize.width)
-      await expect(checkbox.getBoundingClientRect().height).toBeCloseTo(initialSize.height)
-    })
-
-    await step('User can uncheck the checkbox', async () => {
-      const checkbox = canvas.getByRole('checkbox')
-      await userEvent.click(checkbox)
-      await waitFor(async () => {
-        await expect(checkbox).not.toBeChecked()
-      })
-      await expect(checkbox.getBoundingClientRect().width).toBeCloseTo(initialSize.width)
-      await expect(checkbox.getBoundingClientRect().height).toBeCloseTo(initialSize.height)
-    })
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="playground">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox {...args} />
+              <field.Label>Playground checkbox</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
   },
 }
 
@@ -102,16 +87,48 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Unchecked checkbox with an associated label.',
+        story:
+          'Put `field.Checkbox` **first** in a horizontal `Field`, then `field.Label`. The checkbox takes the leading column, and the label shares the second column.\n\n```tsx\n<Field orientation="horizontal">\n  <field.Checkbox />\n  <field.Label>Email notifications</field.Label>\n</Field>\n```',
       },
     },
+  },
+  play: async ({ canvas, step, userEvent }) => {
+    const checkbox = canvas.getByRole('checkbox', { name: 'Email notifications' }),
+      label = canvas.getByText('Email notifications', { selector: 'label' })
+
+    await step('Checkbox leads; label is in the next column', async () => {
+      const checkboxBox = checkbox.getBoundingClientRect(),
+        labelBox = label.getBoundingClientRect()
+
+      await expect(checkboxBox.right).toBeLessThanOrEqual(labelBox.left)
+    })
+
+    await step('Clicking the label toggles the checkbox', async () => {
+      await userEvent.click(label)
+      await waitFor(async () => {
+        await expect(checkbox).toBeChecked()
+      })
+    })
+  },
+  render: () => {
+    const form = useAppForm({ defaultValues: { notifications: false } })
+
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="notifications">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox />
+              <field.Label>Email notifications</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
   },
 }
 
 export const ElevatedVariant: Story = {
-  args: {
-    variant: 'elevated',
-  },
   name: 'Variant / Elevated',
   parameters: {
     docs: {
@@ -120,12 +137,25 @@ export const ElevatedVariant: Story = {
       },
     },
   },
+  render: () => {
+    const form = useAppForm({ defaultValues: { elevated: false } })
+
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="elevated">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox variant="elevated" />
+              <field.Label>Elevated variant</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
+  },
 }
 
 export const InSurfaceVariant: Story = {
-  args: {
-    variant: 'inSurface',
-  },
   name: 'Variant / In Surface',
   parameters: {
     docs: {
@@ -134,12 +164,25 @@ export const InSurfaceVariant: Story = {
       },
     },
   },
+  render: () => {
+    const form = useAppForm({ defaultValues: { inSurface: false } })
+
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="inSurface">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox variant="inSurface" />
+              <field.Label>In Surface variant</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
+  },
 }
 
 export const OutlineVariant: Story = {
-  args: {
-    variant: 'outline',
-  },
   name: 'Variant / Outline',
   parameters: {
     docs: {
@@ -148,12 +191,25 @@ export const OutlineVariant: Story = {
       },
     },
   },
+  render: () => {
+    const form = useAppForm({ defaultValues: { outline: false } })
+
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="outline">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox variant="outline" />
+              <field.Label>Outline variant</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
+  },
 }
 
 export const Checked: Story = {
-  args: {
-    checked: true,
-  },
   name: 'State / Checked',
   parameters: {
     docs: {
@@ -162,12 +218,28 @@ export const Checked: Story = {
       },
     },
   },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('checkbox', { name: 'Security alerts' })).toBeChecked()
+  },
+  render: () => {
+    const form = useAppForm({ defaultValues: { alerts: true } })
+
+    return (
+      <Form className="w-[420px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppField name="alerts">
+          {(field) => (
+            <Field orientation="horizontal">
+              <field.Checkbox />
+              <field.Label>Security alerts</field.Label>
+            </Field>
+          )}
+        </form.AppField>
+      </Form>
+    )
+  },
 }
 
 export const Indeterminate: Story = {
-  args: {
-    indeterminate: true,
-  },
   name: 'State / Indeterminate',
   parameters: {
     docs: {
@@ -176,12 +248,19 @@ export const Indeterminate: Story = {
       },
     },
   },
+  play: async ({ canvas }) => {
+    const checkbox = canvas.getByRole('checkbox', { name: 'Select all projects' })
+    await expect(checkbox).toHaveAttribute('aria-checked', 'mixed')
+  },
+  render: () => (
+    <div className="flex items-center gap-xs">
+      <Checkbox id="indeterminate-demo" indeterminate />
+      <Label htmlFor="indeterminate-demo">Select all projects</Label>
+    </div>
+  ),
 }
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
   name: 'State / Disabled',
   parameters: {
     docs: {
@@ -190,6 +269,16 @@ export const Disabled: Story = {
       },
     },
   },
+  play: async ({ canvas }) => {
+    const checkbox = canvas.getByRole('checkbox', { name: 'Managed by administrator' })
+    await expect(checkbox).toHaveAttribute('aria-disabled', 'true')
+  },
+  render: () => (
+    <div className="flex items-center gap-xs">
+      <Checkbox disabled id="disabled-demo" />
+      <Label htmlFor="disabled-demo">Managed by administrator</Label>
+    </div>
+  ),
 }
 
 export const Comparison: Story = {
@@ -203,16 +292,22 @@ export const Comparison: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-sm">
-      <Checkbox id="comparison-unchecked">Email notifications</Checkbox>
-      <Checkbox checked id="comparison-checked">
-        Security alerts
-      </Checkbox>
-      <Checkbox id="comparison-indeterminate" indeterminate>
-        Select all projects
-      </Checkbox>
-      <Checkbox disabled id="comparison-disabled">
-        Managed by administrator
-      </Checkbox>
+      <div className="flex items-center gap-xs">
+        <Checkbox id="comparison-unchecked" />
+        <Label htmlFor="comparison-unchecked">Email notifications</Label>
+      </div>
+      <div className="flex items-center gap-xs">
+        <Checkbox checked id="comparison-checked" />
+        <Label htmlFor="comparison-checked">Security alerts</Label>
+      </div>
+      <div className="flex items-center gap-xs">
+        <Checkbox id="comparison-indeterminate" indeterminate />
+        <Label htmlFor="comparison-indeterminate">Select all projects</Label>
+      </div>
+      <div className="flex items-center gap-xs">
+        <Checkbox disabled id="comparison-disabled" />
+        <Label htmlFor="comparison-disabled">Managed by administrator</Label>
+      </div>
     </div>
   ),
 }
@@ -231,27 +326,33 @@ export const VariantComparison: Story = {
     <div className="grid grid-cols-2 gap-md">
       <div className="flex flex-col gap-sm">
         <p className="style-text-default--1 text-on-surface-variant">Elevated</p>
-        <Checkbox id="variant-elevated-unchecked" variant="elevated">
-          Unchecked
-        </Checkbox>
-        <Checkbox checked id="variant-elevated-checked" variant="elevated">
-          Checked
-        </Checkbox>
-        <Checkbox id="variant-elevated-indeterminate" indeterminate variant="elevated">
-          Indeterminate
-        </Checkbox>
+        <div className="flex items-center gap-xs">
+          <Checkbox id="variant-elevated-unchecked" variant="elevated" />
+          <Label htmlFor="variant-elevated-unchecked">Unchecked</Label>
+        </div>
+        <div className="flex items-center gap-xs">
+          <Checkbox checked id="variant-elevated-checked" variant="elevated" />
+          <Label htmlFor="variant-elevated-checked">Checked</Label>
+        </div>
+        <div className="flex items-center gap-xs">
+          <Checkbox id="variant-elevated-indeterminate" indeterminate variant="elevated" />
+          <Label htmlFor="variant-elevated-indeterminate">Indeterminate</Label>
+        </div>
       </div>
       <div className="flex flex-col gap-sm">
         <p className="style-text-default--1 text-on-surface-variant">In Surface</p>
-        <Checkbox id="variant-insurface-unchecked" variant="inSurface">
-          Unchecked
-        </Checkbox>
-        <Checkbox checked id="variant-insurface-checked" variant="inSurface">
-          Checked
-        </Checkbox>
-        <Checkbox id="variant-insurface-indeterminate" indeterminate variant="inSurface">
-          Indeterminate
-        </Checkbox>
+        <div className="flex items-center gap-xs">
+          <Checkbox id="variant-insurface-unchecked" variant="inSurface" />
+          <Label htmlFor="variant-insurface-unchecked">Unchecked</Label>
+        </div>
+        <div className="flex items-center gap-xs">
+          <Checkbox checked id="variant-insurface-checked" variant="inSurface" />
+          <Label htmlFor="variant-insurface-checked">Checked</Label>
+        </div>
+        <div className="flex items-center gap-xs">
+          <Checkbox id="variant-insurface-indeterminate" indeterminate variant="inSurface" />
+          <Label htmlFor="variant-insurface-indeterminate">Indeterminate</Label>
+        </div>
       </div>
     </div>
   ),

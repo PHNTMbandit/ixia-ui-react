@@ -64,44 +64,39 @@ export function TableStringFilterForm<TData extends RowData>({
       <form.AppForm>
         {children}
         <form.Errors />
-        <form.Set>
-          <form.SetContent>
-            <form.AppField name="filterOperator">
-              {(field) => (
-                <Field>
-                  <field.Errors />
-                  <field.RadioGroup>
-                    {stringFilterOperators.map((operator) => (
-                      <field.Set key={operator}>
-                        <Radio value={operator} variant="inSurface">
-                          {filterOperatorLabels?.[operator] ??
-                            defaultFilterOperatorLabels[operator]}
-                        </Radio>
-                        {field.state.value === operator && (
-                          <form.AppField name="filterValue">
-                            {(valueField) => (
-                              <Field>
-                                <valueField.Errors />
-                                <valueField.Input
-                                  aria-label={`${column.id} filter value`}
-                                  variant="secondary"
-                                />
-                              </Field>
-                            )}
-                          </form.AppField>
+        <form.AppField name="filterOperator">
+          {(field) => (
+            <Field>
+              <field.Errors />
+              <field.RadioGroup>
+                {stringFilterOperators.map((operator) => (
+                  <div className="flex w-full flex-col gap-2xs" key={operator}>
+                    <Radio value={operator} variant="inSurface">
+                      {filterOperatorLabels?.[operator] ?? defaultFilterOperatorLabels[operator]}
+                    </Radio>
+                    {field.state.value === operator && (
+                      <form.AppField name="filterValue">
+                        {(valueField) => (
+                          <Field>
+                            <valueField.Errors />
+                            <valueField.Input
+                              aria-label={`${column.id} filter value`}
+                              variant="secondary"
+                            />
+                          </Field>
                         )}
-                      </field.Set>
-                    ))}
-                  </field.RadioGroup>
-                </Field>
-              )}
-            </form.AppField>
-          </form.SetContent>
-        </form.Set>
-        <form.Footer>
+                      </form.AppField>
+                    )}
+                  </div>
+                ))}
+              </field.RadioGroup>
+            </Field>
+          )}
+        </form.AppField>
+        <form.Actions>
           <form.Reset>{buttonLabels.reset}</form.Reset>
           <form.Submit>{buttonLabels.apply}</form.Submit>
-        </form.Footer>
+        </form.Actions>
       </form.AppForm>
     </Form>
   )

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { cn } from '@/utils/cn'
 
 import { Button } from '../button'
-import { Form, FormFooter } from '../form'
+import { Form, FormActions } from '../form'
 import { Icon } from '../icon'
 import {
   Select,
@@ -104,7 +104,7 @@ export function TableSelectFilterForm<TData extends RowData>({
           </SelectList>
         </SelectPopup>
       </Select>
-      <FormFooter>
+      <FormActions>
         <Button className="w-full" tone="neutral" type="reset" variant="outline">
           {buttonLabels.reset}
         </Button>
@@ -115,7 +115,7 @@ export function TableSelectFilterForm<TData extends RowData>({
         >
           {buttonLabels.apply}
         </Button>
-      </FormFooter>
+      </FormActions>
     </Form>
   )
 }

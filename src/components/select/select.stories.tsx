@@ -25,6 +25,21 @@ function findVisibleOption(page: ReturnType<typeof within>, name: RegExp) {
   })
 }
 
+function createSwatch(canvasElement: HTMLElement) {
+  const swatch = canvasElement.ownerDocument.createElement('span')
+  swatch.setAttribute('aria-hidden', 'true')
+  Object.assign(swatch.style, {
+    height: '8px',
+    left: '0',
+    position: 'fixed',
+    top: '0',
+    width: '8px',
+    zIndex: '1',
+  })
+  canvasElement.append(swatch)
+  return swatch
+}
+
 const apples = [
     { label: 'Gala', value: 'gala' },
     { label: 'Fuji', value: 'fuji' },
@@ -367,16 +382,14 @@ export const VariantOutline: Story = {
   play: async ({ canvas, canvasElement }) => {
     const trigger = canvas.getByRole('combobox'),
       page = within(canvasElement.ownerDocument.body),
-      swatch = canvasElement.ownerDocument.createElement('span'),
+      swatch = createSwatch(canvasElement),
       browser =
         '__vitest_browser_runner__' in globalThis
           ? await import('vite-plus/test/browser')
           : undefined
     swatch.style.outlineColor = 'var(--color-border)'
-    canvasElement.append(swatch)
-
     try {
-      if (browser) await browser.userEvent.unhover(trigger)
+      if (browser) await browser.userEvent.hover(swatch)
       await expect(trigger).toHaveClass('bg-transparent', 'outline-border', 'rounded-xl')
       await expect(getComputedStyle(trigger).backgroundColor).toBe('rgba(0, 0, 0, 0)')
       await expect(getComputedStyle(trigger).boxShadow).toBe('none')
@@ -394,7 +407,7 @@ export const VariantOutline: Story = {
             getComputedStyle(swatch).outlineColor,
           ),
         )
-        await browser.userEvent.unhover(trigger)
+        await browser.userEvent.hover(swatch)
         await browser.userEvent.keyboard('{Shift}')
         trigger.focus()
         await expect(trigger.matches(':focus-visible')).toBe(true)
@@ -611,14 +624,12 @@ export const IconSizes: Story = {
     }
 
     const page = within(canvasElement.ownerDocument.body),
-      swatch = canvasElement.ownerDocument.createElement('span'),
+      swatch = createSwatch(canvasElement),
       browser =
         '__vitest_browser_runner__' in globalThis
           ? await import('vite-plus/test/browser')
           : undefined
     swatch.style.outlineColor = 'var(--color-brand-border-strong)'
-    canvasElement.append(swatch)
-
     try {
       for (const variant of VARIANTS) {
         const trigger = within(canvas.getByTestId(`${variant}-medium`)).getByRole('combobox'),
@@ -627,7 +638,7 @@ export const IconSizes: Story = {
 
         await expect(style.transitionProperty).toBe('all')
         await expect(Number.parseFloat(style.transitionDuration)).toBeGreaterThan(0)
-        if (browser) await browser.userEvent.unhover(trigger)
+        if (browser) await browser.userEvent.hover(swatch)
         trigger.blur()
         trigger.getAnimations().forEach((animation) => animation.finish())
         const closedOutline = getComputedStyle(trigger).outlineColor
@@ -683,9 +694,11 @@ export const IconSizes: Story = {
           )
           trigger.removeAttribute('aria-invalid')
           swatch.style.outlineColor = 'var(--color-brand-border-strong)'
-          if (browser) await browser.userEvent.unhover(trigger)
-
-          await userEvent.click(option)
+          if (browser) {
+            await browser.userEvent.click(option)
+          } else {
+            await userEvent.click(option)
+          }
           await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'))
           await waitFor(() => expect(trigger).toHaveFocus())
           trigger.getAnimations().forEach((animation) => animation.finish())

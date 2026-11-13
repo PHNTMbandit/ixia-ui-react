@@ -10,7 +10,7 @@ export function Switch({ children, className, ref, ...props }: SwitchProps) {
     <Label className="flex items-center gap-xs">
       <BaseSwitch.Root
         className={cn(
-          'group relative flex h-lg min-target-h w-2xl items-center rounded-full bg-surface-low bg-size-[6.5rem_100%] inset-shadow-2xs outline outline-transparent transition-colors ease-[cubic-bezier(0.26,0.75,0.38,0.45)] before:absolute before:rounded-full hover:cursor-pointer hover:not-disabled:outline-accent-border-strong disabled:pointer-events-none disabled:opacity-50 data-checked:bg-accent-default data-checked:outline-transparent data-disabled:pointer-events-none data-disabled:opacity-50',
+          'group relative flex h-lg min-target-h w-2xl items-center rounded-full bg-neutral-container bg-size-[6.5rem_100%] outline outline-transparent transition-colors ease-[cubic-bezier(0.26,0.75,0.38,0.45)] before:absolute before:rounded-full hover:cursor-pointer hover:not-disabled:outline-accent-border-strong disabled:pointer-events-none disabled:opacity-50 data-checked:bg-accent-default data-checked:outline-transparent data-disabled:pointer-events-none data-disabled:opacity-50',
           className,
         )}
         ref={ref}
