@@ -6,9 +6,9 @@ type FormResetProps = React.ComponentProps<typeof Button>
 type FormErrorsProps = React.ComponentProps<'div'> & {
   headerLabel?: string
 }
-type FormFooterProps = React.ComponentProps<'div'> & {
+type FormActionsProps = React.ComponentProps<'div'> & {
   orientation?: 'horizontal' | 'vertical'
 }
 
-export type { FormProps, FormSubmitProps, FormResetProps, FormErrorsProps, FormFooterProps }
+export type { FormProps, FormSubmitProps, FormResetProps, FormErrorsProps, FormActionsProps }
 export type { FieldSetProps, FieldLegendProps } from '../field/field.types'

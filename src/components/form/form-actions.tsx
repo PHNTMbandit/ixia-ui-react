@@ -1,13 +1,13 @@
 import { cn } from '@/utils/cn'
 
-import type { FormFooterProps } from './form.types'
+import type { FormActionsProps } from './form.types'
 
 export function FormActions({
   orientation = 'horizontal',
   className,
   ref,
   ...props
-}: FormFooterProps) {
+}: FormActionsProps) {
   return (
     <div
       className={cn(
@@ -21,5 +21,3 @@ export function FormActions({
     />
   )
 }
-
-export const FormFooter = FormActions

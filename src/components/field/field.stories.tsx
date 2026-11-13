@@ -20,7 +20,7 @@ import {
 } from '../select'
 import { Field } from './index'
 
-type Orientation = 'horizontal' | 'vertical'
+type Orientation = 'horizontal' | 'vertical' | 'responsive'
 
 const PIXEL_TOLERANCE = 1
 
@@ -29,8 +29,8 @@ export default {
     orientation: {
       control: 'inline-radio',
       description:
-        'Places the label above the control (`vertical`) or beside it (`horizontal`). In horizontal mode the first child takes a leading column and the remaining parts align in the second column.',
-      options: ['vertical', 'horizontal'],
+        'Places the label above the control (`vertical`), beside it (`horizontal`), or adapts based on screen size (`responsive`). In horizontal/responsive mode the first child takes a leading column and the remaining parts align in the second column.',
+      options: ['vertical', 'horizontal', 'responsive'],
       table: {
         defaultValue: { summary: 'vertical' },
       },
@@ -52,9 +52,15 @@ export default {
 | \`field.Errors\` | \`<ul>\` | Validation messages. Renders nothing while the field is valid. |
 | \`field.Description\` | \`<p>\` | Help text shown under the control. |
 
-**Orientation.** \`vertical\` (default) stacks every part. \`horizontal\` puts the **first child** in a leading column and everything else in a second column, so errors and descriptions line up with the control. Put \`field.Label\` first for text inputs and selects; put \`field.Checkbox\` first for checkboxes. To align labels across several horizontal fields, set \`--ixia-field-label-width\` on a shared ancestor such as \`form.Set\`.
+**Orientation.** Three options control the layout:
 
-**Grouping.** To put several fields under a heading, wrap them in \`form.Set\` (a \`<fieldset>\`) with a \`form.SetHeading\` (its \`<legend>\`). See **Components/Form**.`,
+- **\`vertical\`** (default): Stacks label, control, errors, and description vertically. Best for mobile and most forms.
+- **\`horizontal\`**: Puts the **first child** in a leading column and everything else in a second column. Useful for dense settings panels. Put \`field.Label\` first for text inputs; put \`field.Checkbox\` first for checkboxes.
+- **\`responsive\`**: Stacks vertically on mobile, switches to horizontal on larger screens via container queries.
+
+To align all labels in horizontal mode, set \`--ixia-field-label-width\` on a shared ancestor (e.g., \`form.Set\`). Pick a width that fits your longest label, accounting for translations.
+
+**Grouping.** Use \`form.Group\` to organize multiple related fields within a section. Wrap them together in \`form.Set\` (a \`<fieldset>\`) with \`form.Legend\` (the \`<legend>\`). See **Components/Form**.`,
       },
       subtitle: 'Lays out a single form control with its label, errors and description.',
     },
@@ -245,32 +251,34 @@ export const AlignedLabels: Story = {
     return (
       <Form className="w-[480px]" onSubmit={(event) => event.preventDefault()}>
         <form.Set style={{ '--ixia-field-label-width': '7rem' } as React.CSSProperties}>
-          <form.SetHeading>Contact</form.SetHeading>
-          <form.AppField name="firstName">
-            {(field) => (
-              <Field orientation="horizontal">
-                <field.Label variant="secondary" />
-                <field.Input />
-              </Field>
-            )}
-          </form.AppField>
-          <form.AppField name="lastName">
-            {(field) => (
-              <Field orientation="horizontal">
-                <field.Label variant="secondary" />
-                <field.Input />
-              </Field>
-            )}
-          </form.AppField>
-          <form.AppField name="email">
-            {(field) => (
-              <Field orientation="horizontal">
-                <field.Label variant="secondary" />
-                <field.Input type="email" />
-                <field.Description>Used for sign-in and receipts.</field.Description>
-              </Field>
-            )}
-          </form.AppField>
+          <form.Legend>Contact</form.Legend>
+          <form.Group>
+            <form.AppField name="firstName">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <field.Label variant="secondary" />
+                  <field.Input />
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="lastName">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <field.Label variant="secondary" />
+                  <field.Input />
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="email">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <field.Label variant="secondary" />
+                  <field.Input type="email" />
+                  <field.Description>Used for sign-in and receipts.</field.Description>
+                </Field>
+              )}
+            </form.AppField>
+          </form.Group>
         </form.Set>
       </Form>
     )
@@ -455,9 +463,18 @@ export const RadioGroupControl: Story = {
             <Field orientation={orientation}>
               <field.Label id="visibility-label" />
               <field.RadioGroup aria-labelledby="visibility-label">
-                <RadioGroup.Radio value="private">Private</RadioGroup.Radio>
-                <RadioGroup.Radio value="team">Team</RadioGroup.Radio>
-                <RadioGroup.Radio value="public">Public</RadioGroup.Radio>
+                <Label>
+                  <RadioGroup.Radio value="private" />
+                  Private
+                </Label>
+                <Label>
+                  <RadioGroup.Radio value="team" />
+                  Team
+                </Label>
+                <Label>
+                  <RadioGroup.Radio value="public" />
+                  Public
+                </Label>
               </field.RadioGroup>
               <field.Description>Choose who can find this project.</field.Description>
             </Field>
@@ -496,15 +513,15 @@ export const CheckboxGroupControl: Story = {
                 onValueChange={field.handleChange}
                 value={field.state.value}
               >
-                <Label>
+                <Label size="small">
                   <Checkbox value="comments" />
                   Comments
                 </Label>
-                <Label>
+                <Label size="small">
                   <Checkbox value="mentions" />
                   Mentions
                 </Label>
-                <Label>
+                <Label size="small">
                   <Checkbox value="announcements" />
                   Announcements
                 </Label>
@@ -595,6 +612,319 @@ export const SwitchControl: Story = {
             </Field>
           )}
         </form.AppField>
+      </Form>
+    )
+  },
+}
+
+export const ResponsiveOrientation: Story = {
+  name: 'Orientation / Responsive',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Set `orientation="responsive"` to stack fields vertically on mobile and place labels beside inputs on larger screens. Useful for settings panels and forms that adapt to viewport width. Resize your browser to see the change.',
+      },
+    },
+  },
+  render: () => {
+    const form = useAppForm({
+      defaultValues: { displayName: '', email: '', jobTitle: '' },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-full max-w-[480px]">
+        <form.AppForm>
+          <Field.Set style={{ '--ixia-field-label-width': '7rem' } as React.CSSProperties}>
+            <Field.Legend>Profile</Field.Legend>
+            <Field.Group>
+              <form.AppField name="displayName">
+                {(field) => (
+                  <Field orientation="responsive">
+                    <field.Label variant="secondary" />
+                    <field.Input placeholder="Your name" />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="jobTitle">
+                {(field) => (
+                  <Field orientation="responsive">
+                    <field.Label variant="secondary" />
+                    <field.Input placeholder="Job title" />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="email">
+                {(field) => (
+                  <Field orientation="responsive">
+                    <field.Label variant="secondary" />
+                    <field.Input type="email" placeholder="name@example.com" />
+                    <field.Description>Visible to your team only.</field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
+          </Field.Set>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const LabelAlignment: Story = {
+  name: 'Layout / Label Alignment',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'In horizontal mode, each field sizes its label column independently, so controls start at different offsets. Use the `--ixia-field-label-width` CSS variable on a shared ancestor like `Field.Set` to give all fields the same label width. This ensures all controls line up vertically. Choose a width that fits your longest label, accounting for translations.',
+      },
+    },
+  },
+  render: () => {
+    const form = useAppForm({
+      defaultValues: { displayName: '', email: '', jobTitle: '' },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-[480px] space-y-lg">
+        <div>
+          <h3 className="mb-md text-sm font-semibold">Without Label Alignment</h3>
+          <form.AppForm>
+            <Field.Set className="border-outline-variant rounded-md border p-md">
+              <Field.Legend className="mb-md">Profile (misaligned)</Field.Legend>
+              <Field.Group>
+                <form.AppField name="displayName">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Your name" />
+                    </Field>
+                  )}
+                </form.AppField>
+                <form.AppField name="jobTitle">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Job title" />
+                    </Field>
+                  )}
+                </form.AppField>
+                <form.AppField name="email">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input type="email" placeholder="name@example.com" />
+                    </Field>
+                  )}
+                </form.AppField>
+              </Field.Group>
+            </Field.Set>
+          </form.AppForm>
+        </div>
+
+        <div>
+          <h3 className="mb-md text-sm font-semibold">
+            With Label Alignment (--ixia-field-label-width: 7rem)
+          </h3>
+          <form.AppForm>
+            <Field.Set
+              className="border-success-variant rounded-md border p-md"
+              style={{ '--ixia-field-label-width': '7rem' } as React.CSSProperties}
+            >
+              <Field.Legend className="mb-md">Profile (aligned)</Field.Legend>
+              <Field.Group>
+                <form.AppField name="displayName">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Your name" />
+                    </Field>
+                  )}
+                </form.AppField>
+                <form.AppField name="jobTitle">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input placeholder="Job title" />
+                    </Field>
+                  )}
+                </form.AppField>
+                <form.AppField name="email">
+                  {(field) => (
+                    <Field orientation="horizontal">
+                      <field.Label variant="secondary" />
+                      <field.Input type="email" placeholder="name@example.com" />
+                    </Field>
+                  )}
+                </form.AppField>
+              </Field.Group>
+            </Field.Set>
+          </form.AppForm>
+        </div>
+      </Form>
+    )
+  },
+}
+
+export const NestedFieldGroups: Story = {
+  name: 'Composition / Nested Groups',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use multiple `Field.Group` components within a `Field.Set` to organize fields into visual subsections. Each group has consistent spacing (`mt-md gap-md`), making the form structure clear without additional wrapper styling. This pattern works well for multi-step forms or settings panels with logical sections.',
+      },
+    },
+  },
+  render: () => {
+    const form = useAppForm({
+      defaultValues: {
+        companyName: '',
+        industry: '',
+        employees: '',
+        street: '',
+        city: '',
+        state: '',
+        zip: '',
+      },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-[480px]">
+        <form.AppForm>
+          <Field.Set style={{ '--ixia-field-label-width': '8rem' } as React.CSSProperties}>
+            <Field.Legend>Company Registration</Field.Legend>
+
+            <Field.Group>
+              <form.AppField name="companyName">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" showRequired />
+                    <field.Input placeholder="Acme Corp" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="industry">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input placeholder="e.g., Technology" />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="employees">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input type="number" placeholder="1-100" />
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
+
+            <Field.Group>
+              <form.AppField name="street">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" showRequired />
+                    <field.Input placeholder="123 Main St" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="city">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" showRequired />
+                    <field.Input placeholder="New York" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="state">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input placeholder="NY" />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="zip">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input placeholder="10001" />
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
+          </Field.Set>
+
+          <form.Actions>
+            <form.Reset tone="error" variant="ghost">
+              Clear
+            </form.Reset>
+            <form.Submit>Register</form.Submit>
+          </form.Actions>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const CheckboxFieldLayout: Story = {
+  name: 'Pattern / Checkbox Field',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'For checkboxes in horizontal fields, place `field.Checkbox` **first** so it lands in column 1 (the label column). The native label text then flows naturally to the right. This pattern avoids the need for a separate label component and keeps the checkbox visually associated with its text.',
+      },
+    },
+  },
+  render: () => {
+    const form = useAppForm({
+      defaultValues: { marketing: false, terms: false, updates: false },
+    })
+
+    return (
+      <Form className="w-[480px]" onSubmit={(event) => event.preventDefault()}>
+        <form.AppForm>
+          <Field.Set>
+            <Field.Legend>Preferences</Field.Legend>
+            <Field.Group>
+              <form.AppField name="marketing">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Checkbox />
+                    <field.Label>Marketing emails</field.Label>
+                    <field.Description>Hear about new features and offers.</field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="updates">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Checkbox />
+                    <field.Label>Product updates</field.Label>
+                    <field.Description>About one email a month.</field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="terms">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Checkbox />
+                    <field.Label>I agree to the terms</field.Label>
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
+          </Field.Set>
+        </form.AppForm>
       </Form>
     )
   },

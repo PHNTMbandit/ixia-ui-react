@@ -33,6 +33,7 @@ type FieldRadioGroupProps = React.ComponentProps<typeof RadioGroup>
 type FieldSwitchProps = React.ComponentProps<typeof Switch>
 type FieldToggleProps = React.ComponentProps<typeof Toggle>
 type FieldProps = React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>
+type FieldGroupProps = React.ComponentProps<'div'>
 
 const fieldVariants = cva('', {
     defaultVariants: {
@@ -40,10 +41,10 @@ const fieldVariants = cva('', {
     },
     variants: {
       orientation: {
-        /* Two-column grid: the first child (a label, or a checkbox) takes column 1 and every
-           other part stacks in column 2, so errors and descriptions align with the control. */
         horizontal:
           'grid grid-cols-[var(--ixia-field-label-width,auto)_minmax(0,1fr)] items-center gap-x-sm gap-y-2xs *:col-start-2 *:first:col-start-1',
+        responsive:
+          'flex flex-col gap-2xs @md:grid @md:grid-cols-[var(--ixia-field-label-width,auto)_minmax(0,1fr)] @md:items-center @md:gap-x-sm @md:gap-y-2xs @md:*:col-start-2 @md:*:first:col-start-1',
         vertical: 'flex flex-col gap-2xs',
       },
     },
@@ -65,8 +66,6 @@ const fieldVariants = cva('', {
       },
     },
   }),
-  /* Floating the legend stops the browser drawing it in the fieldset border,
-     so it becomes a normal flex item and follows the fieldset gap. */
   fieldLegendVariants = cva('float-left w-full', {
     defaultVariants: {
       size: 'medium',
@@ -102,4 +101,5 @@ export type {
   FieldSwitchProps,
   FieldToggleProps,
   FieldProps,
+  FieldGroupProps,
 }

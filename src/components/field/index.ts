@@ -3,6 +3,7 @@ import { FieldCheckbox } from './field-checkbox'
 import { FieldContent } from './field-content'
 import { FieldDescription } from './field-description'
 import { FieldErrors } from './field-errors'
+import { FieldGroup } from './field-group'
 import { FieldInput } from './field-input'
 import { FieldInputGroup } from './field-input-group'
 import { FieldInputGroupInput } from './field-input-group-input'
@@ -23,6 +24,7 @@ const Field = Object.assign(FieldRoot, {
   Content: FieldContent,
   Description: FieldDescription,
   Errors: FieldErrors,
+  Group: FieldGroup,
   Input: FieldInput,
   InputGroup: FieldInputGroup,
   InputGroupInput: FieldInputGroupInput,
@@ -40,30 +42,32 @@ const Field = Object.assign(FieldRoot, {
 })
 
 export type {
+  FieldCheckboxProps,
   FieldContentProps,
   FieldDescriptionProps,
   FieldErrorProps,
+  FieldGroupProps,
+  FieldInputGroupInputProps,
+  FieldInputGroupProps,
   FieldInputProps,
   FieldLabelProps,
   FieldLegendProps,
   FieldProps,
+  FieldRadioGroupProps,
+  FieldRadioProps,
   FieldSelectProps,
   FieldSeparatorProps,
   FieldSetProps,
   FieldSliderProps,
-  FieldTextAreaProps,
-  FieldCheckboxProps,
-  FieldRadioProps,
-  FieldRadioGroupProps,
   FieldSwitchProps,
+  FieldTextAreaProps,
   FieldToggleProps,
-  FieldInputGroupInputProps,
-  FieldInputGroupProps,
 } from './field.types'
 export { fieldVariants, fieldLabelVariants, fieldLegendVariants } from './field.types'
 export { FieldContent } from './field-content'
 export { FieldDescription } from './field-description'
 export { FieldErrors } from './field-errors'
+export { FieldGroup } from './field-group'
 export { FieldInput } from './field-input'
 export { FieldLabel } from './field-label'
 export { FieldLegend } from './field-legend'

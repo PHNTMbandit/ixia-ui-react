@@ -345,6 +345,9 @@
   }
 }
 @layer utilities {
+  .\@container {
+    container-type: inline-size;
+  }
   .pointer-events-none {
     pointer-events: none;
   }
@@ -1173,6 +1176,9 @@
   }
   .max-w-\[300px\] {
     max-width: 300px;
+  }
+  .max-w-\[480px\] {
+    max-width: 480px;
   }
   .max-w-\[calc\(100vw-3rem\)\] {
     max-width: calc(100vw - 3rem);
@@ -4850,6 +4856,32 @@
   @media (width >= 80rem) {
     .xl\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @container (width >= 28rem) {
+    .\@md\:grid {
+      display: grid;
+    }
+    .\@md\:grid-cols-\[\.\.\.\] {
+      grid-template-columns: ...;
+    }
+    .\@md\:grid-cols-\[var\(--ixia-field-label-width\,auto\)_minmax\(0\,1fr\)\] {
+      grid-template-columns: var(--ixia-field-label-width,auto) minmax(0,1fr);
+    }
+    .\@md\:items-center {
+      align-items: center;
+    }
+    .\@md\:gap-x-sm {
+      column-gap: var(--spacing-sm);
+    }
+    .\@md\:gap-y-2xs {
+      row-gap: var(--spacing-2xs);
+    }
+    :is(.\@md\:\*\:col-start-2 > *) {
+      grid-column-start: 2;
+    }
+    :is(.\@md\:\*\:first\:col-start-1 > *):first-child {
+      grid-column-start: 1;
     }
   }
   @media (prefers-color-scheme: dark) {

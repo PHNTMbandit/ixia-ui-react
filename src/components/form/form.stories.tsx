@@ -1,10 +1,11 @@
-import { CaretUpDownIcon } from '@phosphor-icons/react'
+import { CaretUpDownIcon, EnvelopeIcon, PasswordIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { expect, waitFor, within } from 'storybook/test'
 import { z } from 'zod'
 
 import { AlertTitle } from '../alert/alert-title'
 import { Field } from '../field'
+import { InputGroupAddon } from '../input-group'
 import { RadioGroup } from '../radio-group'
 import {
   SelectGroup,
@@ -127,22 +128,24 @@ export const Basic: Story = {
     return (
       <Form action={() => form.handleSubmit()} className="w-[400px]">
         <form.AppForm>
-          <form.AppField name="email">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input autoComplete="email" type="email" />
-              </Field>
-            )}
-          </form.AppField>
-          <form.AppField name="password">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input autoComplete="current-password" type="password" />
-              </Field>
-            )}
-          </form.AppField>
+          <form.Group>
+            <form.AppField name="email">
+              {(field) => (
+                <Field>
+                  <field.Label />
+                  <field.Input autoComplete="email" type="email" />
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="password">
+              {(field) => (
+                <Field>
+                  <field.Label />
+                  <field.Input autoComplete="current-password" type="password" />
+                </Field>
+              )}
+            </form.AppField>
+          </form.Group>
           <form.Submit>Sign in</form.Submit>
         </form.AppForm>
       </Form>
@@ -207,57 +210,62 @@ export const Sections: Story = {
           <form.Errors>Please correct the errors below.</form.Errors>
           <Field.Set>
             <Field.Legend>Personal information</Field.Legend>
-            <form.AppField name="firstName">
-              {(field) => (
-                <Field>
-                  <field.Label showRequired />
-                  <field.Input autoComplete="given-name" />
-                  <field.Errors />
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="lastName">
-              {(field) => (
-                <Field>
-                  <field.Label showRequired />
-                  <field.Input autoComplete="family-name" />
-                  <field.Errors />
-                </Field>
-              )}
-            </form.AppField>
+            <Field.Description>Enter your personal information below.</Field.Description>
+            <Field.Group>
+              <form.AppField name="firstName">
+                {(field) => (
+                  <Field>
+                    <field.Label showRequired />
+                    <field.Input autoComplete="given-name" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="lastName">
+                {(field) => (
+                  <Field>
+                    <field.Label showRequired />
+                    <field.Input autoComplete="family-name" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
           </Field.Set>
           <Field.Set>
             <Field.Legend>Account information</Field.Legend>
-            <form.AppField name="password">
-              {(field) => (
-                <Field>
-                  <field.Label showRequired />
-                  <field.Input autoComplete="new-password" type="password" />
-                  <field.Errors />
-                  <field.Description>Use at least 6 characters.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField
-              name="confirmPassword"
-              validators={{
-                onChange: ({ value, fieldApi }) => {
-                  const password = fieldApi.form.getFieldValue('password')
-                  if (value && value !== password) {
-                    return new Error('Passwords do not match')
-                  }
-                },
-                onChangeListenTo: ['password'],
-              }}
-            >
-              {(field) => (
-                <Field>
-                  <field.Label showRequired />
-                  <field.Input autoComplete="new-password" type="password" />
-                  <field.Errors />
-                </Field>
-              )}
-            </form.AppField>
+            <Field.Group>
+              <form.AppField name="password">
+                {(field) => (
+                  <Field>
+                    <field.Label showRequired />
+                    <field.Input autoComplete="new-password" type="password" />
+                    <field.Errors />
+                    <field.Description>Use at least 6 characters.</field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField
+                name="confirmPassword"
+                validators={{
+                  onChange: ({ value, fieldApi }) => {
+                    const password = fieldApi.form.getFieldValue('password')
+                    if (value && value !== password) {
+                      return new Error('Passwords do not match')
+                    }
+                  },
+                  onChangeListenTo: ['password'],
+                }}
+              >
+                {(field) => (
+                  <Field>
+                    <field.Label showRequired />
+                    <field.Input autoComplete="new-password" type="password" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
           </Field.Set>
           <form.Actions>
             <form.Reset tone="error" variant="ghost">
@@ -314,32 +322,34 @@ export const HorizontalLayout: Story = {
         <form.AppForm>
           <Field.Set style={{ '--ixia-field-label-width': '7rem' } as React.CSSProperties}>
             <Field.Legend>Profile</Field.Legend>
-            <form.AppField name="displayName">
-              {(field) => (
-                <Field orientation="horizontal">
-                  <field.Label variant="secondary" />
-                  <field.Input />
-                  <field.Errors />
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="jobTitle">
-              {(field) => (
-                <Field orientation="horizontal">
-                  <field.Label variant="secondary" />
-                  <field.Input />
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="email">
-              {(field) => (
-                <Field orientation="horizontal">
-                  <field.Label variant="secondary" />
-                  <field.Input type="email" />
-                  <field.Description>Visible to your team only.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
+            <Field.Group>
+              <form.AppField name="displayName">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="jobTitle">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="email">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Label variant="secondary" />
+                    <field.Input type="email" />
+                    <field.Description>Visible to your team only.</field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
           </Field.Set>
           <form.Actions>
             <form.Submit>Save</form.Submit>
@@ -396,25 +406,29 @@ export const CustomErrors: Story = {
       <Form action={() => form.handleSubmit()} className="w-[400px]">
         <form.AppForm>
           <form.Errors>Form errors</form.Errors>
-          <form.AppField name="username">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input />
-                <field.Errors />
-              </Field>
-            )}
-          </form.AppField>
-          <form.AppField name="email">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input type="email" />
-                <field.Errors />
-              </Field>
-            )}
-          </form.AppField>
-          <form.Submit>Submit</form.Submit>
+          <form.Set>
+            <Field.Group>
+              <form.AppField name="username">
+                {(field) => (
+                  <Field>
+                    <field.Label />
+                    <field.Input />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="email">
+                {(field) => (
+                  <Field>
+                    <field.Label />
+                    <field.Input type="email" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.Submit>Submit</form.Submit>
+            </Field.Group>
+          </form.Set>
         </form.AppForm>
       </Form>
     )
@@ -475,24 +489,26 @@ export const SubmitError: Story = {
           <form.Errors>
             <AlertTitle>There were some problems with your submission</AlertTitle>
           </form.Errors>
-          <form.AppField name="username">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input autoComplete="username" />
-                <field.Errors />
-              </Field>
-            )}
-          </form.AppField>
-          <form.AppField name="password">
-            {(field) => (
-              <Field>
-                <field.Label />
-                <field.Input autoComplete="current-password" type="password" />
-                <field.Errors />
-              </Field>
-            )}
-          </form.AppField>
+          <Field.Group>
+            <form.AppField name="username">
+              {(field) => (
+                <Field>
+                  <field.Label />
+                  <field.Input autoComplete="username" />
+                  <field.Errors />
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="password">
+              {(field) => (
+                <Field>
+                  <field.Label />
+                  <field.Input autoComplete="current-password" type="password" />
+                  <field.Errors />
+                </Field>
+              )}
+            </form.AppField>
+          </Field.Group>
           <form.Actions>
             <form.Reset tone="error" variant="ghost">
               Reset
@@ -692,98 +708,108 @@ export const WorkspaceConfiguration: Story = {
           <form.Errors>Please correct the errors in the form before submitting.</form.Errors>
           <Field.Set>
             <Field.Legend>Workspace details</Field.Legend>
-            <form.AppField name="workspaceName">
-              {(field) => (
-                <Field>
-                  <field.Label showRequired />
-                  <field.Input placeholder="e.g. City Operations" />
-                  <field.Errors />
-                  <field.Description>Choose a name your team will recognize.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="description">
-              {(field) => (
-                <Field>
-                  <field.Label />
-                  <field.TextArea placeholder="What is this workspace used for?" rows={3} />
-                  <field.Description>Add context for other workspace members.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="region">
-              {(field) => (
-                <Field>
-                  <field.Label />
-                  <field.Select items={regions}>
-                    <SelectTrigger id={field.name}>
-                      <SelectValue />
-                      <SelectIcon>
-                        <CaretUpDownIcon weight="bold" />
-                      </SelectIcon>
-                    </SelectTrigger>
-                    <SelectPopup alignItemWithTrigger={false} sideOffset={8}>
-                      <SelectList>
-                        <SelectGroup>
-                          {regions.map(({ label, value }) => (
-                            <SelectItem key={value} value={value}>
-                              {label}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectList>
-                    </SelectPopup>
-                  </field.Select>
-                  <field.Description>Sets the default region for workspace data.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
+            <Field.Group>
+              <form.AppField name="workspaceName">
+                {(field) => (
+                  <Field>
+                    <field.Label showRequired />
+                    <field.Description>Choose a name your team will recognize.</field.Description>
+                    <field.Input placeholder="e.g. City Operations" />
+                    <field.Errors />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="description">
+                {(field) => (
+                  <Field>
+                    <field.Label />
+                    <field.Description>Add context for other workspace members.</field.Description>
+                    <field.TextArea placeholder="What is this workspace used for?" rows={3} />
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="region">
+                {(field) => (
+                  <Field>
+                    <field.Label />
+                    <field.Description>
+                      Sets the default region for workspace data.
+                    </field.Description>
+                    <field.Select items={regions}>
+                      <SelectTrigger id={field.name}>
+                        <SelectValue />
+                        <SelectIcon>
+                          <CaretUpDownIcon weight="bold" />
+                        </SelectIcon>
+                      </SelectTrigger>
+                      <SelectPopup alignItemWithTrigger={false} sideOffset={8}>
+                        <SelectList>
+                          <SelectGroup>
+                            {regions.map(({ label, value }) => (
+                              <SelectItem key={value} value={value}>
+                                {label}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectList>
+                      </SelectPopup>
+                    </field.Select>
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
           </Field.Set>
+          <Field.Separator />
           <Field.Set>
             <Field.Legend>Access and preferences</Field.Legend>
-            <form.AppField name="visibility">
-              {(field) => (
-                <Field>
-                  <field.Label id="workspace-visibility-label">Workspace visibility</field.Label>
-                  <field.RadioGroup aria-labelledby="workspace-visibility-label">
-                    <RadioGroup.Radio value="private">Private</RadioGroup.Radio>
-                    <RadioGroup.Radio value="organization">Organization</RadioGroup.Radio>
-                  </field.RadioGroup>
-                  <field.Description>Choose who can discover this workspace.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="emailUpdates">
-              {(field) => (
-                <Field orientation="horizontal">
-                  <field.Checkbox />
-                  <field.Label>Send me workspace updates by email</field.Label>
-                  <field.Description>
-                    Receive important changes and activity summaries.
-                  </field.Description>
-                </Field>
-              )}
-            </form.AppField>
-            <form.AppField name="mapOpacity">
-              {(field) => (
-                <Field>
-                  <field.Label />
-                  <SliderGroup
-                    onValueChange={(value) => field.handleChange(value[0] ?? field.state.value)}
-                    value={field.state.value}
-                  >
-                    <SliderGroup.Slider
-                      aria-label="Map opacity"
-                      max={100}
-                      min={0}
-                      showTooltip={false}
-                    />
-                    <SliderGroup.Input aria-label="Map opacity percentage" size="small" />
-                  </SliderGroup>
-                  <field.Description>Set the default map overlay opacity.</field.Description>
-                </Field>
-              )}
-            </form.AppField>
+            <Field.Group>
+              <form.AppField name="visibility">
+                {(field) => {
+                  const radioGroupId = `${field.name}-radio-group`
+                  return (
+                    <Field>
+                      <field.Label id={`${radioGroupId}-label`}>Workspace visibility</field.Label>
+                      <field.Description>Choose who can discover this workspace.</field.Description>
+                      <field.RadioGroup aria-labelledby={`${radioGroupId}-label`}>
+                        <RadioGroup.Radio value="private">Private</RadioGroup.Radio>
+                        <RadioGroup.Radio value="organization">Organization</RadioGroup.Radio>
+                      </field.RadioGroup>
+                    </Field>
+                  )
+                }}
+              </form.AppField>
+              <form.AppField name="emailUpdates">
+                {(field) => (
+                  <Field orientation="horizontal">
+                    <field.Checkbox />
+                    <field.Label>Send me workspace updates by email</field.Label>
+                    <field.Description>
+                      Receive important changes and activity summaries.
+                    </field.Description>
+                  </Field>
+                )}
+              </form.AppField>
+              <form.AppField name="mapOpacity">
+                {(field) => (
+                  <Field>
+                    <field.Label />
+                    <field.Description>Set the default map overlay opacity.</field.Description>
+                    <SliderGroup
+                      onValueChange={(value) => field.handleChange(value[0] ?? field.state.value)}
+                      value={field.state.value}
+                    >
+                      <SliderGroup.Slider
+                        aria-label="Map opacity"
+                        max={100}
+                        min={0}
+                        showTooltip={false}
+                      />
+                      <SliderGroup.Input aria-label="Map opacity percentage" size="small" />
+                    </SliderGroup>
+                  </Field>
+                )}
+              </form.AppField>
+            </Field.Group>
           </Field.Set>
           <form.Actions>
             <form.Reset tone="error" variant="ghost">
@@ -791,6 +817,56 @@ export const WorkspaceConfiguration: Story = {
             </form.Reset>
             <form.Submit>Save workspace</form.Submit>
           </form.Actions>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const Minimal: Story = {
+  name: 'Examples / Minimal',
+  render: () => {
+    const form = useAppForm({
+      defaultValues: { email: '', password: '' },
+      onSubmit: ({ value }) => {
+        alert(`Signed in as ${value.email}`)
+      },
+    })
+
+    return (
+      <Form action={() => form.handleSubmit()} className="w-[400px]">
+        <form.AppForm>
+          <form.Group>
+            <form.AppField name="email">
+              {(field) => (
+                <Field>
+                  <field.InputGroup>
+                    <InputGroupAddon>
+                      <EnvelopeIcon />
+                    </InputGroupAddon>
+                    <field.InputGroupInput placeholder="Email" autoComplete="email" type="email" />
+                  </field.InputGroup>
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="password">
+              {(field) => (
+                <Field>
+                  <field.InputGroup>
+                    <InputGroupAddon>
+                      <PasswordIcon />
+                    </InputGroupAddon>
+                    <field.InputGroupInput
+                      placeholder="Password"
+                      autoComplete="current-password"
+                      type="password"
+                    />
+                  </field.InputGroup>
+                </Field>
+              )}
+            </form.AppField>
+          </form.Group>
+          <form.Submit>Sign in</form.Submit>
         </form.AppForm>
       </Form>
     )
