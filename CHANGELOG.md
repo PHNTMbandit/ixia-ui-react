@@ -1,3 +1,15 @@
+# [2.3.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.3...v2.3.0) (2026-11-13)
+
+
+### Bug Fixes
+
+* remove redundant subtle color token ([ec601dd](https://github.com/PHNTMbandit/ixia-ui-react/commit/ec601ddc49d78d1a69ea4b6c3cdf47bae166a3ea))
+
+
+### Features
+
+* add FieldSet and FieldLabel components ([f9865ad](https://github.com/PHNTMbandit/ixia-ui-react/commit/f9865ade5dee7d1ca5a4e414cf7cbe849b9cdfca))
+
 ## [2.2.3](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.2...v2.2.3) (2026-11-12)
 
 
