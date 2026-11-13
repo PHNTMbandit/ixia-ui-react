@@ -11,7 +11,7 @@ export function FormFooter({
   return (
     <div
       className={cn(
-        'flex gap-2xs',
+        'flex gap-sm',
         className,
         orientation === 'horizontal' && 'flex-row',
         orientation === 'vertical' && 'flex-col',

@@ -1,15 +1,17 @@
 import { Field as FieldRoot } from './field'
 import { FieldCheckbox } from './field-checkbox'
+import { FieldContent } from './field-content'
 import { FieldDescription } from './field-description'
 import { FieldErrors } from './field-errors'
 import { FieldInput } from './field-input'
 import { FieldInputGroup } from './field-input-group'
 import { FieldInputGroupInput } from './field-input-group-input'
 import { FieldLabel } from './field-label'
+import { FieldLegend } from './field-legend'
 import { FieldRadio } from './field-radio'
 import { FieldRadioGroup } from './field-radio-group'
-import { FieldRow } from './field-row'
 import { FieldSelect } from './field-select'
+import { FieldSeparator } from './field-separator'
 import { FieldSet } from './field-set'
 import { FieldSlider } from './field-slider'
 import { FieldSwitch } from './field-switch'
@@ -18,16 +20,18 @@ import { FieldToggle } from './field-toggle'
 
 const Field = Object.assign(FieldRoot, {
   Checkbox: FieldCheckbox,
+  Content: FieldContent,
   Description: FieldDescription,
   Errors: FieldErrors,
   Input: FieldInput,
   InputGroup: FieldInputGroup,
   InputGroupInput: FieldInputGroupInput,
   Label: FieldLabel,
+  Legend: FieldLegend,
   Radio: FieldRadio,
   RadioGroup: FieldRadioGroup,
-  Row: FieldRow,
   Select: FieldSelect,
+  Separator: FieldSeparator,
   Set: FieldSet,
   Slider: FieldSlider,
   Switch: FieldSwitch,
@@ -36,12 +40,16 @@ const Field = Object.assign(FieldRoot, {
 })
 
 export type {
+  FieldContentProps,
   FieldDescriptionProps,
   FieldErrorProps,
   FieldInputProps,
   FieldLabelProps,
+  FieldLegendProps,
   FieldProps,
   FieldSelectProps,
+  FieldSeparatorProps,
+  FieldSetProps,
   FieldSliderProps,
   FieldTextAreaProps,
   FieldCheckboxProps,
@@ -51,13 +59,16 @@ export type {
   FieldToggleProps,
   FieldInputGroupInputProps,
   FieldInputGroupProps,
-  FieldSetProps,
-  FieldRowProps,
 } from './field.types'
+export { fieldVariants, fieldLabelVariants, fieldLegendVariants } from './field.types'
+export { FieldContent } from './field-content'
 export { FieldDescription } from './field-description'
 export { FieldErrors } from './field-errors'
 export { FieldInput } from './field-input'
 export { FieldLabel } from './field-label'
+export { FieldLegend } from './field-legend'
+export { FieldSeparator } from './field-separator'
+export { FieldSet } from './field-set'
 export { FieldSlider } from './field-slider'
 export { FieldSelect } from './field-select'
 export { FieldTextArea } from './field-text-area'
@@ -68,7 +79,5 @@ export { FieldSwitch } from './field-switch'
 export { FieldToggle } from './field-toggle'
 export { FieldInputGroup } from './field-input-group'
 export { FieldInputGroupInput } from './field-input-group-input'
-export { FieldSet } from './field-set'
-export { FieldRow } from './field-row'
 
 export { Field }

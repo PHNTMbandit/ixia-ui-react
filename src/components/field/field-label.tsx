@@ -6,6 +6,10 @@ import type { FieldLabelProps } from './field.types'
 
 const NO_ERRORS = 0
 
+function toTitleCase(str: string): string {
+  return str.replace(/(?<letter>[A-Z])/g, ' $<letter>').replace(/^./, (ch) => ch.toUpperCase())
+}
+
 export function FieldLabel({
   size,
   variant,
@@ -16,23 +20,22 @@ export function FieldLabel({
   ...props
 }: FieldLabelProps) {
   const field = useFieldContext(),
-    fieldName = field.name
-      .replace(/(?<letter>[A-Z])/g, ' $<letter>')
-      .replace(/^./, (str) => str.toUpperCase()),
     isInvalid = field.state.meta.errors.length > NO_ERRORS
 
   return (
-    <div
+    <label
       className={cn(
         fieldLabelVariants({ size, variant }),
         className,
         isInvalid && 'text-error-on-surface',
       )}
+      data-slot="field-label"
+      htmlFor={field.name}
       ref={ref}
       {...props}
     >
-      {children || fieldName}
+      {children || toTitleCase(field.name)}
       {showRequired && <span className="ml-3xs text-error-on-surface">*</span>}
-    </div>
+    </label>
   )
 }

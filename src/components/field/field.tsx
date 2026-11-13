@@ -1,10 +1,23 @@
 import { cn } from '@/utils/cn'
 
+import { fieldVariants } from './field.types'
 import type { FieldProps } from './field.types'
 
-export function Field({ className, children, ref, ...props }: FieldProps) {
+export function Field({
+  orientation = 'vertical',
+  className,
+  children,
+  ref,
+  ...props
+}: FieldProps) {
   return (
-    <div className={cn('flex flex-col gap-2xs', className)} ref={ref} {...props}>
+    <div
+      className={cn(fieldVariants({ orientation }), className)}
+      data-orientation={orientation}
+      data-slot="field"
+      ref={ref}
+      {...props}
+    >
       {children}
     </div>
   )

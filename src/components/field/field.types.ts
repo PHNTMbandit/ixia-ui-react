@@ -11,16 +11,20 @@ import type { Switch } from '../switch'
 import type { TextArea } from '../text-area'
 import type { Toggle } from '../toggle'
 
+type FieldContentProps = React.ComponentProps<'div'>
 type FieldDescriptionProps = React.ComponentProps<'p'>
 type FieldErrorProps = React.ComponentProps<'ul'>
 type FieldInputGroupProps = React.ComponentProps<typeof InputGroup>
 type FieldInputGroupInputProps = React.ComponentProps<typeof InputGroupInput>
 type FieldInputProps = React.ComponentProps<typeof Input>
-type FieldLabelProps = React.ComponentProps<'div'> &
+type FieldLabelProps = React.ComponentProps<'label'> &
   VariantProps<typeof fieldLabelVariants> & {
     showRequired?: boolean
   }
+type FieldLegendProps = React.ComponentProps<'legend'> & VariantProps<typeof fieldLegendVariants>
 type FieldSelectProps = React.ComponentProps<typeof Select>
+type FieldSeparatorProps = React.ComponentProps<'hr'>
+type FieldSetProps = React.ComponentProps<'fieldset'>
 type FieldSliderProps = React.ComponentProps<typeof Slider>
 type FieldTextAreaProps = React.ComponentProps<typeof TextArea>
 type FieldCheckboxProps = React.ComponentProps<typeof Checkbox>
@@ -28,36 +32,68 @@ type FieldRadioProps = React.ComponentProps<typeof Radio>
 type FieldRadioGroupProps = React.ComponentProps<typeof RadioGroup>
 type FieldSwitchProps = React.ComponentProps<typeof Switch>
 type FieldToggleProps = React.ComponentProps<typeof Toggle>
-type FieldProps = React.ComponentProps<'div'>
-type FieldSetProps = React.ComponentProps<'div'>
-type FieldRowProps = React.ComponentProps<'div'>
+type FieldProps = React.ComponentProps<'div'> & VariantProps<typeof fieldVariants>
 
-export const fieldLabelVariants = cva('whitespace-nowrap', {
-  defaultVariants: {
-    size: 'medium',
-    variant: 'primary',
-  },
-  variants: {
-    size: {
-      large: 'style-text-default-1',
-      medium: 'style-text-default-0',
-      small: 'style-text-default--1',
+const fieldVariants = cva('', {
+    defaultVariants: {
+      orientation: 'vertical',
     },
-    variant: {
-      primary: 'text-on-surface',
-      secondary: 'text-on-surface-variant',
+    variants: {
+      orientation: {
+        /* Two-column grid: the first child (a label, or a checkbox) takes column 1 and every
+           other part stacks in column 2, so errors and descriptions align with the control. */
+        horizontal:
+          'grid grid-cols-[var(--ixia-field-label-width,auto)_minmax(0,1fr)] items-center gap-x-md gap-y-xs *:col-start-2 *:first:col-start-1',
+        vertical: 'flex flex-col gap-sm',
+      },
     },
-  },
-})
+  }),
+  fieldLabelVariants = cva('whitespace-nowrap', {
+    defaultVariants: {
+      size: 'medium',
+      variant: 'primary',
+    },
+    variants: {
+      size: {
+        large: 'style-text-default-1',
+        medium: 'style-text-default-0',
+        small: 'style-text-default--1',
+      },
+      variant: {
+        primary: 'text-on-surface',
+        secondary: 'text-on-surface-variant',
+      },
+    },
+  }),
+  /* Floating the legend stops the browser drawing it in the fieldset border,
+     so it becomes a normal flex item and follows the fieldset gap. */
+  fieldLegendVariants = cva('float-left w-full', {
+    defaultVariants: {
+      size: 'medium',
+    },
+    variants: {
+      size: {
+        large: 'style-text-strong-2',
+        medium: 'style-text-strong-1',
+        small: 'style-text-strong-0',
+      },
+    },
+  })
+
+export { fieldVariants, fieldLabelVariants, fieldLegendVariants }
 
 export type {
+  FieldContentProps,
   FieldDescriptionProps,
   FieldErrorProps,
   FieldInputGroupProps,
   FieldInputGroupInputProps,
   FieldInputProps,
   FieldLabelProps,
+  FieldLegendProps,
   FieldSelectProps,
+  FieldSeparatorProps,
+  FieldSetProps,
   FieldSliderProps,
   FieldTextAreaProps,
   FieldCheckboxProps,
@@ -66,6 +102,4 @@ export type {
   FieldSwitchProps,
   FieldToggleProps,
   FieldProps,
-  FieldSetProps,
-  FieldRowProps,
 }
