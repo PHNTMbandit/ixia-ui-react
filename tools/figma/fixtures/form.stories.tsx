@@ -169,44 +169,17 @@ export const Errors: Story = {
     />
   ),
 }
-export const SetContent: Story = {
-  parameters: {
-    figma: {
-      ...base,
-      component: 'Form/Set Content',
-      order: 454,
-      description: 'Vertical collection of labelled fields.',
-      slots: {
-        fields: {
-          description: 'Fields or custom form controls.',
-          preferred: ['Field', 'Input', 'Input Group'],
-        },
-      },
-    } satisfies FigmaSpec,
-  },
-  render: () => (
-    <Matrix
-      render={(_combo, index) => (
-        <Form.SetContent {...target(index)} style={{ width: 360 }}>
-          <div style={{ display: 'contents' }} {...slot('fields')}>
-            <Email />
-          </div>
-        </Form.SetContent>
-      )}
-    />
-  ),
-}
 export const Set: Story = {
   parameters: {
     figma: {
       ...base,
       component: 'Form/Set',
       order: 455,
-      description: 'Section with reusable heading and field collection.',
+      description: 'Native fieldset that groups related fields under a Form/Set Heading legend.',
       slots: {
         sections: {
-          description: 'Heading and controls.',
-          preferred: ['Form/Set Heading', 'Form/Set Content'],
+          description: 'Heading followed by the grouped fields.',
+          preferred: ['Form/Set Heading', 'Field', 'Input', 'Input Group'],
         },
       },
     } satisfies FigmaSpec,
@@ -219,11 +192,7 @@ export const Set: Story = {
             <Form.SetHeading {...part('Form/Set Heading', { size: 'medium' })} {...text('heading')}>
               Account details
             </Form.SetHeading>
-            <Form.SetContent {...part('Form/Set Content', {})}>
-              <div style={{ display: 'contents' }} {...slot('fields')}>
-                <Email />
-              </div>
-            </Form.SetContent>
+            <Email />
           </div>
         </Form.Set>
       )}
@@ -321,11 +290,7 @@ export const Root: Story = {
                   >
                     Account details
                   </Form.SetHeading>
-                  <Form.SetContent {...part('Form/Set Content', {})}>
-                    <div style={{ display: 'contents' }} {...slot('fields')}>
-                      <Email />
-                    </div>
-                  </Form.SetContent>
+                  <Email />
                 </div>
               </Form.Set>
               {combo.State === 'Invalid' && (

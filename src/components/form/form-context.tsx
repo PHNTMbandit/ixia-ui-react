@@ -4,6 +4,7 @@ import {
   FieldCheckbox,
   FieldDescription,
   FieldErrors,
+  FieldGroup,
   FieldInput,
   FieldInputGroup,
   FieldInputGroupInput,
@@ -11,20 +12,17 @@ import {
   FieldRadio,
   FieldRadioGroup,
   FieldSelect,
-  FieldSet,
   FieldSlider,
   FieldSwitch,
   FieldTextArea,
   FieldToggle,
+  FieldSet,
+  FieldLegend,
 } from '../field'
-import { FieldRow } from '../field/field-row'
+import { FormActions } from './form-actions'
 import { fieldContext, formContext } from './form-contexts'
 import { FormErrors } from './form-errors'
-import { FormFooter } from './form-footer'
 import { FormReset } from './form-reset'
-import { FormSet } from './form-set'
-import { FormSetContent } from './form-set-content'
-import { FormSetHeading } from './form-set-heading'
 import { FormSubmit } from './form-submit'
 
 export { fieldContext, formContext, useFieldContext, useFormContext } from './form-contexts'
@@ -40,9 +38,7 @@ export const { useAppForm, withFieldGroup, withForm, useTypedAppFormContext } = 
     Label: FieldLabel,
     Radio: FieldRadio,
     RadioGroup: FieldRadioGroup,
-    Row: FieldRow,
     Select: FieldSelect,
-    Set: FieldSet,
     Slider: FieldSlider,
     Switch: FieldSwitch,
     TextArea: FieldTextArea,
@@ -50,12 +46,13 @@ export const { useAppForm, withFieldGroup, withForm, useTypedAppFormContext } = 
   },
   fieldContext,
   formComponents: {
+    Actions: FormActions,
     Errors: FormErrors,
-    Footer: FormFooter,
+    Footer: FormActions,
+    Group: FieldGroup,
+    Legend: FieldLegend,
     Reset: FormReset,
-    Set: FormSet,
-    SetContent: FormSetContent,
-    SetHeading: FormSetHeading,
+    Set: FieldSet,
     Submit: FormSubmit,
   },
   formContext,

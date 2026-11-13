@@ -117,9 +117,11 @@ export default defineConfig({
       'vitest',
     ],
     rules: {
+      'eslint/no-ternary': 'off',
       'eslint/no-unused-vars': 'error',
       'eslint/sort-imports': 'off',
       'func-style': 'off',
+      'import/group-exports': 'off',
       'import/no-cycle': 'warn',
       'import/no-duplicates': 'error',
       'import/no-named-export': 'off',

@@ -68,61 +68,56 @@ export function TableNumberFilterForm<TData extends RowData>({
       <form.AppForm>
         {children}
         <form.Errors />
-        <form.Set>
-          <form.SetContent>
-            <form.AppField name="filterOperator">
-              {(field) => (
-                <Field>
-                  <field.Errors />
-                  <field.RadioGroup>
-                    {numberFilterOperators.map((operator) => (
-                      <field.Set key={operator}>
-                        <Radio value={operator} variant="inSurface">
-                          {filterOperatorLabels?.[operator] ??
-                            defaultFilterOperatorLabels[operator]}
-                        </Radio>
-                        {field.state.value === operator && (
-                          <>
-                            <form.AppField name="filterValueFrom">
-                              {(valueField) => (
-                                <Field>
-                                  <valueField.Errors />
-                                  <valueField.Input
-                                    aria-label={`${column.id} filter value`}
-                                    type="number"
-                                    variant="secondary"
-                                  />
-                                </Field>
-                              )}
-                            </form.AppField>
-                            {operator === 'between' && (
-                              <form.AppField name="filterValueTo">
-                                {(valueField) => (
-                                  <Field>
-                                    <valueField.Errors />
-                                    <valueField.Input
-                                      aria-label={`${column.id} maximum filter value`}
-                                      type="number"
-                                      variant="secondary"
-                                    />
-                                  </Field>
-                                )}
-                              </form.AppField>
+        <form.AppField name="filterOperator">
+          {(field) => (
+            <Field>
+              <field.Errors />
+              <field.RadioGroup>
+                {numberFilterOperators.map((operator) => (
+                  <div className="flex w-full flex-col gap-2xs" key={operator}>
+                    <Radio value={operator} variant="inSurface">
+                      {filterOperatorLabels?.[operator] ?? defaultFilterOperatorLabels[operator]}
+                    </Radio>
+                    {field.state.value === operator && (
+                      <>
+                        <form.AppField name="filterValueFrom">
+                          {(valueField) => (
+                            <Field>
+                              <valueField.Errors />
+                              <valueField.Input
+                                aria-label={`${column.id} filter value`}
+                                type="number"
+                                variant="secondary"
+                              />
+                            </Field>
+                          )}
+                        </form.AppField>
+                        {operator === 'between' && (
+                          <form.AppField name="filterValueTo">
+                            {(valueField) => (
+                              <Field>
+                                <valueField.Errors />
+                                <valueField.Input
+                                  aria-label={`${column.id} maximum filter value`}
+                                  type="number"
+                                  variant="secondary"
+                                />
+                              </Field>
                             )}
-                          </>
+                          </form.AppField>
                         )}
-                      </field.Set>
-                    ))}
-                  </field.RadioGroup>
-                </Field>
-              )}
-            </form.AppField>
-          </form.SetContent>
-        </form.Set>
-        <form.Footer>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </field.RadioGroup>
+            </Field>
+          )}
+        </form.AppField>
+        <form.Actions>
           <form.Reset>{buttonLabels.reset}</form.Reset>
           <form.Submit>{buttonLabels.apply}</form.Submit>
-        </form.Footer>
+        </form.Actions>
       </form.AppForm>
     </Form>
   )

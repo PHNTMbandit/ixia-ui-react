@@ -13,13 +13,5 @@ export function FieldInputGroup({ className, ref, ...props }: FieldInputGroupPro
       field.state.meta.errors.length > NO_ERRORS &&
       !field.state.meta.isValid
 
-  return (
-    <InputGroup
-      aria-invalid={isInvalid}
-      className={cn('', className)}
-      id={field.name}
-      ref={ref}
-      {...props}
-    />
-  )
+  return <InputGroup aria-invalid={isInvalid} className={cn('', className)} ref={ref} {...props} />
 }
