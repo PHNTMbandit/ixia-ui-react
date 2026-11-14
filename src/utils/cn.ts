@@ -5,6 +5,11 @@ import { extendTailwindMerge } from 'tailwind-merge'
 // Theme spacing tokens from styles/input.css; without them twMerge cannot dedupe e.g. gap-md vs gap-0.
 const twMerge = extendTailwindMerge({
   extend: {
+    // Custom utilities from styles/input.css that twMerge would otherwise misclassify or not dedupe.
+    classGroups: {
+      'bg-image': ['bg-dot-grid'],
+      duration: [{ duration: ['hover', 'hover-inherit'] }],
+    },
     theme: {
       spacing: [
         '3xs',

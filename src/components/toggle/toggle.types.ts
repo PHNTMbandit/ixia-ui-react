@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
 export const toggleVariants = cva(
-    'flex items-center justify-center rounded-full text-on-surface-variant transition-all hover:cursor-pointer disabled:opacity-70',
+    'flex items-center justify-center rounded-full text-on-surface-variant transition-all duration-hover hover:cursor-pointer disabled:opacity-70',
     {
       defaultVariants: {
         size: 'medium',

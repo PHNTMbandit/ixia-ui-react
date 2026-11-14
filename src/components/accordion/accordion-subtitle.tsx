@@ -6,7 +6,10 @@ export function AccordionSubtitle({ className, ref, ...props }: AccordionSubtitl
   return (
     <div
       data-slot="accordion-subtitle"
-      className={cn('text-left style-text-prose--1 transition-colors', className)}
+      className={cn(
+        'text-left style-text-prose--1 transition-colors duration-hover-inherit',
+        className,
+      )}
       ref={ref}
       {...props}
     />

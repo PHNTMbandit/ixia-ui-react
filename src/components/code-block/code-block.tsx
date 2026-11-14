@@ -2,6 +2,7 @@ import React from 'react'
 
 import { cn } from '@/utils/cn'
 
+import { codeBlockVariants } from './code-block.types'
 import type { CodeBlockProps, CodeBlockProviderState } from './code-block.types'
 
 const FIRST_INDEX = 0,
@@ -74,7 +75,10 @@ function CodeBlock({
       value={{ currentIndex, currentValue, itemKeys, items, setCurrentValue }}
     >
       <div
-        className={cn('flex flex-col rounded-xl border border-border bg-surface', className)}
+        className={cn(
+          codeBlockVariants({ variant: currentValue.windowVariant ?? 'primary' }),
+          className,
+        )}
         ref={ref}
         {...props}
       />

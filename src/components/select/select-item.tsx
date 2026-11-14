@@ -9,7 +9,7 @@ export function SelectItem({ className, children, ref, ...props }: SelectItemPro
   return (
     <BaseSelect.Item
       className={cn(
-        'group/item grid min-target-h cursor-default grid-cols-[1fr_0.75rem] items-center gap-xs rounded-lg px-2xs py-3xs transition-colors outline-none select-none group-data-[side=none]:pr-xs hover:cursor-pointer data-highlighted:bg-neutral-container-high data-highlighted:text-neutral-on-container data-selected:bg-neutral-default data-selected:text-neutral-on-default [&_svg]:size-md',
+        'group/item grid min-target-h cursor-default grid-cols-[1fr_0.75rem] items-center gap-xs rounded-lg px-2xs py-3xs transition-colors duration-hover outline-none select-none group-data-[side=none]:pr-xs hover:cursor-pointer data-highlighted:bg-neutral-container-high data-highlighted:text-neutral-on-container data-selected:bg-neutral-default data-selected:text-neutral-on-default [&_svg]:size-md',
         className,
       )}
       ref={ref}

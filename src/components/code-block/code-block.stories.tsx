@@ -592,6 +592,12 @@ export const NoHeader: Story = {
       </CodeBlock.Window>
     </CodeBlock>
   ),
+  play: async ({ canvasElement }) => {
+    const root = canvasElement.querySelector('[data-slot="code-block-window"]')?.parentElement
+
+    await expect(root).toBeTruthy()
+    await expect(getComputedStyle(root as HTMLElement).borderTopWidth).toBe('0px')
+  },
 }
 
 export const NoSelect: Story = {
@@ -637,6 +643,11 @@ export const NoSelect: Story = {
       nameBounds.y + nameBounds.height / 2,
       1,
     )
+    await expect(
+      getComputedStyle(
+        name.closest('[data-slot="code-block-header"]')?.parentElement as HTMLElement,
+      ).borderTopWidth,
+    ).toBe('1px')
   },
 }
 
@@ -712,5 +723,48 @@ export const DynamicItems: Story = {
     await userEvent.click(canvas.getByRole('button', { name: 'Update source' }))
     await expect(canvas.getByText('After update')).toBeVisible()
     await expect(canvas.queryByText('Before update')).not.toBeInTheDocument()
+  },
+}
+
+export const Variants: Story = {
+  name: 'Variants',
+  render: (args) => {
+    const data: CodeBlockValue[] = [
+      {
+        code: 'console.log("Hello, world!")',
+        id: 'primary',
+        label: 'Primary',
+        name: 'sample.ts',
+        windowVariant: 'primary',
+      },
+      {
+        code: 'console.log("Hello, world!")',
+        id: 'graph',
+        label: 'Graph',
+        name: 'sample.ts',
+        windowVariant: 'graph',
+      },
+      {
+        code: 'console.log("Hello, world!")',
+        id: 'ghost',
+        label: 'Ghost',
+        name: 'sample.ts',
+        windowVariant: 'ghost',
+      },
+    ]
+    return (
+      <CodeBlock className="w-[800px]" {...args} items={data}>
+        <CodeBlock.Header>
+          <CodeBlock.Tabs />
+          <CodeBlock.Name />
+        </CodeBlock.Header>
+        <CodeBlock.Window>
+          <CodeBlock.Actions>
+            <CodeBlock.Download />
+            <CodeBlock.Copy />
+          </CodeBlock.Actions>
+        </CodeBlock.Window>
+      </CodeBlock>
+    )
   },
 }

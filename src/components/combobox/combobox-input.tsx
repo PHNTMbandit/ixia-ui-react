@@ -43,7 +43,7 @@ export function ComboboxInput({
       <div className="py-2xs pr-2xs">
         <BaseCombobox.Input
           className={cn(
-            'h-xl w-full rounded-lg bg-surface-low px-sm outline-border-strong transition-all not-active:outline-1 focus-within:outline-2 hover:outline-2 focus:caret-brand-default focus:outline-brand-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
+            'h-xl w-full rounded-lg bg-surface-low px-sm outline-border-strong transition-all duration-hover not-active:outline-1 focus-within:outline-2 hover:outline-2 focus:caret-brand-default focus:outline-brand-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
             'placeholder:text-on-surface-muted',
             'disabled:cursor-not-allowed',
             'text-ellipsis',
