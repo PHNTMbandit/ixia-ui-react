@@ -10,23 +10,6 @@ on:
       - rc
 
 jobs:
-  copilot-setup-steps:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7.0.1
-        with:
-          persist-credentials: false
-      - name: Set up Vite+
-        uses: voidzero-dev/setup-vp@v1.22.0
-        with:
-          cache: true
-          run-install: true
-      - name: Verify Vite+
-        run: vp --version
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -39,9 +22,6 @@ jobs:
           node-version: '24'
           cache: true
           run-install: false
-
-      - name: Install dependencies
-        run: vp install --frozen-lockfile
 
       - name: Check code
         run: vp check
