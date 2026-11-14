@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.3.0...v2.3.1) (2026-11-14)
+
+
+### Bug Fixes
+
+* **sidebar:** fix close animation ([409fffe](https://github.com/PHNTMbandit/ixia-ui-react/commit/409fffe5a518a80281d2256154c39491ee06a6b8))
+
 # [2.3.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.2.3...v2.3.0) (2026-11-13)
 
 
