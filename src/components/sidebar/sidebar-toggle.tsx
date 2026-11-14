@@ -27,6 +27,7 @@ export function SidebarToggle({ className, children, ref, ...props }: SidebarTog
   return (
     <Button
       aria-label="Toggle sidebar"
+      data-sidebar="toggle"
       className={cn('shrink-0 border-none', className)}
       ref={ref}
       size="medium"

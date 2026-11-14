@@ -7,5 +7,15 @@ import type { SidebarMenuBadgeProps } from './sidebar.types'
 export function SidebarMenuBadge({ className, ref, ...props }: SidebarMenuBadgeProps) {
   const { open } = useSidebar()
 
-  return <Badge className={cn(!open && 'hidden', className)} ref={ref} {...props} />
+  return (
+    <Badge
+      className={cn(
+        'duration-300 ease-in-out motion-reduce:transition-none',
+        !open && 'pointer-events-none absolute right-0 opacity-0',
+        className,
+      )}
+      ref={ref}
+      {...props}
+    />
+  )
 }

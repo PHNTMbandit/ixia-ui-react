@@ -31,10 +31,7 @@ jobs:
         with:
           node-version: '24'
           cache: true
-          run-install: false
-
-      - name: Install dependencies
-        run: vp install --frozen-lockfile
+          run-install: true
 
       - name: Check code
         run: vp check
@@ -80,11 +77,8 @@ jobs:
         with:
           node-version: '24'
           cache: true
-          run-install: false
+          run-install: true
           registry-url: https://registry.npmjs.org
-
-      - name: Install dependencies
-        run: vp install --frozen-lockfile
 
       - name: Build package
         run: vp run pack

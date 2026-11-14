@@ -1,6 +1,6 @@
 import type { Badge } from '../badge'
 import type { Button } from '../button'
-import type { Collapsible, CollapsiblePanel, CollapsibleTrigger } from '../collapsible'
+import type { Collapsible, CollapsiblePanel } from '../collapsible'
 
 type SidebarToggleProps = Omit<React.ComponentProps<typeof Button>, 'children'> & {
   children: React.ReactNode | ((open?: boolean) => React.ReactNode)
@@ -10,14 +10,13 @@ type SidebarGroupContentProps = React.ComponentProps<'div'>
 type SidebarGroupLabelProps = React.ComponentProps<'span'>
 type SidebarGroupProps = React.ComponentProps<'div'>
 type SidebarHeaderProps = Omit<React.ComponentProps<'div'>, 'children'> & {
-  children: (isExpanded?: boolean) => React.ReactNode
+  children: (isExpanded?: boolean, isMobile?: boolean) => React.ReactNode
 }
 type SidebarFooterProps = Omit<React.ComponentProps<'div'>, 'children'> & {
-  children: (isExpanded?: boolean) => React.ReactNode
+  children: (isExpanded?: boolean, isMobile?: boolean) => React.ReactNode
 }
 type SidebarMenuProps = React.ComponentProps<'div'>
 type SidebarProps = React.ComponentProps<'div'> & {
-  tone?: 'primary' | 'secondary' | 'ghost'
   width?: string | number
 }
 
@@ -26,7 +25,7 @@ type SidebarMenuButtonProps = React.ComponentProps<'button'> & {
 }
 type SidebarMenuItemProps = React.ComponentProps<'div'>
 type SidebarMenuBadgeProps = React.ComponentProps<typeof Badge>
-type SidebarMenuCollapsibleTriggerProps = React.ComponentProps<typeof CollapsibleTrigger>
+type SidebarMenuCollapsibleTriggerProps = React.ComponentProps<'button'>
 type SidebarMenuCollapsibleProps = React.ComponentProps<typeof Collapsible>
 type SidebarMenuCollapsiblePanelProps = React.ComponentProps<typeof CollapsiblePanel>
 type SidebarInsetProps = React.ComponentProps<'div'>
