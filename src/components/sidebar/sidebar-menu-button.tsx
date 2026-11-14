@@ -1,26 +1,25 @@
 import { cn } from '@/utils/cn'
 
+import { SIDEBAR_MENU_BUTTON_CLASSES } from './sidebar-menu-button.styles'
 import { useSidebar } from './sidebar-provider'
 import type { SidebarMenuButtonProps } from './sidebar.types'
 
 export function SidebarMenuButton({ isActive, className, ref, ...props }: SidebarMenuButtonProps) {
-  const { open, collapsible } = useSidebar(),
-    showText = collapsible === 'none' || open
+  const { open, collapsible } = useSidebar()
 
   return (
     <button
       type="button"
       data-active={String(Boolean(isActive))}
       className={cn(
-        'inline-flex cursor-pointer items-center gap-2xs rounded-full border border-transparent style-text-default-0 whitespace-nowrap transition-all duration-200 ease-out select-none active:scale-95 disabled:pointer-events-none disabled:opacity-50 [&>svg]:shrink-0',
+        SIDEBAR_MENU_BUTTON_CLASSES.base,
+        '[&>:not(svg)]:transition-opacity [&>:not(svg)]:duration-200',
         isActive && 'pointer-events-none bg-surface-2 text-on-surface shadow-2xs',
-        !isActive &&
-          'text-neutral-default hover:bg-neutral-container hover:text-neutral-on-container',
+        !isActive && SIDEBAR_MENU_BUTTON_CLASSES.idle,
         isActive && !open && 'bg-neutral-container',
-        !showText && 'mx-auto',
-        !open && 'size-xl justify-center *:hidden [&>svg]:block',
-        open && 'h-xl w-full pl-sm',
-        collapsible !== 'none' && open && 'animate-in fade-in-0 slide-in-from-left-2',
+        !open && cn(SIDEBAR_MENU_BUTTON_CLASSES.collapsed, '[&>:not(svg)]:opacity-0'),
+        open && SIDEBAR_MENU_BUTTON_CLASSES.expanded,
+        collapsible === 'offcanvas' && open && 'animate-in fade-in-0 slide-in-from-left-2',
         className,
       )}
       ref={ref}

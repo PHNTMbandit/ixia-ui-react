@@ -219,11 +219,7 @@
   --radius-4xl: var(--ixia-radius-4xl);
   --radius-full: var(--ixia-radius-full);
 
-  --ease-out-bounce: cubic-bezier(0.22, 1.61, 0.57, 1);
   --animate-appear: appear 0.3s ease-in-out both;
-  --animate-pan: pan 20s linear infinite;
-  --animate-slide-in-left: slide-in-left 0.3s ease-out;
-  --animate-slide-out-left: slide-out-left 0.25s ease-in forwards;
 
   @keyframes appear {
     from {
@@ -238,38 +234,8 @@
       scale: 1;
     }
   }
-
-  @keyframes pan {
-    from {
-      background-position: 0% 50%;
-    }
-    to {
-      background-position: 100% 50%;
-    }
-  }
-
-  @keyframes slide-in-left {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-out-left {
-    from {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-  }
 }
+
 :root {
   color-scheme: light dark;
   --black: #000000;

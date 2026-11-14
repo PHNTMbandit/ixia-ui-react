@@ -97,7 +97,7 @@ function SidebarProvider({
     >
       <div
         className={cn(
-          'relative flex min-h-0 w-full min-w-0 flex-1',
+          'relative flex size-full min-h-0 min-w-0 flex-1',
           side === 'left' && 'flex flex-row',
           side === 'right' && 'flex flex-row-reverse',
           className,
@@ -109,4 +109,4 @@ function SidebarProvider({
   )
 }
 
-export { SidebarProvider, useSidebar }
+export { SidebarContext, SidebarProvider, useSidebar }

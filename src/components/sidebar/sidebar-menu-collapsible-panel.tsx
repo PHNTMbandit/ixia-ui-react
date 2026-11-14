@@ -13,17 +13,23 @@ export function SidebarMenuCollapsiblePanel({
 }: SidebarMenuCollapsiblePanelProps) {
   const { open } = useSidebar()
 
-  if (!open) {
-    return (
-      <PopoverPanel side="right" className="w-fit bg-surface p-[0.5rem_0.5rem]">
-        <PopoverContent className="flex gap-3xs">{children}</PopoverContent>
-      </PopoverPanel>
-    )
-  }
-
   return (
-    <CollapsiblePanel className={cn('py-3xs', className)} ref={ref} {...props}>
-      {children}
-    </CollapsiblePanel>
+    <>
+      <CollapsiblePanel
+        className={cn(
+          'py-3xs data-ending-style:-mt-xs data-ending-style:mb-0 data-ending-style:py-0 data-starting-style:-mt-xs data-starting-style:mb-0 data-starting-style:py-0',
+          className,
+        )}
+        ref={ref}
+        {...props}
+      >
+        {children}
+      </CollapsiblePanel>
+      {!open && (
+        <PopoverPanel side="right" className="w-fit bg-surface p-[0.5rem_0.5rem]">
+          <PopoverContent className="flex gap-3xs">{children}</PopoverContent>
+        </PopoverPanel>
+      )}
+    </>
   )
 }

@@ -1,8 +1,11 @@
+import { Collapsible as BaseCollapsible } from '@base-ui/react/collapsible'
+import { Popover as BasePopover } from '@base-ui/react/popover'
+import { useState } from 'react'
+
 import { cn } from '@/utils/cn'
 
-import { CollapsibleTrigger } from '../collapsible'
 import { Icon } from '../icon'
-import { PopoverTrigger } from '../popover'
+import { SIDEBAR_MENU_BUTTON_CLASSES } from './sidebar-menu-button.styles'
 import { useSidebar } from './sidebar-provider'
 import type { SidebarMenuCollapsibleTriggerProps } from './sidebar.types'
 
@@ -10,47 +13,62 @@ export function SidebarMenuCollapsibleTrigger({
   className,
   children,
   ref,
-  style: _style,
   ...props
 }: SidebarMenuCollapsibleTriggerProps) {
-  const { open, collapsible } = useSidebar(),
-    showText = collapsible === 'none' || open
+  const { open } = useSidebar(),
+    [renderedOpen, setRenderedOpen] = useState(open),
+    [hasToggled, setHasToggled] = useState(false),
+    label = (
+      <span className="flex items-center gap-2xs [&>:not(svg)]:transition-opacity [&>:not(svg)]:duration-200">
+        {children}
+      </span>
+    )
+
+  if (renderedOpen !== open) {
+    setRenderedOpen(open)
+    setHasToggled(true)
+  }
 
   if (!open) {
     return (
-      <PopoverTrigger>
-        <button
-          type="button"
-          className={cn(
-            'flex size-xl items-center justify-center rounded-full shadow-none! transition-colors *:hidden hover:cursor-pointer hover:bg-neutral-container hover:text-neutral-on-container data-popup-open:bg-neutral-container [&>svg]:block',
-          )}
-        >
-          {children}
-          <Icon
-            name="chevronRight"
-            className="absolute right-2xs size-xs text-on-surface-variant"
-          />
-        </button>
-      </PopoverTrigger>
+      <BasePopover.Trigger
+        className={cn(
+          SIDEBAR_MENU_BUTTON_CLASSES.base,
+          SIDEBAR_MENU_BUTTON_CLASSES.idle,
+          SIDEBAR_MENU_BUTTON_CLASSES.collapsed,
+          'data-popup-open:bg-neutral-container [&>span>:not(svg)]:opacity-0',
+          hasToggled &&
+            cn(SIDEBAR_MENU_BUTTON_CLASSES.fromExpanded, 'starting:[&>span>:not(svg)]:opacity-100'),
+          className,
+        )}
+        ref={ref}
+        {...props}
+      >
+        {label}
+        <Icon name="chevronRight" className="absolute right-3xs size-xs text-on-surface-variant" />
+      </BasePopover.Trigger>
     )
   }
 
   return (
-    <CollapsibleTrigger
-      variant="ghost"
+    <BaseCollapsible.Trigger
       className={cn(
-        'inline-flex! w-full! animate-in! justify-start! overflow-hidden! text-left! whitespace-nowrap! slide-in-from-left-2! [&>svg]:size-sm! [&>svg]:flex-none [&>svg]:shrink-0',
-        !showText && 'mx-auto',
-        !open && 'size-xl *:hidden [&>svg]:block',
-        open && 'h-xl pl-sm',
-        collapsible !== 'none' && open && 'animate-in slide-in-from-left-2',
+        SIDEBAR_MENU_BUTTON_CLASSES.base,
+        SIDEBAR_MENU_BUTTON_CLASSES.idle,
+        SIDEBAR_MENU_BUTTON_CLASSES.expanded,
+        'group/trigger pr-sm',
+        hasToggled &&
+          cn(SIDEBAR_MENU_BUTTON_CLASSES.fromCollapsed, 'starting:[&>span>:not(svg)]:opacity-0'),
         className,
       )}
       ref={ref}
-      style={{ justifyContent: 'flex-start' }}
       {...props}
     >
-      <span className="flex shrink-0 items-center gap-2xs [&>svg]:size-sm">{children}</span>
-    </CollapsibleTrigger>
+      {label}
+      <Icon
+        name="chevronRight"
+        className="ml-auto transition-transform duration-150 ease-out group-data-panel-open/trigger:rotate-90"
+      />
+    </BaseCollapsible.Trigger>
   )
 }
