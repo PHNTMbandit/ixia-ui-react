@@ -38,7 +38,7 @@ export function TableHeader({ className, children, ref, ...props }: TableHeaderP
                             width: renderHeader.getSize(),
                           }}
                           className={cn(
-                            'container p-xs text-left style-text-default-0 text-neutral-on-container-muted transition-colors group-data-[variant=outline]/table:shadow-[inset_0_-1px_0_var(--color-border)] group-data-[variant=ghost]/table:first:rounded-l-xl group-data-[variant=ghost]/table:last:rounded-r-xl',
+                            'container p-xs text-left style-text-default-0 text-neutral-on-container-muted transition-colors duration-hover *:transition-colors *:duration-hover-inherit group-data-[variant=outline]/table:shadow-[inset_0_-1px_0_var(--color-border)] group-data-[variant=ghost]/table:first:rounded-l-xl group-data-[variant=ghost]/table:last:rounded-r-xl',
                             renderHeader.column.getCanSort() &&
                               'hover:cursor-pointer hover:bg-neutral-container hover:*:text-neutral-on-container',
                             renderHeader.isPlaceholder && 'cursor-default',

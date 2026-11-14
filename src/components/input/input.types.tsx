@@ -37,7 +37,7 @@ const BYTES_PER_KILOBYTE = 1000,
     secondary: 'bg-neutral-container',
   } as const,
   inputVariants = cva(
-    'group flex w-full items-center text-ellipsis caret-brand-border-strong outline outline-transparent transition-all placeholder:text-on-surface-muted focus-within:outline-brand-border-strong not-focus-within:hover:outline-border-strong disabled:cursor-not-allowed aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:caret-error-border-strong aria-invalid:outline-error-border-strong aria-invalid:focus-within:outline-error-border-strong aria-invalid:not-focus-within:hover:outline-error-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
+    'group flex w-full items-center text-ellipsis caret-brand-border-strong outline outline-transparent transition-all duration-hover placeholder:text-on-surface-muted focus-within:outline-brand-border-strong not-focus-within:hover:outline-border-strong disabled:cursor-not-allowed aria-invalid:bg-error-container aria-invalid:text-error-on-container aria-invalid:caret-error-border-strong aria-invalid:outline-error-border-strong aria-invalid:focus-within:outline-error-border-strong aria-invalid:not-focus-within:hover:outline-error-border-strong data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-50',
     {
       defaultVariants: {
         size: 'medium',

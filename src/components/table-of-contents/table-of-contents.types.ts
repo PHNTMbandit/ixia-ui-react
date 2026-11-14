@@ -2,7 +2,7 @@ import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
 const tableOfContentsItemVariants = cva(
-  'ml-2xs h-lg min-w-0 truncate text-start font-body text-sm font-medium text-on-surface-muted transition-colors duration-200 hover:cursor-pointer data-[in-view=false]:hover:text-on-surface data-[in-view=true]:text-brand-default',
+  'ml-2xs h-lg min-w-0 truncate text-start font-body text-sm font-medium text-on-surface-muted transition-colors duration-hover hover:cursor-pointer data-[in-view=false]:hover:text-on-surface data-[in-view=true]:text-brand-default',
   {
     defaultVariants: {
       depth: 1,

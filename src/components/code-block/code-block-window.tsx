@@ -17,7 +17,8 @@ export function CodeBlockWindow({ className, children, ref, ...props }: CodeBloc
 
   return (
     <div
-      className={cn('relative overflow-auto rounded-lg px-md py-sm', className)}
+      data-slot="code-block-window"
+      className={cn('relative overflow-auto px-md py-sm', className)}
       ref={ref}
       {...props}
     >

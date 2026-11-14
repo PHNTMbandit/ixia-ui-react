@@ -603,6 +603,9 @@
   --ixia-radius-3xl: 24px;
   --ixia-radius-4xl: 32px;
   --ixia-radius-full: 9999px;
+  --ixia-duration-hover-in: 75ms;
+  --ixia-duration-hover-out: 300ms;
+  --ixia-ease-hover: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 [data-theme='light'] {
@@ -679,6 +682,42 @@
 
 @utility shadow-* {
   box-shadow: --value(--shadow-*) var(--ixia-shadow);
+}
+
+/*
+ * Hover-aware timing for any transition-* property utility: snaps in on hover/press/highlight/focus,
+ * then eases out slower on leave (a transition takes the duration of the state it moves into).
+ * Sets --tw-duration/--tw-ease so it wins regardless of utility order; drop any duration-* or ease-* classes.
+ */
+@utility duration-hover {
+  --ixia-hover-duration: var(--ixia-duration-hover-out);
+  --tw-duration: var(--ixia-hover-duration);
+  --tw-ease: var(--ixia-ease-hover);
+  transition-duration: var(--ixia-hover-duration);
+  transition-timing-function: var(--ixia-ease-hover);
+
+  &:is(:hover, :active, :focus-visible, [data-highlighted]) {
+    --ixia-hover-duration: var(--ixia-duration-hover-in);
+  }
+}
+
+/* For descendants restyled by an ancestor's hover (which :hover on themselves can't detect); follows the nearest duration-hover ancestor. */
+@utility duration-hover-inherit {
+  --tw-duration: var(--ixia-hover-duration, var(--ixia-duration-hover-out));
+  --tw-ease: var(--ixia-ease-hover);
+  transition-duration: var(--ixia-hover-duration, var(--ixia-duration-hover-out));
+  transition-timing-function: var(--ixia-ease-hover);
+}
+
+/* Node-editor style dot grid; `local` attachment keeps the dots moving with scrolled content. */
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-border-strong) 50%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+  background-attachment: local;
 }
 @utility style-text-default-5 {
   font-family: var(--font-body);

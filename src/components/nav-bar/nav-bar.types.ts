@@ -86,7 +86,7 @@ const navBarVariants = cva('flex h-fit items-center justify-between', {
     },
   }),
   navBarItemVariants = cva(
-    'flex aspect-square items-center justify-center transition-all disabled:pointer-events-none disabled:opacity-50 data-[active=false]:hover:cursor-pointer data-[active=false]:active:scale-95 [&>svg]:shrink-0',
+    'flex aspect-square items-center justify-center transition-all duration-hover disabled:pointer-events-none disabled:opacity-50 data-[active=false]:hover:cursor-pointer data-[active=false]:active:scale-95 [&>svg]:shrink-0',
     {
       defaultVariants: {
         tone: 'neutral',

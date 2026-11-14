@@ -1,6 +1,25 @@
+import { cva } from 'class-variance-authority'
+
 import type { CopyButton } from '../copy-button'
 import type { SelectTrigger } from '../select'
 import type { Tabs } from '../tabs'
+
+const codeBlockVariants = cva(
+  'flex flex-col overflow-hidden rounded-xl border border-border not-has-data-[slot=code-block-header]:border-none',
+  {
+    defaultVariants: {
+      variant: 'primary',
+    },
+    variants: {
+      variant: {
+        ghost: 'bg-transparent',
+        graph:
+          '[&>[data-slot=code-block-header]]:bg-surface [&>[data-slot=code-block-window]]:bg-surface-low [&>[data-slot=code-block-window]]:bg-dot-grid',
+        primary: 'bg-surface [&>[data-slot=code-block-window]]:bg-neutral-container-low',
+      },
+    },
+  },
+)
 
 type CodeBlockProps = Omit<React.ComponentProps<'div'>, 'defaultValue'> & {
   defaultValue?: string | CodeBlockValue
@@ -24,6 +43,7 @@ interface CodeBlockValue {
   code?: string
   content?: React.ReactNode
   icon?: React.ReactNode
+  windowVariant?: 'graph' | 'primary' | 'ghost'
 }
 
 type CodeBlockTabsProps = React.ComponentProps<typeof Tabs>
@@ -50,3 +70,4 @@ export type {
   CodeBlockActionsProps,
   CodeBlockWindowProps,
 }
+export { codeBlockVariants }

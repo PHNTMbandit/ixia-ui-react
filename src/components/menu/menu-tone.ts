@@ -2,7 +2,7 @@
 const menuItemHighlightClasses =
     'data-highlighted:bg-neutral-container-high data-highlighted:text-neutral-on-container',
   menuItemBaseClasses =
-    'min-h-[calc(var(--spacing-lg)+var(--spacing-3xs)*2)] cursor-default items-center gap-xs rounded-lg px-2xs py-3xs style-text-default-0 transition-colors duration-100 outline-none select-none hover:cursor-pointer [&_svg]:size-md',
+    'min-h-[calc(var(--spacing-lg)+var(--spacing-3xs)*2)] cursor-default items-center gap-xs rounded-lg px-2xs py-3xs style-text-default-0 transition-colors duration-hover outline-none select-none hover:cursor-pointer [&_svg]:size-md',
   menuItemToneClasses = {
     accent:
       'text-accent-default data-highlighted:text-accent-on-container data-highlighted:bg-accent-container',

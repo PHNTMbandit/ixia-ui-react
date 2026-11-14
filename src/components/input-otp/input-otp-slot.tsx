@@ -11,7 +11,7 @@ export function InputOTPSlot({ className, ...props }: InputOTPSlotProps) {
   return (
     <OTPField.Input
       className={cn(
-        'relative h-lg min-target w-md rounded-md text-center style-text-default-0 outline outline-transparent transition-colors hover:outline-border-strong focus:outline-brand-border-strong',
+        'relative h-lg min-target w-md rounded-md text-center style-text-default-0 outline outline-transparent transition-colors duration-hover hover:outline-border-strong focus:outline-brand-border-strong',
         inputSurfaceVariants[variant],
         className,
       )}

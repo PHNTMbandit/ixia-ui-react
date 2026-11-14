@@ -12,7 +12,7 @@ type NavigationMenuContentProps = React.ComponentProps<typeof NavigationMenu.Con
 type NavigationMenuPopupProps = React.ComponentProps<typeof NavigationMenu.Positioner>
 
 const navigationMenuItemClasses =
-    'flex items-center justify-center rounded-full bg-transparent no-underline transition-colors select-none hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
+    'flex items-center justify-center rounded-full bg-transparent no-underline transition-colors duration-hover select-none hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
   navigationMenuSizes = {
     large:
       'h-2xl gap-xs px-md style-text-default-2 [&>[data-slot=nav-menu-icon]]:ml-md [&>svg]:size-lg',
@@ -64,7 +64,7 @@ const navigationMenuItemClasses =
     },
   }),
   navigationMenuContentLinkVariants = cva(
-    'block rounded-xl px-sm py-xs no-underline transition-colors hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
+    'block rounded-xl px-sm py-xs no-underline transition-colors duration-hover hover:cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-1',
     {
       defaultVariants: {
         tone: 'neutral',

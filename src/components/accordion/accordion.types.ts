@@ -22,7 +22,7 @@ const accordionVariants = cva('flex flex-col justify-center', {
     },
   }),
   accordionItemVariants = cva(
-    'group transition-all data-disabled:pointer-events-none data-disabled:opacity-50',
+    'group transition-all duration-hover data-disabled:pointer-events-none data-disabled:opacity-50',
     {
       defaultVariants: {
         size: 'medium',

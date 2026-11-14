@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 
@@ -75,6 +76,22 @@ test('component subpaths have JavaScript and declarations without an aggregate r
   assert.equal(
     fileURLToPath(import.meta.resolve(`${manifest.name}/button`)),
     fileURLToPath(new URL('dist/button/index.js', root)),
+  )
+})
+
+test('built Tailwind classes do not contain escaped quotes', () => {
+  const dist = fileURLToPath(new URL('dist/', root)),
+    offenders = readdirSync(dist, { recursive: true })
+      .filter((file) => file.endsWith('.js'))
+      .flatMap((file) =>
+        [...readFileSync(join(dist, file), 'utf8').matchAll(/\[[^\s\]]*=\\"\S*?\]:\S+/g)].map(
+          ([match]) => `${file}: ${match}`,
+        ),
+      )
+  assert.deepEqual(
+    offenders,
+    [],
+    'Consumers scan dist, so escaped quotes generate selectors that never match; use unquoted attribute values',
   )
 })
 

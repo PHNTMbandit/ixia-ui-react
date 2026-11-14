@@ -50,7 +50,7 @@ const defaultClassNames = getDefaultClassNames(),
   calendarClassNames: PropsBase['classNames'] = {
     caption_label: 'style-text-strong-0',
     day: cn(
-      'size-xl! rounded-full style-text-default-0 transition-colors hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
+      'size-xl! rounded-full style-text-default-0 transition-colors duration-hover hover:bg-brand-container hover:text-brand-on-container data-selected:text-brand-on-default data-selected:hover:bg-brand-default',
       defaultClassNames.day,
     ),
     day_button: cn('size-xl! rounded-full', defaultClassNames.day_button),
