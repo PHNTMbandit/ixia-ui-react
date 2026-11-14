@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.3.1...v2.4.0) (2026-11-14)
+
+
+### Features
+
+* add variants to code block ([fca52f2](https://github.com/PHNTMbandit/ixia-ui-react/commit/fca52f2e0f2bac3150726229f6602ac72145cbb5))
+
 ## [2.3.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.3.0...v2.3.1) (2026-11-14)
 
 
