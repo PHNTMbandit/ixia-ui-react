@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.4.0...v2.4.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* improve accessibility and styling in various components ([e2456cb](https://github.com/PHNTMbandit/ixia-ui-react/commit/e2456cbe3adadd6c433f5d49ab2ef5a11a84e0dc))
+
 # [2.4.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.3.1...v2.4.0) (2026-11-14)
 
 
