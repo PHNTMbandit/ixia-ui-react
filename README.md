@@ -82,6 +82,10 @@ export function Example() {
 
 Ixia UI React includes primitives for accordions, alerts, dialogs, autocomplete, avatars, badges, breadcrumbs, buttons, charts, checkboxes, code blocks, comboboxes, context menus, drawers, dropzones, fields, forms, inputs, menus, navigation, popovers, profiles, progress, radio groups, scroll areas, selects, sidebars, sliders, switches, tables, tabs, text areas, toasts, toggles, tooltips, and more.
 
+## Documentation for AI tools
+
+Start with [llms.txt](llms.txt) for an index of Markdown guides and component references. These files are also included in the npm package and served at `llms.txt` relative to the Storybook root.
+
 ## Sponsor Development
 
 If Ixia UI React saves you time or helps your product, consider [sponsoring its development on GitHub](https://github.com/sponsors/PHNTMbandit). Sponsorship helps fund ongoing maintenance, accessibility improvements, documentation, testing, and new components. One-time and recurring support are both welcome, and sponsorship is never required to use or contribute to the library.
@@ -101,6 +105,8 @@ vp test
 vp run build
 vp run build-storybook
 ```
+
+After changing public exports or Storybook component descriptions, run `vp run docs:llms` to regenerate the AI references. Run `vp run test:llms` to check that the references are current, links resolve, and the guide examples type-check.
 
 See the [Vite+ guide](https://viteplus.dev/guide/) for CLI details.
 

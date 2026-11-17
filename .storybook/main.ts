@@ -12,6 +12,10 @@ const config: StorybookConfig = {
     defaultName: 'Overview',
   },
   framework: '@storybook/react-vite',
+  staticDirs: [
+    { from: '../llms.txt', to: '/llms.txt' },
+    { from: '../docs/llms', to: '/docs/llms' },
+  ],
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',

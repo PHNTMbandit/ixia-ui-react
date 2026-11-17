@@ -99,7 +99,7 @@ export default {
     docs: {
       description: {
         component:
-          'The Badge component conveys small pieces of information, such as statuses, categories, or counts. It supports seven semantic tones and three visual variants (`fill`, `outline`, `soft`). The three sizes (`large`, `medium`, `small`) work for both text and icon-only content. A single SVG child automatically becomes square and padding-free, preserving the compact icon dimensions.',
+          'The Badge component conveys small pieces of information, such as statuses, categories, or counts. It supports seven semantic tones and three visual variants (`fill`, `outline`, `soft`). The two sizes (`large`, `medium`) work for both text and icon-only content. A single SVG child automatically becomes square and padding-free, preserving the compact icon dimensions.',
       },
       subtitle: 'A compact element for displaying status, labels, or counts.',
     },

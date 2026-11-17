@@ -362,7 +362,7 @@ export default {
       control: 'boolean',
       description: 'Highlights items as the pointer moves over them.',
       table: {
-        defaultValue: { summary: 'false' },
+        defaultValue: { summary: 'true' },
       },
     },
     items: {
@@ -389,7 +389,7 @@ export default {
       control: 'boolean',
       description: 'Opens the suggestions popup when the input is clicked.',
       table: {
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
   },

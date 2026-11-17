@@ -23,7 +23,9 @@
     "url": "https://github.com/PHNTMbandit/ixia-ui-react.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "docs/llms",
+    "llms.txt"
   ],
   "type": "module",
   "sideEffects": [
@@ -52,6 +54,7 @@
     "commit:skip": "git add . && git commit --no-verify",
     "cz": "cz",
     "dev": "vp pack --watch",
+    "docs:llms": "node tools/generate-llms.mjs",
     "figma": "vp run build-storybook && vp run figma:export && vp run figma:parts && vp run figma:build",
     "figma:build": "node tools/figma/tokens.mjs && vp exec tsc --project tools/figma/tsconfig.json && vp build --config tools/figma/vite.config.ts",
     "figma:export": "node tools/figma/export.mjs",
@@ -62,6 +65,7 @@
     "preview": "vp preview",
     "storybook": "concurrently 'pnpm:watch:*'",
     "test": "vp test",
+    "test:llms": "node --test tools/llms.test.mjs",
     "test:package": "vp run pack && node --test tools/package.test.mjs",
     "watch:storybook": "storybook dev -p 6006",
     "watch:tailwind": "pnpm dlx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css --watch"
