@@ -24,7 +24,7 @@ export default {
     },
   },
   render: (args) => (
-    <Dropzone {...args} className="w-[900px]">
+    <Dropzone {...args}>
       <Dropzone.Container>
         <Dropzone.Icon>
           <FileArrowUpIcon />

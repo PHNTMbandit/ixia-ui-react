@@ -24,9 +24,9 @@ export function CodeBlockTabs({ className, children, ref, ...props }: CodeBlockT
       {...props}
     >
       <TabsList data-slot="code-block-tabs">
-        {items.map(({ label }, index) => (
+        {items.map(({ label, name, id }, index) => (
           <TabsTab key={itemKeys[index]} value={String(index)}>
-            {label}
+            {label ?? name ?? id}
           </TabsTab>
         ))}
       </TabsList>

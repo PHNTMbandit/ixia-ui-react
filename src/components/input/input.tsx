@@ -137,7 +137,7 @@ export function Input({
     if (compact) {
       return (
         <button
-          aria-label="Open color picker"
+          aria-label={`${colorValue}, open color picker`}
           className={cn(
             'relative outline-2 outline-transparent transition-colors focus-within:outline-brand-border-strong hover:cursor-pointer',
             size === 'small' && 'size-lg -outline-offset-2',

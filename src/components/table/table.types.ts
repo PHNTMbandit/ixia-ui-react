@@ -172,8 +172,9 @@ type TableRelativeTimeCellProps = React.ComponentProps<'time'> & {
   now?: Date
 }
 type TableImageCellProps = React.ComponentProps<'img'>
-type TableViewportProps = React.ComponentProps<'table'> & {
+type TableViewportProps = React.ComponentProps<'div'> & {
   grow?: boolean
+  tableProps?: Omit<React.ComponentProps<'table'>, 'children'>
 }
 type TableSortListProps = React.ComponentProps<'div'>
 type TableBadgeCellProps = Omit<BadgeProps, 'tone'> & {

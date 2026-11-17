@@ -3,38 +3,52 @@ import type { ReactNode } from 'react'
 
 const EMPTY = 0
 
-/**
- * Wraps loose text children in a `text-box-trim` span. Flex containers can't trim their
- * anonymous text items, so without this the text is centred on rounded font metrics and
- * drifts off-centre at fluid font sizes and browser zoom levels.
- */
 export function trimTextChildren(children: ReactNode): ReactNode {
+  let text = '',
+    wrapped = false,
+    textIndex = EMPTY
+
   const result: ReactNode[] = [],
-    text: (string | number)[] = [],
     flush = () => {
       if (text.length === EMPTY) {
         return
       }
-      result.push(
-        <span key={`trim-text-${result.length}`} data-slot="text" className="text-box-trim">
-          {text.join('')}
-        </span>,
-      )
-      text.length = EMPTY
+
+      if (text.trim().length === EMPTY) {
+        result.push(text)
+      } else {
+        result.push(
+          <span key={`text:${textIndex++}`} data-slot="text" className="text-box-trim">
+            {text}
+          </span>,
+        )
+        wrapped = true
+      }
+      text = ''
+    },
+    visit = (nodes: ReactNode, parentKey: string) => {
+      Children.toArray(nodes).forEach((child, index) => {
+        let key = String(index)
+        if (isValidElement(child)) {
+          key = child.key ?? key
+        }
+        const childKey = `${parentKey}/${key}`
+
+        if (typeof child === 'string' || typeof child === 'number' || typeof child === 'bigint') {
+          text += String(child)
+        } else if (isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
+          visit(child.props.children, childKey)
+        } else {
+          flush()
+          result.push(<Fragment key={`child:${childKey}`}>{child}</Fragment>)
+        }
+      })
     }
 
-  for (const child of Children.toArray(children)) {
-    if (typeof child === 'string' || typeof child === 'number') {
-      text.push(child)
-    } else if (isValidElement<{ children?: ReactNode }>(child) && child.type === Fragment) {
-      flush()
-      result.push(<Fragment key={child.key}>{trimTextChildren(child.props.children)}</Fragment>)
-    } else {
-      flush()
-      result.push(child)
-    }
-  }
+  visit(children, '')
   flush()
-
-  return result
+  if (wrapped || result.length > EMPTY) {
+    return result
+  }
+  return children
 }

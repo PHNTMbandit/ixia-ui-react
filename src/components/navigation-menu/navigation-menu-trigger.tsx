@@ -14,7 +14,13 @@ export function NavigationMenuTrigger({
 }: NavigationMenuTriggerProps) {
   return (
     <BaseNavigationMenu.Trigger
-      className={cn(navigationMenuTriggerVariants({ size, tone }), className)}
+      className={(state) => {
+        const classes = navigationMenuTriggerVariants({ size, tone })
+        if (typeof className === 'function') {
+          return cn(classes, className(state))
+        }
+        return cn(classes, className)
+      }}
       ref={ref}
       {...props}
     />
