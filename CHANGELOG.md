@@ -1,3 +1,15 @@
+# [2.5.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.4.1...v2.5.0) (2026-11-17)
+
+
+### Bug Fixes
+
+* **autocomplete:** enhance autocomplete component with new list structure and improved styling ([3c6ed55](https://github.com/PHNTMbandit/ixia-ui-react/commit/3c6ed55a67db63a081e6f8fa51e3e1dd4a15663a))
+
+
+### Features
+
+* add llms documentation and generate tooling ([71ee840](https://github.com/PHNTMbandit/ixia-ui-react/commit/71ee840873decf9ad78143b67179e72042b38da1))
+
 ## [2.4.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.4.0...v2.4.1) (2026-11-17)
 
 
