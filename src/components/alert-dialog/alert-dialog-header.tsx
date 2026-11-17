@@ -6,7 +6,7 @@ export function AlertDialogHeader({ className, ref, ...props }: AlertDialogHeade
   return (
     <div
       className={cn(
-        'grid auto-rows-min items-center gap-x-sm has-data-[slot=alert-dialog-description]:grid-rows-[auto_auto] has-data-[slot=alert-dialog-icon]:grid-cols-[auto_1fr] has-data-[slot=alert-dialog-description]:**:data-[slot=alert-dialog-icon]:row-span-2',
+        'grid auto-rows-min items-center gap-x-sm gap-y-2xs has-data-[slot=alert-dialog-description]:grid-rows-[auto_auto] has-data-[slot=alert-dialog-icon]:grid-cols-[auto_1fr] has-data-[slot=alert-dialog-description]:**:data-[slot=alert-dialog-icon]:row-span-2',
         className,
       )}
       ref={ref}

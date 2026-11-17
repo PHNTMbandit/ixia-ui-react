@@ -43,7 +43,7 @@ export function DropzoneContainer({
         )}
         {...containerProps}
       >
-        <div className="flex flex-col items-center justify-center gap-lg">{children}</div>
+        <div className="flex flex-col items-center justify-center gap-lg px-lg">{children}</div>
       </label>
       <input
         {...props}

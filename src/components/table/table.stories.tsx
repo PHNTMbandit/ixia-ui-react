@@ -1504,7 +1504,7 @@ export const ContentHeightRows: StoryObj = {
     docs: {
       description: {
         story:
-          'A fixed-height container with a content-height table. Short rows stay compact, multiline content grows naturally, and unused space stays below the table rather than stretching rows. Set the height on the surrounding container, not on the table or body.',
+          'A fixed-height container with a content-height table. Short rows stay compact, multiline content grows naturally, and unused space stays below the table rather than stretching rows. Set the height on the viewport or surrounding container, not on the native table or body.',
       },
     },
   },

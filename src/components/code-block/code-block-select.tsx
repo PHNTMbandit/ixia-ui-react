@@ -32,17 +32,25 @@ export function CodeBlockSelect({ className, children, ref, ...props }: CodeBloc
         {...props}
         variant="ghost"
       >
-        <SelectValue>{(value: string) => items[Number(value)]?.label}</SelectValue>
+        <SelectValue>
+          {(value: string) => {
+            const item = items[Number(value)]
+            return item?.label ?? item?.name ?? item?.id
+          }}
+        </SelectValue>{' '}
         <SelectIcon>
           <Icon name="chevronsUpDown" />
         </SelectIcon>
       </SelectTrigger>
       <SelectPopup>
-        <SelectList>
+        <SelectList
+          aria-label={props['aria-label'] ?? 'Select snippet'}
+          aria-labelledby={props['aria-labelledby']}
+        >
           {children}
-          {items.map(({ label }, index) => (
+          {items.map(({ label, name, id }, index) => (
             <SelectItem key={itemKeys[index]} value={String(index)}>
-              <SelectTitle>{label}</SelectTitle>
+              <SelectTitle>{label ?? name ?? id}</SelectTitle>
             </SelectItem>
           ))}
         </SelectList>
