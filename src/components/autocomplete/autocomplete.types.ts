@@ -3,11 +3,12 @@ import type { VariantProps } from 'class-variance-authority'
 
 import type { inputVariants } from '../input/input.types'
 
-type AutocompleteProps = React.ComponentProps<typeof BaseAutocomplete.Root>
+type AutocompleteProps<ItemValue = unknown> = BaseAutocomplete.Root.Props<ItemValue>
 type AutocompleteInputGroupProps = React.ComponentProps<'div'> & VariantProps<typeof inputVariants>
 type AutocompleteInputGroupAddonProps = React.ComponentProps<'div'>
 type AutocompleteInputGroupInputProps = React.ComponentProps<typeof BaseAutocomplete.Input>
 type AutocompleteContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner>
+type AutocompleteListProps = React.ComponentProps<typeof BaseAutocomplete.List>
 type AutocompleteEmptyProps = React.ComponentProps<typeof BaseAutocomplete.Empty>
 type AutocompleteGridContentProps = React.ComponentProps<typeof BaseAutocomplete.Positioner> & {
   placeholder?: string
@@ -32,6 +33,7 @@ export type {
   AutocompleteInputGroupAddonProps,
   AutocompleteInputGroupInputProps,
   AutocompleteContentProps,
+  AutocompleteListProps,
   AutocompleteGridContentProps,
   AutocompleteItemProps,
   AutocompleteGridItemProps,

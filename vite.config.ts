@@ -12,6 +12,7 @@ export default defineConfig({
   fmt: {
     ignorePatterns: [
       'dist/**',
+      'docs/llms/components/**',
       'storybook-static/**',
       'coverage/**',
       'src/styles/output.css',

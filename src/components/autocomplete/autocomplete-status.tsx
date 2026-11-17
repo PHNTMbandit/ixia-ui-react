@@ -8,7 +8,7 @@ export function AutocompleteStatus({ className, ref, ...props }: AutocompleteSta
   return (
     <BaseAutocomplete.Status
       className={cn(
-        'flex items-center gap-2xs p-xs style-text-prose--1 text-on-surface-variant empty:hidden',
+        'flex min-h-[calc(var(--spacing-lg)+var(--spacing-3xs)*2)] shrink-0 items-center gap-2xs px-2xs py-3xs style-text-prose--1 text-on-surface-muted empty:sr-only empty:min-h-0',
         className,
       )}
       ref={ref}

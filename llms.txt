@@ -1,0 +1,91 @@
+# Ixia UI React
+
+> Styled React components, hooks, and utilities built with composable primitives and Tailwind CSS 4.
+
+Import from individual `ixia-ui-react/<subpath>` entry points; there is no aggregate root import. Import `ixia-ui-react/styles` once and process it with Tailwind CSS 4.
+
+Ixia wraps some Base UI primitives, but its exports and component composition can differ from Base UI. Prefer the Ixia references and examples below.
+
+## Guides
+
+- [Getting started](docs/llms/guides/getting-started.md): Installation, imports, and optional peers.
+- [Styling and themes](docs/llms/guides/styling.md): Tailwind CSS, tokens, and brand themes.
+- [Component composition](docs/llms/guides/composition.md): Button, dialog, select, and autocomplete examples.
+- [Forms](docs/llms/guides/forms.md): TanStack React Form integration and field composition.
+
+## Components
+
+- [Accordion](docs/llms/components/accordion.md): `ixia-ui-react/accordion`. The Accordion component displays collapsible content panels.
+- [Alert](docs/llms/components/alert.md): `ixia-ui-react/alert`. The Alert component is a specialized container for displaying time-sensitive or important messages.
+- [Alert Dialog](docs/llms/components/alert-dialog.md): `ixia-ui-react/alert-dialog`. The Alert Dialog component blocks interaction with the rest of the application until the user explicitly confirms or cancels.
+- [Autocomplete](docs/llms/components/autocomplete.md): `ixia-ui-react/autocomplete`. Autocomplete improves text entry by surfacing matching suggestions in real time.
+- [Avatar](docs/llms/components/avatar.md): `ixia-ui-react/avatar`. The Avatar component visually represents a person, team member, or entity.
+- [Badge](docs/llms/components/badge.md): `ixia-ui-react/badge`. The Badge component conveys small pieces of information, such as statuses, categories, or counts.
+- [Bento Box](docs/llms/components/bento-box.md): `ixia-ui-react/bento-box`. The Bento Box component is a versatile container that allows for the organization of content into a structured and visually appealing layout.
+- [Breadcrumb](docs/llms/components/breadcrumb.md): `ixia-ui-react/breadcrumb`. The Breadcrumb component communicates the current location within a hierarchy of pages or views.
+- [Button](docs/llms/components/button.md): `ixia-ui-react/button`. The Button component is the primary action trigger across the interface.
+- [Button Group](docs/llms/components/button-group.md): `ixia-ui-react/button-group`. The Button Group component combines related buttons into one cohesive unit.
+- [Calendar](docs/llms/components/calendar.md): `ixia-ui-react/calendar`. A calendar component that allows users to select dates and view events.
+- [Chart](docs/llms/components/chart.md): `ixia-ui-react/chart`. A responsive chart container that sizes its Recharts child to the available space.
+- [Checkbox](docs/llms/components/checkbox.md): `ixia-ui-react/checkbox`. The Checkbox component supports binary and partial selection states for forms, filters, and settings.
+- [Checkbox Group](docs/llms/components/checkbox-group.md): `ixia-ui-react/checkbox-group`. Checkbox Group manages shared selection state for multiple checkbox items.
+- [Code Block](docs/llms/components/code-block.md): `ixia-ui-react/code-block`. CodeBlock manages selection, layout, copying, and downloading without depending on a syntax highlighter.
+- [Collapsible](docs/llms/components/collapsible.md): `ixia-ui-react/collapsible`. The Collapsible component is used to create collapsible sections of content.
+- [Color Channel Slider](docs/llms/components/color-channel-slider.md): `ixia-ui-react/color-channel-slider`. The Color Channel Slider adjusts a single channel of a color, such as hue, saturation, lightness or transparency, over a track that previews the resulting colors.
+- [Color Picker](docs/llms/components/color-picker.md): `ixia-ui-react/color-picker`. The Color Picker lets users choose a color with a saturation/lightness area, hue, transparency and lightness sliders, and a typed value input that switches between formats.
+- [Combobox](docs/llms/components/combobox.md): `ixia-ui-react/combobox`. The Combobox component allows users to select an option from a dropdown list.
+- [Context Menu](docs/llms/components/context-menu.md): `ixia-ui-react/context-menu`. The Context Menu component exposes contextual actions tied to a specific surface or selection.
+- [Copy Button](docs/llms/components/copy-button.md): `ixia-ui-react/copy-button`. Copies a string to the clipboard and renders temporary success feedback through a children render function.
+- [Dialog](docs/llms/components/dialog.md): `ixia-ui-react/dialog`. Dialog presents an overlay and popup that temporarily interrupts the page for focused work.
+- [Drawer](docs/llms/components/drawer.md): `ixia-ui-react/drawer`. The Drawer component presents supplementary content in a panel that slides in from the edge of the screen.
+- [Dropzone](docs/llms/components/dropzone.md): `ixia-ui-react/dropzone`. The Dropzone lets users upload files by dragging them into an area or browsing from their device.
+- [Field](docs/llms/components/field.md): `ixia-ui-react/field`. `Field` lays out **one** form control with its label and supporting text.
+- [Form](docs/llms/components/form.md): `ixia-ui-react/form`. `Form` renders a native `<form>` wired to TanStack Form state.
+- [Icon](docs/llms/components/icon.md): `ixia-ui-react/icon`. The Icon component renders the named system icons used across Ixia UI, such as chevrons, status indicators, file actions and sorting controls.
+- [Icon Container](docs/llms/components/icon-container.md): `ixia-ui-react/icon-container`. IconContainer pairs an icon with a semantic background and foreground tone.
+- [Input](docs/llms/components/input.md): `ixia-ui-react/input`. The Input component is a foundational form control for entering text and selecting colors.
+- [Input Group](docs/llms/components/input-group.md): `ixia-ui-react/input-group`. Input Group combines one editable input with optional addons (icons, text labels, shortcuts, spinners, and buttons) into a single cohesive control.
+- [Input OTP](docs/llms/components/input-otp.md): `ixia-ui-react/input-otp`. The Input OTP component provides a segmented input experience for collecting one-time passcodes.
+- [Kbd](docs/llms/components/kbd.md): `ixia-ui-react/kbd`. The Kbd component highlights keyboard keys or shortcut combinations in compact keycap styling.
+- [Label](docs/llms/components/label.md): `ixia-ui-react/label`. The Label component is used to provide descriptive text for form elements such as input fields, checkboxes, and radio buttons.
+- [Layer Tree](docs/llms/components/layer-tree.md): `ixia-ui-react/layer-tree`. The Layer Tree component displays hierarchical data using TanStack Table.
+- [Map](docs/llms/components/map.md): `ixia-ui-react/map`. Provider-independent map controls and layer state for composing map interfaces.
+- [Menu](docs/llms/components/menu.md): `ixia-ui-react/menu`. The Menu component displays a popup list of actions anchored to a trigger.
+- [Meter](docs/llms/components/meter.md): `ixia-ui-react/meter`. The Meter component visualizes bounded values such as upload progress, quota usage, battery levels, and background task completion.
+- [Nav Bar](docs/llms/components/nav-bar.md): `ixia-ui-react/nav-bar`. NavBar is a compact bottom navigation surface composed of `NavBarItem`, `NavBarItemIcon`, and `NavBarItemLabel`.
+- [Navigation Menu](docs/llms/components/navigation-menu.md): `ixia-ui-react/navigation-menu`. A collection of links and menus for website navigation, built on top of [Base UI NavigationMenu](https://base-ui.com/react/components/navigation-menu).
+- [Number Field](docs/llms/components/number-field.md): `ixia-ui-react/number-field`. The Number Field component supports typed input, increment/decrement controls, and scrub-area dragging for fast numeric adjustments.
+- [Popover](docs/llms/components/popover.md): `ixia-ui-react/popover`. The Popover component provides a way to display additional information or actions in a floating container that appears on user interaction, such as clicking or hovering over an element.
+- [Preview Card](docs/llms/components/preview-card.md): `ixia-ui-react/preview-card`. A card component for previewing content.
+- [Profile](docs/llms/components/profile.md): `ixia-ui-react/profile`. The Profile component combines avatar, user identity text, and optional right-side actions.
+- [Progress](docs/llms/components/progress.md): `ixia-ui-react/progress`. The Progress component helps represent multi-step workflows such as onboarding, checkout, and setup flows.
+- [Radar Ping](docs/llms/components/radar-ping.md): `ixia-ui-react/radar-ping`. The RadarPing renders an absolutely-positioned pulsing dot anchored to the top-right corner of its relative container.
+- [Radio Group](docs/llms/components/radio-group.md): `ixia-ui-react/radio-group`. The Radio Group component lets users choose one value from a list of options.
+- [Resizeable](docs/llms/components/resizeable.md): `ixia-ui-react/resizeable`. The Resizeable components are built for creating split-pane interfaces such as dashboards, editors, and tool workspaces.
+- [Scroll Area](docs/llms/components/scroll-area.md): `ixia-ui-react/scroll-area`. ScrollArea provides a polished container for content that exceeds its visible bounds.
+- [Select](docs/llms/components/select.md): `ixia-ui-react/select`. The Select component presents a controlled or uncontrolled choice list inside a popup.
+- [Separator](docs/llms/components/separator.md): `ixia-ui-react/separator`. Separator visually partitions related content while preserving layout rhythm.
+- [Sidebar](docs/llms/components/sidebar.md): `ixia-ui-react/sidebar`. Sidebar is a layout-aware navigation surface built from composable primitives such as groups, menu items, badges, and collapsible sections.
+- [Site Header](docs/llms/components/site-header.md): `ixia-ui-react/site-header`. The SiteHeader component represents the top navigation bar of the application.
+- [Skeleton](docs/llms/components/skeleton.md): `ixia-ui-react/skeleton`. The Skeleton component is used to display placeholder loading skeletons while content is being fetched or loaded.
+- [Slider](docs/llms/components/slider.md): `ixia-ui-react/slider`. The Slider component allows users to select a value from a continuous or discrete range by dragging a thumb along a track.
+- [Slider Group](docs/llms/components/slider-group.md): `ixia-ui-react/slider-group`. SliderGroup owns the shared value and configuration for a slider and its companions.
+- [Switch](docs/llms/components/switch.md): `ixia-ui-react/switch`. The Switch component allows users to toggle between two states, such as on and off.
+- [Table](docs/llms/components/table.md): `ixia-ui-react/table`. A composition-first data table built on TanStack Table.
+- [Table Of Contents](docs/llms/components/table-of-contents.md): `ixia-ui-react/table-of-contents`. A table of contents that lists the headings of a long article and highlights the section currently in view.
+- [Tabs](docs/llms/components/tabs.md): `ixia-ui-react/tabs`. The Tabs component allows users to navigate between different sections of content within the same context.
+- [Text Area](docs/llms/components/text-area.md): `ixia-ui-react/text-area`. The TextArea component provides a multi-line input field that allows users to enter and edit larger amounts of text.
+- [Toast](docs/llms/components/toast.md): `ixia-ui-react/toast`. Toast provides transient feedback for user actions.
+- [Toggle](docs/llms/components/toggle.md): `ixia-ui-react/toggle`. The Toggle component allows users to switch between two states, such as on and off.
+- [Toggle Group](docs/llms/components/toggle-group.md): `ixia-ui-react/toggle-group`. Toggle Group organizes related toggles into one control.
+- [Tooltip](docs/llms/components/tooltip.md): `ixia-ui-react/tooltip`. Tooltip provides contextual hints without adding permanent UI clutter.
+- [Google Map](docs/llms/components/map-google.md): `ixia-ui-react/map/google`. Google Maps components built on `@vis.gl/react-google-maps`, with Places search, deck.gl overlays, and Google Maps marker overlays.
+
+## Hooks and utilities
+
+- [Hooks](docs/llms/components/hooks.md): `ixia-ui-react/hooks`. Shared hooks for media queries and application color themes.
+- [Utils](docs/llms/components/utils.md): `ixia-ui-react/utils`. Shared utilities for merging class names and formatting dates.
+
+## Upstream
+
+- [Base UI LLM index](https://base-ui.com/llms.txt): Upstream primitives and behavior; Ixia wrappers may differ.

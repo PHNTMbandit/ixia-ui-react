@@ -8,7 +8,7 @@ export function AutocompleteEmpty({ className, ref, ...props }: AutocompleteEmpt
   return (
     <BaseAutocomplete.Empty
       className={cn(
-        'flex items-center gap-2xs px-sm py-xs style-text-prose--1 text-on-surface-variant empty:p-0',
+        'flex min-h-[calc(var(--spacing-lg)+var(--spacing-3xs)*2)] shrink-0 items-center gap-2xs px-2xs py-3xs style-text-prose--1 text-on-surface-variant empty:hidden',
         className,
       )}
       ref={ref}

@@ -23,14 +23,25 @@ const highlight = { states: ['Default', 'Highlighted'] } satisfies Partial<Figma
 const highlighted = (combo: Combo) =>
   combo.State === 'Highlighted' ? { 'data-highlighted': '' } : {}
 
-function Open({ children, empty = false }: { children: ReactNode; empty?: boolean }) {
+function Open({
+  children,
+  empty = false,
+  feedback,
+}: {
+  children?: ReactNode
+  empty?: boolean
+  feedback?: ReactNode
+}) {
   return (
     <div style={{ width: 280, height: 260 }}>
       <Autocomplete open items={empty ? [] : options}>
         <Autocomplete.InputGroup>
           <Autocomplete.InputGroupInput aria-label="Search fruit" placeholder="Search fruit" />
         </Autocomplete.InputGroup>
-        <Autocomplete.Content>{children}</Autocomplete.Content>
+        <Autocomplete.Content>
+          {feedback}
+          <Autocomplete.List>{children}</Autocomplete.List>
+        </Autocomplete.Content>
       </Autocomplete>
     </div>
   )
@@ -235,12 +246,15 @@ export const Empty: Story = {
     } satisfies FigmaSpec,
   },
   render: () => (
-    <Open empty>
-      <Autocomplete.Empty {...target(0)}>
-        <Icon name="search" aria-hidden="true" {...swap('icon', false)} />
-        <span {...text('label')}>No matches found</span>
-      </Autocomplete.Empty>
-    </Open>
+    <Open
+      empty
+      feedback={
+        <Autocomplete.Empty {...target(0)}>
+          <Icon name="search" aria-hidden="true" {...swap('icon', false)} />
+          <span {...text('label')}>No matches found</span>
+        </Autocomplete.Empty>
+      }
+    />
   ),
 }
 
@@ -256,12 +270,14 @@ export const Status: Story = {
     } satisfies FigmaSpec,
   },
   render: () => (
-    <Open>
-      <Autocomplete.Status {...target(0)}>
-        <Icon name="info" aria-hidden="true" {...swap('icon', false)} />
-        <span {...text('label')}>3 results available</span>
-      </Autocomplete.Status>
-    </Open>
+    <Open
+      feedback={
+        <Autocomplete.Status {...target(0)}>
+          <Icon name="info" aria-hidden="true" {...swap('icon', false)} />
+          <span {...text('label')}>3 results available</span>
+        </Autocomplete.Status>
+      }
+    />
   ),
 }
 
@@ -440,9 +456,10 @@ function Results({ state }: { state?: string }) {
         <Autocomplete.Status {...part('Autocomplete/Status', {})}>
           <span {...text('label')}>Searching…</span>
         </Autocomplete.Status>
-      ) : (
-        <ResultGroup />
-      )}
+      ) : null}
+      <Autocomplete.List>
+        {state !== 'Empty' && state !== 'Loading' && <ResultGroup />}
+      </Autocomplete.List>
     </div>
   )
 }
@@ -566,7 +583,7 @@ export const Root: Story = {
         },
       },
       usage:
-        '<Autocomplete items={items}><Autocomplete.InputGroup><Autocomplete.InputGroupInput aria-label="Search" /><Autocomplete.InputGroupAddon><Icon name="search" /></Autocomplete.InputGroupAddon></Autocomplete.InputGroup><Autocomplete.Content><Autocomplete.Collection>{item => <Autocomplete.Item value={item}>{item}</Autocomplete.Item>}</Autocomplete.Collection></Autocomplete.Content></Autocomplete>',
+        '<Autocomplete items={items}><Autocomplete.InputGroup><Autocomplete.InputGroupInput aria-label="Search" /><Autocomplete.InputGroupAddon><Icon name="search" /></Autocomplete.InputGroupAddon></Autocomplete.InputGroup><Autocomplete.Content><Autocomplete.List><Autocomplete.Collection>{item => <Autocomplete.Item value={item}>{item}</Autocomplete.Item>}</Autocomplete.Collection></Autocomplete.List></Autocomplete.Content></Autocomplete>',
     } satisfies FigmaSpec,
   },
   render: () => (
