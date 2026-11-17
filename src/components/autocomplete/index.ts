@@ -10,6 +10,7 @@ import { AutocompleteInputGroup } from './autocomplete-input-group'
 import { AutocompleteInputGroupAddon } from './autocomplete-input-group-addon'
 import { AutocompleteInputGroupInput } from './autocomplete-input-group-input'
 import { AutocompleteItem } from './autocomplete-item'
+import { AutocompleteList } from './autocomplete-list'
 import { AutocompleteRow } from './autocomplete-row'
 import { AutocompleteStatus } from './autocomplete-status'
 import { AutocompleteTrigger } from './autocomplete-trigger'
@@ -26,6 +27,7 @@ const Autocomplete = Object.assign(AutocompleteRoot, {
   InputGroupAddon: AutocompleteInputGroupAddon,
   InputGroupInput: AutocompleteInputGroupInput,
   Item: AutocompleteItem,
+  List: AutocompleteList,
   Row: AutocompleteRow,
   Status: AutocompleteStatus,
   Trigger: AutocompleteTrigger,
@@ -43,6 +45,7 @@ export type {
   AutocompleteInputGroupInputProps,
   AutocompleteInputGroupProps,
   AutocompleteItemProps,
+  AutocompleteListProps,
   AutocompleteProps,
   AutocompleteRowProps,
   AutocompleteStatusProps,
@@ -59,6 +62,7 @@ export { AutocompleteInputGroup } from './autocomplete-input-group'
 export { AutocompleteInputGroupAddon } from './autocomplete-input-group-addon'
 export { AutocompleteInputGroupInput } from './autocomplete-input-group-input'
 export { AutocompleteItem } from './autocomplete-item'
+export { AutocompleteList } from './autocomplete-list'
 export { AutocompleteRow } from './autocomplete-row'
 export { AutocompleteStatus } from './autocomplete-status'
 export { AutocompleteTrigger } from './autocomplete-trigger'

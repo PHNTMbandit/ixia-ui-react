@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon, SpinnerGapIcon, TagIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { expect, userEvent, within } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 
 import { Button } from '../button'
 import { useFilter } from './autocomplete.types'
@@ -70,6 +70,66 @@ const AUTOCOMPLETE_MODES = [
     { id: '8', title: 'Interstellar', year: 2014 },
     { id: '9', title: 'Parasite', year: 2019 },
     { id: '10', title: 'Whiplash', year: 2014 },
+    { id: '11', title: 'Goodfellas', year: 1990 },
+    { id: '12', title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+    { id: '13', title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+    { id: '14', title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+    { id: '15', title: 'Forrest Gump', year: 1994 },
+    { id: '16', title: 'The Silence of the Lambs', year: 1991 },
+    { id: '17', title: "Schindler's List", year: 1993 },
+    { id: '18', title: 'Saving Private Ryan', year: 1998 },
+    { id: '19', title: 'The Green Mile', year: 1999 },
+    { id: '20', title: 'The Departed', year: 2006 },
+    { id: '21', title: 'The Prestige', year: 2006 },
+    { id: '22', title: 'Gladiator', year: 2000 },
+    { id: '23', title: 'The Lion King', year: 1994 },
+    { id: '24', title: 'Spirited Away', year: 2001 },
+    { id: '25', title: 'Princess Mononoke', year: 1997 },
+    { id: '26', title: 'Your Name', year: 2016 },
+    { id: '27', title: 'The Grand Budapest Hotel', year: 2014 },
+    { id: '28', title: 'The Truman Show', year: 1998 },
+    { id: '29', title: 'Eternal Sunshine of the Spotless Mind', year: 2004 },
+    { id: '30', title: 'Jurassic Park', year: 1993 },
+    { id: '31', title: 'Back to the Future', year: 1985 },
+    { id: '32', title: 'Jaws', year: 1975 },
+    { id: '33', title: 'Alien', year: 1979 },
+    { id: '34', title: 'Aliens', year: 1986 },
+    { id: '35', title: 'Blade Runner', year: 1982 },
+    { id: '36', title: 'Blade Runner 2049', year: 2017 },
+    { id: '37', title: 'Casablanca', year: 1942 },
+    { id: '38', title: 'Rear Window', year: 1954 },
+    { id: '39', title: '12 Angry Men', year: 1957 },
+    { id: '40', title: 'Psycho', year: 1960 },
+    { id: '41', title: '2001: A Space Odyssey', year: 1968 },
+    { id: '42', title: 'The Good, the Bad and the Ugly', year: 1966 },
+    { id: '43', title: 'Apocalypse Now', year: 1979 },
+    { id: '44', title: 'Star Wars', year: 1977 },
+    { id: '45', title: 'The Empire Strikes Back', year: 1980 },
+    { id: '46', title: 'Return of the Jedi', year: 1983 },
+    { id: '47', title: 'Raiders of the Lost Ark', year: 1981 },
+    { id: '48', title: 'Terminator 2: Judgment Day', year: 1991 },
+    { id: '49', title: 'The Shining', year: 1980 },
+    { id: '50', title: 'The Thing', year: 1982 },
+    { id: '51', title: 'The Princess Bride', year: 1987 },
+    { id: '52', title: 'Die Hard', year: 1988 },
+    { id: '53', title: 'The Big Lebowski', year: 1998 },
+    { id: '54', title: 'Heat', year: 1995 },
+    { id: '55', title: 'Se7en', year: 1995 },
+    { id: '56', title: 'No Country for Old Men', year: 2007 },
+    { id: '57', title: 'There Will Be Blood', year: 2007 },
+    { id: '58', title: 'The Social Network', year: 2010 },
+    { id: '59', title: 'Mad Max: Fury Road', year: 2015 },
+    { id: '60', title: 'Arrival', year: 2016 },
+    { id: '61', title: 'Get Out', year: 2017 },
+    { id: '62', title: 'Coco', year: 2017 },
+    { id: '63', title: 'Spider-Man: Into the Spider-Verse', year: 2018 },
+    { id: '64', title: 'Knives Out', year: 2019 },
+    { id: '65', title: 'Dune', year: 2021 },
+    { id: '66', title: 'Everything Everywhere All at Once', year: 2022 },
+    { id: '67', title: 'Oppenheimer', year: 2023 },
+    { id: '68', title: 'Poor Things', year: 2023 },
+    { id: '69', title: 'Dune: Part Two', year: 2024 },
+    { id: '70', title: 'The Godfather Part II', year: 1974 },
   ]
 
 function groupTags(tags: TagItem[]): TagGroup[] {
@@ -117,20 +177,27 @@ const groupedTags = groupTags(tagsData),
         </Autocomplete.InputGroup>
         <Autocomplete.Content>
           <Autocomplete.Empty>No matches found</Autocomplete.Empty>
-          <Autocomplete.Collection>
-            {(tag: TagItem) => (
-              <Autocomplete.Item key={tag.id} value={tag}>
-                {tag.label}
-              </Autocomplete.Item>
-            )}
-          </Autocomplete.Collection>
+          <Autocomplete.List>
+            <Autocomplete.Collection>
+              {(tag: TagItem) => (
+                <Autocomplete.Item key={tag.id} value={tag}>
+                  {tag.label}
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.Collection>
+          </Autocomplete.List>
         </Autocomplete.Content>
       </Autocomplete>
     </div>
   ),
   GroupedAutocompleteTemplate = ({ mode = 'both' }: { mode?: AutocompleteMode }) => (
     <div className="w-[420px]">
-      <Autocomplete items={groupedTags} mode={mode} openOnInputClick>
+      <Autocomplete
+        itemToStringValue={(tag) => tag.label}
+        items={groupedTags}
+        mode={mode}
+        openOnInputClick
+      >
         <Autocomplete.InputGroup variant="primary">
           <Autocomplete.InputGroupInput placeholder="Search grouped tags" />
           <Autocomplete.InputGroupAddon>
@@ -139,18 +206,20 @@ const groupedTags = groupTags(tagsData),
         </Autocomplete.InputGroup>
         <Autocomplete.Content>
           <Autocomplete.Empty>No grouped results found</Autocomplete.Empty>
-          {groupedTags.map((group) => (
-            <Autocomplete.Group items={group.items} key={group.value}>
-              <Autocomplete.GroupLabel>{group.value}</Autocomplete.GroupLabel>
-              <Autocomplete.Collection>
-                {(item: TagItem) => (
-                  <Autocomplete.Item key={item.id} value={item}>
-                    {item.label}
-                  </Autocomplete.Item>
-                )}
-              </Autocomplete.Collection>
-            </Autocomplete.Group>
-          ))}
+          <Autocomplete.List>
+            {groupedTags.map((group) => (
+              <Autocomplete.Group items={group.items} key={group.value}>
+                <Autocomplete.GroupLabel>{group.value}</Autocomplete.GroupLabel>
+                <Autocomplete.Collection>
+                  {(item: TagItem) => (
+                    <Autocomplete.Item key={item.id} value={item}>
+                      {item.label}
+                    </Autocomplete.Item>
+                  )}
+                </Autocomplete.Collection>
+              </Autocomplete.Group>
+            ))}
+          </Autocomplete.List>
         </Autocomplete.Content>
       </Autocomplete>
     </div>
@@ -194,11 +263,11 @@ const AsyncLoadingTemplate = () => {
 
     let cancelled = false
 
-    startTransition(() => {
-      void searchMovies(searchValue, contains).then((result) => {
-        if (cancelled) {
-          return
-        }
+    startTransition(async () => {
+      const result = await searchMovies(searchValue, contains)
+      if (cancelled) return
+
+      startTransition(() => {
         setSearchResults(result.movies)
         setError(result.error)
       })
@@ -215,10 +284,10 @@ const AsyncLoadingTemplate = () => {
   function getStatus(): React.ReactNode | null {
     if (isPending) {
       return (
-        <div className="flex items-center gap-3xs">
-          <SpinnerGapIcon aria-hidden className="size-xs animate-spin" weight="bold" />
+        <>
+          <SpinnerGapIcon aria-hidden className="size-sm animate-spin" weight="bold" />
           Searching…
-        </div>
+        </>
       )
     }
 
@@ -226,8 +295,8 @@ const AsyncLoadingTemplate = () => {
       return displayError
     }
 
-    if (!hasQuery) {
-      return 'Start typing to search movies.'
+    if (results.length === 0) {
+      return null
     }
 
     return `${results.length} result${results.length === 1 ? '' : 's'} found`
@@ -235,32 +304,39 @@ const AsyncLoadingTemplate = () => {
 
   return (
     <div className="w-[420px]">
-      <Autocomplete items={results} mode="list" openOnInputClick>
+      <Autocomplete
+        filter={null}
+        itemToStringValue={(movie) => movie.title}
+        items={results}
+        mode="list"
+        onValueChange={setSearchValue}
+        value={searchValue}
+      >
         <Autocomplete.InputGroup variant="primary">
-          <Autocomplete.InputGroupInput
-            onChange={(event) => setSearchValue(event.currentTarget.value)}
-            placeholder="Search top movies"
-            value={searchValue}
-          />
+          <Autocomplete.InputGroupInput placeholder="Search top movies" />
           <Autocomplete.InputGroupAddon>
             <MagnifyingGlassIcon weight="bold" />
           </Autocomplete.InputGroupAddon>
         </Autocomplete.InputGroup>
         <Autocomplete.Content>
-          <Autocomplete.Empty>No matching movies</Autocomplete.Empty>
+          {!isPending && !displayError && hasQuery && results.length === 0 && (
+            <Autocomplete.Empty>No matching movies</Autocomplete.Empty>
+          )}
           <Autocomplete.Status>{getStatus()}</Autocomplete.Status>
-          <Autocomplete.Collection>
-            {(movie: Movie) => (
-              <Autocomplete.Item key={movie.id} value={movie}>
-                <div className="flex w-full items-center justify-between gap-sm">
-                  <span>{movie.title}</span>
-                  <span className="style-text-default--1 text-on-surface-variant">
-                    {movie.year}
-                  </span>
-                </div>
-              </Autocomplete.Item>
-            )}
-          </Autocomplete.Collection>
+          <Autocomplete.List>
+            <Autocomplete.Collection>
+              {(movie: Movie) => (
+                <Autocomplete.Item key={movie.id} value={movie}>
+                  <div className="flex w-full items-center justify-between gap-sm">
+                    <span>{movie.title}</span>
+                    <span className="style-text-default--1 text-on-surface-variant">
+                      {movie.year}
+                    </span>
+                  </div>
+                </Autocomplete.Item>
+              )}
+            </Autocomplete.Collection>
+          </Autocomplete.List>
         </Autocomplete.Content>
       </Autocomplete>
     </div>
@@ -329,7 +405,7 @@ export default {
     docs: {
       description: {
         component:
-          'Autocomplete improves text entry by surfacing matching suggestions in real time. Its input group and grid search support primary, secondary, ghost, and outline surface variants. It also supports list and inline completion modes, grouped results, trigger-based grid pickers, and async status feedback.',
+          'Autocomplete improves text entry by surfacing matching suggestions in real time. Its input group and grid search support primary, secondary, ghost, and outline surface variants. Typed items infer callback item types for both flat and grouped lists. Place Status and Empty directly inside Content, alongside an explicit List containing items, collections, or groups. Content provides the shared popup padding; List scrolls independently of feedback. GridContent continues to provide its own list.',
       },
       subtitle: 'An input enhancement that suggests matching options while the user types.',
     },
@@ -345,6 +421,7 @@ export default {
   ),
   subcomponents: {
     Content: Autocomplete.Content,
+    Empty: Autocomplete.Empty,
     GridContent: Autocomplete.GridContent,
     GridItem: Autocomplete.GridItem,
     Group: Autocomplete.Group,
@@ -353,6 +430,7 @@ export default {
     InputGroupAddon: Autocomplete.InputGroupAddon,
     InputGroupInput: Autocomplete.InputGroupInput,
     Item: Autocomplete.Item,
+    List: Autocomplete.List,
     Row: Autocomplete.Row,
     Status: Autocomplete.Status,
     Trigger: Autocomplete.Trigger,
@@ -544,6 +622,40 @@ export const ListMode: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByPlaceholderText('Search tags or components'),
+      page = within(canvasElement.ownerDocument.body)
+    await userEvent.click(input)
+    const list = await page.findByRole('listbox'),
+      option = page.getByRole('option', { name: 'feature' }),
+      optionStyle = getComputedStyle(option),
+      padding = [
+        optionStyle.paddingTop,
+        optionStyle.paddingRight,
+        optionStyle.paddingBottom,
+        optionStyle.paddingLeft,
+      ],
+      minHeight = optionStyle.minHeight,
+      optionLeft = option.getBoundingClientRect().left
+
+    await userEvent.type(input, 'no_such_tag')
+    const empty = await page.findByText('No matches found'),
+      emptyStyle = getComputedStyle(empty)
+    await expect(list).not.toBeVisible()
+    await expect(empty.parentElement).toBe(list.parentElement)
+    await expect([
+      emptyStyle.paddingTop,
+      emptyStyle.paddingRight,
+      emptyStyle.paddingBottom,
+      emptyStyle.paddingLeft,
+    ]).toEqual(padding)
+    await expect(empty.getBoundingClientRect().left).toBeCloseTo(optionLeft, 0)
+    await expect(emptyStyle.minHeight).toBe(minHeight)
+
+    await userEvent.clear(input)
+    await userEvent.keyboard('{ArrowDown}{Enter}')
+    await expect(input).toHaveValue('feature')
+  },
 }
 
 export const InlineMode: Story = {
@@ -635,9 +747,59 @@ export const AsyncLoadingState: Story = {
     docs: {
       description: {
         story:
-          'An async search pattern with live status feedback, loading state, and empty/error handling.',
+          'Search a catalog of movies by title or year with live status feedback, loading state, and empty/error handling.',
       },
     },
   },
   render: () => <AsyncLoadingTemplate />,
+  play: async ({ canvasElement }) => {
+    const input = within(canvasElement).getByPlaceholderText('Search top movies'),
+      page = within(canvasElement.ownerDocument.body),
+      random = Math.random
+    Math.random = () => 0.5
+    try {
+      await userEvent.type(input, 'will_error')
+
+      const status = await page.findByRole('status'),
+        list = page.getByRole('listbox', { hidden: true })
+      await expect(status).toHaveTextContent('Searching…')
+      await expect(status.querySelector('svg')).toBeInTheDocument()
+      await expect(status.parentElement).toBe(list.parentElement)
+      await expect(list).not.toBeVisible()
+      await expect(page.queryByText('No matching movies')).not.toBeInTheDocument()
+
+      await waitFor(() => {
+        expect(status).toHaveTextContent('Failed to fetch movies. Please try again.')
+      })
+      await expect(page.queryByText('No matching movies')).not.toBeInTheDocument()
+      await userEvent.clear(input)
+      await expect(status).toBeEmptyDOMElement()
+      await expect(getComputedStyle(status).position).toBe('absolute')
+
+      await userEvent.type(input, 'Jurassic')
+      await expect(await page.findByRole('option', { name: /Jurassic Park.*1993/ })).toBeVisible()
+      await expect(page.getByRole('status')).toHaveTextContent('1 result found')
+
+      await userEvent.clear(input)
+      await userEvent.type(input, '1993')
+      const jurassicPark = await page.findByRole('option', { name: /Jurassic Park.*1993/ })
+      await expect(
+        await page.findByRole('option', { name: /Schindler's List.*1993/ }),
+      ).toBeVisible()
+      await expect(page.getByRole('status')).toHaveTextContent('2 results found')
+      await userEvent.click(jurassicPark)
+      await expect(input).toHaveValue('Jurassic Park')
+
+      await userEvent.clear(input)
+      await userEvent.type(input, 'the')
+      await waitFor(() => {
+        expect(page.getAllByRole('option').length).toBeGreaterThan(10)
+      })
+      const resultsList = page.getByRole('listbox')
+      await expect(resultsList.scrollHeight).toBeGreaterThan(resultsList.clientHeight)
+      await userEvent.clear(input)
+    } finally {
+      Math.random = random
+    }
+  },
 }
