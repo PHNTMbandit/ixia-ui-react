@@ -14,6 +14,7 @@ import { SidebarMenuCollapsiblePanel } from './sidebar-menu-collapsible-panel'
 import { SidebarMenuCollapsibleTrigger } from './sidebar-menu-collapsible-trigger'
 import { SidebarMenuItem } from './sidebar-menu-item'
 import { SidebarProvider } from './sidebar-provider'
+import { SidebarTitle } from './sidebar-title'
 import { SidebarToggle } from './sidebar-toggle'
 
 const Sidebar = Object.assign(SidebarRoot, {
@@ -32,10 +33,12 @@ const Sidebar = Object.assign(SidebarRoot, {
   MenuCollapsibleTrigger: SidebarMenuCollapsibleTrigger,
   MenuItem: SidebarMenuItem,
   Provider: SidebarProvider,
+  Title: SidebarTitle,
   Toggle: SidebarToggle,
 })
 
 export type {
+  SidebarTitleProps,
   SidebarContentProps,
   SidebarFooterProps,
   SidebarGroupContentProps,
@@ -70,5 +73,6 @@ export { SidebarMenuCollapsiblePanel } from './sidebar-menu-collapsible-panel'
 export { SidebarMenuCollapsibleTrigger } from './sidebar-menu-collapsible-trigger'
 export { SidebarMenuItem } from './sidebar-menu-item'
 export { getStoredSidebarOpen } from './sidebar.utils'
+export { SidebarTitle } from './sidebar-title'
 
 export { Sidebar }

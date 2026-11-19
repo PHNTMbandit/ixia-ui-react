@@ -1,5 +1,12 @@
-import { CaretUpDownIcon, EnvelopeIcon, PasswordIcon } from '@phosphor-icons/react'
+import {
+  CaretUpDownIcon,
+  EnvelopeIcon,
+  PasswordIcon,
+  SignInIcon,
+  UserIcon,
+} from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useId, useState } from 'react'
 import { expect, waitFor, within } from 'storybook/test'
 import { z } from 'zod'
 
@@ -232,6 +239,7 @@ export const Sections: Story = {
               </form.AppField>
             </Field.Group>
           </Field.Set>
+          <Field.Separator />
           <Field.Set>
             <Field.Legend>Account information</Field.Legend>
             <Field.Group>
@@ -816,6 +824,145 @@ export const WorkspaceConfiguration: Story = {
               Reset
             </form.Reset>
             <form.Submit>Save workspace</form.Submit>
+          </form.Actions>
+        </form.AppForm>
+      </Form>
+    )
+  },
+}
+
+export const Login: Story = {
+  name: 'Examples / Login',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A login form with username, password, and a remember-me checkbox. This example does not authenticate.',
+      },
+    },
+  },
+  play: async ({ canvas, userEvent }) => {
+    const username = canvas.getByPlaceholderText('Username'),
+      password = canvas.getByLabelText('Password (required)'),
+      rememberMe = canvas.getByRole('checkbox', { name: 'Remember me' }),
+      submit = canvas.getByRole('button', { name: 'Sign in' }),
+      status = canvas.getByRole('status')
+
+    await expect(username).toBeRequired()
+    await expect(username).toHaveAttribute('autocomplete', 'username')
+    await expect(password).toBeRequired()
+    await expect(password).toHaveAttribute('type', 'password')
+    await expect(password).toHaveAttribute('autocomplete', 'current-password')
+    await expect(rememberMe).not.toBeChecked()
+
+    await userEvent.click(submit)
+    await expect(username).toHaveFocus()
+    await expect(status).toHaveTextContent('This demo does not sign you in.')
+
+    await userEvent.type(username, 'storybook-user')
+    await userEvent.click(submit)
+    await expect(password).toHaveFocus()
+    await expect(status).toHaveTextContent('This demo does not sign you in.')
+
+    await userEvent.type(password, 'example-password')
+    await userEvent.tab()
+    await expect(rememberMe).toHaveFocus()
+    await userEvent.keyboard(' ')
+    await expect(rememberMe).toBeChecked()
+    await userEvent.tab()
+    await expect(submit).toHaveFocus()
+    await userEvent.keyboard('{Enter}')
+    await waitFor(() => expect(status).toHaveTextContent('Demo submitted. Remember me is on.'))
+
+    const updatedRememberMe = canvas.getByRole('checkbox', { name: 'Remember me' })
+    await userEvent.click(canvas.getByText('Remember me', { selector: 'label' }))
+    await expect(updatedRememberMe).not.toBeChecked()
+    await expect(canvas.getByPlaceholderText('Username')).toHaveValue('storybook-user')
+    await expect(canvas.getByLabelText(/password/i)).toHaveValue('example-password')
+    await userEvent.click(canvas.getByRole('button', { name: 'Sign in' }))
+    await waitFor(() =>
+      expect(canvas.getByRole('status')).toHaveTextContent('Demo submitted. Remember me is off.'),
+    )
+
+    await userEvent.clear(canvas.getByPlaceholderText('Username'))
+    await userEvent.clear(canvas.getByLabelText('Password (required)'))
+    await expect(canvas.getByRole('status')).toHaveTextContent('This demo does not sign you in.')
+  },
+  render: () => {
+    const [submittedRememberMe, setSubmittedRememberMe] = useState<boolean | null>(null),
+      id = useId(),
+      form = useAppForm({
+        defaultValues: { password: '', rememberMe: false, username: '' },
+        onSubmit: ({ value }) => setSubmittedRememberMe(value.rememberMe),
+      })
+
+    return (
+      <Form
+        aria-label="Login example"
+        className="w-full max-w-[400px]"
+        onChange={() => setSubmittedRememberMe(null)}
+        onSubmit={async (event) => {
+          event.preventDefault()
+          await form.handleSubmit()
+        }}
+      >
+        <form.AppForm>
+          <form.Group>
+            <form.AppField name="username">
+              {(field) => (
+                <Field>
+                  <field.InputGroup>
+                    <InputGroupAddon>
+                      <UserIcon aria-hidden="true" weight="bold" />
+                    </InputGroupAddon>
+                    <field.InputGroupInput
+                      autoComplete="username"
+                      id={`${id}-username`}
+                      placeholder="Username"
+                      required
+                    />
+                  </field.InputGroup>
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="password">
+              {(field) => (
+                <Field>
+                  <field.InputGroup>
+                    <InputGroupAddon>
+                      <PasswordIcon aria-hidden="true" weight="bold" />
+                    </InputGroupAddon>
+                    <field.InputGroupInput
+                      autoComplete="current-password"
+                      id={`${id}-password`}
+                      aria-label="Password (required)"
+                      placeholder="Password"
+                      required
+                      type="password"
+                    />
+                  </field.InputGroup>
+                </Field>
+              )}
+            </form.AppField>
+            <form.AppField name="rememberMe">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <field.Checkbox id={`${id}-remember-me`} />
+                  <field.Label htmlFor={`${id}-remember-me`}>Remember me</field.Label>
+                </Field>
+              )}
+            </form.AppField>
+          </form.Group>
+          <form.Actions>
+            <form.Submit>
+              <SignInIcon aria-hidden="true" weight="bold" />
+              Sign in
+            </form.Submit>
+            <p role="status">
+              {submittedRememberMe === null
+                ? 'This demo does not sign you in.'
+                : `Demo submitted. Remember me is ${submittedRememberMe ? 'on' : 'off'}.`}
+            </p>
           </form.Actions>
         </form.AppForm>
       </Form>

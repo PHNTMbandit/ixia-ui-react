@@ -18,15 +18,15 @@ import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 
 import { Avatar, AvatarFallback } from '../avatar'
 import { Profile, ProfileContent, ProfileName, ProfileSubname } from '../profile'
-import { Sidebar } from './index'
+import { Sidebar, SidebarTitle } from './index'
 import { getStoredSidebarOpen } from './sidebar.utils'
 
 const APP_FRAME_CLASS = 'h-svh overflow-hidden rounded-2xl border border-border',
   SidebarLogo = ({ isExpanded }: { isExpanded: boolean }) => (
-    <div className="flex items-center justify-center gap-xs">
+    <SidebarTitle>
       <GridFourIcon weight="fill" />
-      {isExpanded ? <span>My Application</span> : null}
-    </div>
+      {isExpanded ? <>My Application</> : null}
+    </SidebarTitle>
   ),
   PrimaryNavigation = () => (
     <Sidebar.Group>
@@ -203,7 +203,7 @@ export default {
   },
   argTypes: {
     width: {
-      control: { max: 520, min: 220, step: 10, type: 'number' },
+      control: { max: 520, min: 10, step: 10, type: 'number' },
       description: 'Expanded sidebar width in pixels.',
       table: {
         defaultValue: { summary: '400' },
@@ -304,7 +304,11 @@ export const CollapsibleIcon: Story = {
       await expect(iconRect(projects()).width).toBeCloseTo(iconRect(dashboard).width, 1)
       await expect(iconRect(projects()).left).toBeCloseTo(iconRect(dashboard).left, 1)
 
-      const openLeft = iconRect(dashboard).left
+      const openLeft = iconRect(dashboard).left,
+        title = canvas.getByText('My Application'),
+        titleIconWidth = iconRect(title).width,
+        sidebar = toggle.parentElement?.parentElement
+      if (!sidebar) throw new Error('Missing sidebar')
       await userEvent.click(toggle)
       await waitFor(() =>
         expect(
@@ -330,6 +334,30 @@ export const CollapsibleIcon: Story = {
       await expect(iconRect(projects()).left).toBeCloseTo(iconRect(dashboard).left, 1)
 
       await userEvent.click(toggle)
+      let widthTransition: CSSTransition | undefined
+      await waitFor(() => {
+        widthTransition = sidebar
+          .getAnimations()
+          .find(
+            (animation): animation is CSSTransition =>
+              animation instanceof CSSTransition && animation.transitionProperty === 'width',
+          )
+        expect(widthTransition).toBeDefined()
+      })
+      if (!widthTransition) throw new Error('Missing sidebar width transition')
+      widthTransition.pause()
+      widthTransition.currentTime = Number(widthTransition.effect?.getTiming().duration) * 0.3
+      try {
+        const openingTitle = canvas.getByText('My Application')
+        await expect(openingTitle.tagName).toBe('SPAN')
+        await expect(openingTitle.querySelector('svg')?.parentElement).toBe(openingTitle)
+        await expect(getComputedStyle(openingTitle).whiteSpace).toBe('nowrap')
+        await expect(getComputedStyle(openingTitle).textOverflow).toBe('ellipsis')
+        await expect(openingTitle.clientWidth).toBeLessThan(openingTitle.scrollWidth)
+        await expect(iconRect(openingTitle).width).toBeCloseTo(titleIconWidth, 1)
+      } finally {
+        widthTransition.play()
+      }
       await settled()
       await expect(getComputedStyle(dashboardLabel).opacity).toBe('1')
     } finally {

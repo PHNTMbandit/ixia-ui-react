@@ -10,7 +10,7 @@ export function SidebarHeader({ className, children, ref, ...props }: SidebarHea
   return (
     <div
       className={cn(
-        'flex h-2xl shrink-0 items-center justify-between gap-xs truncate style-text-strong-1 transition-all duration-300 ease-in-out motion-reduce:transition-none [&>:not([data-sidebar=toggle])]:min-w-0 [&>:not([data-sidebar=toggle])]:overflow-hidden [&>[data-sidebar=toggle]]:ml-auto',
+        'flex h-2xl shrink-0 items-center justify-between gap-xs overflow-hidden style-text-strong-1 transition-all duration-300 ease-in-out *:data-[sidebar=toggle]:ml-auto motion-reduce:transition-none [&>:not([data-sidebar=toggle])]:min-w-0 [&>:not([data-sidebar=toggle])]:overflow-hidden',
         open && 'pr-3xs pl-xs',
         !open && 'h-xl pr-[calc(2*var(--spacing-3xs))] pl-0',
         collapsible !== 'none' && 'animate-in',

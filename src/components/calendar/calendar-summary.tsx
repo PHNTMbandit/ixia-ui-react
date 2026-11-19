@@ -2,7 +2,7 @@ import { isDateRange } from '@daypicker/react'
 import { useState } from 'react'
 
 import { cn } from '@/utils/cn'
-import { formatDate } from '@/utils/date-time'
+import { formatDate } from '@/utils/date-format'
 
 import { useCalendar } from './calendar'
 import type { CalendarSummaryProps } from './calendar.types'
