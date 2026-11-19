@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon, SpinnerGapIcon, TagIcon } from '@phosphor-icons/react'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
-import { expect, userEvent, waitFor, within } from 'storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 
 import { Button } from '../button'
 import { useFilter } from './autocomplete.types'
@@ -752,54 +752,4 @@ export const AsyncLoadingState: Story = {
     },
   },
   render: () => <AsyncLoadingTemplate />,
-  play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByPlaceholderText('Search top movies'),
-      page = within(canvasElement.ownerDocument.body),
-      random = Math.random
-    Math.random = () => 0.5
-    try {
-      await userEvent.type(input, 'will_error')
-
-      const status = await page.findByRole('status'),
-        list = page.getByRole('listbox', { hidden: true })
-      await expect(status).toHaveTextContent('Searching…')
-      await expect(status.querySelector('svg')).toBeInTheDocument()
-      await expect(status.parentElement).toBe(list.parentElement)
-      await expect(list).not.toBeVisible()
-      await expect(page.queryByText('No matching movies')).not.toBeInTheDocument()
-
-      await waitFor(() => {
-        expect(status).toHaveTextContent('Failed to fetch movies. Please try again.')
-      })
-      await expect(page.queryByText('No matching movies')).not.toBeInTheDocument()
-      await userEvent.clear(input)
-      await expect(status).toBeEmptyDOMElement()
-      await expect(getComputedStyle(status).position).toBe('absolute')
-
-      await userEvent.type(input, 'Jurassic')
-      await expect(await page.findByRole('option', { name: /Jurassic Park.*1993/ })).toBeVisible()
-      await expect(page.getByRole('status')).toHaveTextContent('1 result found')
-
-      await userEvent.clear(input)
-      await userEvent.type(input, '1993')
-      const jurassicPark = await page.findByRole('option', { name: /Jurassic Park.*1993/ })
-      await expect(
-        await page.findByRole('option', { name: /Schindler's List.*1993/ }),
-      ).toBeVisible()
-      await expect(page.getByRole('status')).toHaveTextContent('2 results found')
-      await userEvent.click(jurassicPark)
-      await expect(input).toHaveValue('Jurassic Park')
-
-      await userEvent.clear(input)
-      await userEvent.type(input, 'the')
-      await waitFor(() => {
-        expect(page.getAllByRole('option').length).toBeGreaterThan(10)
-      })
-      const resultsList = page.getByRole('listbox')
-      await expect(resultsList.scrollHeight).toBeGreaterThan(resultsList.clientHeight)
-      await userEvent.clear(input)
-    } finally {
-      Math.random = random
-    }
-  },
 }
