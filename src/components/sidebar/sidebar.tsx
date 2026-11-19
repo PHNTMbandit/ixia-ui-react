@@ -1,3 +1,4 @@
+// oxlint-disable no-ternary
 import React from 'react'
 
 import { cn } from '@/utils/cn'

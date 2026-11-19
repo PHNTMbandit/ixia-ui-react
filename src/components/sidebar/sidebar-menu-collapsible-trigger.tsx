@@ -45,7 +45,7 @@ export function SidebarMenuCollapsibleTrigger({
         {...props}
       >
         {label}
-        <Icon name="chevronRight" className="absolute right-3xs size-xs text-on-surface-variant" />
+        <Icon name="chevronRight" className="absolute right-0 size-xs text-on-surface-variant" />
       </BasePopover.Trigger>
     )
   }

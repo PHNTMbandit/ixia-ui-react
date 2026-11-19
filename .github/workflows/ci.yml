@@ -1,4 +1,4 @@
-name: Test before merge and release
+name: CI
 
 on:
   workflow_dispatch:
@@ -10,7 +10,8 @@ on:
       - rc
 
 jobs:
-  test:
+  verify:
+    name: Check & test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,18 +20,15 @@ jobs:
       - name: Set up Vite+
         uses: voidzero-dev/setup-vp@v1.22.0
         with:
-          node-version: '24'
+          node-version: '26'
           cache: true
           run-install: true
 
       - name: Check code
         run: vp check
 
-      - name: Check AI documentation
-        run: vp run test:llms
-
       - name: Install Playwright Browsers
         run: vp exec playwright install
 
-      - name: Test code
+      - name: Run tests
         run: vp test

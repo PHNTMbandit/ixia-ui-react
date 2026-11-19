@@ -29,6 +29,7 @@ type SidebarMenuCollapsibleTriggerProps = React.ComponentProps<'button'>
 type SidebarMenuCollapsibleProps = React.ComponentProps<typeof Collapsible>
 type SidebarMenuCollapsiblePanelProps = React.ComponentProps<typeof CollapsiblePanel>
 type SidebarInsetProps = React.ComponentProps<'div'>
+type SidebarTitleProps = React.ComponentProps<'span'>
 
 export type {
   SidebarToggleProps,
@@ -47,4 +48,5 @@ export type {
   SidebarMenuCollapsibleProps,
   SidebarMenuCollapsiblePanelProps,
   SidebarInsetProps,
+  SidebarTitleProps,
 }
