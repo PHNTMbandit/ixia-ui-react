@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.5.0...v2.6.0) (2026-11-19)
+
+
+### Features
+
+* update dependencies and improve sidebar components ([0142d77](https://github.com/PHNTMbandit/ixia-ui-react/commit/0142d7727b8f21029977d9acaa2a616a3ca9c603))
+
 # [2.5.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.4.1...v2.5.0) (2026-11-17)
 
 
