@@ -1,3 +1,10 @@
+## [2.6.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.0...v2.6.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* update build:css script to copy themes and improve stylesheet export tests ([187cc32](https://github.com/PHNTMbandit/ixia-ui-react/commit/187cc325bd96932a00a60db29309fc10732cb1bf))
+
 # [2.6.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.5.0...v2.6.0) (2026-11-19)
 
 
