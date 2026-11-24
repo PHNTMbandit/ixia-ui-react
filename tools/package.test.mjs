@@ -95,6 +95,23 @@ test('built Tailwind classes do not contain escaped quotes', () => {
   )
 })
 
+test('every source theme is exported as a built stylesheet', () => {
+  const themes = readdirSync(new URL('src/styles/themes/', root))
+    .filter((file) => file.endsWith('.css'))
+    .map((file) => file.slice(0, -'.css'.length))
+  assert.ok(themes.length > 0)
+  for (const theme of themes) {
+    assert.equal(
+      fileURLToPath(import.meta.resolve(`${manifest.name}/themes/${theme}`)),
+      fileURLToPath(new URL(`dist/themes/${theme}.css`, root)),
+    )
+    assert.ok(
+      existsSync(new URL(`dist/themes/${theme}.css`, root)),
+      `${theme} theme is missing from dist`,
+    )
+  }
+})
+
 test('base styles do not require optional feature packages', () => {
   const styles = readFileSync(new URL(manifest.exports['./styles'], root), 'utf8'),
     imports = [...styles.matchAll(/@import\s+(?:url\()?['"]([^'"]+)['"]/g)].map((match) => match[1])
