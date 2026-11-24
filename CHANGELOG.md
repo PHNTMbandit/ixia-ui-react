@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.2...v2.7.0) (2026-11-24)
+
+
+### Features
+
+* add Bento Box components ([8206036](https://github.com/PHNTMbandit/ixia-ui-react/commit/8206036324fd63b9a731ccab6d6932632cb8d584))
+
 ## [2.6.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.1...v2.6.2) (2026-11-24)
 
 
