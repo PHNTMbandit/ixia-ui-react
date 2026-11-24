@@ -1,3 +1,10 @@
+## [2.6.2](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.1...v2.6.2) (2026-11-24)
+
+
+### Bug Fixes
+
+* update sidebar menu button style to use rounded-full ([cebdadd](https://github.com/PHNTMbandit/ixia-ui-react/commit/cebdaddb15a7b1f1a88d14f84e62aca245b0e389))
+
 ## [2.6.1](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.0...v2.6.1) (2026-11-24)
 
 
