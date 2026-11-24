@@ -6,7 +6,7 @@ export function BentoBoxDescription({ className, ref, ...props }: BentoBoxDescri
   return (
     <span
       className={cn(
-        'text-on-surface-variant group-data-[size=large]/box:style-text-prose-0 group-data-[size=medium]/box:style-text-prose--1 group-data-[size=small]/box:style-text-prose--2',
+        'text-on-surface-variant group-data-[size=large]/box:style-text-prose-0 group-data-[size=medium]/box:style-text-prose--1 group-data-[size=small]/box:style-text-prose--2 group-data-[slot=bento-box-overlay]/box-overlay:text-inherit',
         className,
       )}
       ref={ref}
