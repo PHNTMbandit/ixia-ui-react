@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within } from 'storybook/test'
 
 import { Button } from '../button'
+import { IconContainer } from '../icon-container'
 import { BentoBox } from './index'
 
 export default {
@@ -101,10 +103,8 @@ export const StatCard: Story = {
           </BentoBox.Action>
         </BentoBox.Header>
         <BentoBox.Content>
-          <div className="flex items-baseline gap-2xs">
-            <span className="style-text-strong-3">$48,120</span>
-            <span className="style-text-default--1 text-success-default">+12.4%</span>
-          </div>
+          <BentoBox.Value>$48,120</BentoBox.Value>
+          <BentoBox.Description>+12.4%</BentoBox.Description>
         </BentoBox.Content>
       </BentoBox>
     </div>
@@ -184,7 +184,7 @@ export const FeatureHighlight: Story = {
     <div className="w-[28rem]">
       <BentoBox {...args}>
         <BentoBox.Header>
-          <div className="flex size-xl items-center justify-center rounded-2xl bg-brand-muted text-brand-on-default">
+          <IconContainer size={'small'}>
             <svg
               aria-hidden
               className="size-md"
@@ -195,7 +195,7 @@ export const FeatureHighlight: Story = {
             >
               <path d="M13 10V3L4 14h7v7l9-11h-7z" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </div>
+          </IconContainer>
         </BentoBox.Header>
         <BentoBox.Content>
           <BentoBox.Title>Lightning-fast deploys</BentoBox.Title>
@@ -283,7 +283,7 @@ export const UniformGrid: Story = {
     ]
 
     return (
-      <div className="grid w-5xl grid-cols-1 gap-sm sm:grid-cols-2 lg:grid-cols-3">
+      <BentoBox.Grid className="w-[min(72rem,90vw)]">
         {cards.map((card) => (
           <BentoBox {...args} key={card.title}>
             <BentoBox.Header>
@@ -300,8 +300,69 @@ export const UniformGrid: Story = {
             </BentoBox.Content>
           </BentoBox>
         ))}
-      </div>
+      </BentoBox.Grid>
     )
+  },
+}
+
+export const DashboardGrid: Story = {
+  name: 'Responsive Bento Grid',
+  render: (args) => (
+    <BentoBox.Grid className="max-w-[42rem]" data-testid="bento-grid">
+      <BentoBox {...args} span="full" data-testid="wide-tile">
+        <BentoBox.Header>
+          <BentoBox.Title>Weekly activity</BentoBox.Title>
+          <BentoBox.Description>A snapshot of your progress</BentoBox.Description>
+        </BentoBox.Header>
+        <BentoBox.Content>
+          <BentoBox.Value>248</BentoBox.Value>
+        </BentoBox.Content>
+      </BentoBox>
+      <BentoBox {...args} data-testid="focus-tile">
+        <BentoBox.Header>
+          <BentoBox.Title>Focus time</BentoBox.Title>
+        </BentoBox.Header>
+        <BentoBox.Content>
+          <BentoBox.Value>12h 30m</BentoBox.Value>
+        </BentoBox.Content>
+      </BentoBox>
+      <BentoBox {...args} data-testid="tasks-tile">
+        <BentoBox.Header>
+          <BentoBox.Title>Completed tasks</BentoBox.Title>
+        </BentoBox.Header>
+        <BentoBox.Content>
+          <BentoBox.Value>32</BentoBox.Value>
+        </BentoBox.Content>
+      </BentoBox>
+    </BentoBox.Grid>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement),
+      grid = canvas.getByTestId('bento-grid'),
+      wide = canvas.getByTestId('wide-tile'),
+      focus = canvas.getByTestId('focus-tile'),
+      tasks = canvas.getByTestId('tasks-tile'),
+      originalWidth = grid.style.width
+
+    grid.style.width = '12rem'
+    await expect(focus.getBoundingClientRect().right).toBeLessThanOrEqual(
+      grid.getBoundingClientRect().right + 1,
+    )
+    await expect(tasks.getBoundingClientRect().top).toBeGreaterThan(
+      focus.getBoundingClientRect().top,
+    )
+
+    grid.style.width = '42rem'
+    await expect(wide.getBoundingClientRect().width).toBeCloseTo(
+      grid.getBoundingClientRect().width,
+      0,
+    )
+    await expect(focus.getBoundingClientRect().top).toBeCloseTo(
+      tasks.getBoundingClientRect().top,
+      0,
+    )
+    await expect(wide.hasAttribute('span')).toBe(false)
+    grid.style.width = originalWidth
   },
 }
 
@@ -347,28 +408,102 @@ export const Fill: Story = {
   render: (args) => (
     <div className="grid h-[min(36rem,80vh)] w-[min(48rem,90vw)] grid-cols-2 grid-rows-2 gap-sm">
       <BentoBox {...args} fill className="row-span-2">
-        <img
+        <BentoBox.Image
           src="https://picsum.photos/seed/bento-1/800/500"
           alt="Random scenic picture"
-          className="size-full object-cover"
         />
+        <BentoBox.Overlay>
+          <BentoBox.Header>
+            <BentoBox.Title>Explore the outdoors</BentoBox.Title>
+            <BentoBox.Description>Find inspiration for your next escape.</BentoBox.Description>
+          </BentoBox.Header>
+        </BentoBox.Overlay>
       </BentoBox>
       <BentoBox {...args} fill className="col-start-2 row-start-1">
-        <img
+        <BentoBox.Image
           src="https://picsum.photos/seed/bento-2/800/500"
           alt="Random scenic picture"
-          className="size-full object-cover"
         />
+        <BentoBox.Overlay>
+          <BentoBox.Header>
+            <BentoBox.Title>A different perspective</BentoBox.Title>
+          </BentoBox.Header>
+        </BentoBox.Overlay>
       </BentoBox>
       <BentoBox {...args} fill className="col-start-2 row-start-2">
-        <img
+        <BentoBox.Image
           src="https://picsum.photos/seed/bento-3/800/500"
           alt="Random scenic picture"
-          className="size-full object-cover"
         />
       </BentoBox>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const overlays = canvasElement.querySelectorAll<HTMLElement>('[data-slot=bento-box-overlay]'),
+      overlay = overlays[0],
+      box = overlay?.parentElement,
+      image = box?.querySelector('img')
+
+    if (!overlay || !box || !image) {
+      throw new Error('The filled Bento Box needs an image and overlay.')
+    }
+
+    const title = within(overlay).getByText('Explore the outdoors'),
+      description = within(overlay).getByText('Find inspiration for your next escape.')
+
+    await expect(overlays).toHaveLength(2)
+    await expect(getComputedStyle(box).display).toBe('grid')
+    await expect(getComputedStyle(image).objectFit).toBe('cover')
+    await expect(overlay.getBoundingClientRect().bottom).toBeCloseTo(
+      box.getBoundingClientRect().bottom,
+      0,
+    )
+    await expect(getComputedStyle(description).color).toBe(getComputedStyle(title).color)
+  },
+}
+
+export const CompactFill: Story = {
+  name: 'Fill / Compact overlay',
+  render: (args) => (
+    <div className="w-[20rem]">
+      <BentoBox {...args} fill data-testid="compact-image-tile">
+        <BentoBox.Image
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Cpath fill='%23789c91' d='M0 0h16v9H0z'/%3E%3C/svg%3E"
+          alt=""
+        />
+        <BentoBox.Overlay>
+          <BentoBox.Header>
+            <BentoBox.Title>Explore the outdoors</BentoBox.Title>
+            <BentoBox.Description>Find inspiration for your next escape.</BentoBox.Description>
+          </BentoBox.Header>
+          <BentoBox.Value>24 trails</BentoBox.Value>
+        </BentoBox.Overlay>
+      </BentoBox>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const box = within(canvasElement).getByTestId('compact-image-tile'),
+      overlay = box.querySelector<HTMLElement>('[data-slot=bento-box-overlay]'),
+      image = box.querySelector('img')
+
+    if (!overlay || !image) {
+      throw new Error('The compact Bento Box needs an image and overlay.')
+    }
+
+    const originalWidth = box.style.width
+    box.style.width = '7rem'
+    const boxBounds = box.getBoundingClientRect(),
+      overlayBounds = overlay.getBoundingClientRect(),
+      imageBounds = image.getBoundingClientRect()
+
+    await expect(overlayBounds.top).toBeGreaterThanOrEqual(boxBounds.top - 1)
+    await expect(overlayBounds.bottom).toBeCloseTo(boxBounds.bottom, 0)
+    await expect(imageBounds.height).toBeGreaterThanOrEqual(overlayBounds.height - 1)
+    await expect(getComputedStyle(within(overlay).getByText('24 trails')).color).toBe(
+      getComputedStyle(overlay).color,
+    )
+    box.style.width = originalWidth
+  },
 }
 
 export const Elevations: Story = {

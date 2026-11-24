@@ -7,6 +7,7 @@ export function BentoBox({
   elevation,
   fill,
   size = 'medium',
+  span,
   className,
   ref,
   ...props
@@ -14,7 +15,7 @@ export function BentoBox({
   return (
     <div
       data-size={size}
-      className={cn(bentoBoxVariants({ className, elevation, fill, size }))}
+      className={cn(bentoBoxVariants({ className, elevation, fill, size, span }))}
       ref={ref}
       {...props}
     />
