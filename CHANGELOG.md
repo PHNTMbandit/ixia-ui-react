@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.7.0...v2.8.0) (2026-11-26)
+
+
+### Features
+
+* refactor Bento Box components and replace Action with HeaderAside ([b372a46](https://github.com/PHNTMbandit/ixia-ui-react/commit/b372a467feca875325f4632f4a327d076b1da99b))
+
 # [2.7.0](https://github.com/PHNTMbandit/ixia-ui-react/compare/v2.6.2...v2.7.0) (2026-11-24)
 
 
