@@ -1,8 +1,8 @@
 import { cn } from '@/utils/cn'
 
-import type { BentoBoxActionProps } from './bento-box.types'
+import type { BentoBoxHeaderAsideProps } from './bento-box.types'
 
-export function BentoBoxAction({ className, ref, ...props }: BentoBoxActionProps) {
+export function BentoBoxHeaderAside({ className, ref, ...props }: BentoBoxHeaderAsideProps) {
   return (
     <div
       className={cn(

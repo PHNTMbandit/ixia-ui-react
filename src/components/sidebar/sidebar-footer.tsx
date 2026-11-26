@@ -9,7 +9,7 @@ export function SidebarFooter({ className, children, ref, ...props }: SidebarFoo
   return (
     <div
       className={cn(
-        'flex shrink-0 animate-in items-center justify-start truncate p-3xs transition-all duration-300 ease-in-out motion-reduce:transition-none',
+        'flex shrink-0 animate-in items-center justify-start truncate px-sm py-3xs transition-all duration-300 ease-in-out motion-reduce:transition-none',
         open && 'fade-in-0',
         !open && 'px-0 fade-out-0',
         className,

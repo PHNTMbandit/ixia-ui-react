@@ -67,13 +67,13 @@ export const Description: Story = {
   ),
 }
 
-export const Action: Story = {
+export const HeaderAside: Story = {
   parameters: {
     figma: {
       ...base,
-      component: 'Bento Box/Action',
+      component: 'Bento Box/Header Aside',
       order: 402,
-      description: 'Header action positioned in the second grid column.',
+      description: 'Header aside content positioned in the second grid column.',
       slots: {
         actions: { description: 'Header controls.', preferred: ['Button', 'Button/Icon only'] },
       },
@@ -82,7 +82,7 @@ export const Action: Story = {
   render: () => (
     <Matrix
       render={(_combo, index) => (
-        <BentoBox.Action {...target(index)}>
+        <BentoBox.HeaderAside {...target(index)}>
           <div style={{ display: 'contents' }} {...slot('actions')}>
             <Button
               aria-label="More project actions"
@@ -93,7 +93,7 @@ export const Action: Story = {
               <Icon name="ellipsis" {...swap('icon')} />
             </Button>
           </div>
-        </BentoBox.Action>
+        </BentoBox.HeaderAside>
       )}
     />
   ),
@@ -112,7 +112,7 @@ function HeaderParts({ combo }: { combo: Combo }) {
       >
         Your latest workspace activity.
       </BentoBox.Description>
-      <BentoBox.Action {...part('Bento Box/Action', {})} {...show('showAction')}>
+      <BentoBox.HeaderAside {...part('Bento Box/Header Aside', {})} {...show('showHeaderAside')}>
         <div style={{ display: 'contents' }} {...slot('actions')}>
           <Button
             aria-label="More project actions"
@@ -123,7 +123,7 @@ function HeaderParts({ combo }: { combo: Combo }) {
             <Icon name="ellipsis" {...swap('icon')} />
           </Button>
         </div>
-      </BentoBox.Action>
+      </BentoBox.HeaderAside>
     </>
   )
 }
@@ -139,7 +139,7 @@ export const Header: Story = {
       slots: {
         heading: {
           description: 'Title, description and optional action.',
-          preferred: ['Bento Box/Title', 'Bento Box/Description', 'Bento Box/Action'],
+          preferred: ['Bento Box/Title', 'Bento Box/Description', 'Bento Box/Header Aside'],
         },
       },
     } satisfies FigmaSpec,
