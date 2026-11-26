@@ -38,11 +38,11 @@ export default {
             You have used 42 GB of your 100 GB plan. Upgrade any time to unlock more space and
             longer file retention.
           </BentoBox.Description>
-          <BentoBox.Action>
+          <BentoBox.HeaderAside>
             <Button variant="ghost" tone="neutral">
               Manage
             </Button>
-          </BentoBox.Action>
+          </BentoBox.HeaderAside>
         </BentoBox.Header>
         <BentoBox.Content>
           <p>
@@ -96,11 +96,11 @@ export const StatCard: Story = {
         <BentoBox.Header>
           <BentoBox.Title>Monthly Revenue</BentoBox.Title>
           <BentoBox.Description>Compared to last month</BentoBox.Description>
-          <BentoBox.Action>
+          <BentoBox.HeaderAside>
             <Button variant="ghost" tone="neutral" size="small">
               View report
             </Button>
-          </BentoBox.Action>
+          </BentoBox.HeaderAside>
         </BentoBox.Header>
         <BentoBox.Content>
           <BentoBox.Value>$48,120</BentoBox.Value>
@@ -119,15 +119,15 @@ export const WithVisualization: Story = {
   name: 'With Visualization',
   render: (args) => (
     <div className="h-[20rem] w-[32rem]">
-      <BentoBox {...args}>
+      <BentoBox {...args} className="h-full">
         <BentoBox.Header>
           <BentoBox.Title>Active Users</BentoBox.Title>
           <BentoBox.Description>Sessions per day over the last week</BentoBox.Description>
-          <BentoBox.Action>
+          <BentoBox.HeaderAside>
             <Button variant="ghost" tone="neutral" size="small">
               Export
             </Button>
-          </BentoBox.Action>
+          </BentoBox.HeaderAside>
         </BentoBox.Header>
         <BentoBox.Content>
           <div className="flex h-full items-end gap-2xs">
@@ -143,6 +143,19 @@ export const WithVisualization: Story = {
       </BentoBox>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const box = canvasElement.querySelector<HTMLElement>('[data-size]'),
+      container = box?.parentElement
+
+    if (!box || !container) {
+      throw new Error('The visualization needs a tile inside its fixed-height container.')
+    }
+
+    await expect(box.getBoundingClientRect().height).toBeCloseTo(
+      container.getBoundingClientRect().height,
+      0,
+    )
+  },
 }
 
 /**
@@ -163,11 +176,11 @@ export const MediaCard: Story = {
             Twelve hand-picked alpine cabins with floor-to-ceiling views, available for booking this
             winter season.
           </BentoBox.Description>
-          <BentoBox.Action>
+          <BentoBox.HeaderAside>
             <Button variant="ghost" tone="neutral" size="small">
               Explore
             </Button>
-          </BentoBox.Action>
+          </BentoBox.HeaderAside>
         </BentoBox.Header>
       </BentoBox>
     </div>
@@ -283,17 +296,17 @@ export const UniformGrid: Story = {
     ]
 
     return (
-      <BentoBox.Grid className="w-[min(72rem,90vw)]">
+      <BentoBox.Grid className="w-[min(72rem,90vw)] items-stretch" data-testid="uniform-grid">
         {cards.map((card) => (
           <BentoBox {...args} key={card.title}>
             <BentoBox.Header>
               <BentoBox.Title>{card.title}</BentoBox.Title>
               <BentoBox.Description>{card.description}</BentoBox.Description>
-              <BentoBox.Action>
+              <BentoBox.HeaderAside>
                 <Button variant="ghost" tone="neutral" size="small">
                   Open
                 </Button>
-              </BentoBox.Action>
+              </BentoBox.HeaderAside>
             </BentoBox.Header>
             <BentoBox.Content>
               <p>Enabled for your workspace</p>
@@ -302,6 +315,31 @@ export const UniformGrid: Story = {
         ))}
       </BentoBox.Grid>
     )
+  },
+  play: async ({ canvasElement }) => {
+    const grid = within(canvasElement).getByTestId('uniform-grid'),
+      boxes = Array.from(grid.querySelectorAll<HTMLElement>(':scope > [data-size]'))
+
+    if (boxes.length < 3) {
+      throw new Error('The uniform grid needs at least three tiles.')
+    }
+
+    const originalWidth = grid.style.width,
+      originalMinHeight = boxes[0].style.minHeight
+
+    try {
+      grid.style.width = '54rem'
+      boxes[0].style.minHeight = `${boxes[0].getBoundingClientRect().height + 32}px`
+      const firstBounds = boxes[0].getBoundingClientRect()
+
+      for (const box of boxes.slice(1, 3)) {
+        await expect(box.getBoundingClientRect().top).toBeCloseTo(firstBounds.top, 0)
+        await expect(box.getBoundingClientRect().height).toBeCloseTo(firstBounds.height, 0)
+      }
+    } finally {
+      grid.style.width = originalWidth
+      boxes[0].style.minHeight = originalMinHeight
+    }
   },
 }
 
@@ -369,7 +407,7 @@ export const DashboardGrid: Story = {
 export const Sizes: Story = {
   name: 'Sizes',
   render: (args) => (
-    <div className="flex flex-col gap-lg">
+    <BentoBox.Grid className="max-w-[54rem]" data-testid="sizes-grid">
       <BentoBox {...args} size="small">
         <BentoBox.Header>
           <BentoBox.Title>Small Bento Box</BentoBox.Title>
@@ -399,8 +437,34 @@ export const Sizes: Story = {
           <p>Content goes here.</p>
         </BentoBox.Content>
       </BentoBox>
-    </div>
+    </BentoBox.Grid>
   ),
+  play: async ({ canvasElement }) => {
+    const grid = within(canvasElement).getByTestId('sizes-grid'),
+      boxes = Array.from(grid.querySelectorAll<HTMLElement>(':scope > [data-size]')),
+      originalWidth = grid.style.width
+
+    await expect(boxes).toHaveLength(3)
+
+    try {
+      grid.style.width = '54rem'
+      const wideHeights = boxes.map((box) => box.getBoundingClientRect().height),
+        columnWidth = boxes[0].getBoundingClientRect().width
+
+      await expect(wideHeights[0]).toBeLessThan(wideHeights[1])
+      await expect(wideHeights[1]).toBeLessThan(wideHeights[2])
+
+      grid.style.width = `${columnWidth}px`
+      for (const [index, box] of boxes.entries()) {
+        await expect(box.getBoundingClientRect().height).toBeCloseTo(wideHeights[index], 0)
+        await expect(box.getBoundingClientRect().right).toBeLessThanOrEqual(
+          grid.getBoundingClientRect().right + 1,
+        )
+      }
+    } finally {
+      grid.style.width = originalWidth
+    }
+  },
 }
 
 export const Fill: Story = {
@@ -459,6 +523,26 @@ export const Fill: Story = {
       0,
     )
     await expect(getComputedStyle(description).color).toBe(getComputedStyle(title).color)
+
+    const overlayStyle = getComputedStyle(overlay),
+      boxStyle = getComputedStyle(box),
+      originalLeftRadius = box.style.borderBottomLeftRadius,
+      originalRightRadius = box.style.borderBottomRightRadius
+
+    try {
+      await expect(overlayStyle.borderBottomLeftRadius).toBe(boxStyle.borderBottomLeftRadius)
+      await expect(overlayStyle.borderBottomRightRadius).toBe(boxStyle.borderBottomRightRadius)
+      await expect(overlayStyle.borderTopLeftRadius).toBe('0px')
+      await expect(overlayStyle.borderTopRightRadius).toBe('0px')
+
+      box.style.borderBottomLeftRadius = '13px'
+      box.style.borderBottomRightRadius = '29px'
+      await expect(overlayStyle.borderBottomLeftRadius).toBe(boxStyle.borderBottomLeftRadius)
+      await expect(overlayStyle.borderBottomRightRadius).toBe(boxStyle.borderBottomRightRadius)
+    } finally {
+      box.style.borderBottomLeftRadius = originalLeftRadius
+      box.style.borderBottomRightRadius = originalRightRadius
+    }
   },
 }
 

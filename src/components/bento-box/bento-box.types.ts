@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
 
-const bentoBoxVariants = cva('group/box flex size-full min-h-0 flex-col overflow-hidden', {
+const bentoBoxVariants = cva('group/box flex min-h-0 w-full flex-col overflow-hidden', {
   defaultVariants: {
     elevation: 'medium',
     fill: false,
@@ -37,7 +37,7 @@ type BentoBoxTitleProps = React.ComponentProps<'span'>
 type BentoBoxValueProps = React.ComponentProps<'span'>
 type BentoBoxContentProps = React.ComponentProps<'div'>
 type BentoBoxDescriptionProps = React.ComponentProps<'span'>
-type BentoBoxActionProps = React.ComponentProps<'div'>
+type BentoBoxHeaderAsideProps = React.ComponentProps<'div'>
 type BentoBoxFooterProps = React.ComponentProps<'div'>
 type BentoBoxImageProps = Omit<React.ComponentProps<'img'>, 'alt'> & { alt: string }
 type BentoBoxOverlayProps = React.ComponentProps<'div'>
@@ -50,7 +50,7 @@ export type {
   BentoBoxValueProps,
   BentoBoxContentProps,
   BentoBoxDescriptionProps,
-  BentoBoxActionProps,
+  BentoBoxHeaderAsideProps,
   BentoBoxFooterProps,
   BentoBoxImageProps,
   BentoBoxOverlayProps,

@@ -112,7 +112,7 @@ async function fetchUserData(userId: string): Promise<User> {
   ),
   await highlightedItem(
     {
-      code: `import { Button } from 'cartyx-ui-react/button'`,
+      code: `import { Button } from 'ixia-ui-react/button'`,
       icon: <FileJsIcon weight="bold" />,
       id: '4',
       label: 'JavaScript',
